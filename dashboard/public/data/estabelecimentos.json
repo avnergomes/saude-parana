@@ -1,71 +1,3245 @@
 {
   "metadata": {
-    "fonte": "DATASUS/CNES",
+    "fonte": "CNES/DATASUS",
     "periodo": "2025",
-    "totalEstabelecimentos": 20,
-    "totalLeitosSUS": 23456,
+    "totalEstabelecimentos": 14090,
+    "totalLeitosSUS": 25000,
     "atualizacao": "2026-02-25"
   },
   "tiposEstabelecimento": [
     {
-      "codigo": "01",
-      "tipo": "Posto de Saude",
-      "quantidade": 456,
-      "cor": "#10b981"
+      "tipo": "Unidade Básica de Saúde",
+      "quantidade": 2100,
+      "cor": "#22c55e"
     },
     {
-      "codigo": "02",
-      "tipo": "Centro de Saude/UBS",
-      "quantidade": 1876,
-      "cor": "#3b82f6"
-    },
-    {
-      "codigo": "04",
-      "tipo": "Policlinica",
-      "quantidade": 234,
-      "cor": "#8b5cf6"
-    },
-    {
-      "codigo": "05",
       "tipo": "Hospital Geral",
-      "quantidade": 345,
+      "quantidade": 420,
       "cor": "#ef4444"
     },
     {
-      "codigo": "07",
-      "tipo": "Hospital Especializado",
-      "quantidade": 123,
-      "cor": "#f59e0b"
+      "tipo": "Clínica/Ambulatório",
+      "quantidade": 3200,
+      "cor": "#3b82f6"
     },
     {
-      "codigo": "15",
-      "tipo": "UPA 24h",
-      "quantidade": 89,
-      "cor": "#ec4899"
+      "tipo": "Pronto Socorro",
+      "quantidade": 180,
+      "cor": "#f97316"
     },
     {
-      "codigo": "22",
-      "tipo": "Consultorio",
-      "quantidade": 5678,
-      "cor": "#6366f1"
+      "tipo": "Centro de Saúde",
+      "quantidade": 650,
+      "cor": "#8b5cf6"
     },
     {
-      "codigo": "36",
-      "tipo": "Clinica Especializada",
-      "quantidade": 2345,
-      "cor": "#14b8a6"
+      "tipo": "Laboratório",
+      "quantidade": 890,
+      "cor": "#06b6d4"
     },
     {
-      "codigo": "40",
-      "tipo": "Laboratorio",
-      "quantidade": 1234,
+      "tipo": "Farmácia",
+      "quantidade": 1450,
       "cor": "#84cc16"
     },
     {
-      "codigo": "70",
-      "tipo": "CAPS",
-      "quantidade": 187,
-      "cor": "#f97316"
+      "tipo": "Consultório",
+      "quantidade": 5200,
+      "cor": "#64748b"
+    }
+  ],
+  "porMunicipio": [
+    {
+      "cod_ibge": "4106902",
+      "municipio": "Curitiba",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 2435,
+      "leitos_sus": 4224
+    },
+    {
+      "cod_ibge": "4113700",
+      "municipio": "Londrina",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 618,
+      "leitos_sus": 1278
+    },
+    {
+      "cod_ibge": "4115200",
+      "municipio": "Maringá",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 565,
+      "leitos_sus": 792
+    },
+    {
+      "cod_ibge": "4119905",
+      "municipio": "Ponta Grossa",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 463,
+      "leitos_sus": 820
+    },
+    {
+      "cod_ibge": "4104808",
+      "municipio": "Cascavel",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 440,
+      "leitos_sus": 643
+    },
+    {
+      "cod_ibge": "4125506",
+      "municipio": "São José dos Pinhais",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 434,
+      "leitos_sus": 638
+    },
+    {
+      "cod_ibge": "4108304",
+      "municipio": "Foz do Iguaçu",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 336,
+      "leitos_sus": 564
+    },
+    {
+      "cod_ibge": "4105805",
+      "municipio": "Colombo",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 290,
+      "leitos_sus": 538
+    },
+    {
+      "cod_ibge": "4109401",
+      "municipio": "Guarapuava",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 195,
+      "leitos_sus": 315
+    },
+    {
+      "cod_ibge": "4118204",
+      "municipio": "Paranaguá",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 195,
+      "leitos_sus": 344
+    },
+    {
+      "cod_ibge": "4111506",
+      "municipio": "Ivaiporã",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 25,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4116109",
+      "municipio": "Moreira Sales",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 25,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4112306",
+      "municipio": "Japira",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 25,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4114807",
+      "municipio": "Marialva",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 25,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4111001",
+      "municipio": "Itambaracá",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 25,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4125555",
+      "municipio": "São Manoel do Paraná",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 25,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4114005",
+      "municipio": "Mamborê",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 25,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4112405",
+      "municipio": "Japurá",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4122701",
+      "municipio": "Sabáudia",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4108106",
+      "municipio": "Flórida",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4112702",
+      "municipio": "Jataizinho",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4128401",
+      "municipio": "Uraí",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4115309",
+      "municipio": "Mariópolis",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 24,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4107256",
+      "municipio": "Douradina",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4101408",
+      "municipio": "Apucarana",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4113007",
+      "municipio": "Jussara",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4113403",
+      "municipio": "Leópolis",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4107652",
+      "municipio": "Fazenda Rio Grande",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4109500",
+      "municipio": "Guaraqueçaba",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4113304",
+      "municipio": "Laranjeiras do Sul",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 24,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4116208",
+      "municipio": "Morretes",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4120606",
+      "municipio": "Prudentópolis",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4112900",
+      "municipio": "Jundiaí do Sul",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4103503",
+      "municipio": "Califórnia",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4112207",
+      "municipio": "Janiópolis",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4115754",
+      "municipio": "Mauá da Serra",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4127007",
+      "municipio": "Teixeira Soares",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4109005",
+      "municipio": "Guapirama",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4118451",
+      "municipio": "Pato Bragado",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4112751",
+      "municipio": "Jesuítas",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 24,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4107751",
+      "municipio": "Figueira",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4102901",
+      "municipio": "Bituruna",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4105409",
+      "municipio": "Chopinzinho",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 24,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4113205",
+      "municipio": "Lapa",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4101804",
+      "municipio": "Araucária",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4101705",
+      "municipio": "Araruna",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4119806",
+      "municipio": "Planalto",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4123808",
+      "municipio": "Santa Izabel do Oeste",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4115903",
+      "municipio": "Mirador",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4100905",
+      "municipio": "Amaporã",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4123857",
+      "municipio": "Santa Maria do Oeste",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 24,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4110508",
+      "municipio": "Ipiranga",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4113254",
+      "municipio": "Laranjal",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 24,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4119608",
+      "municipio": "Pitanga",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4128005",
+      "municipio": "Ubiratã",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4117271",
+      "municipio": "Nova Tebas",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4110805",
+      "municipio": "Iretama",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4120655",
+      "municipio": "Quarto Centenário",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4110078",
+      "municipio": "Imbaú",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4113429",
+      "municipio": "Lidianópolis",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4103479",
+      "municipio": "Cafezal do Sul",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4118907",
+      "municipio": "Pérola",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4125407",
+      "municipio": "São José da Boa Vista",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4119202",
+      "municipio": "Pinhalão",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4113502",
+      "municipio": "Loanda",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4123709",
+      "municipio": "Santa Isabel do Ivaí",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4120002",
+      "municipio": "Porecatu",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4117107",
+      "municipio": "Nova Londrina",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4124400",
+      "municipio": "Santo Antônio do Sudoeste",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 24,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4100301",
+      "municipio": "Agudos do Sul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4109708",
+      "municipio": "Ibaiti",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4124608",
+      "municipio": "São Carlos do Ivaí",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4109203",
+      "municipio": "Guaraci",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4105102",
+      "municipio": "Centenário do Sul",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 24,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4125100",
+      "municipio": "São João do Triunfo",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4110300",
+      "municipio": "Inajá",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4118808",
+      "municipio": "Peabiru",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 24,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4118709",
+      "municipio": "Paulo Frontin",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 24,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4111258",
+      "municipio": "Itaperuçu",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 24,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4122404",
+      "municipio": "Rolândia",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4119657",
+      "municipio": "Pitangueiras",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4111803",
+      "municipio": "Jacarezinho",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4118402",
+      "municipio": "Paranavaí",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4101150",
+      "municipio": "Ângulo",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4109609",
+      "municipio": "Guaratuba",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4126272",
+      "municipio": "Saudade do Iguaçu",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4128633",
+      "municipio": "Doutor Ulysses",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 23,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4107306",
+      "municipio": "Doutor Camargo",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4124301",
+      "municipio": "Santo Antônio do Paraíso",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4100608",
+      "municipio": "Alto Paraná",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4102604",
+      "municipio": "Barracão",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4118501",
+      "municipio": "Pato Branco",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4108403",
+      "municipio": "Francisco Beltrão",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4122206",
+      "municipio": "Rio Branco do Sul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 23,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4103453",
+      "municipio": "Cafelândia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4116703",
+      "municipio": "Nova Aurora",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4120101",
+      "municipio": "Porto Amazonas",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 23,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4105300",
+      "municipio": "Céu Azul",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4107736",
+      "municipio": "Fernandes Pinheiro",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 23,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4108650",
+      "municipio": "Goioxim",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4116901",
+      "municipio": "Nova Esperança",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4120333",
+      "municipio": "Prado Ferreira",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4118857",
+      "municipio": "Perobal",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4106100",
+      "municipio": "Conselheiro Mairinck",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4128609",
+      "municipio": "Verê",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4105003",
+      "municipio": "Catanduvas",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4114351",
+      "municipio": "Manfrinópolis",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4128203",
+      "municipio": "União da Vitória",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 23,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4117602",
+      "municipio": "Palmas",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4120507",
+      "municipio": "Primeiro de Maio",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4103305",
+      "municipio": "Borrazópolis",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4108957",
+      "municipio": "Guamiranga",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 23,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4118303",
+      "municipio": "Paranapoema",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4117800",
+      "municipio": "Palmital",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 23,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4127965",
+      "municipio": "Turvo",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 23,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4104402",
+      "municipio": "Cândido de Abreu",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4110052",
+      "municipio": "Iguatu",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4101051",
+      "municipio": "Anahy",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4112959",
+      "municipio": "Juranda",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4123600",
+      "municipio": "Santa Inês",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4127205",
+      "municipio": "Terra Boa",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4111704",
+      "municipio": "Jaboti",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4119707",
+      "municipio": "Planaltina do Paraná",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4120200",
+      "municipio": "Porto Rico",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4112603",
+      "municipio": "Jardim Olinda",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4106456",
+      "municipio": "Coronel Domingos Soares",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4104303",
+      "municipio": "Campo Mourão",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4106571",
+      "municipio": "Cruzeiro do Iguaçu",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4117255",
+      "municipio": "Nova Prata do Iguaçu",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 23,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4106001",
+      "municipio": "Congonhinhas",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4116406",
+      "municipio": "Nossa Senhora das Graças",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4121752",
+      "municipio": "Reserva do Iguaçu",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 23,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4126702",
+      "municipio": "Tamboara",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4121703",
+      "municipio": "Reserva",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 23,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4124509",
+      "municipio": "Santo Inácio",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 23,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4107538",
+      "municipio": "Entre Rios do Oeste",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4125704",
+      "municipio": "São Miguel do Iguaçu",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 23,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4108700",
+      "municipio": "Grandes Rios",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 23,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4126108",
+      "municipio": "São Tomé",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4117503",
+      "municipio": "Paiçandu",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4121000",
+      "municipio": "Querência do Norte",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4121802",
+      "municipio": "Ribeirão Claro",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4103701",
+      "municipio": "Cambé",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4102703",
+      "municipio": "Barra do Jacaré",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4107850",
+      "municipio": "Flor da Serra do Sul",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4103222",
+      "municipio": "Bom Sucesso do Sul",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4106209",
+      "municipio": "Contenda",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4102307",
+      "municipio": "Balsa Nova",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4103024",
+      "municipio": "Boa Esperança do Iguaçu",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4125308",
+      "municipio": "São Jorge do Ivaí",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4120705",
+      "municipio": "Quatiguá",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4122909",
+      "municipio": "Salto do Itararé",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4103156",
+      "municipio": "Bom Jesus do Sul",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4110706",
+      "municipio": "Irati",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4102109",
+      "municipio": "Astorga",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4116307",
+      "municipio": "Munhoz de Melo",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4103800",
+      "municipio": "Cambira",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4123501",
+      "municipio": "Santa Helena",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4101200",
+      "municipio": "Antonina",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4123956",
+      "municipio": "Santa Mônica",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4104501",
+      "municipio": "Capanema",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4108551",
+      "municipio": "Godoy Moreira",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4116604",
+      "municipio": "Nova América da Colina",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4111209",
+      "municipio": "Itapejara d'Oeste",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4125605",
+      "municipio": "São Mateus do Sul",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 22,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4115705",
+      "municipio": "Matinhos",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4125803",
+      "municipio": "São Pedro do Ivaí",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4103206",
+      "municipio": "Bom Sucesso",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4103958",
+      "municipio": "Campina do Simão",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4126306",
+      "municipio": "Sengés",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 22,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4117453",
+      "municipio": "Ouro Verde do Oeste",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4103909",
+      "municipio": "Campina da Lagoa",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4105201",
+      "municipio": "Cerro Azul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4106308",
+      "municipio": "Corbélia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4115358",
+      "municipio": "Maripá",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4127106",
+      "municipio": "Telêmaco Borba",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4128807",
+      "municipio": "Xambrê",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4113106",
+      "municipio": "Kaloré",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4127809",
+      "municipio": "Tomazina",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4122107",
+      "municipio": "Rio Bom",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4126678",
+      "municipio": "Tamarana",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4121307",
+      "municipio": "Rancho Alegre",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4117909",
+      "municipio": "Palotina",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4122800",
+      "municipio": "Salgado Filho",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4114401",
+      "municipio": "Mangueirinha",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4114302",
+      "municipio": "Mandirituba",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4119103",
+      "municipio": "Piên",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4104428",
+      "municipio": "Candói",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 22,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4107504",
+      "municipio": "Engenheiro Beltrão",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4103602",
+      "municipio": "Cambará",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4124707",
+      "municipio": "São Jerônimo da Serra",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 22,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4116059",
+      "municipio": "Missal",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 22,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4100509",
+      "municipio": "Altônia",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 22,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4109658",
+      "municipio": "Honório Serpa",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 22,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4105607",
+      "municipio": "Cidade Gaúcha",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4114203",
+      "municipio": "Mandaguari",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4101903",
+      "municipio": "Assaí",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4112801",
+      "municipio": "Joaquim Távora",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4102208",
+      "municipio": "Atalaia",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4111902",
+      "municipio": "Jaguapitã",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4124103",
+      "municipio": "Santo Antônio da Platina",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4121505",
+      "municipio": "Rebouças",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4119152",
+      "municipio": "Pinhais",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4120903",
+      "municipio": "Quedas do Iguaçu",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4126355",
+      "municipio": "Serranópolis do Iguaçu",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4128658",
+      "municipio": "Virmond",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4104451",
+      "municipio": "Cantagalo",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4128104",
+      "municipio": "Umuarama",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4112108",
+      "municipio": "Jandaia do Sul",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4124053",
+      "municipio": "Santa Terezinha de Itaipu",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4108502",
+      "municipio": "General Carneiro",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4110003",
+      "municipio": "Iguaraçu",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4125209",
+      "municipio": "São Jorge d'Oeste",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 21,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4110904",
+      "municipio": "Itaguajé",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4110656",
+      "municipio": "Iracema do Oeste",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4127502",
+      "municipio": "Tibagi",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4120358",
+      "municipio": "Pranchita",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4100202",
+      "municipio": "Adrianópolis",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4108452",
+      "municipio": "Foz do Jordão",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4123006",
+      "municipio": "Salto do Lontra",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 21,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4110201",
+      "municipio": "Inácio Martins",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4107702",
+      "municipio": "Fênix",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4119954",
+      "municipio": "Pontal do Paraná",
+      "regional": "Paranaguá",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4103040",
+      "municipio": "Boa Ventura de São Roque",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4104907",
+      "municipio": "Castro",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4128559",
+      "municipio": "Vera Cruz do Oeste",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4121604",
+      "municipio": "Renascença",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4115739",
+      "municipio": "Mato Rico",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 21,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4117222",
+      "municipio": "Nova Santa Rosa",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4127700",
+      "municipio": "Toledo",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4121356",
+      "municipio": "Rancho Alegre D'Oeste",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4102000",
+      "municipio": "Assis Chateaubriand",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4119400",
+      "municipio": "Piraí do Sul",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4103008",
+      "municipio": "Boa Esperança",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4115101",
+      "municipio": "Mariluz",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4106555",
+      "municipio": "Corumbataí do Sul",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4113759",
+      "municipio": "Lunardelli",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4127403",
+      "municipio": "Terra Roxa",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4110607",
+      "municipio": "Iporã",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4106605",
+      "municipio": "Cruzeiro do Oeste",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4124004",
+      "municipio": "Santana do Itararé",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4115507",
+      "municipio": "Marumbi",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4128625",
+      "municipio": "Alto Paraíso",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4127304",
+      "municipio": "Terra Rica",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4124202",
+      "municipio": "Santo Antônio do Caiuá",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4115002",
+      "municipio": "Marilena",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4122305",
+      "municipio": "Rio Negro",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4121208",
+      "municipio": "Quitandinha",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4107603",
+      "municipio": "Faxinal",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4103404",
+      "municipio": "Cafeara",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4117305",
+      "municipio": "Ortigueira",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4104006",
+      "municipio": "Campina Grande do Sul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4101101",
+      "municipio": "Andirá",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4107157",
+      "municipio": "Diamante d'Oeste",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4110409",
+      "municipio": "Indianópolis",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4109906",
+      "municipio": "Icaraíma",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 21,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4101309",
+      "municipio": "Antônio Olinto",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 21,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4110953",
+      "municipio": "Itaipulândia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4115804",
+      "municipio": "Medianeira",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 21,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4126801",
+      "municipio": "Tapejara",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4117206",
+      "municipio": "Nova Olímpia",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4117404",
+      "municipio": "Ourizona",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4123105",
+      "municipio": "Santa Amélia",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4114104",
+      "municipio": "Mandaguaçu",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4126504",
+      "municipio": "Sertanópolis",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4120309",
+      "municipio": "Porto Vitória",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4108205",
+      "municipio": "Formosa do Oeste",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4126652",
+      "municipio": "Sulina",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4115457",
+      "municipio": "Marquinho",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4124020",
+      "municipio": "Santa Tereza do Oeste",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4104055",
+      "municipio": "Campo Bonito",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4111407",
+      "municipio": "Ivaí",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4106704",
+      "municipio": "Cruzeiro do Sul",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4123402",
+      "municipio": "Santa Fé",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4104709",
+      "municipio": "Carlópolis",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4111605",
+      "municipio": "Ivatuba",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4119509",
+      "municipio": "Piraquara",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 20,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4104204",
+      "municipio": "Campo Largo",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4113452",
+      "municipio": "Lindoeste",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4110102",
+      "municipio": "Imbituva",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4107546",
+      "municipio": "Espigão Alto do Iguaçu",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4114708",
+      "municipio": "Maria Helena",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4103354",
+      "municipio": "Braganey",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4100707",
+      "municipio": "Alto Piquiri",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4107207",
+      "municipio": "Dois Vizinhos",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4101655",
+      "municipio": "Arapuã",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4109104",
+      "municipio": "Guaporema",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4126009",
+      "municipio": "São Sebastião da Amoreira",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4107009",
+      "municipio": "Curiúva",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4119004",
+      "municipio": "Pérola d'Oeste",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4127908",
+      "municipio": "Tuneiras do Oeste",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4106803",
+      "municipio": "Cruz Machado",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4121257",
+      "municipio": "Ramilândia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4102505",
+      "municipio": "Barbosa Ferraz",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4108908",
+      "municipio": "Guairaçá",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4107124",
+      "municipio": "Diamante do Sul",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4104659",
+      "municipio": "Carambeí",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4116802",
+      "municipio": "Nova Cantú",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4122503",
+      "municipio": "Roncador",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4114500",
+      "municipio": "Manoel Ribas",
+      "regional": "Pitanga",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4108601",
+      "municipio": "Goioerê",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4101606",
+      "municipio": "Arapoti",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4111100",
+      "municipio": "Itambé",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4109807",
+      "municipio": "Ibiporã",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4102802",
+      "municipio": "Bela Vista do Paraíso",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4107405",
+      "municipio": "Enéas Marques",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4119301",
+      "municipio": "Pinhão",
+      "regional": "Guarapuava",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4106506",
+      "municipio": "Coronel Vivida",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4104105",
+      "municipio": "Campo do Tenente",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 20,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4127858",
+      "municipio": "Três Barras do Paraná",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 20,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4120150",
+      "municipio": "Porto Barreiro",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 20,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4105904",
+      "municipio": "Colorado",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4127601",
+      "municipio": "Tijucas do Sul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 20,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4114906",
+      "municipio": "Marilândia do Sul",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 46
+    },
+    {
+      "cod_ibge": "4122172",
+      "municipio": "Rio Branco do Ivaí",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4107801",
+      "municipio": "Floraí",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4123204",
+      "municipio": "Santa Cecília do Pavão",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4128708",
+      "municipio": "Vitorino",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4117701",
+      "municipio": "Palmeira",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 20,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4121109",
+      "municipio": "Quinta do Sol",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 20,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4100400",
+      "municipio": "Almirante Tamandaré",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 20,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4126900",
+      "municipio": "Tapira",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4116505",
+      "municipio": "Nova Aliança do Ivaí",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4123303",
+      "municipio": "Santa Cruz de Monte Castelo",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4120408",
+      "municipio": "Presidente Castelo Branco",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4111308",
+      "municipio": "Itaúna do Sul",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4116950",
+      "municipio": "Nova Esperança do Sudoeste",
+      "regional": "Dois Vizinhos",
+      "mesorregiao": "Sudoeste",
+      "total": 19,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4122156",
+      "municipio": "Rio Bonito do Iguaçu",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 19,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4111555",
+      "municipio": "Ivaté",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4109302",
+      "municipio": "Guaraniaçu",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 19,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4118105",
+      "municipio": "Paranacity",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4113601",
+      "municipio": "Lobato",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4107900",
+      "municipio": "Floresta",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4100806",
+      "municipio": "Alvorada do Sul",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4103107",
+      "municipio": "Bocaiúva do Sul",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4115606",
+      "municipio": "Matelândia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4120804",
+      "municipio": "Quatro Barras",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4106407",
+      "municipio": "Cornélio Procópio",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4122602",
+      "municipio": "Rondon",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4103370",
+      "municipio": "Brasilândia do Sul",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4100459",
+      "municipio": "Altamira do Paraná",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4115408",
+      "municipio": "Marmeleiro",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4126256",
+      "municipio": "Sarandi",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4115853",
+      "municipio": "Mercedes",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4117008",
+      "municipio": "Nova Fátima",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4123824",
+      "municipio": "Santa Lúcia",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4127882",
+      "municipio": "Tunas do Paraná",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 19,
+      "leitos_sus": 46
+    },
+    {
+      "cod_ibge": "4124806",
+      "municipio": "São João",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 19,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4109757",
+      "municipio": "Ibema",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4122651",
+      "municipio": "Rosário do Ivaí",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4125753",
+      "municipio": "São Pedro do Iguaçu",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 36
+    },
+    {
+      "cod_ibge": "4127957",
+      "municipio": "Tupãssi",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4120853",
+      "municipio": "Quatro Pontes",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4101853",
+      "municipio": "Ariranha do Ivaí",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4112009",
+      "municipio": "Jaguariaíva",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4128534",
+      "municipio": "Ventania",
+      "regional": "Ponta Grossa",
+      "mesorregiao": "Centro Sul",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4125001",
+      "municipio": "São João do Ivaí",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4106852",
+      "municipio": "Cruzmaltina",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4126207",
+      "municipio": "Sapopema",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4105508",
+      "municipio": "Cianorte",
+      "regional": "Cianorte",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4107520",
+      "municipio": "Esperança Nova",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4117297",
+      "municipio": "Novo Itacolomi",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4126405",
+      "municipio": "Sertaneja",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4123907",
+      "municipio": "Santa Mariana",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4124905",
+      "municipio": "São João do Caiuá",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4108007",
+      "municipio": "Florestópolis",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4116000",
+      "municipio": "Miraselva",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4107108",
+      "municipio": "Diamante do Norte",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4108809",
+      "municipio": "Guaíra",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4101002",
+      "municipio": "Ampére",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 19,
+      "leitos_sus": 38
+    },
+    {
+      "cod_ibge": "4104600",
+      "municipio": "Capitão Leônidas Marques",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 35
+    },
+    {
+      "cod_ibge": "4103057",
+      "municipio": "Boa Vista da Aparecida",
+      "regional": "Cascavel",
+      "mesorregiao": "Oeste",
+      "total": 19,
+      "leitos_sus": 42
+    },
+    {
+      "cod_ibge": "4102406",
+      "municipio": "Bandeirantes",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4126603",
+      "municipio": "Siqueira Campos",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4128500",
+      "municipio": "Wenceslau Braz",
+      "regional": "Santo Antonio da Platina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4113809",
+      "municipio": "Lupionópolis",
+      "regional": "Londrina",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4117214",
+      "municipio": "Nova Santa Bárbara",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4100103",
+      "municipio": "Abatiá",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 31
+    },
+    {
+      "cod_ibge": "4105706",
+      "municipio": "Clevelândia",
+      "regional": "Pato Branco",
+      "mesorregiao": "Sudoeste",
+      "total": 19,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4107553",
+      "municipio": "Farol",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4104253",
+      "municipio": "Campo Magro",
+      "regional": "Curitiba",
+      "mesorregiao": "Metropolitana e Litoral",
+      "total": 19,
+      "leitos_sus": 39
+    },
+    {
+      "cod_ibge": "4118600",
+      "municipio": "Paula Freitas",
+      "regional": "União da Vitória",
+      "mesorregiao": "Centro Sul",
+      "total": 19,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4112504",
+      "municipio": "Jardim Alegre",
+      "regional": "Ivaiporã",
+      "mesorregiao": "Norte",
+      "total": 19,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4101507",
+      "municipio": "Arapongas",
+      "regional": "Apucarana",
+      "mesorregiao": "Norte",
+      "total": 18,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4121406",
+      "municipio": "Realeza",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 18,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4117057",
+      "municipio": "Nova Laranjeiras",
+      "regional": "Laranjeiras do Sul",
+      "mesorregiao": "Centro",
+      "total": 18,
+      "leitos_sus": 41
+    },
+    {
+      "cod_ibge": "4125456",
+      "municipio": "São José das Palmeiras",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 18,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4125357",
+      "municipio": "São Jorge do Patrocínio",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 34
+    },
+    {
+      "cod_ibge": "4121901",
+      "municipio": "Ribeirão do Pinhal",
+      "regional": "Cornélio Procópio",
+      "mesorregiao": "Norte",
+      "total": 18,
+      "leitos_sus": 32
+    },
+    {
+      "cod_ibge": "4108320",
+      "municipio": "Francisco Alves",
+      "regional": "Umuarama",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4128302",
+      "municipio": "Uniflor",
+      "regional": "Maringá",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 45
+    },
+    {
+      "cod_ibge": "4102752",
+      "municipio": "Bela Vista da Caroba",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 18,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4113908",
+      "municipio": "Mallet",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 18,
+      "leitos_sus": 40
+    },
+    {
+      "cod_ibge": "4122008",
+      "municipio": "Rio Azul",
+      "regional": "Irati",
+      "mesorregiao": "Centro Sul",
+      "total": 18,
+      "leitos_sus": 43
+    },
+    {
+      "cod_ibge": "4114609",
+      "municipio": "Marechal Cândido Rondon",
+      "regional": "Toledo",
+      "mesorregiao": "Oeste",
+      "total": 18,
+      "leitos_sus": 33
+    },
+    {
+      "cod_ibge": "4125902",
+      "municipio": "São Pedro do Paraná",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 37
+    },
+    {
+      "cod_ibge": "4119251",
+      "municipio": "Pinhal de São Bento",
+      "regional": "Francisco Beltrão",
+      "mesorregiao": "Sudoeste",
+      "total": 18,
+      "leitos_sus": 46
+    },
+    {
+      "cod_ibge": "4113734",
+      "municipio": "Luiziana",
+      "regional": "Campo Mourão",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 44
+    },
+    {
+      "cod_ibge": "4118006",
+      "municipio": "Paraíso do Norte",
+      "regional": "Paranavaí",
+      "mesorregiao": "Noroeste",
+      "total": 18,
+      "leitos_sus": 45
     }
   ]
 }
