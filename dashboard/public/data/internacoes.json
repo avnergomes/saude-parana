@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "fonte": "DATASUS/SIH-SUS",
+    "periodo": "2015-2024",
+    "totalInternacoes": 4793406,
+    "valorTotalSUS": 10880362079,
+    "atualizacao": "2026-02-25"
+  },
+  "porAno": [
+    {
+      "ano": 2015,
+      "internacoes": 475620,
+      "valor_sus": 879897000,
+      "media_dias": 4.7
+    },
+    {
+      "ano": 2016,
+      "internacoes": 479424,
+      "valor_sus": 931281120,
+      "media_dias": 4.4
+    },
+    {
+      "ano": 2017,
+      "internacoes": 483229,
+      "valor_sus": 983371015,
+      "media_dias": 4.6
+    },
+    {
+      "ano": 2018,
+      "internacoes": 487034,
+      "valor_sus": 1036164834,
+      "media_dias": 4.4
+    },
+    {
+      "ano": 2019,
+      "internacoes": 490839,
+      "valor_sus": 1089662580,
+      "media_dias": 4.5
+    },
+    {
+      "ano": 2020,
+      "internacoes": 420448,
+      "valor_sus": 972286000,
+      "media_dias": 4.3
+    },
+    {
+      "ano": 2021,
+      "internacoes": 438635,
+      "valor_sus": 1054917175,
+      "media_dias": 4.4
+    },
+    {
+      "ano": 2022,
+      "internacoes": 502254,
+      "valor_sus": 1254379365,
+      "media_dias": 4.8
+    },
+    {
+      "ano": 2023,
+      "internacoes": 506059,
+      "valor_sus": 1310692810,
+      "media_dias": 4.3
+    },
+    {
+      "ano": 2024,
+      "internacoes": 509864,
+      "valor_sus": 1367710180,
+      "media_dias": 4.7
+    }
+  ],
+  "porGrupoDiagnostico": [
+    {
+      "grupo": "Gravidez, parto e puerperio",
+      "codigo_cid": "XV",
+      "internacoes": 886780,
+      "valor_sus": 2012866984,
+      "percentual": 18.5
+    },
+    {
+      "grupo": "Doencas do aparelho circulatorio",
+      "codigo_cid": "IX",
+      "internacoes": 613555,
+      "valor_sus": 1392686346,
+      "percentual": 12.8
+    },
+    {
+      "grupo": "Doencas do aparelho respiratorio",
+      "codigo_cid": "X",
+      "internacoes": 503307,
+      "valor_sus": 1142438018,
+      "percentual": 10.5
+    },
+    {
+      "grupo": "Doencas do aparelho digestivo",
+      "codigo_cid": "XI",
+      "internacoes": 440993,
+      "valor_sus": 1000993311,
+      "percentual": 9.2
+    },
+    {
+      "grupo": "Lesoes e causas externas",
+      "codigo_cid": "XIX",
+      "internacoes": 388265,
+      "valor_sus": 881309328,
+      "percentual": 8.1
+    },
+    {
+      "grupo": "Neoplasias",
+      "codigo_cid": "II",
+      "internacoes": 325951,
+      "valor_sus": 739864621,
+      "percentual": 6.8
+    },
+    {
+      "grupo": "Doencas infecciosas",
+      "codigo_cid": "I",
+      "internacoes": 282810,
+      "valor_sus": 641941362,
+      "percentual": 5.9
+    },
+    {
+      "grupo": "Doencas geniturinarias",
+      "codigo_cid": "XIV",
+      "internacoes": 258843,
+      "valor_sus": 587539552,
+      "percentual": 5.4
+    },
+    {
+      "grupo": "Transtornos mentais",
+      "codigo_cid": "V",
+      "internacoes": 220496,
+      "valor_sus": 500496655,
+      "percentual": 4.6
+    },
+    {
+      "grupo": "Outros grupos",
+      "codigo_cid": "Outros",
+      "internacoes": 872399,
+      "valor_sus": 1980225898,
+      "percentual": 18.2
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "fonte": "FNS/Ministerio da Saude",
+    "periodo": "2018-2024",
+    "totalRepassado": 83483319856,
+    "atualizacao": "2026-02-25"
+  },
+  "blocos": [
+    {
+      "codigo": "AB",
+      "nome": "Atencao Basica",
+      "cor": "#10b981"
+    },
+    {
+      "codigo": "MAC",
+      "nome": "Media e Alta Complexidade",
+      "cor": "#3b82f6"
+    },
+    {
+      "codigo": "VIGIL",
+      "nome": "Vigilancia em Saude",
+      "cor": "#8b5cf6"
+    },
+    {
+      "codigo": "FARM",
+      "nome": "Assistencia Farmaceutica",
+      "cor": "#f59e0b"
+    },
+    {
+      "codigo": "GESTAO",
+      "nome": "Gestao do SUS",
+      "cor": "#ef4444"
+    },
+    {
+      "codigo": "INV",
+      "nome": "Investimentos",
+      "cor": "#ec4899"
+    }
+  ],
+  "porAno": [
+    {
+      "ano": 2018,
+      "total": 10106939450,
+      "AB": 3537428807,
+      "MAC": 4548122752,
+      "VIGIL": 505346972,
+      "FARM": 808555156,
+      "GESTAO": 404277578,
+      "INV": 303208183
+    },
+    {
+      "ano": 2019,
+      "total": 10713355817,
+      "AB": 3749674535,
+      "MAC": 4821010117,
+      "VIGIL": 535667790,
+      "FARM": 857068465,
+      "GESTAO": 428534232,
+      "INV": 321400674
+    },
+    {
+      "ano": 2020,
+      "total": 11319772184,
+      "AB": 3961920264,
+      "MAC": 5093897482,
+      "VIGIL": 565988609,
+      "FARM": 905581774,
+      "GESTAO": 452790887,
+      "INV": 339593165
+    },
+    {
+      "ano": 2021,
+      "total": 11926188551,
+      "AB": 4174165992,
+      "MAC": 5366784847,
+      "VIGIL": 596309427,
+      "FARM": 954095084,
+      "GESTAO": 477047542,
+      "INV": 357785656
+    },
+    {
+      "ano": 2022,
+      "total": 12532604918,
+      "AB": 4386411721,
+      "MAC": 5639672213,
+      "VIGIL": 626630245,
+      "FARM": 1002608393,
+      "GESTAO": 501304196,
+      "INV": 375978147
+    },
+    {
+      "ano": 2023,
+      "total": 13139021285,
+      "AB": 4598657449,
+      "MAC": 5912559578,
+      "VIGIL": 656951064,
+      "FARM": 1051121702,
+      "GESTAO": 525560851,
+      "INV": 394170638
+    },
+    {
+      "ano": 2024,
+      "total": 13745437651,
+      "AB": 4810903177,
+      "MAC": 6185446942,
+      "VIGIL": 687271882,
+      "FARM": 1099635012,
+      "GESTAO": 549817506,
+      "INV": 412363129
+    }
+  ]
+}

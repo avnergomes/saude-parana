@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "fonte": "SISAB/Previne Brasil",
+    "periodo": "2020-2024",
+    "atualizacao": "2026-02-25"
+  },
+  "indicadores": [
+    {
+      "codigo": "IND1",
+      "nome": "Pre-natal (6+ consultas)",
+      "meta": 60,
+      "cor": "#ec4899"
+    },
+    {
+      "codigo": "IND2",
+      "nome": "Saude bucal gestantes",
+      "meta": 60,
+      "cor": "#8b5cf6"
+    },
+    {
+      "codigo": "IND3",
+      "nome": "Exame citopatologico",
+      "meta": 40,
+      "cor": "#f59e0b"
+    },
+    {
+      "codigo": "IND4",
+      "nome": "Vacinacao Polio/Penta",
+      "meta": 95,
+      "cor": "#10b981"
+    },
+    {
+      "codigo": "IND5",
+      "nome": "Hipertensao (PA aferida)",
+      "meta": 50,
+      "cor": "#ef4444"
+    },
+    {
+      "codigo": "IND6",
+      "nome": "Diabetes (Hb glicada)",
+      "meta": 50,
+      "cor": "#3b82f6"
+    },
+    {
+      "codigo": "IND7",
+      "nome": "Exame HIV/Sifilis gestantes",
+      "meta": 60,
+      "cor": "#14b8a6"
+    }
+  ],
+  "porQuadrimestre": [
+    {
+      "ano": 2020,
+      "quadrimestre": 1,
+      "IND1": 44.1,
+      "IND2": 41.8,
+      "IND3": 27.5,
+      "IND4": 63.7,
+      "IND5": 39.9,
+      "IND6": 35.8,
+      "IND7": 38.1
+    },
+    {
+      "ano": 2020,
+      "quadrimestre": 2,
+      "IND1": 48.3,
+      "IND2": 46.1,
+      "IND3": 27.7,
+      "IND4": 64.3,
+      "IND5": 35.7,
+      "IND6": 37.2,
+      "IND7": 41.4
+    },
+    {
+      "ano": 2020,
+      "quadrimestre": 3,
+      "IND1": 48.8,
+      "IND2": 48.1,
+      "IND3": 33.3,
+      "IND4": 70.0,
+      "IND5": 33.4,
+      "IND6": 39.3,
+      "IND7": 43.3
+    },
+    {
+      "ano": 2021,
+      "quadrimestre": 1,
+      "IND1": 45.1,
+      "IND2": 43.1,
+      "IND3": 33.6,
+      "IND4": 74.9,
+      "IND5": 37.2,
+      "IND6": 42.4,
+      "IND7": 43.9
+    },
+    {
+      "ano": 2021,
+      "quadrimestre": 2,
+      "IND1": 50.0,
+      "IND2": 51.1,
+      "IND3": 28.5,
+      "IND4": 71.1,
+      "IND5": 44.6,
+      "IND6": 37.9,
+      "IND7": 45.7
+    },
+    {
+      "ano": 2021,
+      "quadrimestre": 3,
+      "IND1": 48.5,
+      "IND2": 45.2,
+      "IND3": 32.6,
+      "IND4": 69.9,
+      "IND5": 44.0,
+      "IND6": 38.9,
+      "IND7": 45.7
+    },
+    {
+      "ano": 2022,
+      "quadrimestre": 1,
+      "IND1": 48.6,
+      "IND2": 50.9,
+      "IND3": 39.0,
+      "IND4": 71.5,
+      "IND5": 38.9,
+      "IND6": 37.4,
+      "IND7": 44.6
+    },
+    {
+      "ano": 2022,
+      "quadrimestre": 2,
+      "IND1": 49.4,
+      "IND2": 48.3,
+      "IND3": 32.6,
+      "IND4": 77.5,
+      "IND5": 45.8,
+      "IND6": 41.9,
+      "IND7": 55.0
+    },
+    {
+      "ano": 2022,
+      "quadrimestre": 3,
+      "IND1": 53.4,
+      "IND2": 49.9,
+      "IND3": 36.9,
+      "IND4": 78.4,
+      "IND5": 40.5,
+      "IND6": 44.8,
+      "IND7": 52.2
+    },
+    {
+      "ano": 2023,
+      "quadrimestre": 1,
+      "IND1": 54.1,
+      "IND2": 53.7,
+      "IND3": 39.3,
+      "IND4": 71.7,
+      "IND5": 43.8,
+      "IND6": 45.4,
+      "IND7": 54.4
+    },
+    {
+      "ano": 2023,
+      "quadrimestre": 2,
+      "IND1": 49.1,
+      "IND2": 49.1,
+      "IND3": 34.6,
+      "IND4": 79.2,
+      "IND5": 44.5,
+      "IND6": 43.7,
+      "IND7": 50.3
+    },
+    {
+      "ano": 2023,
+      "quadrimestre": 3,
+      "IND1": 49.8,
+      "IND2": 53.8,
+      "IND3": 36.8,
+      "IND4": 73.7,
+      "IND5": 51.8,
+      "IND6": 51.1,
+      "IND7": 50.2
+    },
+    {
+      "ano": 2024,
+      "quadrimestre": 1,
+      "IND1": 58.2,
+      "IND2": 56.2,
+      "IND3": 36.0,
+      "IND4": 74.6,
+      "IND5": 48.6,
+      "IND6": 48.3,
+      "IND7": 54.6
+    },
+    {
+      "ano": 2024,
+      "quadrimestre": 2,
+      "IND1": 54.6,
+      "IND2": 57.3,
+      "IND3": 44.1,
+      "IND4": 80.3,
+      "IND5": 46.9,
+      "IND6": 54.0,
+      "IND7": 58.7
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "metadata": {
+    "fonte": "DATASUS/SI-PNI",
+    "periodo": "2015-2024",
+    "atualizacao": "2026-02-25"
+  },
+  "vacinas": [
+    {
+      "codigo": "BCG",
+      "nome": "BCG",
+      "meta": 90,
+      "cor": "#10b981"
+    },
+    {
+      "codigo": "HEP_B",
+      "nome": "Hepatite B",
+      "meta": 95,
+      "cor": "#3b82f6"
+    },
+    {
+      "codigo": "PENTA",
+      "nome": "Pentavalente",
+      "meta": 95,
+      "cor": "#8b5cf6"
+    },
+    {
+      "codigo": "POLIO",
+      "nome": "Poliomielite",
+      "meta": 95,
+      "cor": "#f59e0b"
+    },
+    {
+      "codigo": "ROTAVIRUS",
+      "nome": "Rotavirus",
+      "meta": 90,
+      "cor": "#ef4444"
+    },
+    {
+      "codigo": "PNEUMO",
+      "nome": "Pneumococica",
+      "meta": 95,
+      "cor": "#ec4899"
+    },
+    {
+      "codigo": "MENINGO",
+      "nome": "Meningococica C",
+      "meta": 95,
+      "cor": "#6366f1"
+    },
+    {
+      "codigo": "TRIPLICE",
+      "nome": "Triplice Viral",
+      "meta": 95,
+      "cor": "#14b8a6"
+    },
+    {
+      "codigo": "FEBRE_AM",
+      "nome": "Febre Amarela",
+      "meta": 95,
+      "cor": "#eab308"
+    },
+    {
+      "codigo": "COVID",
+      "nome": "COVID-19",
+      "meta": 90,
+      "cor": "#0ea5e9"
+    }
+  ],
+  "coberturaPorAno": [
+    {
+      "ano": 2015,
+      "BCG": 94.4,
+      "HEP_B": 96.2,
+      "PENTA": 93.7,
+      "POLIO": 97.6,
+      "ROTAVIRUS": 93.0,
+      "PNEUMO": 95.0,
+      "MENINGO": 92.8,
+      "TRIPLICE": 93.4,
+      "FEBRE_AM": 94.9,
+      "COVID": 0
+    },
+    {
+      "ano": 2016,
+      "BCG": 95.2,
+      "HEP_B": 94.6,
+      "PENTA": 95.8,
+      "POLIO": 96.6,
+      "ROTAVIRUS": 92.5,
+      "PNEUMO": 94.5,
+      "MENINGO": 91.4,
+      "TRIPLICE": 91.8,
+      "FEBRE_AM": 95.1,
+      "COVID": 0
+    },
+    {
+      "ano": 2017,
+      "BCG": 93.6,
+      "HEP_B": 94.1,
+      "PENTA": 94.6,
+      "POLIO": 91.0,
+      "ROTAVIRUS": 91.8,
+      "PNEUMO": 94.4,
+      "MENINGO": 91.3,
+      "TRIPLICE": 91.2,
+      "FEBRE_AM": 90.1,
+      "COVID": 0
+    },
+    {
+      "ano": 2018,
+      "BCG": 92.3,
+      "HEP_B": 93.4,
+      "PENTA": 93.5,
+      "POLIO": 93.8,
+      "ROTAVIRUS": 91.2,
+      "PNEUMO": 90.2,
+      "MENINGO": 90.3,
+      "TRIPLICE": 92.6,
+      "FEBRE_AM": 89.6,
+      "COVID": 0
+    },
+    {
+      "ano": 2019,
+      "BCG": 87.8,
+      "HEP_B": 87.5,
+      "PENTA": 87.5,
+      "POLIO": 91.5,
+      "ROTAVIRUS": 90.8,
+      "PNEUMO": 87.9,
+      "MENINGO": 90.6,
+      "TRIPLICE": 87.5,
+      "FEBRE_AM": 91.9,
+      "COVID": 0
+    },
+    {
+      "ano": 2020,
+      "BCG": 79.8,
+      "HEP_B": 79.0,
+      "PENTA": 78.7,
+      "POLIO": 78.8,
+      "ROTAVIRUS": 81.1,
+      "PNEUMO": 82.8,
+      "MENINGO": 82.1,
+      "TRIPLICE": 79.5,
+      "FEBRE_AM": 78.5,
+      "COVID": 0
+    },
+    {
+      "ano": 2021,
+      "BCG": 80.9,
+      "HEP_B": 80.0,
+      "PENTA": 79.9,
+      "POLIO": 79.3,
+      "ROTAVIRUS": 82.0,
+      "PNEUMO": 78.4,
+      "MENINGO": 81.0,
+      "TRIPLICE": 81.5,
+      "FEBRE_AM": 80.0,
+      "COVID": 45.2
+    },
+    {
+      "ano": 2022,
+      "BCG": 83.2,
+      "HEP_B": 80.3,
+      "PENTA": 81.8,
+      "POLIO": 85.0,
+      "ROTAVIRUS": 81.5,
+      "PNEUMO": 81.4,
+      "MENINGO": 82.7,
+      "TRIPLICE": 83.3,
+      "FEBRE_AM": 80.1,
+      "COVID": 70.3
+    },
+    {
+      "ano": 2023,
+      "BCG": 84.2,
+      "HEP_B": 79.2,
+      "PENTA": 79.6,
+      "POLIO": 80.0,
+      "ROTAVIRUS": 79.4,
+      "PNEUMO": 79.1,
+      "MENINGO": 82.3,
+      "TRIPLICE": 84.0,
+      "FEBRE_AM": 79.2,
+      "COVID": 70.8
+    },
+    {
+      "ano": 2024,
+      "BCG": 80.9,
+      "HEP_B": 78.1,
+      "PENTA": 79.6,
+      "POLIO": 78.2,
+      "ROTAVIRUS": 79.7,
+      "PNEUMO": 80.7,
+      "MENINGO": 79.4,
+      "TRIPLICE": 77.6,
+      "FEBRE_AM": 78.9,
+      "COVID": 75.7
+    }
+  ]
+}

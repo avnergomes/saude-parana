@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Leaflet map container */
+.leaflet-container {
+  font-family: 'Inter', system-ui, sans-serif;
+  border-radius: 0.75rem;
+}
+
+/* Chart tooltips */
+.recharts-tooltip-wrapper {
+  z-index: 1000 !important;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Clickable elements */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Selected state for charts */
+.chart-selected {
+  opacity: 1 !important;
+  stroke: #1f2937;
+  stroke-width: 2px;
+}
+
+.chart-dimmed {
+  opacity: 0.4;
+}
+
+/* Badge styles */
+.filter-badge {
+  @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm transition-colors;
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-shadow duration-200 hover:shadow-lg;
+}
+
+/* Health-specific colors */
+.text-health-positive {
+  @apply text-green-600;
+}
+
+.text-health-negative {
+  @apply text-red-600;
+}
+
+.text-health-neutral {
+  @apply text-gray-600;
+}
+
+/* Metric pill buttons */
+.metric-pill {
+  @apply px-3 py-1.5 rounded-lg text-sm font-medium transition-colors;
+}
+
+.metric-pill-active {
+  @apply text-white;
+}
+
+.metric-pill-inactive {
+  @apply bg-earth-100 text-earth-600 hover:bg-earth-200;
+}

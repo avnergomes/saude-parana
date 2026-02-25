@@ -1,0 +1,400 @@
+cod_ibge,municipio,ano,populacao
+4100103,Abatiá - PR,População residente estimada,7233
+4100202,Adrianópolis - PR,População residente estimada,6319
+4100301,Agudos do Sul - PR,População residente estimada,10770
+4100400,Almirante Tamandaré - PR,População residente estimada,125861
+4100459,Altamira do Paraná - PR,População residente estimada,3496
+4100509,Altônia - PR,População residente estimada,18634
+4100608,Alto Paraná - PR,População residente estimada,14183
+4100707,Alto Piquiri - PR,População residente estimada,9771
+4100806,Alvorada do Sul - PR,População residente estimada,10481
+4100905,Amaporã - PR,População residente estimada,4688
+4101002,Ampére - PR,População residente estimada,20337
+4101051,Anahy - PR,População residente estimada,2971
+4101101,Andirá - PR,População residente estimada,19989
+4101150,Ângulo - PR,População residente estimada,3357
+4101200,Antonina - PR,População residente estimada,18140
+4101309,Antônio Olinto - PR,População residente estimada,7048
+4101408,Apucarana - PR,População residente estimada,134910
+4101507,Arapongas - PR,População residente estimada,124838
+4101606,Arapoti - PR,População residente estimada,26325
+4101655,Arapuã - PR,População residente estimada,3573
+4101705,Araruna - PR,População residente estimada,14894
+4101804,Araucária - PR,População residente estimada,162247
+4101853,Ariranha do Ivaí - PR,População residente estimada,2351
+4101903,Assaí - PR,População residente estimada,13477
+4102000,Assis Chateaubriand - PR,População residente estimada,38357
+4102109,Astorga - PR,População residente estimada,26203
+4102208,Atalaia - PR,População residente estimada,4046
+4102307,Balsa Nova - PR,População residente estimada,13867
+4102406,Bandeirantes - PR,População residente estimada,31747
+4102505,Barbosa Ferraz - PR,População residente estimada,10580
+4102604,Barracão - PR,População residente estimada,9903
+4102703,Barra do Jacaré - PR,População residente estimada,2872
+4102752,Bela Vista da Caroba - PR,População residente estimada,4122
+4102802,Bela Vista do Paraíso - PR,População residente estimada,14982
+4102901,Bituruna - PR,População residente estimada,15650
+4103008,Boa Esperança - PR,População residente estimada,4595
+4103024,Boa Esperança do Iguaçu - PR,População residente estimada,2421
+4103040,Boa Ventura de São Roque - PR,População residente estimada,6241
+4103057,Boa Vista da Aparecida - PR,População residente estimada,8023
+4103107,Bocaiúva do Sul - PR,População residente estimada,13405
+4103156,Bom Jesus do Sul - PR,População residente estimada,4072
+4103206,Bom Sucesso - PR,População residente estimada,6674
+4103222,Bom Sucesso do Sul - PR,População residente estimada,3244
+4103305,Borrazópolis - PR,População residente estimada,7818
+4103354,Braganey - PR,População residente estimada,4745
+4103370,Brasilândia do Sul - PR,População residente estimada,3861
+4103404,Cafeara - PR,População residente estimada,2648
+4103453,Cafelândia - PR,População residente estimada,20145
+4103479,Cafezal do Sul - PR,População residente estimada,4580
+4103503,Califórnia - PR,População residente estimada,8963
+4103602,Cambará - PR,População residente estimada,23393
+4103701,Cambé - PR,População residente estimada,110923
+4103800,Cambira - PR,População residente estimada,10045
+4103909,Campina da Lagoa - PR,População residente estimada,16014
+4103958,Campina do Simão - PR,População residente estimada,3954
+4104006,Campina Grande do Sul - PR,População residente estimada,50600
+4104055,Campo Bonito - PR,População residente estimada,3997
+4104105,Campo do Tenente - PR,População residente estimada,7693
+4104204,Campo Largo - PR,População residente estimada,144504
+4104253,Campo Magro - PR,População residente estimada,31888
+4104303,Campo Mourão - PR,População residente estimada,104122
+4104402,Cândido de Abreu - PR,População residente estimada,15081
+4104428,Candói - PR,População residente estimada,15174
+4104451,Cantagalo - PR,População residente estimada,10672
+4104501,Capanema - PR,População residente estimada,21088
+4104600,Capitão Leônidas Marques - PR,População residente estimada,14776
+4104659,Carambeí - PR,População residente estimada,24469
+4104709,Carlópolis - PR,População residente estimada,17788
+4104808,Cascavel - PR,População residente estimada,368195
+4104907,Castro - PR,População residente estimada,75644
+4105003,Catanduvas - PR,População residente estimada,10621
+4105102,Centenário do Sul - PR,População residente estimada,10903
+4105201,Cerro Azul - PR,População residente estimada,16287
+4105300,Céu Azul - PR,População residente estimada,11255
+4105409,Chopinzinho - PR,População residente estimada,21604
+4105508,Cianorte - PR,População residente estimada,82988
+4105607,Cidade Gaúcha - PR,População residente estimada,11705
+4105706,Clevelândia - PR,População residente estimada,14833
+4105805,Colombo - PR,População residente estimada,241672
+4105904,Colorado - PR,População residente estimada,23313
+4106001,Congonhinhas - PR,População residente estimada,8445
+4106100,Conselheiro Mairinck - PR,População residente estimada,3474
+4106209,Contenda - PR,População residente estimada,20006
+4106308,Corbélia - PR,População residente estimada,17933
+4106407,Cornélio Procópio - PR,População residente estimada,45720
+4106456,Coronel Domingos Soares - PR,População residente estimada,5427
+4106506,Coronel Vivida - PR,População residente estimada,24010
+4106555,Corumbataí do Sul - PR,População residente estimada,3770
+4106571,Cruzeiro do Iguaçu - PR,População residente estimada,4129
+4106605,Cruzeiro do Oeste - PR,População residente estimada,24859
+4106704,Cruzeiro do Sul - PR,População residente estimada,4543
+4106803,Cruz Machado - PR,População residente estimada,15759
+4106852,Cruzmaltina - PR,População residente estimada,2870
+4106902,Curitiba - PR,População residente estimada,1830795
+4107009,Curiúva - PR,População residente estimada,13784
+4107108,Diamante do Norte - PR,População residente estimada,5139
+4107124,Diamante do Sul - PR,População residente estimada,3147
+4107157,Diamante D'Oeste - PR,População residente estimada,4513
+4107207,Dois Vizinhos - PR,População residente estimada,47589
+4107256,Douradina - PR,População residente estimada,9631
+4107306,Doutor Camargo - PR,População residente estimada,6517
+4107405,Enéas Marques - PR,População residente estimada,6146
+4107504,Engenheiro Beltrão - PR,População residente estimada,12347
+4107520,Esperança Nova - PR,População residente estimada,1852
+4107538,Entre Rios do Oeste - PR,População residente estimada,4770
+4107546,Espigão Alto do Iguaçu - PR,População residente estimada,4880
+4107553,Farol - PR,População residente estimada,2994
+4107603,Faxinal - PR,População residente estimada,16596
+4107652,Fazenda Rio Grande - PR,População residente estimada,165943
+4107702,Fênix - PR,População residente estimada,4488
+4107736,Fernandes Pinheiro - PR,População residente estimada,6400
+4107751,Figueira - PR,População residente estimada,8129
+4107801,Floraí - PR,População residente estimada,4805
+4107850,Flor da Serra do Sul - PR,População residente estimada,4342
+4107900,Floresta - PR,População residente estimada,11522
+4108007,Florestópolis - PR,População residente estimada,11653
+4108106,Flórida - PR,População residente estimada,2711
+4108205,Formosa do Oeste - PR,População residente estimada,7763
+4108304,Foz do Iguaçu - PR,População residente estimada,297352
+4108320,Francisco Alves - PR,População residente estimada,8573
+4108403,Francisco Beltrão - PR,População residente estimada,102312
+4108452,Foz do Jordão - PR,População residente estimada,4893
+4108502,General Carneiro - PR,População residente estimada,10691
+4108551,Godoy Moreira - PR,População residente estimada,2911
+4108601,Goioerê - PR,População residente estimada,28931
+4108650,Goioxim - PR,População residente estimada,6469
+4108700,Grandes Rios - PR,População residente estimada,5527
+4108809,Guaíra - PR,População residente estimada,33058
+4108908,Guairaçá - PR,População residente estimada,6762
+4108957,Guamiranga - PR,População residente estimada,7916
+4109005,Guapirama - PR,População residente estimada,4857
+4109104,Guaporema - PR,População residente estimada,2210
+4109203,Guaraci - PR,População residente estimada,4743
+4109302,Guaraniaçu - PR,População residente estimada,13770
+4109401,Guarapuava - PR,População residente estimada,189630
+4109500,Guaraqueçaba - PR,População residente estimada,7446
+4109609,Guaratuba - PR,População residente estimada,44913
+4109658,Honório Serpa - PR,População residente estimada,4803
+4109708,Ibaiti - PR,População residente estimada,29464
+4109757,Ibema - PR,População residente estimada,6343
+4109807,Ibiporã - PR,População residente estimada,53276
+4109906,Icaraíma - PR,População residente estimada,9149
+4110003,Iguaraçu - PR,População residente estimada,5693
+4110052,Iguatu - PR,População residente estimada,2156
+4110078,Imbaú - PR,População residente estimada,15068
+4110102,Imbituva - PR,População residente estimada,30849
+4110201,Inácio Martins - PR,População residente estimada,9555
+4110300,Inajá - PR,População residente estimada,2481
+4110409,Indianópolis - PR,População residente estimada,4544
+4110508,Ipiranga - PR,População residente estimada,14317
+4110607,Iporã - PR,População residente estimada,16102
+4110656,Iracema do Oeste - PR,População residente estimada,2328
+4110706,Irati - PR,População residente estimada,61004
+4110805,Iretama - PR,População residente estimada,10832
+4110904,Itaguajé - PR,População residente estimada,4530
+4110953,Itaipulândia - PR,População residente estimada,12116
+4111001,Itambaracá - PR,População residente estimada,5819
+4111100,Itambé - PR,População residente estimada,6228
+4111209,Itapejara d'Oeste - PR,População residente estimada,12869
+4111258,Itaperuçu - PR,População residente estimada,33310
+4111308,Itaúna do Sul - PR,População residente estimada,3607
+4111407,Ivaí - PR,População residente estimada,13476
+4111506,Ivaiporã - PR,População residente estimada,33566
+4111555,Ivaté - PR,População residente estimada,6788
+4111605,Ivatuba - PR,População residente estimada,2685
+4111704,Jaboti - PR,População residente estimada,5655
+4111803,Jacarezinho - PR,População residente estimada,41493
+4111902,Jaguapitã - PR,População residente estimada,15908
+4112009,Jaguariaíva - PR,População residente estimada,36384
+4112108,Jandaia do Sul - PR,População residente estimada,21930
+4112207,Janiópolis - PR,População residente estimada,5807
+4112306,Japira - PR,População residente estimada,5054
+4112405,Japurá - PR,População residente estimada,9393
+4112504,Jardim Alegre - PR,População residente estimada,12138
+4112603,Jardim Olinda - PR,População residente estimada,1349
+4112702,Jataizinho - PR,População residente estimada,11996
+4112751,Jesuítas - PR,População residente estimada,10954
+4112801,Joaquim Távora - PR,População residente estimada,12341
+4112900,Jundiaí do Sul - PR,População residente estimada,3372
+4112959,Juranda - PR,População residente estimada,7899
+4113007,Jussara - PR,População residente estimada,6786
+4113106,Kaloré - PR,População residente estimada,4666
+4113205,Lapa - PR,População residente estimada,45878
+4113254,Laranjal - PR,População residente estimada,5525
+4113304,Laranjeiras do Sul - PR,População residente estimada,33179
+4113403,Leópolis - PR,População residente estimada,3725
+4113429,Lidianópolis - PR,População residente estimada,3987
+4113452,Lindoeste - PR,População residente estimada,5217
+4113502,Loanda - PR,População residente estimada,23966
+4113601,Lobato - PR,População residente estimada,4707
+4113700,Londrina - PR,População residente estimada,581382
+4113734,Luiziana - PR,População residente estimada,6659
+4113759,Lunardelli - PR,População residente estimada,4864
+4113809,Lupionópolis - PR,População residente estimada,4929
+4113908,Mallet - PR,População residente estimada,13681
+4114005,Mamborê - PR,População residente estimada,13551
+4114104,Mandaguaçu - PR,População residente estimada,34521
+4114203,Mandaguari - PR,População residente estimada,38313
+4114302,Mandirituba - PR,População residente estimada,29104
+4114351,Manfrinópolis - PR,População residente estimada,2790
+4114401,Mangueirinha - PR,População residente estimada,16737
+4114500,Manoel Ribas - PR,População residente estimada,14675
+4114609,Marechal Cândido Rondon - PR,População residente estimada,58734
+4114708,Maria Helena - PR,População residente estimada,5926
+4114807,Marialva - PR,População residente estimada,44749
+4114906,Marilândia do Sul - PR,População residente estimada,8761
+4115002,Marilena - PR,População residente estimada,7450
+4115101,Mariluz - PR,População residente estimada,9910
+4115200,Maringá - PR,População residente estimada,429660
+4115309,Mariópolis - PR,População residente estimada,6506
+4115358,Maripá - PR,População residente estimada,6824
+4115408,Marmeleiro - PR,População residente estimada,16605
+4115457,Marquinho - PR,População residente estimada,4491
+4115507,Marumbi - PR,População residente estimada,4780
+4115606,Matelândia - PR,População residente estimada,19223
+4115705,Matinhos - PR,População residente estimada,42063
+4115739,Mato Rico - PR,População residente estimada,3249
+4115754,Mauá da Serra - PR,População residente estimada,9689
+4115804,Medianeira - PR,População residente estimada,57910
+4115853,Mercedes - PR,População residente estimada,6194
+4115903,Mirador - PR,População residente estimada,2248
+4116000,Miraselva - PR,População residente estimada,2017
+4116059,Missal - PR,População residente estimada,11423
+4116109,Moreira Sales - PR,População residente estimada,11043
+4116208,Morretes - PR,População residente estimada,19089
+4116307,Munhoz de Melo - PR,População residente estimada,4057
+4116406,Nossa Senhora das Graças - PR,População residente estimada,3669
+4116505,Nova Aliança do Ivaí - PR,População residente estimada,1322
+4116604,Nova América da Colina - PR,População residente estimada,3286
+4116703,Nova Aurora - PR,População residente estimada,14331
+4116802,Nova Cantu - PR,População residente estimada,6739
+4116901,Nova Esperança - PR,População residente estimada,27142
+4116950,Nova Esperança do Sudoeste - PR,População residente estimada,5783
+4117008,Nova Fátima - PR,População residente estimada,7140
+4117057,Nova Laranjeiras - PR,População residente estimada,12298
+4117107,Nova Londrina - PR,População residente estimada,13074
+4117206,Nova Olímpia - PR,População residente estimada,5982
+4117214,Nova Santa Bárbara - PR,População residente estimada,4308
+4117222,Nova Santa Rosa - PR,População residente estimada,8581
+4117255,Nova Prata do Iguaçu - PR,População residente estimada,13340
+4117271,Nova Tebas - PR,População residente estimada,6852
+4117297,Novo Itacolomi - PR,População residente estimada,3227
+4117305,Ortigueira - PR,População residente estimada,24706
+4117404,Ourizona - PR,População residente estimada,3193
+4117453,Ouro Verde do Oeste - PR,População residente estimada,7102
+4117503,Paiçandu - PR,População residente estimada,48695
+4117602,Palmas - PR,População residente estimada,50238
+4117701,Palmeira - PR,População residente estimada,34948
+4117800,Palmital - PR,População residente estimada,12879
+4117909,Palotina - PR,População residente estimada,37039
+4118006,Paraíso do Norte - PR,População residente estimada,13728
+4118105,Paranacity - PR,População residente estimada,9549
+4118204,Paranaguá - PR,População residente estimada,150104
+4118303,Paranapoema - PR,População residente estimada,2352
+4118402,Paranavaí - PR,População residente estimada,96209
+4118451,Pato Bragado - PR,População residente estimada,6004
+4118501,Pato Branco - PR,População residente estimada,97821
+4118600,Paula Freitas - PR,População residente estimada,5706
+4118709,Paulo Frontin - PR,População residente estimada,6414
+4118808,Peabiru - PR,População residente estimada,13494
+4118857,Perobal - PR,População residente estimada,7599
+4118907,Pérola - PR,População residente estimada,12389
+4119004,Pérola d'Oeste - PR,População residente estimada,6218
+4119103,Piên - PR,População residente estimada,14409
+4119152,Pinhais - PR,População residente estimada,131255
+4119202,Pinhalão - PR,População residente estimada,6676
+4119251,Pinhal de São Bento - PR,População residente estimada,2805
+4119301,Pinhão - PR,População residente estimada,30451
+4119400,Piraí do Sul - PR,População residente estimada,23977
+4119509,Piraquara - PR,População residente estimada,127433
+4119608,Pitanga - PR,População residente estimada,34527
+4119657,Pitangueiras - PR,População residente estimada,3141
+4119707,Planaltina do Paraná - PR,População residente estimada,4125
+4119806,Planalto - PR,População residente estimada,14722
+4119905,Ponta Grossa - PR,População residente estimada,375632
+4119954,Pontal do Paraná - PR,População residente estimada,33131
+4120002,Porecatu - PR,População residente estimada,11271
+4120101,Porto Amazonas - PR,População residente estimada,4072
+4120150,Porto Barreiro - PR,População residente estimada,3057
+4120200,Porto Rico - PR,População residente estimada,3370
+4120309,Porto Vitória - PR,População residente estimada,3515
+4120333,Prado Ferreira - PR,População residente estimada,3816
+4120358,Pranchita - PR,População residente estimada,5831
+4120408,Presidente Castelo Branco - PR,População residente estimada,4304
+4120507,Primeiro de Maio - PR,População residente estimada,10064
+4120606,Prudentópolis - PR,População residente estimada,50946
+4120655,Quarto Centenário - PR,População residente estimada,4127
+4120705,Quatiguá - PR,População residente estimada,8426
+4120804,Quatro Barras - PR,População residente estimada,25397
+4120853,Quatro Pontes - PR,População residente estimada,4672
+4120903,Quedas do Iguaçu - PR,População residente estimada,31423
+4121000,Querência do Norte - PR,População residente estimada,10625
+4121109,Quinta do Sol - PR,População residente estimada,5052
+4121208,Quitandinha - PR,População residente estimada,18882
+4121257,Ramilândia - PR,População residente estimada,4279
+4121307,Rancho Alegre - PR,População residente estimada,3472
+4121356,Rancho Alegre D'Oeste - PR,População residente estimada,2623
+4121406,Realeza - PR,População residente estimada,20097
+4121505,Rebouças - PR,População residente estimada,14825
+4121604,Renascença - PR,População residente estimada,6945
+4121703,Reserva - PR,População residente estimada,24878
+4121752,Reserva do Iguaçu - PR,População residente estimada,6493
+4121802,Ribeirão Claro - PR,População residente estimada,12856
+4121901,Ribeirão do Pinhal - PR,População residente estimada,13158
+4122008,Rio Azul - PR,População residente estimada,14174
+4122107,Rio Bom - PR,População residente estimada,3214
+4122156,Rio Bonito do Iguaçu - PR,População residente estimada,14297
+4122172,Rio Branco do Ivaí - PR,População residente estimada,3841
+4122206,Rio Branco do Sul - PR,População residente estimada,40308
+4122305,Rio Negro - PR,População residente estimada,31951
+4122404,Rolândia - PR,População residente estimada,75818
+4122503,Roncador - PR,População residente estimada,11339
+4122602,Rondon - PR,População residente estimada,9255
+4122651,Rosário do Ivaí - PR,População residente estimada,5484
+4122701,Sabáudia - PR,População residente estimada,9511
+4122800,Salgado Filho - PR,População residente estimada,4090
+4122909,Salto do Itararé - PR,População residente estimada,5214
+4123006,Salto do Lontra - PR,População residente estimada,15706
+4123105,Santa Amélia - PR,População residente estimada,3358
+4123204,Santa Cecília do Pavão - PR,População residente estimada,3357
+4123303,Santa Cruz de Monte Castelo - PR,População residente estimada,8840
+4123402,Santa Fé - PR,População residente estimada,11730
+4123501,Santa Helena - PR,População residente estimada,26461
+4123600,Santa Inês - PR,População residente estimada,1745
+4123709,Santa Isabel do Ivaí - PR,População residente estimada,9043
+4123808,Santa Izabel do Oeste - PR,População residente estimada,14462
+4123824,Santa Lúcia - PR,População residente estimada,3638
+4123857,Santa Maria do Oeste - PR,População residente estimada,9869
+4123907,Santa Mariana - PR,População residente estimada,10941
+4123956,Santa Mônica - PR,População residente estimada,3361
+4124004,Santana do Itararé - PR,População residente estimada,5646
+4124020,Santa Tereza do Oeste - PR,População residente estimada,13938
+4124053,Santa Terezinha de Itaipu - PR,População residente estimada,25300
+4124103,Santo Antônio da Platina - PR,População residente estimada,45628
+4124202,Santo Antônio do Caiuá - PR,População residente estimada,2474
+4124301,Santo Antônio do Paraíso - PR,População residente estimada,2088
+4124400,Santo Antônio do Sudoeste - PR,População residente estimada,24980
+4124509,Santo Inácio - PR,População residente estimada,6463
+4124608,São Carlos do Ivaí - PR,População residente estimada,6727
+4124707,São Jerônimo da Serra - PR,População residente estimada,10884
+4124806,São João - PR,População residente estimada,12297
+4124905,São João do Caiuá - PR,População residente estimada,5607
+4125001,São João do Ivaí - PR,População residente estimada,10639
+4125100,São João do Triunfo - PR,População residente estimada,13899
+4125209,São Jorge d'Oeste - PR,População residente estimada,9587
+4125308,São Jorge do Ivaí - PR,População residente estimada,5170
+4125357,São Jorge do Patrocínio - PR,População residente estimada,6690
+4125407,São José da Boa Vista - PR,População residente estimada,6023
+4125456,São José das Palmeiras - PR,População residente estimada,4031
+4125506,São José dos Pinhais - PR,População residente estimada,349880
+4125555,São Manoel do Paraná - PR,População residente estimada,2176
+4125605,São Mateus do Sul - PR,População residente estimada,43490
+4125704,São Miguel do Iguaçu - PR,População residente estimada,30416
+4125753,São Pedro do Iguaçu - PR,População residente estimada,5730
+4125803,São Pedro do Ivaí - PR,População residente estimada,8514
+4125902,São Pedro do Paraná - PR,População residente estimada,2726
+4126009,São Sebastião da Amoreira - PR,População residente estimada,8063
+4126108,São Tomé - PR,População residente estimada,5282
+4126207,Sapopema - PR,População residente estimada,6778
+4126256,Sarandi - PR,População residente estimada,128106
+4126272,Saudade do Iguaçu - PR,População residente estimada,6413
+4126306,Sengés - PR,População residente estimada,17256
+4126355,Serranópolis do Iguaçu - PR,População residente estimada,5161
+4126405,Sertaneja - PR,População residente estimada,5654
+4126504,Sertanópolis - PR,População residente estimada,16210
+4126603,Siqueira Campos - PR,População residente estimada,24031
+4126652,Sulina - PR,População residente estimada,3498
+4126678,Tamarana - PR,População residente estimada,10540
+4126702,Tamboara - PR,População residente estimada,4986
+4126801,Tapejara - PR,População residente estimada,16326
+4126900,Tapira - PR,População residente estimada,5807
+4127007,Teixeira Soares - PR,População residente estimada,9540
+4127106,Telêmaco Borba - PR,População residente estimada,77479
+4127205,Terra Boa - PR,População residente estimada,18168
+4127304,Terra Rica - PR,População residente estimada,14961
+4127403,Terra Roxa - PR,População residente estimada,18636
+4127502,Tibagi - PR,População residente estimada,20374
+4127601,Tijucas do Sul - PR,População residente estimada,18458
+4127700,Toledo - PR,População residente estimada,160701
+4127809,Tomazina - PR,População residente estimada,8523
+4127858,Três Barras do Paraná - PR,População residente estimada,11157
+4127882,Tunas do Paraná - PR,População residente estimada,6304
+4127908,Tuneiras do Oeste - PR,População residente estimada,8067
+4127957,Tupãssi - PR,População residente estimada,8208
+4127965,Turvo - PR,População residente estimada,14101
+4128005,Ubiratã - PR,População residente estimada,25732
+4128104,Umuarama - PR,População residente estimada,123059
+4128203,União da Vitória - PR,População residente estimada,56560
+4128302,Uniflor - PR,População residente estimada,2106
+4128401,Uraí - PR,População residente estimada,10308
+4128500,Wenceslau Braz - PR,População residente estimada,19398
+4128534,Ventania - PR,População residente estimada,9760
+4128559,Vera Cruz do Oeste - PR,População residente estimada,8178
+4128609,Verê - PR,População residente estimada,8077
+4128625,Alto Paraíso - PR,População residente estimada,3067
+4128633,Doutor Ulysses - PR,População residente estimada,5744
+4128658,Virmond - PR,População residente estimada,3828
+4128708,Vitorino - PR,População residente estimada,10549
+4128807,Xambrê - PR,População residente estimada,5835

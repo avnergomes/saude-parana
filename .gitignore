@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+dashboard/node_modules/
+
+# Build outputs
+dashboard/dist/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.eggs/
+*.egg
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Data (raw files podem ser grandes)
+data/raw/*.dbc
+data/raw/*.parquet
+data/raw/*.zip

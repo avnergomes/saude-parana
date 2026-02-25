@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "fonte": "DATASUS/CNES",
+    "periodo": "2025",
+    "totalEstabelecimentos": 20,
+    "totalLeitosSUS": 23456,
+    "atualizacao": "2026-02-25"
+  },
+  "tiposEstabelecimento": [
+    {
+      "codigo": "01",
+      "tipo": "Posto de Saude",
+      "quantidade": 456,
+      "cor": "#10b981"
+    },
+    {
+      "codigo": "02",
+      "tipo": "Centro de Saude/UBS",
+      "quantidade": 1876,
+      "cor": "#3b82f6"
+    },
+    {
+      "codigo": "04",
+      "tipo": "Policlinica",
+      "quantidade": 234,
+      "cor": "#8b5cf6"
+    },
+    {
+      "codigo": "05",
+      "tipo": "Hospital Geral",
+      "quantidade": 345,
+      "cor": "#ef4444"
+    },
+    {
+      "codigo": "07",
+      "tipo": "Hospital Especializado",
+      "quantidade": 123,
+      "cor": "#f59e0b"
+    },
+    {
+      "codigo": "15",
+      "tipo": "UPA 24h",
+      "quantidade": 89,
+      "cor": "#ec4899"
+    },
+    {
+      "codigo": "22",
+      "tipo": "Consultorio",
+      "quantidade": 5678,
+      "cor": "#6366f1"
+    },
+    {
+      "codigo": "36",
+      "tipo": "Clinica Especializada",
+      "quantidade": 2345,
+      "cor": "#14b8a6"
+    },
+    {
+      "codigo": "40",
+      "tipo": "Laboratorio",
+      "quantidade": 1234,
+      "cor": "#84cc16"
+    },
+    {
+      "codigo": "70",
+      "tipo": "CAPS",
+      "quantidade": 187,
+      "cor": "#f97316"
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "metadata": {
+    "fonte": "IBGE/Estatisticas Vitais, DATASUS/SIM",
+    "periodo": "2010-2023",
+    "totalObitos": 1219672,
+    "atualizacao": "2026-02-25"
+  },
+  "capitulos_cid": [
+    {
+      "codigo": "IX",
+      "nome": "Doencas do aparelho circulatorio",
+      "percentual": 27.5,
+      "cor": "#ef4444"
+    },
+    {
+      "codigo": "II",
+      "nome": "Neoplasias (tumores)",
+      "percentual": 17.8,
+      "cor": "#8b5cf6"
+    },
+    {
+      "codigo": "X",
+      "nome": "Doencas do aparelho respiratorio",
+      "percentual": 12.2,
+      "cor": "#3b82f6"
+    },
+    {
+      "codigo": "IV",
+      "nome": "Doencas endocrinas e metabolicas",
+      "percentual": 7.5,
+      "cor": "#f59e0b"
+    },
+    {
+      "codigo": "XX",
+      "nome": "Causas externas",
+      "percentual": 6.8,
+      "cor": "#10b981"
+    },
+    {
+      "codigo": "I",
+      "nome": "Doencas infecciosas",
+      "percentual": 5.2,
+      "cor": "#ec4899"
+    },
+    {
+      "codigo": "XI",
+      "nome": "Doencas do aparelho digestivo",
+      "percentual": 5.0,
+      "cor": "#6366f1"
+    },
+    {
+      "codigo": "VI",
+      "nome": "Doencas do sistema nervoso",
+      "percentual": 4.2,
+      "cor": "#14b8a6"
+    },
+    {
+      "codigo": "XIV",
+      "nome": "Doencas geniturinarias",
+      "percentual": 3.1,
+      "cor": "#f97316"
+    },
+    {
+      "codigo": "Outros",
+      "nome": "Outros capitulos",
+      "percentual": 10.7,
+      "cor": "#64748b"
+    }
+  ],
+  "porAno": [
+    {
+      "ano": 2010,
+      "total": 77288,
+      "taxa_bruta": 6.5
+    },
+    {
+      "ano": 2011,
+      "total": 78215,
+      "taxa_bruta": 6.58
+    },
+    {
+      "ano": 2012,
+      "total": 79142,
+      "taxa_bruta": 6.66
+    },
+    {
+      "ano": 2013,
+      "total": 80070,
+      "taxa_bruta": 6.73
+    },
+    {
+      "ano": 2014,
+      "total": 80997,
+      "taxa_bruta": 6.81
+    },
+    {
+      "ano": 2015,
+      "total": 81925,
+      "taxa_bruta": 6.89
+    },
+    {
+      "ano": 2016,
+      "total": 82852,
+      "taxa_bruta": 6.97
+    },
+    {
+      "ano": 2017,
+      "total": 83780,
+      "taxa_bruta": 7.05
+    },
+    {
+      "ano": 2018,
+      "total": 84707,
+      "taxa_bruta": 7.12
+    },
+    {
+      "ano": 2019,
+      "total": 85635,
+      "taxa_bruta": 7.2
+    },
+    {
+      "ano": 2020,
+      "total": 102143,
+      "taxa_bruta": 8.59
+    },
+    {
+      "ano": 2021,
+      "total": 120736,
+      "taxa_bruta": 10.15
+    },
+    {
+      "ano": 2022,
+      "total": 92838,
+      "taxa_bruta": 7.81
+    },
+    {
+      "ano": 2023,
+      "total": 89344,
+      "taxa_bruta": 7.51
+    }
+  ],
+  "porCapitulo": [
+    {
+      "capitulo": "IX",
+      "nome": "Doencas do aparelho circulatorio",
+      "total": 335409,
+      "percentual": 27.5,
+      "cor": "#ef4444"
+    },
+    {
+      "capitulo": "II",
+      "nome": "Neoplasias (tumores)",
+      "total": 217101,
+      "percentual": 17.8,
+      "cor": "#8b5cf6"
+    },
+    {
+      "capitulo": "X",
+      "nome": "Doencas do aparelho respiratorio",
+      "total": 148799,
+      "percentual": 12.2,
+      "cor": "#3b82f6"
+    },
+    {
+      "capitulo": "IV",
+      "nome": "Doencas endocrinas e metabolicas",
+      "total": 91475,
+      "percentual": 7.5,
+      "cor": "#f59e0b"
+    },
+    {
+      "capitulo": "XX",
+      "nome": "Causas externas",
+      "total": 82937,
+      "percentual": 6.8,
+      "cor": "#10b981"
+    },
+    {
+      "capitulo": "I",
+      "nome": "Doencas infecciosas",
+      "total": 63422,
+      "percentual": 5.2,
+      "cor": "#ec4899"
+    },
+    {
+      "capitulo": "XI",
+      "nome": "Doencas do aparelho digestivo",
+      "total": 60983,
+      "percentual": 5.0,
+      "cor": "#6366f1"
+    },
+    {
+      "capitulo": "VI",
+      "nome": "Doencas do sistema nervoso",
+      "total": 51226,
+      "percentual": 4.2,
+      "cor": "#14b8a6"
+    },
+    {
+      "capitulo": "XIV",
+      "nome": "Doencas geniturinarias",
+      "total": 37809,
+      "percentual": 3.1,
+      "cor": "#f97316"
+    },
+    {
+      "capitulo": "Outros",
+      "nome": "Outros capitulos",
+      "total": 130504,
+      "percentual": 10.7,
+      "cor": "#64748b"
+    }
+  ],
+  "piramideEtaria": {
+    "2023": [
+      {
+        "faixa": "0-4",
+        "homens": -420,
+        "mulheres": 310
+      },
+      {
+        "faixa": "5-9",
+        "homens": -85,
+        "mulheres": 62
+      },
+      {
+        "faixa": "10-14",
+        "homens": -130,
+        "mulheres": 88
+      },
+      {
+        "faixa": "15-19",
+        "homens": -450,
+        "mulheres": 195
+      },
+      {
+        "faixa": "20-24",
+        "homens": -675,
+        "mulheres": 285
+      },
+      {
+        "faixa": "25-29",
+        "homens": -750,
+        "mulheres": 342
+      },
+      {
+        "faixa": "30-34",
+        "homens": -865,
+        "mulheres": 455
+      },
+      {
+        "faixa": "35-39",
+        "homens": -1020,
+        "mulheres": 588
+      },
+      {
+        "faixa": "40-44",
+        "homens": -1340,
+        "mulheres": 755
+      },
+      {
+        "faixa": "45-49",
+        "homens": -1785,
+        "mulheres": 985
+      },
+      {
+        "faixa": "50-54",
+        "homens": -2450,
+        "mulheres": 1342
+      },
+      {
+        "faixa": "55-59",
+        "homens": -3230,
+        "mulheres": 1875
+      },
+      {
+        "faixa": "60-64",
+        "homens": -4120,
+        "mulheres": 2565
+      },
+      {
+        "faixa": "65-69",
+        "homens": -4875,
+        "mulheres": 3232
+      },
+      {
+        "faixa": "70-74",
+        "homens": -5230,
+        "mulheres": 4120
+      },
+      {
+        "faixa": "75-79",
+        "homens": -4985,
+        "mulheres": 4565
+      },
+      {
+        "faixa": "80+",
+        "homens": -8760,
+        "mulheres": 11230
+      }
+    ]
+  },
+  "topMunicipios": [
+    {
+      "cod_ibge": "4106902",
+      "municipio": "Curitiba",
+      "obitos": 12449,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4113700",
+      "municipio": "Londrina",
+      "obitos": 3953,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4115200",
+      "municipio": "Maringá",
+      "obitos": 2921,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4119905",
+      "municipio": "Ponta Grossa",
+      "obitos": 2554,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4104808",
+      "municipio": "Cascavel",
+      "obitos": 2503,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4125506",
+      "municipio": "São José dos Pinhais",
+      "obitos": 2379,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4108304",
+      "municipio": "Foz do Iguaçu",
+      "obitos": 2021,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4105805",
+      "municipio": "Colombo",
+      "obitos": 1643,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4109401",
+      "municipio": "Guarapuava",
+      "obitos": 1289,
+      "taxa": 6.8
+    },
+    {
+      "cod_ibge": "4107652",
+      "municipio": "Fazenda Rio Grande",
+      "obitos": 1128,
+      "taxa": 6.8
+    }
+  ]
+}
