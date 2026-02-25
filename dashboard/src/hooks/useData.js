@@ -205,10 +205,53 @@ export function useFilteredVacinacao(vacinacao, filters) {
 }
 
 /**
- * Hook de agregações gerais para KPIs
+ * Hook para filtrar dados por municipios (baseado em regional, mesorregiao ou municipio selecionado)
  */
-export function useAggregations(data, filters) {
+export function useFilteredMunicipios(geoMap, filters) {
+  return useMemo(() => {
+    if (!geoMap) return { codigos: [], nomes: [] };
+
+    const { regional, mesorregiao, municipio, municipioCodigo } = filters || {};
+
+    // Se um municipio especifico foi selecionado
+    if (municipioCodigo) {
+      const mun = geoMap.municipioPorCodigo?.[municipioCodigo];
+      return {
+        codigos: [municipioCodigo],
+        nomes: mun ? [mun.nome] : [municipio]
+      };
+    }
+
+    // Filtrar por regional
+    if (regional && geoMap.municipiosPorRegional?.[regional]) {
+      const lista = geoMap.municipiosPorRegional[regional];
+      return {
+        codigos: lista.map(m => m.cod_ibge),
+        nomes: lista.map(m => m.nome)
+      };
+    }
+
+    // Filtrar por mesorregiao
+    if (mesorregiao && geoMap.municipiosPorMesorregiao?.[mesorregiao]) {
+      const lista = geoMap.municipiosPorMesorregiao[mesorregiao];
+      return {
+        codigos: lista.map(m => m.cod_ibge),
+        nomes: lista.map(m => m.nome)
+      };
+    }
+
+    // Todos os municipios
+    return { codigos: [], nomes: [] }; // vazio = sem filtro
+  }, [geoMap, filters]);
+}
+
+/**
+ * Hook de agregações gerais para KPIs
+ * Filtra dados por ano e localidade (regional/mesorregiao/municipio)
+ */
+export function useAggregations(data, filters, geoMap) {
   const { mortalidade, internacoes, vacinacao, estabelecimentos, repassesSus } = data;
+  const filteredMunicipios = useFilteredMunicipios(geoMap, filters);
 
   return useMemo(() => {
     const kpis = {
@@ -220,34 +263,70 @@ export function useAggregations(data, filters) {
       repassePerCapita: { valor: 0, variacao: null }
     };
 
-    // Mortalidade
+    const { anoMin, anoMax } = filters || {};
+    const hasMunicipioFilter = filteredMunicipios.codigos.length > 0;
+
+    // Mortalidade - filtrar por ano e municipio se houver
     if (mortalidade?.porAno?.length > 0) {
-      const ultimo = mortalidade.porAno[mortalidade.porAno.length - 1];
-      const penultimo = mortalidade.porAno[mortalidade.porAno.length - 2];
-      kpis.obitos.valor = ultimo?.total || 0;
-      if (penultimo) {
-        kpis.obitos.variacao = ((ultimo.total - penultimo.total) / penultimo.total) * 100;
+      let porAno = mortalidade.porAno;
+
+      // Filtrar por ano
+      if (anoMin) porAno = porAno.filter(item => item.ano >= anoMin);
+      if (anoMax) porAno = porAno.filter(item => item.ano <= anoMax);
+
+      if (porAno.length > 0) {
+        const ultimo = porAno[porAno.length - 1];
+        const penultimo = porAno.length > 1 ? porAno[porAno.length - 2] : null;
+
+        // Se filtro de municipio, usar dados de topMunicipios
+        if (hasMunicipioFilter && mortalidade.topMunicipios) {
+          const filtered = mortalidade.topMunicipios.filter(m =>
+            filteredMunicipios.codigos.includes(m.cod_ibge)
+          );
+          kpis.obitos.valor = filtered.reduce((sum, m) => sum + (m.obitos || 0), 0);
+        } else {
+          kpis.obitos.valor = ultimo?.total || 0;
+          if (penultimo) {
+            kpis.obitos.variacao = ((ultimo.total - penultimo.total) / penultimo.total) * 100;
+          }
+        }
       }
     }
 
-    // Internações
+    // Internações - filtrar por ano
     if (internacoes?.porAno?.length > 0) {
-      const ultimo = internacoes.porAno[internacoes.porAno.length - 1];
-      const penultimo = internacoes.porAno[internacoes.porAno.length - 2];
-      kpis.internacoes.valor = ultimo?.internacoes || 0;
-      kpis.internacoes.valorSus = ultimo?.valor_sus || 0;
-      if (penultimo) {
-        kpis.internacoes.variacao = ((ultimo.internacoes - penultimo.internacoes) / penultimo.internacoes) * 100;
+      let porAno = internacoes.porAno;
+
+      if (anoMin) porAno = porAno.filter(item => item.ano >= anoMin);
+      if (anoMax) porAno = porAno.filter(item => item.ano <= anoMax);
+
+      if (porAno.length > 0) {
+        const ultimo = porAno[porAno.length - 1];
+        const penultimo = porAno.length > 1 ? porAno[porAno.length - 2] : null;
+
+        kpis.internacoes.valor = ultimo?.internacoes || 0;
+        kpis.internacoes.valorSus = ultimo?.valor_sus || 0;
+
+        if (penultimo) {
+          kpis.internacoes.variacao = ((ultimo.internacoes - penultimo.internacoes) / penultimo.internacoes) * 100;
+        }
       }
     }
 
     // Vacinação
     if (vacinacao?.coberturaPorAno?.length > 0) {
-      const ultimo = vacinacao.coberturaPorAno[vacinacao.coberturaPorAno.length - 1];
-      const vacinas = vacinacao.vacinas?.filter(v => v.codigo !== 'COVID') || [];
-      if (ultimo && vacinas.length > 0) {
-        const soma = vacinas.reduce((sum, v) => sum + (ultimo[v.codigo] || 0), 0);
-        kpis.coberturaVacinal.valor = soma / vacinas.length;
+      let cobertura = vacinacao.coberturaPorAno;
+
+      if (anoMin) cobertura = cobertura.filter(item => item.ano >= anoMin);
+      if (anoMax) cobertura = cobertura.filter(item => item.ano <= anoMax);
+
+      if (cobertura.length > 0) {
+        const ultimo = cobertura[cobertura.length - 1];
+        const vacinas = vacinacao.vacinas?.filter(v => v.codigo !== 'COVID') || [];
+        if (vacinas.length > 0) {
+          const soma = vacinas.reduce((sum, v) => sum + (ultimo[v.codigo] || 0), 0);
+          kpis.coberturaVacinal.valor = soma / vacinas.length;
+        }
       }
     }
 
@@ -259,13 +338,20 @@ export function useAggregations(data, filters) {
 
     // Repasses
     if (repassesSus?.porAno?.length > 0) {
-      const ultimo = repassesSus.porAno[repassesSus.porAno.length - 1];
-      // Assumindo população de ~12 milhões
-      kpis.repassePerCapita.valor = (ultimo?.total || 0) / 11890517;
+      let porAno = repassesSus.porAno;
+
+      if (anoMin) porAno = porAno.filter(item => item.ano >= anoMin);
+      if (anoMax) porAno = porAno.filter(item => item.ano <= anoMax);
+
+      if (porAno.length > 0) {
+        const ultimo = porAno[porAno.length - 1];
+        // Assumindo população de ~12 milhões
+        kpis.repassePerCapita.valor = (ultimo?.total || 0) / 11890517;
+      }
     }
 
     return kpis;
-  }, [mortalidade, internacoes, vacinacao, estabelecimentos, repassesSus, filters]);
+  }, [mortalidade, internacoes, vacinacao, estabelecimentos, repassesSus, filters, filteredMunicipios]);
 }
 
 /**

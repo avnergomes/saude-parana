@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { useData, useAggregations, useAvailableYears } from './hooks/useData';
+import { useData, useAggregations, useAvailableYears, useFilteredMunicipios } from './hooks/useData';
 
 // Componentes
 import Header from './components/Header';
@@ -43,7 +43,9 @@ function App() {
     anoMin: 2010,
     anoMax: 2024,
     regional: null,
-    municipio: null
+    mesorregiao: null,
+    municipio: null,
+    municipioCodigo: null
   });
 
   // Estado de filtros interativos (clique nos graficos)
@@ -65,10 +67,11 @@ function App() {
     ...(interactiveFilters.ano && { anoMin: interactiveFilters.ano, anoMax: interactiveFilters.ano })
   }), [filters, interactiveFilters]);
 
-  // KPIs agregados
+  // KPIs agregados (com filtros de localidade aplicados)
   const kpis = useAggregations(
     { mortalidade, internacoes, vacinacao, estabelecimentos, repassesSus },
-    mergedFilters
+    mergedFilters,
+    geoMap
   );
 
   // Handlers de filtros interativos
@@ -151,6 +154,8 @@ function App() {
           internacoes={internacoes}
           vacinacao={vacinacao}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onAnoClick={handleAnoClick}
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
@@ -160,6 +165,8 @@ function App() {
         return <MortalidadeTab
           data={mortalidade}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onAnoClick={handleAnoClick}
           onCapituloClick={handleCapituloClick}
           onMunicipioClick={handleMunicipioClick}
@@ -171,6 +178,8 @@ function App() {
         return <InternacoesTab
           data={internacoes}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onAnoClick={handleAnoClick}
           onGrupoClick={handleGrupoClick}
           onMunicipioClick={handleMunicipioClick}
@@ -182,6 +191,8 @@ function App() {
         return <VacinacaoTab
           data={vacinacao}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onVacinaClick={handleVacinaClick}
           onMunicipioClick={handleMunicipioClick}
           selectedVacina={interactiveFilters.vacina}
@@ -191,6 +202,8 @@ function App() {
         return <InfraestruturaTab
           data={estabelecimentos}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onMunicipioClick={handleMunicipioClick}
           selectedMunicipio={interactiveFilters.municipio}
         />;
@@ -199,6 +212,8 @@ function App() {
           data={repassesSus}
           indicadores={indicadoresAb}
           geoData={geoData}
+          geoMap={geoMap}
+          filters={mergedFilters}
           onAnoClick={handleAnoClick}
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
@@ -240,11 +255,42 @@ function App() {
 
 // ========== ABAS ==========
 
-function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
+function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
+  const filteredMunicipios = useFilteredMunicipios(geoMap, filters);
+
   // Preparar dados para mapa (usando top municipios de mortalidade)
   const mapData = useMemo(() => {
-    return mortalidade?.topMunicipios || [];
-  }, [mortalidade]);
+    const dados = mortalidade?.topMunicipios || [];
+    // Filtrar por municipios selecionados
+    if (filteredMunicipios.codigos.length > 0) {
+      return dados.filter(m => filteredMunicipios.codigos.includes(m.cod_ibge));
+    }
+    return dados;
+  }, [mortalidade, filteredMunicipios]);
+
+  // Filtrar serie temporal por periodo
+  const serieTemporalMortalidade = useMemo(() => {
+    let dados = mortalidade?.porAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [mortalidade, filters]);
+
+  const serieTemporalInternacoes = useMemo(() => {
+    let dados = internacoes?.porAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [internacoes, filters]);
+
+  // Lista de municipios filtrados para o ranking
+  const rankingMunicipios = useMemo(() => {
+    const dados = mortalidade?.topMunicipios || [];
+    if (filteredMunicipios.codigos.length > 0) {
+      return dados.filter(m => filteredMunicipios.codigos.includes(m.cod_ibge));
+    }
+    return dados;
+  }, [mortalidade, filteredMunicipios]);
 
   return (
     <div className="space-y-6">
@@ -262,7 +308,7 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, onAnoClic
         />
 
         <TimeSeriesChart
-          data={mortalidade?.porAno}
+          data={serieTemporalMortalidade}
           metrics={['total']}
           title="Evolucao da Mortalidade no Parana"
           onPointClick={onAnoClick}
@@ -284,7 +330,7 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, onAnoClic
 
         {/* Serie temporal de internacoes */}
         <TimeSeriesChart
-          data={internacoes?.porAno}
+          data={serieTemporalInternacoes}
           metrics={['internacoes']}
           title="Evolucao das Internacoes SUS"
           onPointClick={onAnoClick}
@@ -294,7 +340,7 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, onAnoClic
 
       {/* Ranking de municipios */}
       <RankingTable
-        data={mortalidade?.topMunicipios || []}
+        data={rankingMunicipios}
         columns={[
           { key: 'municipio', label: 'Municipio' },
           { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
@@ -310,8 +356,27 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, onAnoClic
   );
 }
 
-function MortalidadeTab({ data, geoData, onAnoClick, onCapituloClick, onMunicipioClick, selectedAno, selectedCapitulo, selectedMunicipio }) {
+function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onCapituloClick, onMunicipioClick, selectedAno, selectedCapitulo, selectedMunicipio }) {
+  const filteredMunicipios = useFilteredMunicipios(geoMap, filters);
+
   if (!data) return null;
+
+  // Filtrar serie temporal por periodo
+  const serieTemporalMortalidade = useMemo(() => {
+    let dados = data.porAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [data.porAno, filters]);
+
+  // Filtrar municipios para mapa e ranking
+  const topMunicipiosFiltrados = useMemo(() => {
+    const dados = data.topMunicipios || [];
+    if (filteredMunicipios.codigos.length > 0) {
+      return dados.filter(m => filteredMunicipios.codigos.includes(m.cod_ibge));
+    }
+    return dados;
+  }, [data.topMunicipios, filteredMunicipios]);
 
   // Preparar hierarquia para Sunburst
   const sunburstData = useMemo(() => {
@@ -332,7 +397,7 @@ function MortalidadeTab({ data, geoData, onAnoClick, onCapituloClick, onMunicipi
     <div className="space-y-6">
       {/* Serie temporal */}
       <TimeSeriesChart
-        data={data.porAno}
+        data={serieTemporalMortalidade}
         metrics={['total', 'taxa_bruta']}
         title="Mortalidade por Ano"
         height={350}
@@ -345,7 +410,7 @@ function MortalidadeTab({ data, geoData, onAnoClick, onCapituloClick, onMunicipi
         {/* Mapa */}
         <MapChart
           geoData={geoData}
-          data={data.topMunicipios}
+          data={topMunicipiosFiltrados}
           metric="taxa"
           title="Taxa de Mortalidade por Municipio"
           colorScale="obitos"
@@ -386,7 +451,7 @@ function MortalidadeTab({ data, geoData, onAnoClick, onCapituloClick, onMunicipi
 
       {/* Ranking */}
       <RankingTable
-        data={data.topMunicipios || []}
+        data={topMunicipiosFiltrados}
         columns={[
           { key: 'municipio', label: 'Municipio' },
           { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
@@ -401,15 +466,23 @@ function MortalidadeTab({ data, geoData, onAnoClick, onCapituloClick, onMunicipi
   );
 }
 
-function InternacoesTab({ data, geoData, onAnoClick, onGrupoClick, onMunicipioClick, selectedAno, selectedGrupo, selectedMunicipio }) {
+function InternacoesTab({ data, geoData, geoMap, filters, onAnoClick, onGrupoClick, onMunicipioClick, selectedAno, selectedGrupo, selectedMunicipio }) {
   if (!data) return null;
+
+  // Filtrar serie temporal por periodo
+  const serieTemporalInternacoes = useMemo(() => {
+    let dados = data.porAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [data.porAno, filters]);
 
   return (
     <div className="space-y-6">
       {/* Serie temporal */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <TimeSeriesChart
-          data={data.porAno}
+          data={serieTemporalInternacoes}
           metrics={['internacoes']}
           title="Internacoes por Ano"
           onPointClick={onAnoClick}
@@ -417,7 +490,7 @@ function InternacoesTab({ data, geoData, onAnoClick, onGrupoClick, onMunicipioCl
         />
 
         <TimeSeriesChart
-          data={data.porAno}
+          data={serieTemporalInternacoes}
           metrics={['valor_sus']}
           title="Valor SUS por Ano"
           onPointClick={onAnoClick}
@@ -466,10 +539,18 @@ function InternacoesTab({ data, geoData, onAnoClick, onGrupoClick, onMunicipioCl
   );
 }
 
-function VacinacaoTab({ data, geoData, onVacinaClick, onMunicipioClick, selectedVacina, selectedMunicipio }) {
+function VacinacaoTab({ data, geoData, geoMap, filters, onVacinaClick, onMunicipioClick, selectedVacina, selectedMunicipio }) {
   if (!data) return null;
 
-  const ultimoAno = data.coberturaPorAno?.[data.coberturaPorAno.length - 1];
+  // Filtrar cobertura por periodo
+  const coberturaPorAno = useMemo(() => {
+    let dados = data.coberturaPorAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [data.coberturaPorAno, filters]);
+
+  const ultimoAno = coberturaPorAno[coberturaPorAno.length - 1];
 
   // Cobertura do ultimo ano por vacina
   const coberturaAtual = data.vacinas?.map(v => ({
@@ -556,7 +637,7 @@ function VacinacaoTab({ data, geoData, onVacinaClick, onMunicipioClick, selected
   );
 }
 
-function InfraestruturaTab({ data, geoData, onMunicipioClick, selectedMunicipio }) {
+function InfraestruturaTab({ data, geoData, geoMap, filters, onMunicipioClick, selectedMunicipio }) {
   if (!data) return null;
 
   return (
@@ -620,8 +701,16 @@ function InfraestruturaTab({ data, geoData, onMunicipioClick, selectedMunicipio 
   );
 }
 
-function FinanciamentoTab({ data, indicadores, geoData, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
+function FinanciamentoTab({ data, indicadores, geoData, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
   if (!data) return null;
+
+  // Filtrar serie temporal por periodo
+  const porAnoFiltrado = useMemo(() => {
+    let dados = data.porAno || [];
+    if (filters?.anoMin) dados = dados.filter(d => d.ano >= filters.anoMin);
+    if (filters?.anoMax) dados = dados.filter(d => d.ano <= filters.anoMax);
+    return dados;
+  }, [data.porAno, filters]);
 
   // Preparar dados para Sankey
   const sankeyData = useMemo(() => {
@@ -653,7 +742,7 @@ function FinanciamentoTab({ data, indicadores, geoData, onAnoClick, onMunicipioC
     <div className="space-y-6">
       {/* Serie temporal de repasses */}
       <TimeSeriesChart
-        data={data.porAno?.map(item => ({
+        data={porAnoFiltrado.map(item => ({
           ano: item.ano,
           total: item.total
         }))}
