@@ -183,18 +183,25 @@ def generate_mortalidade_json(pop_df):
         ]
     }
 
-    # Top municipios (baseado em populacao)
+    # Dados por municipio (todos os 399)
+    por_municipio = []
     top_municipios = []
     if pop_df is not None:
-        top_pop = pop_df.nlargest(10, 'populacao')
-        for _, row in top_pop.iterrows():
-            obitos_mun = int(row['populacao'] * 0.0068)
-            top_municipios.append({
+        for _, row in pop_df.iterrows():
+            # Taxa varia por municipio (simulacao realista)
+            taxa_base = 6.8 + np.random.uniform(-2.5, 2.5)
+            obitos_mun = int(row['populacao'] * taxa_base / 1000)
+            por_municipio.append({
                 "cod_ibge": row['cod_ibge'],
                 "municipio": row['municipio'],
                 "obitos": obitos_mun,
-                "taxa": round(obitos_mun / (row['populacao'] / 1000), 1)
+                "taxa": round(taxa_base, 1),
+                "populacao": int(row['populacao'])
             })
+
+        # Ordenar por taxa decrescente e pegar top 10
+        por_municipio_sorted = sorted(por_municipio, key=lambda x: x['taxa'], reverse=True)
+        top_municipios = por_municipio_sorted[:10]
 
     mortalidade_json = {
         "metadata": {
@@ -207,6 +214,7 @@ def generate_mortalidade_json(pop_df):
         "porAno": por_ano,
         "porCapitulo": por_capitulo,
         "piramideEtaria": piramide,
+        "porMunicipio": por_municipio,
         "topMunicipios": top_municipios
     }
 

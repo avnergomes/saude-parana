@@ -11,7 +11,7 @@
       "ano": 2015,
       "internacoes": 475620,
       "valor_sus": 879897000,
-      "media_dias": 4.3
+      "media_dias": 4.6
     },
     {
       "ano": 2016,
@@ -35,37 +35,37 @@
       "ano": 2019,
       "internacoes": 490839,
       "valor_sus": 1089662580,
-      "media_dias": 4.3
+      "media_dias": 4.5
     },
     {
       "ano": 2020,
       "internacoes": 420448,
       "valor_sus": 972286000,
-      "media_dias": 4.4
+      "media_dias": 4.7
     },
     {
       "ano": 2021,
       "internacoes": 438635,
       "valor_sus": 1054917175,
-      "media_dias": 4.3
+      "media_dias": 4.6
     },
     {
       "ano": 2022,
       "internacoes": 502254,
       "valor_sus": 1254379365,
-      "media_dias": 4.4
+      "media_dias": 4.3
     },
     {
       "ano": 2023,
       "internacoes": 506059,
       "valor_sus": 1310692810,
-      "media_dias": 4.3
+      "media_dias": 4.8
     },
     {
       "ano": 2024,
       "internacoes": 509864,
       "valor_sus": 1367710180,
-      "media_dias": 4.7
+      "media_dias": 4.3
     }
   ],
   "porGrupoDiagnostico": [
