@@ -47,3 +47,7 @@ npm-debug.log*
 data/raw/*.dbc
 data/raw/*.parquet
 data/raw/*.zip
+
+# Geo files duplicados (usar dashboard/public/data/geo_map.json)
+municipios-PR.geojson
+mun_PR.json

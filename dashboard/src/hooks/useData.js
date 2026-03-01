@@ -141,8 +141,8 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
     if (anoMin) porAno = porAno.filter(item => item.ano >= anoMin);
     if (anoMax) porAno = porAno.filter(item => item.ano <= anoMax);
 
-    // Filtrar municípios
-    let porMunicipio = mortalidade.porMunicipio || [];
+    // Filtrar municípios (porMunicipio ou topMunicipios como fallback)
+    let porMunicipio = mortalidade.porMunicipio || mortalidade.topMunicipios || [];
     if (hasFiltroMunicipio) {
       porMunicipio = porMunicipio.filter(m => municipiosFiltrados.includes(m.cod_ibge));
     }
