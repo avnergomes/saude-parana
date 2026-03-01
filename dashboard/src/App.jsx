@@ -119,7 +119,7 @@ function App() {
     }));
   }, []);
 
-  const handleMunicipioClick = useCallback((codIbge, nome) => {
+  const handleMunicipioClick = useCallback((codIbge) => {
     setInteractiveFilters(prev => ({
       ...prev,
       municipio: prev.municipio === codIbge ? null : codIbge
