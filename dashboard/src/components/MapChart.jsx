@@ -111,7 +111,7 @@ function MapChart({
   // Estilo para cada feature
   const getFeatureStyle = (feature) => {
     const props = feature.properties || {};
-    const code = String(props.CD_MUN || props.cod_ibge || props.id || '').substring(0, 6);
+    const code = String(props.CD_MUN || props.CodIbge || props.cod_ibge || props.id || '').substring(0, 6);
     const featureData = dataByCode[code];
     const value = featureData ? featureData[metric] : null;
 
@@ -130,7 +130,7 @@ function MapChart({
   // Handlers para cada feature
   const onEachFeature = (feature, layer) => {
     const props = feature.properties || {};
-    const code = String(props.CD_MUN || props.cod_ibge || props.id || '').substring(0, 6);
+    const code = String(props.CD_MUN || props.CodIbge || props.cod_ibge || props.id || '').substring(0, 6);
     const name = props.NM_MUN || props.nome || props.name || 'Município';
     const featureData = dataByCode[code];
     const value = featureData ? featureData[metric] : null;
