@@ -1,90 +1,135 @@
-import { ExternalLink, Github, Bug } from 'lucide-react';
+import { Database, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark-900 text-white mt-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <footer className="bg-dark-900 text-dark-300 mt-12">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Sobre */}
-          <div>
-            <h3 className="font-display font-semibold text-lg mb-3">
-              Saúde Paraná
-            </h3>
-            <p className="text-dark-400 text-sm leading-relaxed">
-              Dashboard de indicadores de saúde pública do Paraná.
-              Parte do ecossistema DataGeo Paraná de inteligência territorial.
-            </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h3 className="font-display font-semibold text-lg mb-3">
-              Links Úteis
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="https://datageoparana.github.io/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-dark-400 hover:text-water-400 text-sm flex items-center gap-2 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Portal DataGeo Paraná
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/avnergomes/saude-parana"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-dark-400 hover:text-water-400 text-sm flex items-center gap-2 transition-colors"
-                >
-                  <Github className="w-4 h-4" />
-                  Código no GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/avnergomes/saude-parana/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-dark-400 hover:text-water-400 text-sm flex items-center gap-2 transition-colors"
-                >
-                  <Bug className="w-4 h-4" />
-                  Reportar problema
-                </a>
-              </li>
+          {/* Fonte de Dados */}
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold text-sm flex items-center gap-2">
+              <Database className="w-4 h-4 text-water-400" />
+              Fonte de Dados
+            </h4>
+            <ul className="space-y-1.5 text-xs text-dark-400">
+              <li>DATASUS - Departamento de Informática do SUS</li>
+              <li>SIM - Mortalidade</li>
+              <li>SIH - Internações</li>
+              <li>SI-PNI - Vacinação</li>
+              <li>CNES - Estabelecimentos</li>
+              <li>FNS - Repasses SUS</li>
             </ul>
           </div>
 
-          {/* Fontes */}
-          <div>
-            <h3 className="font-display font-semibold text-lg mb-3">
-              Fontes de Dados
-            </h3>
-            <ul className="text-dark-400 text-sm space-y-1">
-              <li>SIM/DATASUS - Mortalidade</li>
-              <li>SIH/DATASUS - Internações</li>
-              <li>SI-PNI/DATASUS - Vacinação</li>
-              <li>CNES/DATASUS - Estabelecimentos</li>
-              <li>FNS/MS - Repasses SUS</li>
-              <li>SISAB - Previne Brasil</li>
-              <li>IBGE - População</li>
-            </ul>
+          {/* Datageo Paraná */}
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold text-sm">
+              <a
+                href="https://datageoparana.github.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-water-400 transition-colors inline-flex items-center gap-1"
+              >
+                Datageo Paraná
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              <a
+                href="https://avnergomes.github.io/vbp-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                VBP Paraná
+              </a>
+              <a
+                href="https://avnergomes.github.io/precos-diarios/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Preços Diários
+              </a>
+              <a
+                href="https://avnergomes.github.io/precos-florestais/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Preços Florestais
+              </a>
+              <a
+                href="https://avnergomes.github.io/precos-de-terras/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Preços de Terras
+              </a>
+              <a
+                href="https://avnergomes.github.io/comexstat-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                ComexStat Paraná
+              </a>
+              <a
+                href="https://avnergomes.github.io/emprego-agro-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Emprego Agro
+              </a>
+              <a
+                href="https://avnergomes.github.io/censo-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Censo Paraná
+              </a>
+              <a
+                href="https://avnergomes.github.io/credito-rural-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Crédito Rural
+              </a>
+            </div>
+          </div>
+
+          {/* Developer */}
+          <div className="space-y-3 flex flex-col items-start md:items-end">
+            <a
+              href="https://avnergomes.github.io/portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-dark-400 hover:text-water-400 transition-colors group"
+              title="Portfolio"
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}assets/logo.png`}
+                alt="Avner Gomes"
+                className="w-8 h-8 rounded-full opacity-80 group-hover:opacity-100 transition-opacity"
+              />
+              <span className="text-xs">Desenvolvido por Avner Gomes</span>
+            </a>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-dark-700 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-dark-500 text-sm">
-            © {currentYear} DataGeo Paraná. Dados públicos de fontes oficiais.
-          </p>
-          <p className="text-dark-600 text-xs">
-            Última atualização: {new Date().toLocaleDateString('pt-BR')}
-          </p>
+        {/* Bottom */}
+        <div className="mt-6 pt-4 border-t border-dark-700 flex items-center justify-between text-[10px] text-dark-500">
+          <p>&copy; {currentYear} Saúde Paraná. Dados públicos.</p>
+          <div className="flex gap-2">
+            <span className="px-2 py-0.5 bg-water-900/30 text-water-400 rounded-full">399 municípios</span>
+            <span className="px-2 py-0.5 bg-water-900/30 text-water-400 rounded-full">22 regionais</span>
+          </div>
         </div>
       </div>
     </footer>
