@@ -13,8 +13,9 @@ const filterLabels = {
 };
 
 export default function ActiveFilters({ filters, onClear, onRemove }) {
+  // Filtrar valores nulos e campos internos (municipioCodigo)
   const activeFilters = Object.entries(filters).filter(
-    ([_, value]) => value !== null && value !== undefined
+    ([key, value]) => value !== null && value !== undefined && key !== 'municipioCodigo'
   );
 
   if (activeFilters.length === 0) return null;

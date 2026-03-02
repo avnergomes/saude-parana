@@ -131,7 +131,7 @@ function MapChart({
   const onEachFeature = (feature, layer) => {
     const props = feature.properties || {};
     const code = String(props.CD_MUN || props.CodIbge || props.cod_ibge || props.id || '').substring(0, 6);
-    const name = props.NM_MUN || props.nome || props.name || 'Município';
+    const name = props.NM_MUN || props.Municipio || props.nome || props.name || 'Município';
     const featureData = dataByCode[code];
     const value = featureData ? featureData[metric] : null;
 

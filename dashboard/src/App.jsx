@@ -64,7 +64,8 @@ function App() {
     causa: null,
     vacina: null,
     grupoDiagnostico: null,
-    municipio: null
+    municipio: null,
+    municipioCodigo: null
   });
 
   // Anos disponíveis
@@ -119,10 +120,11 @@ function App() {
     }));
   }, []);
 
-  const handleMunicipioClick = useCallback((codIbge) => {
+  const handleMunicipioClick = useCallback((codIbge, nomeMunicipio) => {
     setInteractiveFilters(prev => ({
       ...prev,
-      municipio: prev.municipio === codIbge ? null : codIbge
+      municipio: prev.municipioCodigo === codIbge ? null : nomeMunicipio,
+      municipioCodigo: prev.municipioCodigo === codIbge ? null : codIbge
     }));
   }, []);
 
@@ -133,14 +135,17 @@ function App() {
       causa: null,
       vacina: null,
       grupoDiagnostico: null,
-      municipio: null
+      municipio: null,
+      municipioCodigo: null
     });
   }, []);
 
   const removeInteractiveFilter = useCallback((key) => {
     setInteractiveFilters(prev => ({
       ...prev,
-      [key]: null
+      [key]: null,
+      // Se remover município, limpa o código também
+      ...(key === 'municipio' ? { municipioCodigo: null } : {})
     }));
   }, []);
 
@@ -175,7 +180,7 @@ function App() {
           onAnoClick={handleAnoClick}
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       case 'mortalidade':
         return <MortalidadeTab
@@ -188,7 +193,7 @@ function App() {
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
           selectedCapitulo={interactiveFilters.capitulo}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       case 'internacoes':
         return <InternacoesTab
@@ -201,7 +206,7 @@ function App() {
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
           selectedGrupo={interactiveFilters.grupoDiagnostico}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       case 'vacinacao':
         return <VacinacaoTab
@@ -212,7 +217,7 @@ function App() {
           onVacinaClick={handleVacinaClick}
           onMunicipioClick={handleMunicipioClick}
           selectedVacina={interactiveFilters.vacina}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       case 'infraestrutura':
         return <InfraestruturaTab
@@ -221,7 +226,7 @@ function App() {
           geoMap={geoMap}
           filters={mergedFilters}
           onMunicipioClick={handleMunicipioClick}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       case 'financiamento':
         return <FinanciamentoTab
@@ -233,7 +238,7 @@ function App() {
           onAnoClick={handleAnoClick}
           onMunicipioClick={handleMunicipioClick}
           selectedAno={interactiveFilters.ano}
-          selectedMunicipio={interactiveFilters.municipio}
+          selectedMunicipio={interactiveFilters.municipioCodigo}
         />;
       default:
         return null;
