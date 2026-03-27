@@ -51,3 +51,9 @@ data/raw/*.zip
 # Geo files duplicados (usar dashboard/public/data/geo_map.json)
 municipios-PR.geojson
 mun_PR.json
+
+# Claude Code
+.claude/
+CLAUDE.md
+.claudeignore
+
