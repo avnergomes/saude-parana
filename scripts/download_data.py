@@ -36,16 +36,15 @@ def download_tabnet_mortalidade():
     """
     Download de dados de mortalidade via TabNet/DATASUS
     Usa a API do TabNet para extrair dados do SIM
+
+    NOTA: TabNet requer requisição POST com parâmetros específicos.
+    Esta função busca datasets disponíveis mas não baixa microdados.
+    Para dados completos, usar o TabNet manualmente:
+    http://tabnet.datasus.gov.br/cgi/deftohtm.exe?sim/cnv/obt10pr.def
     """
     print("=" * 60)
-    print("Baixando dados de MORTALIDADE (TabNet/SIM)...")
+    print("Buscando datasets de MORTALIDADE (dados.gov.br)...")
     print("=" * 60)
-
-    # TabNet requer requisição POST específica
-    # Vamos baixar dados agregados por município e causa
-
-    # Dados de mortalidade por capítulo CID-10 para o PR
-    # Fonte alternativa: dados.gov.br ou IBGE
 
     url_mortalidade = "https://dados.gov.br/dados/api/publico/conjuntos-dados"
     params = {
@@ -57,11 +56,15 @@ def download_tabnet_mortalidade():
         response = requests.get(url_mortalidade, params=params, headers=HEADERS, timeout=30)
         if response.status_code == 200:
             data = response.json()
-            print(f"  Encontrados {len(data.get('resultado', []))} datasets de mortalidade")
+            total = len(data.get('resultado', []))
+            print(f"  Encontrados {total} datasets de mortalidade")
+            if total > 0:
+                return True
     except Exception as e:
         print(f"  Erro ao buscar datasets: {e}")
 
-    return True
+    print("  AVISO: Nenhum dado de mortalidade baixado (busca apenas)")
+    return False
 
 
 def download_ibge_populacao():
@@ -284,4 +287,7 @@ def main():
 
 if __name__ == "__main__":
     success = main()
+    if not success:
+        print("\nERRO: Nenhuma fonte de dados retornou resultados.")
+        print("O pipeline será interrompido para evitar commit de dados vazios.")
     sys.exit(0 if success else 1)

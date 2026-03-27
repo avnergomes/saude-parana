@@ -37,7 +37,6 @@ jobs:
 
       - name: Download data
         run: python scripts/download_data.py
-        continue-on-error: true
 
       - name: Preprocess data
         run: python scripts/preprocess_data.py
