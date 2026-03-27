@@ -101,6 +101,14 @@ export default function Footer() {
               >
                 Crédito Rural
               </a>
+              <a
+                href="https://avnergomes.github.io/seguranca-parana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-2.5 py-1 text-[10px] rounded-full border border-dark-600 text-dark-300 hover:text-water-300 hover:border-water-400 transition-colors"
+              >
+                Seguranca Parana
+              </a>
             </div>
           </div>
 
