@@ -1,26 +1,27 @@
 # Dependencies
 node_modules/
-dashboard/node_modules/
+.pnpm-store/
 
-# Build outputs
-dashboard/dist/
+# Build output
 dist/
+build/
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
 
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-.Python
-*.egg-info/
-.eggs/
-*.egg
+*.pyc
+*.pyo
 .venv/
 venv/
-ENV/
 
 # IDE
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
@@ -28,32 +29,39 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Logs
 *.log
 npm-debug.log*
 
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# Data (raw files podem ser grandes)
-data/raw/*.dbc
-data/raw/*.parquet
-data/raw/*.zip
-
-# Geo files duplicados (usar dashboard/public/data/geo_map.json)
-municipios-PR.geojson
-mun_PR.json
+# Coverage
+coverage/
+.nyc_output/
 
 # Claude Code
 .claude/
 CLAUDE.md
 .claudeignore
 
+# Misc
+*.tgz
+.cache/
+
+# Repo-specific
+dashboard/node_modules/
+dashboard/dist/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.eggs/
+*.egg
+ENV/
+*.tmp
+*.temp
+data/raw/*.dbc
+data/raw/*.parquet
+data/raw/*.zip
+municipios-PR.geojson
+mun_PR.json
