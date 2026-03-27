@@ -5,8 +5,10 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
+import { feature } from 'topojson-client';
 
 const BASE_PATH = import.meta.env.BASE_URL || '/saude-parana/';
+const TOPO_URL = 'https://cdn.jsdelivr.net/gh/datageoparana/datageoparana.github.io@main/assets/parana-municipalities.topojson';
 
 /**
  * Hook principal de carregamento de dados
@@ -37,19 +39,21 @@ export function useData() {
           'estabelecimentos.json',
           'repasses_sus.json',
           'indicadores_ab.json',
-          'municipios.geojson',
+          null, // municipios: loaded from CDN below
           'geo_map.json',
           'metadata.json'
         ];
 
         const responses = await Promise.all(
-          files.map(f => fetch(`${BASE_PATH}data/${f}`))
+          files.map(f => f ? fetch(`${BASE_PATH}data/${f}`) : fetch(TOPO_URL))
         );
 
         const data = await Promise.all(
           responses.map(async (r, i) => {
             if (r.ok) {
-              return r.json();
+              const json = await r.json();
+              if (i === 6) return feature(json, json.objects.municipalities);
+              return json;
             }
             console.warn(`Erro ao carregar ${files[i]}: ${r.status}`);
             return null;

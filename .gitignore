@@ -65,3 +65,4 @@ data/raw/*.parquet
 data/raw/*.zip
 municipios-PR.geojson
 mun_PR.json
+dashboard/public/data/municipios.geojson
