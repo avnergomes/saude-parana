@@ -1,4 +1,4 @@
-pandas>=2.0.0
+pandas>=3.0.2
 numpy>=1.24.0
 pysus>=0.13.0
 requests>=2.31.0
