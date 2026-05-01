@@ -4,44 +4,44 @@
     "periodo": "2015-2024",
     "totalInternacoes": 4793406,
     "valorTotalSUS": 10880362079,
-    "atualizacao": "2026-04-01"
+    "atualizacao": "2026-05-01"
   },
   "porAno": [
     {
       "ano": 2015,
       "internacoes": 475620,
       "valor_sus": 879897000,
-      "media_dias": 4.6
+      "media_dias": 4.4
     },
     {
       "ano": 2016,
       "internacoes": 479424,
       "valor_sus": 931281120,
-      "media_dias": 4.3
+      "media_dias": 4.6
     },
     {
       "ano": 2017,
       "internacoes": 483229,
       "valor_sus": 983371015,
-      "media_dias": 4.3
+      "media_dias": 4.4
     },
     {
       "ano": 2018,
       "internacoes": 487034,
       "valor_sus": 1036164834,
-      "media_dias": 4.4
+      "media_dias": 4.6
     },
     {
       "ano": 2019,
       "internacoes": 490839,
       "valor_sus": 1089662580,
-      "media_dias": 4.6
+      "media_dias": 4.8
     },
     {
       "ano": 2020,
       "internacoes": 420448,
       "valor_sus": 972286000,
-      "media_dias": 4.7
+      "media_dias": 4.3
     },
     {
       "ano": 2021,
@@ -53,7 +53,7 @@
       "ano": 2022,
       "internacoes": 502254,
       "valor_sus": 1254379365,
-      "media_dias": 4.6
+      "media_dias": 4.2
     },
     {
       "ano": 2023,
@@ -65,7 +65,7 @@
       "ano": 2024,
       "internacoes": 509864,
       "valor_sus": 1367710180,
-      "media_dias": 4.3
+      "media_dias": 4.2
     }
   ],
   "porGrupoDiagnostico": [

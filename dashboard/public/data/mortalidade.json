@@ -3,7 +3,7 @@
     "fonte": "IBGE/Estatisticas Vitais, DATASUS/SIM",
     "periodo": "2010-2023",
     "totalObitos": 1219672,
-    "atualizacao": "2026-04-01"
+    "atualizacao": "2026-05-01"
   },
   "capitulos_cid": [
     {
@@ -304,323 +304,323 @@
     {
       "cod_ibge": "4100103",
       "municipio": "Abatiá",
-      "obitos": 61,
-      "taxa": 8.6,
+      "obitos": 49,
+      "taxa": 6.8,
       "populacao": 7233
     },
     {
       "cod_ibge": "4100202",
       "municipio": "Adrianópolis",
-      "obitos": 50,
-      "taxa": 8.0,
+      "obitos": 40,
+      "taxa": 6.5,
       "populacao": 6319
     },
     {
       "cod_ibge": "4100301",
       "municipio": "Agudos do Sul",
-      "obitos": 66,
-      "taxa": 6.2,
+      "obitos": 85,
+      "taxa": 8.0,
       "populacao": 10770
     },
     {
       "cod_ibge": "4100400",
       "municipio": "Almirante Tamandaré",
-      "obitos": 972,
-      "taxa": 7.7,
+      "obitos": 631,
+      "taxa": 5.0,
       "populacao": 125861
     },
     {
       "cod_ibge": "4100459",
       "municipio": "Altamira do Paraná",
-      "obitos": 27,
-      "taxa": 7.7,
+      "obitos": 21,
+      "taxa": 6.2,
       "populacao": 3496
     },
     {
       "cod_ibge": "4100509",
       "municipio": "Altônia",
-      "obitos": 110,
-      "taxa": 5.9,
+      "obitos": 101,
+      "taxa": 5.4,
       "populacao": 18634
     },
     {
       "cod_ibge": "4100608",
       "municipio": "Alto Paraná",
-      "obitos": 81,
-      "taxa": 5.7,
+      "obitos": 125,
+      "taxa": 8.9,
       "populacao": 14183
     },
     {
       "cod_ibge": "4100707",
       "municipio": "Alto Piquiri",
-      "obitos": 80,
-      "taxa": 8.2,
+      "obitos": 76,
+      "taxa": 7.9,
       "populacao": 9771
     },
     {
       "cod_ibge": "4100806",
       "municipio": "Alvorada do Sul",
-      "obitos": 90,
-      "taxa": 8.6,
+      "obitos": 49,
+      "taxa": 4.7,
       "populacao": 10481
     },
     {
       "cod_ibge": "4100905",
       "municipio": "Amaporã",
-      "obitos": 20,
-      "taxa": 4.4,
+      "obitos": 28,
+      "taxa": 6.0,
       "populacao": 4688
     },
     {
       "cod_ibge": "4101002",
       "municipio": "Ampére",
-      "obitos": 154,
-      "taxa": 7.6,
+      "obitos": 108,
+      "taxa": 5.3,
       "populacao": 20337
     },
     {
       "cod_ibge": "4101051",
       "municipio": "Anahy",
-      "obitos": 13,
-      "taxa": 4.7,
+      "obitos": 25,
+      "taxa": 8.6,
       "populacao": 2971
     },
     {
       "cod_ibge": "4101101",
       "municipio": "Andirá",
-      "obitos": 179,
-      "taxa": 9.0,
+      "obitos": 169,
+      "taxa": 8.5,
       "populacao": 19989
     },
     {
       "cod_ibge": "4101150",
       "municipio": "Ângulo",
-      "obitos": 17,
-      "taxa": 5.3,
+      "obitos": 29,
+      "taxa": 8.7,
       "populacao": 3357
     },
     {
       "cod_ibge": "4101200",
       "municipio": "Antonina",
-      "obitos": 116,
-      "taxa": 6.4,
+      "obitos": 132,
+      "taxa": 7.3,
       "populacao": 18140
     },
     {
       "cod_ibge": "4101309",
       "municipio": "Antônio Olinto",
-      "obitos": 44,
-      "taxa": 6.3,
+      "obitos": 58,
+      "taxa": 8.3,
       "populacao": 7048
     },
     {
       "cod_ibge": "4101408",
       "municipio": "Apucarana",
-      "obitos": 729,
-      "taxa": 5.4,
+      "obitos": 801,
+      "taxa": 5.9,
       "populacao": 134910
     },
     {
       "cod_ibge": "4101507",
       "municipio": "Arapongas",
-      "obitos": 1099,
-      "taxa": 8.8,
+      "obitos": 1064,
+      "taxa": 8.5,
       "populacao": 124838
     },
     {
       "cod_ibge": "4101606",
       "municipio": "Arapoti",
-      "obitos": 186,
-      "taxa": 7.1,
+      "obitos": 168,
+      "taxa": 6.4,
       "populacao": 26325
     },
     {
       "cod_ibge": "4101655",
       "municipio": "Arapuã",
-      "obitos": 16,
-      "taxa": 4.5,
+      "obitos": 29,
+      "taxa": 8.2,
       "populacao": 3573
     },
     {
       "cod_ibge": "4101705",
       "municipio": "Araruna",
-      "obitos": 72,
-      "taxa": 4.9,
+      "obitos": 71,
+      "taxa": 4.8,
       "populacao": 14894
     },
     {
       "cod_ibge": "4101804",
       "municipio": "Araucária",
-      "obitos": 1022,
-      "taxa": 6.3,
+      "obitos": 1505,
+      "taxa": 9.3,
       "populacao": 162247
     },
     {
       "cod_ibge": "4101853",
       "municipio": "Ariranha do Ivaí",
-      "obitos": 14,
-      "taxa": 6.1,
+      "obitos": 13,
+      "taxa": 5.7,
       "populacao": 2351
     },
     {
       "cod_ibge": "4101903",
       "municipio": "Assaí",
-      "obitos": 104,
-      "taxa": 7.8,
+      "obitos": 74,
+      "taxa": 5.5,
       "populacao": 13477
     },
     {
       "cod_ibge": "4102000",
       "municipio": "Assis Chateaubriand",
-      "obitos": 265,
-      "taxa": 6.9,
+      "obitos": 247,
+      "taxa": 6.5,
       "populacao": 38357
     },
     {
       "cod_ibge": "4102109",
       "municipio": "Astorga",
-      "obitos": 186,
-      "taxa": 7.1,
+      "obitos": 140,
+      "taxa": 5.4,
       "populacao": 26203
     },
     {
       "cod_ibge": "4102208",
       "municipio": "Atalaia",
-      "obitos": 31,
-      "taxa": 7.7,
+      "obitos": 23,
+      "taxa": 5.9,
       "populacao": 4046
     },
     {
       "cod_ibge": "4102307",
       "municipio": "Balsa Nova",
-      "obitos": 70,
-      "taxa": 5.1,
+      "obitos": 106,
+      "taxa": 7.7,
       "populacao": 13867
     },
     {
       "cod_ibge": "4102406",
       "municipio": "Bandeirantes",
-      "obitos": 273,
-      "taxa": 8.6,
+      "obitos": 243,
+      "taxa": 7.7,
       "populacao": 31747
     },
     {
       "cod_ibge": "4102505",
       "municipio": "Barbosa Ferraz",
-      "obitos": 90,
-      "taxa": 8.6,
+      "obitos": 70,
+      "taxa": 6.7,
       "populacao": 10580
     },
     {
       "cod_ibge": "4102604",
       "municipio": "Barracão",
-      "obitos": 47,
-      "taxa": 4.8,
+      "obitos": 64,
+      "taxa": 6.5,
       "populacao": 9903
     },
     {
       "cod_ibge": "4102703",
       "municipio": "Barra do Jacaré",
-      "obitos": 26,
-      "taxa": 9.2,
+      "obitos": 17,
+      "taxa": 6.1,
       "populacao": 2872
     },
     {
       "cod_ibge": "4102752",
       "municipio": "Bela Vista da Caroba",
-      "obitos": 18,
-      "taxa": 4.5,
+      "obitos": 22,
+      "taxa": 5.4,
       "populacao": 4122
     },
     {
       "cod_ibge": "4102802",
       "municipio": "Bela Vista do Paraíso",
-      "obitos": 133,
-      "taxa": 8.9,
+      "obitos": 94,
+      "taxa": 6.3,
       "populacao": 14982
     },
     {
       "cod_ibge": "4102901",
       "municipio": "Bituruna",
-      "obitos": 125,
-      "taxa": 8.0,
+      "obitos": 132,
+      "taxa": 8.5,
       "populacao": 15650
     },
     {
       "cod_ibge": "4103008",
       "municipio": "Boa Esperança",
-      "obitos": 24,
-      "taxa": 5.3,
+      "obitos": 41,
+      "taxa": 9.0,
       "populacao": 4595
     },
     {
       "cod_ibge": "4103024",
       "municipio": "Boa Esperança do Iguaçu",
       "obitos": 17,
-      "taxa": 7.3,
+      "taxa": 7.2,
       "populacao": 2421
     },
     {
       "cod_ibge": "4103040",
       "municipio": "Boa Ventura de São Roque",
-      "obitos": 47,
-      "taxa": 7.6,
+      "obitos": 30,
+      "taxa": 4.8,
       "populacao": 6241
     },
     {
       "cod_ibge": "4103057",
       "municipio": "Boa Vista da Aparecida",
-      "obitos": 72,
-      "taxa": 9.0,
+      "obitos": 48,
+      "taxa": 6.1,
       "populacao": 8023
     },
     {
       "cod_ibge": "4103107",
       "municipio": "Bocaiúva do Sul",
-      "obitos": 94,
-      "taxa": 7.0,
+      "obitos": 104,
+      "taxa": 7.8,
       "populacao": 13405
     },
     {
       "cod_ibge": "4103156",
       "municipio": "Bom Jesus do Sul",
-      "obitos": 35,
-      "taxa": 8.6,
+      "obitos": 31,
+      "taxa": 7.7,
       "populacao": 4072
     },
     {
       "cod_ibge": "4103206",
       "municipio": "Bom Sucesso",
-      "obitos": 60,
-      "taxa": 9.1,
+      "obitos": 35,
+      "taxa": 5.3,
       "populacao": 6674
     },
     {
       "cod_ibge": "4103222",
       "municipio": "Bom Sucesso do Sul",
-      "obitos": 20,
-      "taxa": 6.4,
+      "obitos": 19,
+      "taxa": 6.1,
       "populacao": 3244
     },
     {
       "cod_ibge": "4103305",
       "municipio": "Borrazópolis",
-      "obitos": 35,
-      "taxa": 4.5,
+      "obitos": 67,
+      "taxa": 8.7,
       "populacao": 7818
     },
     {
       "cod_ibge": "4103354",
       "municipio": "Braganey",
-      "obitos": 22,
-      "taxa": 4.7,
+      "obitos": 43,
+      "taxa": 9.2,
       "populacao": 4745
     },
     {
       "cod_ibge": "4103370",
       "municipio": "Brasilândia do Sul",
-      "obitos": 21,
-      "taxa": 5.4,
+      "obitos": 16,
+      "taxa": 4.4,
       "populacao": 3861
     },
     {
@@ -633,274 +633,274 @@
     {
       "cod_ibge": "4103453",
       "municipio": "Cafelândia",
-      "obitos": 151,
-      "taxa": 7.5,
+      "obitos": 126,
+      "taxa": 6.3,
       "populacao": 20145
     },
     {
       "cod_ibge": "4103479",
       "municipio": "Cafezal do Sul",
-      "obitos": 25,
-      "taxa": 5.5,
+      "obitos": 39,
+      "taxa": 8.6,
       "populacao": 4580
     },
     {
       "cod_ibge": "4103503",
       "municipio": "Califórnia",
-      "obitos": 56,
-      "taxa": 6.3,
+      "obitos": 49,
+      "taxa": 5.6,
       "populacao": 8963
     },
     {
       "cod_ibge": "4103602",
       "municipio": "Cambará",
-      "obitos": 177,
-      "taxa": 7.6,
+      "obitos": 176,
+      "taxa": 7.5,
       "populacao": 23393
     },
     {
       "cod_ibge": "4103701",
       "municipio": "Cambé",
-      "obitos": 711,
-      "taxa": 6.4,
+      "obitos": 631,
+      "taxa": 5.7,
       "populacao": 110923
     },
     {
       "cod_ibge": "4103800",
       "municipio": "Cambira",
-      "obitos": 70,
-      "taxa": 7.0,
+      "obitos": 53,
+      "taxa": 5.3,
       "populacao": 10045
     },
     {
       "cod_ibge": "4103909",
       "municipio": "Campina da Lagoa",
-      "obitos": 76,
-      "taxa": 4.8,
+      "obitos": 128,
+      "taxa": 8.0,
       "populacao": 16014
     },
     {
       "cod_ibge": "4103958",
       "municipio": "Campina do Simão",
-      "obitos": 27,
-      "taxa": 7.0,
+      "obitos": 25,
+      "taxa": 6.6,
       "populacao": 3954
     },
     {
       "cod_ibge": "4104006",
       "municipio": "Campina Grande do Sul",
-      "obitos": 391,
-      "taxa": 7.7,
+      "obitos": 233,
+      "taxa": 4.6,
       "populacao": 50600
     },
     {
       "cod_ibge": "4104055",
       "municipio": "Campo Bonito",
-      "obitos": 18,
-      "taxa": 4.6,
+      "obitos": 32,
+      "taxa": 8.1,
       "populacao": 3997
     },
     {
       "cod_ibge": "4104105",
       "municipio": "Campo do Tenente",
-      "obitos": 41,
-      "taxa": 5.4,
+      "obitos": 71,
+      "taxa": 9.3,
       "populacao": 7693
     },
     {
       "cod_ibge": "4104204",
       "municipio": "Campo Largo",
-      "obitos": 890,
-      "taxa": 6.2,
+      "obitos": 785,
+      "taxa": 5.4,
       "populacao": 144504
     },
     {
       "cod_ibge": "4104253",
       "municipio": "Campo Magro",
-      "obitos": 286,
-      "taxa": 9.0,
+      "obitos": 186,
+      "taxa": 5.8,
       "populacao": 31888
     },
     {
       "cod_ibge": "4104303",
       "municipio": "Campo Mourão",
-      "obitos": 762,
-      "taxa": 7.3,
+      "obitos": 454,
+      "taxa": 4.4,
       "populacao": 104122
     },
     {
       "cod_ibge": "4104402",
       "municipio": "Cândido de Abreu",
-      "obitos": 105,
-      "taxa": 7.0,
+      "obitos": 79,
+      "taxa": 5.3,
       "populacao": 15081
     },
     {
       "cod_ibge": "4104428",
       "municipio": "Candói",
-      "obitos": 75,
-      "taxa": 5.0,
+      "obitos": 107,
+      "taxa": 7.1,
       "populacao": 15174
     },
     {
       "cod_ibge": "4104451",
       "municipio": "Cantagalo",
-      "obitos": 97,
-      "taxa": 9.2,
+      "obitos": 65,
+      "taxa": 6.2,
       "populacao": 10672
     },
     {
       "cod_ibge": "4104501",
       "municipio": "Capanema",
-      "obitos": 187,
-      "taxa": 8.9,
+      "obitos": 95,
+      "taxa": 4.5,
       "populacao": 21088
     },
     {
       "cod_ibge": "4104600",
       "municipio": "Capitão Leônidas Marques",
-      "obitos": 89,
-      "taxa": 6.0,
+      "obitos": 76,
+      "taxa": 5.2,
       "populacao": 14776
     },
     {
       "cod_ibge": "4104659",
       "municipio": "Carambeí",
-      "obitos": 193,
-      "taxa": 7.9,
+      "obitos": 146,
+      "taxa": 6.0,
       "populacao": 24469
     },
     {
       "cod_ibge": "4104709",
       "municipio": "Carlópolis",
-      "obitos": 91,
-      "taxa": 5.2,
+      "obitos": 84,
+      "taxa": 4.7,
       "populacao": 17788
     },
     {
       "cod_ibge": "4104808",
       "municipio": "Cascavel",
-      "obitos": 1891,
-      "taxa": 5.1,
+      "obitos": 2408,
+      "taxa": 6.5,
       "populacao": 368195
     },
     {
       "cod_ibge": "4104907",
       "municipio": "Castro",
-      "obitos": 473,
-      "taxa": 6.3,
+      "obitos": 325,
+      "taxa": 4.3,
       "populacao": 75644
     },
     {
       "cod_ibge": "4105003",
       "municipio": "Catanduvas",
-      "obitos": 85,
-      "taxa": 8.0,
+      "obitos": 55,
+      "taxa": 5.3,
       "populacao": 10621
     },
     {
       "cod_ibge": "4105102",
       "municipio": "Centenário do Sul",
-      "obitos": 54,
-      "taxa": 5.0,
+      "obitos": 79,
+      "taxa": 7.3,
       "populacao": 10903
     },
     {
       "cod_ibge": "4105201",
       "municipio": "Cerro Azul",
-      "obitos": 120,
-      "taxa": 7.4,
+      "obitos": 135,
+      "taxa": 8.3,
       "populacao": 16287
     },
     {
       "cod_ibge": "4105300",
       "municipio": "Céu Azul",
-      "obitos": 91,
-      "taxa": 8.1,
+      "obitos": 101,
+      "taxa": 9.0,
       "populacao": 11255
     },
     {
       "cod_ibge": "4105409",
       "municipio": "Chopinzinho",
-      "obitos": 146,
-      "taxa": 6.8,
+      "obitos": 165,
+      "taxa": 7.6,
       "populacao": 21604
     },
     {
       "cod_ibge": "4105508",
       "municipio": "Cianorte",
-      "obitos": 619,
-      "taxa": 7.5,
+      "obitos": 596,
+      "taxa": 7.2,
       "populacao": 82988
     },
     {
       "cod_ibge": "4105607",
       "municipio": "Cidade Gaúcha",
-      "obitos": 53,
-      "taxa": 4.6,
+      "obitos": 54,
+      "taxa": 4.7,
       "populacao": 11705
     },
     {
       "cod_ibge": "4105706",
       "municipio": "Clevelândia",
-      "obitos": 88,
-      "taxa": 6.0,
+      "obitos": 134,
+      "taxa": 9.1,
       "populacao": 14833
     },
     {
       "cod_ibge": "4105805",
       "municipio": "Colombo",
-      "obitos": 1689,
-      "taxa": 7.0,
+      "obitos": 1233,
+      "taxa": 5.1,
       "populacao": 241672
     },
     {
       "cod_ibge": "4105904",
       "municipio": "Colorado",
-      "obitos": 163,
-      "taxa": 7.0,
+      "obitos": 185,
+      "taxa": 8.0,
       "populacao": 23313
     },
     {
       "cod_ibge": "4106001",
       "municipio": "Congonhinhas",
-      "obitos": 40,
-      "taxa": 4.8,
+      "obitos": 76,
+      "taxa": 9.0,
       "populacao": 8445
     },
     {
       "cod_ibge": "4106100",
       "municipio": "Conselheiro Mairinck",
-      "obitos": 15,
-      "taxa": 4.4,
+      "obitos": 24,
+      "taxa": 7.1,
       "populacao": 3474
     },
     {
       "cod_ibge": "4106209",
       "municipio": "Contenda",
-      "obitos": 127,
-      "taxa": 6.4,
+      "obitos": 144,
+      "taxa": 7.2,
       "populacao": 20006
     },
     {
       "cod_ibge": "4106308",
       "municipio": "Corbélia",
-      "obitos": 159,
-      "taxa": 8.9,
+      "obitos": 125,
+      "taxa": 7.0,
       "populacao": 17933
     },
     {
       "cod_ibge": "4106407",
       "municipio": "Cornélio Procópio",
-      "obitos": 420,
-      "taxa": 9.2,
+      "obitos": 368,
+      "taxa": 8.0,
       "populacao": 45720
     },
     {
       "cod_ibge": "4106456",
       "municipio": "Coronel Domingos Soares",
-      "obitos": 49,
-      "taxa": 9.2,
+      "obitos": 34,
+      "taxa": 6.4,
       "populacao": 5427
     },
     {
@@ -913,239 +913,239 @@
     {
       "cod_ibge": "4106555",
       "municipio": "Corumbataí do Sul",
-      "obitos": 30,
-      "taxa": 8.1,
+      "obitos": 34,
+      "taxa": 9.1,
       "populacao": 3770
     },
     {
       "cod_ibge": "4106571",
       "municipio": "Cruzeiro do Iguaçu",
-      "obitos": 30,
-      "taxa": 7.5,
+      "obitos": 27,
+      "taxa": 6.6,
       "populacao": 4129
     },
     {
       "cod_ibge": "4106605",
       "municipio": "Cruzeiro do Oeste",
-      "obitos": 212,
-      "taxa": 8.6,
+      "obitos": 211,
+      "taxa": 8.5,
       "populacao": 24859
     },
     {
       "cod_ibge": "4106704",
       "municipio": "Cruzeiro do Sul",
-      "obitos": 39,
-      "taxa": 8.7,
+      "obitos": 36,
+      "taxa": 7.9,
       "populacao": 4543
     },
     {
       "cod_ibge": "4106803",
       "municipio": "Cruz Machado",
-      "obitos": 74,
-      "taxa": 4.7,
+      "obitos": 101,
+      "taxa": 6.4,
       "populacao": 15759
     },
     {
       "cod_ibge": "4106852",
       "municipio": "Cruzmaltina",
-      "obitos": 24,
-      "taxa": 8.4,
+      "obitos": 22,
+      "taxa": 7.8,
       "populacao": 2870
     },
     {
       "cod_ibge": "4106902",
       "municipio": "Curitiba",
-      "obitos": 8199,
-      "taxa": 4.5,
+      "obitos": 9865,
+      "taxa": 5.4,
       "populacao": 1830795
     },
     {
       "cod_ibge": "4107009",
       "municipio": "Curiúva",
-      "obitos": 77,
-      "taxa": 5.6,
+      "obitos": 83,
+      "taxa": 6.1,
       "populacao": 13784
     },
     {
       "cod_ibge": "4107108",
       "municipio": "Diamante do Norte",
-      "obitos": 29,
-      "taxa": 5.8,
+      "obitos": 24,
+      "taxa": 4.8,
       "populacao": 5139
     },
     {
       "cod_ibge": "4107124",
       "municipio": "Diamante do Sul",
-      "obitos": 17,
-      "taxa": 5.4,
+      "obitos": 24,
+      "taxa": 7.8,
       "populacao": 3147
     },
     {
       "cod_ibge": "4107157",
       "municipio": "Diamante D'Oeste",
-      "obitos": 36,
-      "taxa": 8.0,
+      "obitos": 30,
+      "taxa": 6.8,
       "populacao": 4513
     },
     {
       "cod_ibge": "4107207",
       "municipio": "Dois Vizinhos",
-      "obitos": 277,
-      "taxa": 5.8,
+      "obitos": 314,
+      "taxa": 6.6,
       "populacao": 47589
     },
     {
       "cod_ibge": "4107256",
       "municipio": "Douradina",
-      "obitos": 50,
-      "taxa": 5.2,
+      "obitos": 63,
+      "taxa": 6.6,
       "populacao": 9631
     },
     {
       "cod_ibge": "4107306",
       "municipio": "Doutor Camargo",
-      "obitos": 56,
-      "taxa": 8.7,
+      "obitos": 52,
+      "taxa": 8.0,
       "populacao": 6517
     },
     {
       "cod_ibge": "4107405",
       "municipio": "Enéas Marques",
-      "obitos": 49,
-      "taxa": 8.1,
+      "obitos": 30,
+      "taxa": 5.0,
       "populacao": 6146
     },
     {
       "cod_ibge": "4107504",
       "municipio": "Engenheiro Beltrão",
-      "obitos": 99,
-      "taxa": 8.0,
+      "obitos": 110,
+      "taxa": 8.9,
       "populacao": 12347
     },
     {
       "cod_ibge": "4107520",
       "municipio": "Esperança Nova",
-      "obitos": 14,
-      "taxa": 7.8,
+      "obitos": 11,
+      "taxa": 6.3,
       "populacao": 1852
     },
     {
       "cod_ibge": "4107538",
       "municipio": "Entre Rios do Oeste",
-      "obitos": 35,
-      "taxa": 7.4,
+      "obitos": 34,
+      "taxa": 7.3,
       "populacao": 4770
     },
     {
       "cod_ibge": "4107546",
       "municipio": "Espigão Alto do Iguaçu",
-      "obitos": 44,
-      "taxa": 9.1,
+      "obitos": 41,
+      "taxa": 8.6,
       "populacao": 4880
     },
     {
       "cod_ibge": "4107553",
       "municipio": "Farol",
-      "obitos": 18,
-      "taxa": 6.1,
+      "obitos": 25,
+      "taxa": 8.4,
       "populacao": 2994
     },
     {
       "cod_ibge": "4107603",
       "municipio": "Faxinal",
-      "obitos": 150,
-      "taxa": 9.1,
+      "obitos": 112,
+      "taxa": 6.8,
       "populacao": 16596
     },
     {
       "cod_ibge": "4107652",
       "municipio": "Fazenda Rio Grande",
-      "obitos": 929,
-      "taxa": 5.6,
+      "obitos": 728,
+      "taxa": 4.4,
       "populacao": 165943
     },
     {
       "cod_ibge": "4107702",
       "municipio": "Fênix",
-      "obitos": 20,
-      "taxa": 4.5,
+      "obitos": 23,
+      "taxa": 5.2,
       "populacao": 4488
     },
     {
       "cod_ibge": "4107736",
       "municipio": "Fernandes Pinheiro",
-      "obitos": 50,
-      "taxa": 7.8,
+      "obitos": 52,
+      "taxa": 8.2,
       "populacao": 6400
     },
     {
       "cod_ibge": "4107751",
       "municipio": "Figueira",
-      "obitos": 75,
-      "taxa": 9.3,
+      "obitos": 67,
+      "taxa": 8.3,
       "populacao": 8129
     },
     {
       "cod_ibge": "4107801",
       "municipio": "Floraí",
-      "obitos": 35,
-      "taxa": 7.4,
+      "obitos": 22,
+      "taxa": 4.8,
       "populacao": 4805
     },
     {
       "cod_ibge": "4107850",
       "municipio": "Flor da Serra do Sul",
-      "obitos": 29,
-      "taxa": 6.8,
+      "obitos": 40,
+      "taxa": 9.3,
       "populacao": 4342
     },
     {
       "cod_ibge": "4107900",
       "municipio": "Floresta",
-      "obitos": 73,
+      "obitos": 74,
       "taxa": 6.4,
       "populacao": 11522
     },
     {
       "cod_ibge": "4108007",
       "municipio": "Florestópolis",
-      "obitos": 65,
-      "taxa": 5.7,
+      "obitos": 53,
+      "taxa": 4.6,
       "populacao": 11653
     },
     {
       "cod_ibge": "4108106",
       "municipio": "Flórida",
-      "obitos": 22,
-      "taxa": 8.2,
+      "obitos": 23,
+      "taxa": 8.6,
       "populacao": 2711
     },
     {
       "cod_ibge": "4108205",
       "municipio": "Formosa do Oeste",
-      "obitos": 62,
-      "taxa": 8.0,
+      "obitos": 55,
+      "taxa": 7.2,
       "populacao": 7763
     },
     {
       "cod_ibge": "4108304",
       "municipio": "Foz do Iguaçu",
-      "obitos": 2611,
-      "taxa": 8.8,
+      "obitos": 2664,
+      "taxa": 9.0,
       "populacao": 297352
     },
     {
       "cod_ibge": "4108320",
       "municipio": "Francisco Alves",
-      "obitos": 66,
-      "taxa": 7.8,
+      "obitos": 52,
+      "taxa": 6.1,
       "populacao": 8573
     },
     {
       "cod_ibge": "4108403",
       "municipio": "Francisco Beltrão",
-      "obitos": 515,
-      "taxa": 5.0,
+      "obitos": 756,
+      "taxa": 7.4,
       "populacao": 102312
     },
     {
@@ -1158,757 +1158,757 @@
     {
       "cod_ibge": "4108502",
       "municipio": "General Carneiro",
-      "obitos": 96,
-      "taxa": 9.1,
+      "obitos": 70,
+      "taxa": 6.6,
       "populacao": 10691
     },
     {
       "cod_ibge": "4108551",
       "municipio": "Godoy Moreira",
-      "obitos": 22,
-      "taxa": 7.7,
+      "obitos": 23,
+      "taxa": 8.0,
       "populacao": 2911
     },
     {
       "cod_ibge": "4108601",
       "municipio": "Goioerê",
-      "obitos": 170,
-      "taxa": 5.9,
+      "obitos": 261,
+      "taxa": 9.0,
       "populacao": 28931
     },
     {
       "cod_ibge": "4108650",
       "municipio": "Goioxim",
-      "obitos": 48,
-      "taxa": 7.4,
+      "obitos": 44,
+      "taxa": 6.9,
       "populacao": 6469
     },
     {
       "cod_ibge": "4108700",
       "municipio": "Grandes Rios",
-      "obitos": 34,
-      "taxa": 6.2,
+      "obitos": 38,
+      "taxa": 6.9,
       "populacao": 5527
     },
     {
       "cod_ibge": "4108809",
       "municipio": "Guaíra",
-      "obitos": 253,
-      "taxa": 7.7,
+      "obitos": 149,
+      "taxa": 4.5,
       "populacao": 33058
     },
     {
       "cod_ibge": "4108908",
       "municipio": "Guairaçá",
-      "obitos": 62,
-      "taxa": 9.3,
+      "obitos": 43,
+      "taxa": 6.5,
       "populacao": 6762
     },
     {
       "cod_ibge": "4108957",
       "municipio": "Guamiranga",
-      "obitos": 65,
-      "taxa": 8.3,
+      "obitos": 68,
+      "taxa": 8.7,
       "populacao": 7916
     },
     {
       "cod_ibge": "4109005",
       "municipio": "Guapirama",
-      "obitos": 27,
-      "taxa": 5.8,
+      "obitos": 33,
+      "taxa": 6.9,
       "populacao": 4857
     },
     {
       "cod_ibge": "4109104",
       "municipio": "Guaporema",
-      "obitos": 17,
-      "taxa": 7.8,
+      "obitos": 14,
+      "taxa": 6.7,
       "populacao": 2210
     },
     {
       "cod_ibge": "4109203",
       "municipio": "Guaraci",
-      "obitos": 35,
-      "taxa": 7.4,
+      "obitos": 37,
+      "taxa": 7.9,
       "populacao": 4743
     },
     {
       "cod_ibge": "4109302",
       "municipio": "Guaraniaçu",
-      "obitos": 67,
-      "taxa": 4.9,
+      "obitos": 80,
+      "taxa": 5.8,
       "populacao": 13770
     },
     {
       "cod_ibge": "4109401",
       "municipio": "Guarapuava",
-      "obitos": 1196,
-      "taxa": 6.3,
+      "obitos": 1305,
+      "taxa": 6.9,
       "populacao": 189630
     },
     {
       "cod_ibge": "4109500",
       "municipio": "Guaraqueçaba",
-      "obitos": 61,
-      "taxa": 8.2,
+      "obitos": 53,
+      "taxa": 7.2,
       "populacao": 7446
     },
     {
       "cod_ibge": "4109609",
       "municipio": "Guaratuba",
-      "obitos": 213,
-      "taxa": 4.8,
+      "obitos": 364,
+      "taxa": 8.1,
       "populacao": 44913
     },
     {
       "cod_ibge": "4109658",
       "municipio": "Honório Serpa",
-      "obitos": 24,
-      "taxa": 5.0,
+      "obitos": 26,
+      "taxa": 5.4,
       "populacao": 4803
     },
     {
       "cod_ibge": "4109708",
       "municipio": "Ibaiti",
-      "obitos": 223,
-      "taxa": 7.6,
+      "obitos": 258,
+      "taxa": 8.8,
       "populacao": 29464
     },
     {
       "cod_ibge": "4109757",
       "municipio": "Ibema",
-      "obitos": 31,
-      "taxa": 4.9,
+      "obitos": 56,
+      "taxa": 8.8,
       "populacao": 6343
     },
     {
       "cod_ibge": "4109807",
       "municipio": "Ibiporã",
-      "obitos": 380,
-      "taxa": 7.2,
+      "obitos": 418,
+      "taxa": 7.9,
       "populacao": 53276
     },
     {
       "cod_ibge": "4109906",
       "municipio": "Icaraíma",
-      "obitos": 72,
+      "obitos": 71,
       "taxa": 7.9,
       "populacao": 9149
     },
     {
       "cod_ibge": "4110003",
       "municipio": "Iguaraçu",
-      "obitos": 33,
-      "taxa": 5.9,
+      "obitos": 37,
+      "taxa": 6.7,
       "populacao": 5693
     },
     {
       "cod_ibge": "4110052",
       "municipio": "Iguatu",
-      "obitos": 17,
-      "taxa": 8.0,
+      "obitos": 15,
+      "taxa": 7.3,
       "populacao": 2156
     },
     {
       "cod_ibge": "4110078",
       "municipio": "Imbaú",
-      "obitos": 112,
-      "taxa": 7.5,
+      "obitos": 82,
+      "taxa": 5.5,
       "populacao": 15068
     },
     {
       "cod_ibge": "4110102",
       "municipio": "Imbituva",
-      "obitos": 176,
-      "taxa": 5.7,
+      "obitos": 152,
+      "taxa": 4.9,
       "populacao": 30849
     },
     {
       "cod_ibge": "4110201",
       "municipio": "Inácio Martins",
-      "obitos": 78,
-      "taxa": 8.2,
+      "obitos": 63,
+      "taxa": 6.6,
       "populacao": 9555
     },
     {
       "cod_ibge": "4110300",
       "municipio": "Inajá",
-      "obitos": 22,
-      "taxa": 8.9,
+      "obitos": 12,
+      "taxa": 5.2,
       "populacao": 2481
     },
     {
       "cod_ibge": "4110409",
       "municipio": "Indianópolis",
-      "obitos": 30,
-      "taxa": 6.8,
+      "obitos": 28,
+      "taxa": 6.2,
       "populacao": 4544
     },
     {
       "cod_ibge": "4110508",
       "municipio": "Ipiranga",
-      "obitos": 94,
-      "taxa": 6.6,
+      "obitos": 66,
+      "taxa": 4.6,
       "populacao": 14317
     },
     {
       "cod_ibge": "4110607",
       "municipio": "Iporã",
-      "obitos": 113,
-      "taxa": 7.0,
+      "obitos": 98,
+      "taxa": 6.1,
       "populacao": 16102
     },
     {
       "cod_ibge": "4110656",
       "municipio": "Iracema do Oeste",
-      "obitos": 14,
-      "taxa": 6.2,
+      "obitos": 18,
+      "taxa": 8.1,
       "populacao": 2328
     },
     {
       "cod_ibge": "4110706",
       "municipio": "Irati",
-      "obitos": 269,
-      "taxa": 4.4,
+      "obitos": 285,
+      "taxa": 4.7,
       "populacao": 61004
     },
     {
       "cod_ibge": "4110805",
       "municipio": "Iretama",
-      "obitos": 84,
-      "taxa": 7.8,
+      "obitos": 48,
+      "taxa": 4.5,
       "populacao": 10832
     },
     {
       "cod_ibge": "4110904",
       "municipio": "Itaguajé",
-      "obitos": 28,
-      "taxa": 6.3,
+      "obitos": 41,
+      "taxa": 9.3,
       "populacao": 4530
     },
     {
       "cod_ibge": "4110953",
       "municipio": "Itaipulândia",
-      "obitos": 67,
-      "taxa": 5.6,
+      "obitos": 88,
+      "taxa": 7.3,
       "populacao": 12116
     },
     {
       "cod_ibge": "4111001",
       "municipio": "Itambaracá",
-      "obitos": 34,
-      "taxa": 5.9,
+      "obitos": 38,
+      "taxa": 6.7,
       "populacao": 5819
     },
     {
       "cod_ibge": "4111100",
       "municipio": "Itambé",
-      "obitos": 46,
-      "taxa": 7.4,
+      "obitos": 37,
+      "taxa": 6.1,
       "populacao": 6228
     },
     {
       "cod_ibge": "4111209",
       "municipio": "Itapejara d'Oeste",
-      "obitos": 70,
-      "taxa": 5.5,
+      "obitos": 73,
+      "taxa": 5.7,
       "populacao": 12869
     },
     {
       "cod_ibge": "4111258",
       "municipio": "Itaperuçu",
-      "obitos": 289,
-      "taxa": 8.7,
+      "obitos": 235,
+      "taxa": 7.1,
       "populacao": 33310
     },
     {
       "cod_ibge": "4111308",
       "municipio": "Itaúna do Sul",
-      "obitos": 24,
-      "taxa": 6.9,
+      "obitos": 20,
+      "taxa": 5.6,
       "populacao": 3607
     },
     {
       "cod_ibge": "4111407",
       "municipio": "Ivaí",
-      "obitos": 108,
-      "taxa": 8.1,
+      "obitos": 88,
+      "taxa": 6.6,
       "populacao": 13476
     },
     {
       "cod_ibge": "4111506",
       "municipio": "Ivaiporã",
-      "obitos": 257,
-      "taxa": 7.7,
+      "obitos": 249,
+      "taxa": 7.4,
       "populacao": 33566
     },
     {
       "cod_ibge": "4111555",
       "municipio": "Ivaté",
-      "obitos": 44,
-      "taxa": 6.5,
+      "obitos": 35,
+      "taxa": 5.2,
       "populacao": 6788
     },
     {
       "cod_ibge": "4111605",
       "municipio": "Ivatuba",
-      "obitos": 20,
-      "taxa": 7.8,
+      "obitos": 24,
+      "taxa": 9.0,
       "populacao": 2685
     },
     {
       "cod_ibge": "4111704",
       "municipio": "Jaboti",
-      "obitos": 52,
-      "taxa": 9.3,
+      "obitos": 43,
+      "taxa": 7.6,
       "populacao": 5655
     },
     {
       "cod_ibge": "4111803",
       "municipio": "Jacarezinho",
-      "obitos": 238,
-      "taxa": 5.8,
+      "obitos": 195,
+      "taxa": 4.7,
       "populacao": 41493
     },
     {
       "cod_ibge": "4111902",
       "municipio": "Jaguapitã",
-      "obitos": 132,
-      "taxa": 8.3,
+      "obitos": 104,
+      "taxa": 6.6,
       "populacao": 15908
     },
     {
       "cod_ibge": "4112009",
       "municipio": "Jaguariaíva",
-      "obitos": 262,
-      "taxa": 7.2,
+      "obitos": 248,
+      "taxa": 6.8,
       "populacao": 36384
     },
     {
       "cod_ibge": "4112108",
       "municipio": "Jandaia do Sul",
-      "obitos": 199,
-      "taxa": 9.1,
+      "obitos": 101,
+      "taxa": 4.6,
       "populacao": 21930
     },
     {
       "cod_ibge": "4112207",
       "municipio": "Janiópolis",
-      "obitos": 29,
-      "taxa": 5.0,
+      "obitos": 53,
+      "taxa": 9.3,
       "populacao": 5807
     },
     {
       "cod_ibge": "4112306",
       "municipio": "Japira",
-      "obitos": 24,
-      "taxa": 4.9,
+      "obitos": 27,
+      "taxa": 5.5,
       "populacao": 5054
     },
     {
       "cod_ibge": "4112405",
       "municipio": "Japurá",
-      "obitos": 44,
-      "taxa": 4.7,
+      "obitos": 85,
+      "taxa": 9.1,
       "populacao": 9393
     },
     {
       "cod_ibge": "4112504",
       "municipio": "Jardim Alegre",
-      "obitos": 105,
-      "taxa": 8.7,
+      "obitos": 83,
+      "taxa": 6.9,
       "populacao": 12138
     },
     {
       "cod_ibge": "4112603",
       "municipio": "Jardim Olinda",
-      "obitos": 7,
-      "taxa": 5.4,
+      "obitos": 11,
+      "taxa": 8.2,
       "populacao": 1349
     },
     {
       "cod_ibge": "4112702",
       "municipio": "Jataizinho",
-      "obitos": 68,
-      "taxa": 5.7,
+      "obitos": 66,
+      "taxa": 5.6,
       "populacao": 11996
     },
     {
       "cod_ibge": "4112751",
       "municipio": "Jesuítas",
-      "obitos": 53,
-      "taxa": 4.8,
+      "obitos": 65,
+      "taxa": 5.9,
       "populacao": 10954
     },
     {
       "cod_ibge": "4112801",
       "municipio": "Joaquim Távora",
-      "obitos": 60,
-      "taxa": 4.9,
+      "obitos": 111,
+      "taxa": 9.0,
       "populacao": 12341
     },
     {
       "cod_ibge": "4112900",
       "municipio": "Jundiaí do Sul",
       "obitos": 16,
-      "taxa": 4.9,
+      "taxa": 4.8,
       "populacao": 3372
     },
     {
       "cod_ibge": "4112959",
       "municipio": "Juranda",
-      "obitos": 34,
-      "taxa": 4.4,
+      "obitos": 37,
+      "taxa": 4.7,
       "populacao": 7899
     },
     {
       "cod_ibge": "4113007",
       "municipio": "Jussara",
-      "obitos": 59,
-      "taxa": 8.8,
+      "obitos": 36,
+      "taxa": 5.4,
       "populacao": 6786
     },
     {
       "cod_ibge": "4113106",
       "municipio": "Kaloré",
-      "obitos": 28,
-      "taxa": 6.2,
+      "obitos": 35,
+      "taxa": 7.6,
       "populacao": 4666
     },
     {
       "cod_ibge": "4113205",
       "municipio": "Lapa",
-      "obitos": 211,
-      "taxa": 4.6,
+      "obitos": 289,
+      "taxa": 6.3,
       "populacao": 45878
     },
     {
       "cod_ibge": "4113254",
       "municipio": "Laranjal",
-      "obitos": 39,
-      "taxa": 7.2,
+      "obitos": 47,
+      "taxa": 8.6,
       "populacao": 5525
     },
     {
       "cod_ibge": "4113304",
       "municipio": "Laranjeiras do Sul",
-      "obitos": 162,
-      "taxa": 4.9,
+      "obitos": 152,
+      "taxa": 4.6,
       "populacao": 33179
     },
     {
       "cod_ibge": "4113403",
       "municipio": "Leópolis",
-      "obitos": 33,
-      "taxa": 8.9,
+      "obitos": 26,
+      "taxa": 7.1,
       "populacao": 3725
     },
     {
       "cod_ibge": "4113429",
       "municipio": "Lidianópolis",
-      "obitos": 32,
-      "taxa": 8.2,
+      "obitos": 29,
+      "taxa": 7.3,
       "populacao": 3987
     },
     {
       "cod_ibge": "4113452",
       "municipio": "Lindoeste",
-      "obitos": 41,
-      "taxa": 7.9,
+      "obitos": 48,
+      "taxa": 9.2,
       "populacao": 5217
     },
     {
       "cod_ibge": "4113502",
       "municipio": "Loanda",
-      "obitos": 187,
-      "taxa": 7.8,
+      "obitos": 211,
+      "taxa": 8.8,
       "populacao": 23966
     },
     {
       "cod_ibge": "4113601",
       "municipio": "Lobato",
-      "obitos": 28,
-      "taxa": 6.1,
+      "obitos": 43,
+      "taxa": 9.2,
       "populacao": 4707
     },
     {
       "cod_ibge": "4113700",
       "municipio": "Londrina",
-      "obitos": 5029,
-      "taxa": 8.7,
+      "obitos": 5212,
+      "taxa": 9.0,
       "populacao": 581382
     },
     {
       "cod_ibge": "4113734",
       "municipio": "Luiziana",
-      "obitos": 28,
-      "taxa": 4.3,
+      "obitos": 50,
+      "taxa": 7.6,
       "populacao": 6659
     },
     {
       "cod_ibge": "4113759",
       "municipio": "Lunardelli",
-      "obitos": 37,
-      "taxa": 7.7,
+      "obitos": 38,
+      "taxa": 7.9,
       "populacao": 4864
     },
     {
       "cod_ibge": "4113809",
       "municipio": "Lupionópolis",
-      "obitos": 23,
-      "taxa": 4.7,
+      "obitos": 25,
+      "taxa": 5.1,
       "populacao": 4929
     },
     {
       "cod_ibge": "4113908",
       "municipio": "Mallet",
-      "obitos": 126,
-      "taxa": 9.2,
+      "obitos": 82,
+      "taxa": 6.1,
       "populacao": 13681
     },
     {
       "cod_ibge": "4114005",
       "municipio": "Mamborê",
-      "obitos": 108,
-      "taxa": 8.0,
+      "obitos": 75,
+      "taxa": 5.5,
       "populacao": 13551
     },
     {
       "cod_ibge": "4114104",
       "municipio": "Mandaguaçu",
-      "obitos": 230,
-      "taxa": 6.7,
+      "obitos": 221,
+      "taxa": 6.4,
       "populacao": 34521
     },
     {
       "cod_ibge": "4114203",
       "municipio": "Mandaguari",
-      "obitos": 169,
-      "taxa": 4.4,
+      "obitos": 246,
+      "taxa": 6.4,
       "populacao": 38313
     },
     {
       "cod_ibge": "4114302",
       "municipio": "Mandirituba",
-      "obitos": 199,
-      "taxa": 6.9,
+      "obitos": 224,
+      "taxa": 7.7,
       "populacao": 29104
     },
     {
       "cod_ibge": "4114351",
       "municipio": "Manfrinópolis",
-      "obitos": 15,
-      "taxa": 5.4,
+      "obitos": 17,
+      "taxa": 6.3,
       "populacao": 2790
     },
     {
       "cod_ibge": "4114401",
       "municipio": "Mangueirinha",
-      "obitos": 109,
-      "taxa": 6.6,
+      "obitos": 143,
+      "taxa": 8.6,
       "populacao": 16737
     },
     {
       "cod_ibge": "4114500",
       "municipio": "Manoel Ribas",
-      "obitos": 120,
-      "taxa": 8.2,
+      "obitos": 103,
+      "taxa": 7.1,
       "populacao": 14675
     },
     {
       "cod_ibge": "4114609",
       "municipio": "Marechal Cândido Rondon",
-      "obitos": 294,
-      "taxa": 5.0,
+      "obitos": 523,
+      "taxa": 8.9,
       "populacao": 58734
     },
     {
       "cod_ibge": "4114708",
       "municipio": "Maria Helena",
-      "obitos": 36,
-      "taxa": 6.2,
+      "obitos": 33,
+      "taxa": 5.6,
       "populacao": 5926
     },
     {
       "cod_ibge": "4114807",
       "municipio": "Marialva",
-      "obitos": 347,
-      "taxa": 7.8,
+      "obitos": 309,
+      "taxa": 6.9,
       "populacao": 44749
     },
     {
       "cod_ibge": "4114906",
       "municipio": "Marilândia do Sul",
-      "obitos": 70,
-      "taxa": 8.0,
+      "obitos": 40,
+      "taxa": 4.6,
       "populacao": 8761
     },
     {
       "cod_ibge": "4115002",
       "municipio": "Marilena",
-      "obitos": 34,
-      "taxa": 4.6,
+      "obitos": 42,
+      "taxa": 5.8,
       "populacao": 7450
     },
     {
       "cod_ibge": "4115101",
       "municipio": "Mariluz",
-      "obitos": 45,
-      "taxa": 4.6,
+      "obitos": 58,
+      "taxa": 5.9,
       "populacao": 9910
     },
     {
       "cod_ibge": "4115200",
       "municipio": "Maringá",
-      "obitos": 2448,
-      "taxa": 5.7,
+      "obitos": 3908,
+      "taxa": 9.1,
       "populacao": 429660
     },
     {
       "cod_ibge": "4115309",
       "municipio": "Mariópolis",
-      "obitos": 29,
-      "taxa": 4.6,
+      "obitos": 44,
+      "taxa": 6.8,
       "populacao": 6506
     },
     {
       "cod_ibge": "4115358",
       "municipio": "Maripá",
-      "obitos": 56,
-      "taxa": 8.2,
+      "obitos": 57,
+      "taxa": 8.4,
       "populacao": 6824
     },
     {
       "cod_ibge": "4115408",
       "municipio": "Marmeleiro",
-      "obitos": 105,
-      "taxa": 6.4,
+      "obitos": 80,
+      "taxa": 4.9,
       "populacao": 16605
     },
     {
       "cod_ibge": "4115457",
       "municipio": "Marquinho",
-      "obitos": 20,
-      "taxa": 4.6,
+      "obitos": 36,
+      "taxa": 8.1,
       "populacao": 4491
     },
     {
       "cod_ibge": "4115507",
       "municipio": "Marumbi",
-      "obitos": 35,
-      "taxa": 7.4,
+      "obitos": 29,
+      "taxa": 6.1,
       "populacao": 4780
     },
     {
       "cod_ibge": "4115606",
       "municipio": "Matelândia",
-      "obitos": 114,
-      "taxa": 5.9,
+      "obitos": 151,
+      "taxa": 7.9,
       "populacao": 19223
     },
     {
       "cod_ibge": "4115705",
       "municipio": "Matinhos",
-      "obitos": 326,
-      "taxa": 7.8,
+      "obitos": 384,
+      "taxa": 9.1,
       "populacao": 42063
     },
     {
       "cod_ibge": "4115739",
       "municipio": "Mato Rico",
-      "obitos": 15,
-      "taxa": 4.9,
+      "obitos": 25,
+      "taxa": 7.8,
       "populacao": 3249
     },
     {
       "cod_ibge": "4115754",
       "municipio": "Mauá da Serra",
-      "obitos": 57,
-      "taxa": 5.9,
+      "obitos": 52,
+      "taxa": 5.4,
       "populacao": 9689
     },
     {
       "cod_ibge": "4115804",
       "municipio": "Medianeira",
-      "obitos": 446,
-      "taxa": 7.7,
+      "obitos": 276,
+      "taxa": 4.8,
       "populacao": 57910
     },
     {
       "cod_ibge": "4115853",
       "municipio": "Mercedes",
-      "obitos": 31,
-      "taxa": 5.0,
+      "obitos": 30,
+      "taxa": 4.9,
       "populacao": 6194
     },
     {
       "cod_ibge": "4115903",
       "municipio": "Mirador",
-      "obitos": 16,
-      "taxa": 7.6,
+      "obitos": 12,
+      "taxa": 5.4,
       "populacao": 2248
     },
     {
       "cod_ibge": "4116000",
       "municipio": "Miraselva",
-      "obitos": 12,
-      "taxa": 6.4,
+      "obitos": 17,
+      "taxa": 8.9,
       "populacao": 2017
     },
     {
       "cod_ibge": "4116059",
       "municipio": "Missal",
       "obitos": 86,
-      "taxa": 7.6,
+      "taxa": 7.5,
       "populacao": 11423
     },
     {
       "cod_ibge": "4116109",
       "municipio": "Moreira Sales",
-      "obitos": 56,
-      "taxa": 5.1,
+      "obitos": 82,
+      "taxa": 7.5,
       "populacao": 11043
     },
     {
       "cod_ibge": "4116208",
       "municipio": "Morretes",
-      "obitos": 100,
-      "taxa": 5.3,
+      "obitos": 169,
+      "taxa": 8.9,
       "populacao": 19089
     },
     {
       "cod_ibge": "4116307",
       "municipio": "Munhoz de Melo",
-      "obitos": 26,
-      "taxa": 6.5,
+      "obitos": 33,
+      "taxa": 8.2,
       "populacao": 4057
     },
     {
       "cod_ibge": "4116406",
       "municipio": "Nossa Senhora das Graças",
-      "obitos": 23,
-      "taxa": 6.3,
+      "obitos": 16,
+      "taxa": 4.5,
       "populacao": 3669
     },
     {
       "cod_ibge": "4116505",
       "municipio": "Nova Aliança do Ivaí",
-      "obitos": 8,
-      "taxa": 6.1,
+      "obitos": 12,
+      "taxa": 9.1,
       "populacao": 1322
     },
     {
       "cod_ibge": "4116604",
       "municipio": "Nova América da Colina",
-      "obitos": 26,
-      "taxa": 8.1,
+      "obitos": 17,
+      "taxa": 5.2,
       "populacao": 3286
     },
     {
       "cod_ibge": "4116703",
       "municipio": "Nova Aurora",
-      "obitos": 92,
-      "taxa": 6.5,
+      "obitos": 76,
+      "taxa": 5.3,
       "populacao": 14331
     },
     {
@@ -1921,281 +1921,281 @@
     {
       "cod_ibge": "4116901",
       "municipio": "Nova Esperança",
-      "obitos": 178,
-      "taxa": 6.6,
+      "obitos": 118,
+      "taxa": 4.4,
       "populacao": 27142
     },
     {
       "cod_ibge": "4116950",
       "municipio": "Nova Esperança do Sudoeste",
-      "obitos": 41,
-      "taxa": 7.1,
+      "obitos": 26,
+      "taxa": 4.6,
       "populacao": 5783
     },
     {
       "cod_ibge": "4117008",
       "municipio": "Nova Fátima",
-      "obitos": 44,
-      "taxa": 6.3,
+      "obitos": 62,
+      "taxa": 8.8,
       "populacao": 7140
     },
     {
       "cod_ibge": "4117057",
       "municipio": "Nova Laranjeiras",
-      "obitos": 71,
-      "taxa": 5.8,
+      "obitos": 57,
+      "taxa": 4.7,
       "populacao": 12298
     },
     {
       "cod_ibge": "4117107",
       "municipio": "Nova Londrina",
-      "obitos": 103,
-      "taxa": 7.9,
+      "obitos": 118,
+      "taxa": 9.1,
       "populacao": 13074
     },
     {
       "cod_ibge": "4117206",
       "municipio": "Nova Olímpia",
-      "obitos": 54,
-      "taxa": 9.1,
+      "obitos": 53,
+      "taxa": 8.9,
       "populacao": 5982
     },
     {
       "cod_ibge": "4117214",
       "municipio": "Nova Santa Bárbara",
-      "obitos": 24,
-      "taxa": 5.6,
+      "obitos": 20,
+      "taxa": 4.7,
       "populacao": 4308
     },
     {
       "cod_ibge": "4117222",
       "municipio": "Nova Santa Rosa",
-      "obitos": 51,
-      "taxa": 6.0,
+      "obitos": 67,
+      "taxa": 7.8,
       "populacao": 8581
     },
     {
       "cod_ibge": "4117255",
       "municipio": "Nova Prata do Iguaçu",
-      "obitos": 74,
-      "taxa": 5.6,
+      "obitos": 57,
+      "taxa": 4.3,
       "populacao": 13340
     },
     {
       "cod_ibge": "4117271",
       "municipio": "Nova Tebas",
-      "obitos": 55,
-      "taxa": 8.1,
+      "obitos": 61,
+      "taxa": 9.0,
       "populacao": 6852
     },
     {
       "cod_ibge": "4117297",
       "municipio": "Novo Itacolomi",
-      "obitos": 22,
-      "taxa": 7.1,
+      "obitos": 14,
+      "taxa": 4.6,
       "populacao": 3227
     },
     {
       "cod_ibge": "4117305",
       "municipio": "Ortigueira",
-      "obitos": 140,
-      "taxa": 5.7,
+      "obitos": 177,
+      "taxa": 7.2,
       "populacao": 24706
     },
     {
       "cod_ibge": "4117404",
       "municipio": "Ourizona",
-      "obitos": 22,
-      "taxa": 7.1,
+      "obitos": 25,
+      "taxa": 8.0,
       "populacao": 3193
     },
     {
       "cod_ibge": "4117453",
       "municipio": "Ouro Verde do Oeste",
-      "obitos": 54,
-      "taxa": 7.7,
+      "obitos": 37,
+      "taxa": 5.3,
       "populacao": 7102
     },
     {
       "cod_ibge": "4117503",
       "municipio": "Paiçandu",
-      "obitos": 234,
-      "taxa": 4.8,
+      "obitos": 267,
+      "taxa": 5.5,
       "populacao": 48695
     },
     {
       "cod_ibge": "4117602",
       "municipio": "Palmas",
-      "obitos": 455,
+      "obitos": 457,
       "taxa": 9.1,
       "populacao": 50238
     },
     {
       "cod_ibge": "4117701",
       "municipio": "Palmeira",
-      "obitos": 203,
-      "taxa": 5.8,
+      "obitos": 209,
+      "taxa": 6.0,
       "populacao": 34948
     },
     {
       "cod_ibge": "4117800",
       "municipio": "Palmital",
-      "obitos": 104,
-      "taxa": 8.1,
+      "obitos": 62,
+      "taxa": 4.8,
       "populacao": 12879
     },
     {
       "cod_ibge": "4117909",
       "municipio": "Palotina",
-      "obitos": 318,
-      "taxa": 8.6,
+      "obitos": 315,
+      "taxa": 8.5,
       "populacao": 37039
     },
     {
       "cod_ibge": "4118006",
       "municipio": "Paraíso do Norte",
-      "obitos": 75,
-      "taxa": 5.5,
+      "obitos": 127,
+      "taxa": 9.3,
       "populacao": 13728
     },
     {
       "cod_ibge": "4118105",
       "municipio": "Paranacity",
-      "obitos": 82,
-      "taxa": 8.6,
+      "obitos": 87,
+      "taxa": 9.1,
       "populacao": 9549
     },
     {
       "cod_ibge": "4118204",
       "municipio": "Paranaguá",
-      "obitos": 734,
-      "taxa": 4.9,
+      "obitos": 871,
+      "taxa": 5.8,
       "populacao": 150104
     },
     {
       "cod_ibge": "4118303",
       "municipio": "Paranapoema",
-      "obitos": 18,
-      "taxa": 7.7,
+      "obitos": 11,
+      "taxa": 4.8,
       "populacao": 2352
     },
     {
       "cod_ibge": "4118402",
       "municipio": "Paranavaí",
-      "obitos": 821,
-      "taxa": 8.5,
+      "obitos": 545,
+      "taxa": 5.7,
       "populacao": 96209
     },
     {
       "cod_ibge": "4118451",
       "municipio": "Pato Bragado",
-      "obitos": 43,
-      "taxa": 7.2,
+      "obitos": 40,
+      "taxa": 6.7,
       "populacao": 6004
     },
     {
       "cod_ibge": "4118501",
       "municipio": "Pato Branco",
-      "obitos": 652,
-      "taxa": 6.7,
+      "obitos": 539,
+      "taxa": 5.5,
       "populacao": 97821
     },
     {
       "cod_ibge": "4118600",
       "municipio": "Paula Freitas",
-      "obitos": 47,
-      "taxa": 8.3,
+      "obitos": 41,
+      "taxa": 7.2,
       "populacao": 5706
     },
     {
       "cod_ibge": "4118709",
       "municipio": "Paulo Frontin",
-      "obitos": 52,
-      "taxa": 8.1,
+      "obitos": 36,
+      "taxa": 5.7,
       "populacao": 6414
     },
     {
       "cod_ibge": "4118808",
       "municipio": "Peabiru",
-      "obitos": 115,
-      "taxa": 8.6,
+      "obitos": 105,
+      "taxa": 7.8,
       "populacao": 13494
     },
     {
       "cod_ibge": "4118857",
       "municipio": "Perobal",
-      "obitos": 32,
-      "taxa": 4.3,
+      "obitos": 35,
+      "taxa": 4.7,
       "populacao": 7599
     },
     {
       "cod_ibge": "4118907",
       "municipio": "Pérola",
-      "obitos": 107,
-      "taxa": 8.7,
+      "obitos": 104,
+      "taxa": 8.4,
       "populacao": 12389
     },
     {
       "cod_ibge": "4119004",
       "municipio": "Pérola d'Oeste",
-      "obitos": 36,
-      "taxa": 5.8,
+      "obitos": 49,
+      "taxa": 7.9,
       "populacao": 6218
     },
     {
       "cod_ibge": "4119103",
       "municipio": "Piên",
-      "obitos": 92,
-      "taxa": 6.4,
+      "obitos": 78,
+      "taxa": 5.4,
       "populacao": 14409
     },
     {
       "cod_ibge": "4119152",
       "municipio": "Pinhais",
-      "obitos": 819,
-      "taxa": 6.2,
+      "obitos": 1071,
+      "taxa": 8.2,
       "populacao": 131255
     },
     {
       "cod_ibge": "4119202",
       "municipio": "Pinhalão",
-      "obitos": 43,
-      "taxa": 6.6,
+      "obitos": 35,
+      "taxa": 5.4,
       "populacao": 6676
     },
     {
       "cod_ibge": "4119251",
       "municipio": "Pinhal de São Bento",
-      "obitos": 12,
-      "taxa": 4.4,
+      "obitos": 14,
+      "taxa": 5.1,
       "populacao": 2805
     },
     {
       "cod_ibge": "4119301",
       "municipio": "Pinhão",
-      "obitos": 191,
-      "taxa": 6.3,
+      "obitos": 162,
+      "taxa": 5.3,
       "populacao": 30451
     },
     {
       "cod_ibge": "4119400",
       "municipio": "Piraí do Sul",
-      "obitos": 183,
-      "taxa": 7.6,
+      "obitos": 197,
+      "taxa": 8.2,
       "populacao": 23977
     },
     {
       "cod_ibge": "4119509",
       "municipio": "Piraquara",
-      "obitos": 561,
-      "taxa": 4.4,
+      "obitos": 717,
+      "taxa": 5.6,
       "populacao": 127433
     },
     {
       "cod_ibge": "4119608",
       "municipio": "Pitanga",
-      "obitos": 321,
-      "taxa": 9.3,
+      "obitos": 183,
+      "taxa": 5.3,
       "populacao": 34527
     },
     {
@@ -2208,963 +2208,963 @@
     {
       "cod_ibge": "4119707",
       "municipio": "Planaltina do Paraná",
-      "obitos": 27,
-      "taxa": 6.6,
+      "obitos": 35,
+      "taxa": 8.5,
       "populacao": 4125
     },
     {
       "cod_ibge": "4119806",
       "municipio": "Planalto",
-      "obitos": 126,
-      "taxa": 8.6,
+      "obitos": 104,
+      "taxa": 7.1,
       "populacao": 14722
     },
     {
       "cod_ibge": "4119905",
       "municipio": "Ponta Grossa",
-      "obitos": 1669,
-      "taxa": 4.4,
+      "obitos": 2614,
+      "taxa": 7.0,
       "populacao": 375632
     },
     {
       "cod_ibge": "4119954",
       "municipio": "Pontal do Paraná",
-      "obitos": 150,
-      "taxa": 4.5,
+      "obitos": 292,
+      "taxa": 8.8,
       "populacao": 33131
     },
     {
       "cod_ibge": "4120002",
       "municipio": "Porecatu",
-      "obitos": 76,
-      "taxa": 6.8,
+      "obitos": 60,
+      "taxa": 5.4,
       "populacao": 11271
     },
     {
       "cod_ibge": "4120101",
       "municipio": "Porto Amazonas",
-      "obitos": 28,
-      "taxa": 7.0,
+      "obitos": 19,
+      "taxa": 4.8,
       "populacao": 4072
     },
     {
       "cod_ibge": "4120150",
       "municipio": "Porto Barreiro",
-      "obitos": 20,
-      "taxa": 6.7,
+      "obitos": 21,
+      "taxa": 6.9,
       "populacao": 3057
     },
     {
       "cod_ibge": "4120200",
       "municipio": "Porto Rico",
-      "obitos": 27,
-      "taxa": 8.0,
+      "obitos": 16,
+      "taxa": 4.9,
       "populacao": 3370
     },
     {
       "cod_ibge": "4120309",
       "municipio": "Porto Vitória",
-      "obitos": 29,
-      "taxa": 8.5,
+      "obitos": 24,
+      "taxa": 7.0,
       "populacao": 3515
     },
     {
       "cod_ibge": "4120333",
       "municipio": "Prado Ferreira",
-      "obitos": 27,
-      "taxa": 7.2,
+      "obitos": 19,
+      "taxa": 5.1,
       "populacao": 3816
     },
     {
       "cod_ibge": "4120358",
       "municipio": "Pranchita",
-      "obitos": 30,
-      "taxa": 5.2,
+      "obitos": 42,
+      "taxa": 7.2,
       "populacao": 5831
     },
     {
       "cod_ibge": "4120408",
       "municipio": "Presidente Castelo Branco",
-      "obitos": 24,
-      "taxa": 5.8,
+      "obitos": 34,
+      "taxa": 8.1,
       "populacao": 4304
     },
     {
       "cod_ibge": "4120507",
       "municipio": "Primeiro de Maio",
-      "obitos": 45,
-      "taxa": 4.5,
+      "obitos": 83,
+      "taxa": 8.3,
       "populacao": 10064
     },
     {
       "cod_ibge": "4120606",
       "municipio": "Prudentópolis",
-      "obitos": 300,
-      "taxa": 5.9,
+      "obitos": 447,
+      "taxa": 8.8,
       "populacao": 50946
     },
     {
       "cod_ibge": "4120655",
       "municipio": "Quarto Centenário",
-      "obitos": 34,
-      "taxa": 8.4,
+      "obitos": 29,
+      "taxa": 7.2,
       "populacao": 4127
     },
     {
       "cod_ibge": "4120705",
       "municipio": "Quatiguá",
       "obitos": 36,
-      "taxa": 4.3,
+      "taxa": 4.4,
       "populacao": 8426
     },
     {
       "cod_ibge": "4120804",
       "municipio": "Quatro Barras",
-      "obitos": 112,
-      "taxa": 4.4,
+      "obitos": 119,
+      "taxa": 4.7,
       "populacao": 25397
     },
     {
       "cod_ibge": "4120853",
       "municipio": "Quatro Pontes",
-      "obitos": 32,
-      "taxa": 6.9,
+      "obitos": 37,
+      "taxa": 7.9,
       "populacao": 4672
     },
     {
       "cod_ibge": "4120903",
       "municipio": "Quedas do Iguaçu",
-      "obitos": 200,
-      "taxa": 6.4,
+      "obitos": 234,
+      "taxa": 7.5,
       "populacao": 31423
     },
     {
       "cod_ibge": "4121000",
       "municipio": "Querência do Norte",
-      "obitos": 67,
-      "taxa": 6.4,
+      "obitos": 85,
+      "taxa": 8.1,
       "populacao": 10625
     },
     {
       "cod_ibge": "4121109",
       "municipio": "Quinta do Sol",
-      "obitos": 35,
-      "taxa": 7.0,
+      "obitos": 30,
+      "taxa": 6.1,
       "populacao": 5052
     },
     {
       "cod_ibge": "4121208",
       "municipio": "Quitandinha",
-      "obitos": 91,
-      "taxa": 4.9,
+      "obitos": 174,
+      "taxa": 9.2,
       "populacao": 18882
     },
     {
       "cod_ibge": "4121257",
       "municipio": "Ramilândia",
-      "obitos": 27,
-      "taxa": 6.5,
+      "obitos": 35,
+      "taxa": 8.3,
       "populacao": 4279
     },
     {
       "cod_ibge": "4121307",
       "municipio": "Rancho Alegre",
-      "obitos": 32,
-      "taxa": 9.3,
+      "obitos": 20,
+      "taxa": 5.9,
       "populacao": 3472
     },
     {
       "cod_ibge": "4121356",
       "municipio": "Rancho Alegre D'Oeste",
-      "obitos": 12,
-      "taxa": 4.7,
+      "obitos": 19,
+      "taxa": 7.3,
       "populacao": 2623
     },
     {
       "cod_ibge": "4121406",
       "municipio": "Realeza",
-      "obitos": 133,
-      "taxa": 6.6,
+      "obitos": 118,
+      "taxa": 5.9,
       "populacao": 20097
     },
     {
       "cod_ibge": "4121505",
       "municipio": "Rebouças",
-      "obitos": 76,
-      "taxa": 5.2,
+      "obitos": 69,
+      "taxa": 4.7,
       "populacao": 14825
     },
     {
       "cod_ibge": "4121604",
       "municipio": "Renascença",
-      "obitos": 31,
-      "taxa": 4.5,
+      "obitos": 53,
+      "taxa": 7.6,
       "populacao": 6945
     },
     {
       "cod_ibge": "4121703",
       "municipio": "Reserva",
-      "obitos": 226,
-      "taxa": 9.1,
+      "obitos": 168,
+      "taxa": 6.8,
       "populacao": 24878
     },
     {
       "cod_ibge": "4121752",
       "municipio": "Reserva do Iguaçu",
-      "obitos": 42,
-      "taxa": 6.6,
+      "obitos": 43,
+      "taxa": 6.7,
       "populacao": 6493
     },
     {
       "cod_ibge": "4121802",
       "municipio": "Ribeirão Claro",
-      "obitos": 97,
-      "taxa": 7.6,
+      "obitos": 116,
+      "taxa": 9.0,
       "populacao": 12856
     },
     {
       "cod_ibge": "4121901",
       "municipio": "Ribeirão do Pinhal",
-      "obitos": 59,
-      "taxa": 4.5,
+      "obitos": 91,
+      "taxa": 7.0,
       "populacao": 13158
     },
     {
       "cod_ibge": "4122008",
       "municipio": "Rio Azul",
-      "obitos": 114,
-      "taxa": 8.1,
+      "obitos": 97,
+      "taxa": 6.9,
       "populacao": 14174
     },
     {
       "cod_ibge": "4122107",
       "municipio": "Rio Bom",
-      "obitos": 20,
-      "taxa": 6.5,
+      "obitos": 22,
+      "taxa": 7.0,
       "populacao": 3214
     },
     {
       "cod_ibge": "4122156",
       "municipio": "Rio Bonito do Iguaçu",
-      "obitos": 76,
-      "taxa": 5.4,
+      "obitos": 78,
+      "taxa": 5.5,
       "populacao": 14297
     },
     {
       "cod_ibge": "4122172",
       "municipio": "Rio Branco do Ivaí",
       "obitos": 20,
-      "taxa": 5.2,
+      "taxa": 5.4,
       "populacao": 3841
     },
     {
       "cod_ibge": "4122206",
       "municipio": "Rio Branco do Sul",
-      "obitos": 352,
-      "taxa": 8.7,
+      "obitos": 207,
+      "taxa": 5.2,
       "populacao": 40308
     },
     {
       "cod_ibge": "4122305",
       "municipio": "Rio Negro",
-      "obitos": 216,
-      "taxa": 6.8,
+      "obitos": 153,
+      "taxa": 4.8,
       "populacao": 31951
     },
     {
       "cod_ibge": "4122404",
       "municipio": "Rolândia",
-      "obitos": 632,
-      "taxa": 8.3,
+      "obitos": 656,
+      "taxa": 8.7,
       "populacao": 75818
     },
     {
       "cod_ibge": "4122503",
       "municipio": "Roncador",
-      "obitos": 73,
-      "taxa": 6.5,
+      "obitos": 82,
+      "taxa": 7.3,
       "populacao": 11339
     },
     {
       "cod_ibge": "4122602",
       "municipio": "Rondon",
-      "obitos": 40,
-      "taxa": 4.4,
+      "obitos": 71,
+      "taxa": 7.7,
       "populacao": 9255
     },
     {
       "cod_ibge": "4122651",
       "municipio": "Rosário do Ivaí",
-      "obitos": 38,
-      "taxa": 7.0,
+      "obitos": 49,
+      "taxa": 9.0,
       "populacao": 5484
     },
     {
       "cod_ibge": "4122701",
       "municipio": "Sabáudia",
-      "obitos": 52,
-      "taxa": 5.5,
+      "obitos": 69,
+      "taxa": 7.3,
       "populacao": 9511
     },
     {
       "cod_ibge": "4122800",
       "municipio": "Salgado Filho",
-      "obitos": 25,
-      "taxa": 6.2,
+      "obitos": 27,
+      "taxa": 6.7,
       "populacao": 4090
     },
     {
       "cod_ibge": "4122909",
       "municipio": "Salto do Itararé",
-      "obitos": 44,
-      "taxa": 8.5,
+      "obitos": 45,
+      "taxa": 8.7,
       "populacao": 5214
     },
     {
       "cod_ibge": "4123006",
       "municipio": "Salto do Lontra",
-      "obitos": 128,
-      "taxa": 8.2,
+      "obitos": 74,
+      "taxa": 4.8,
       "populacao": 15706
     },
     {
       "cod_ibge": "4123105",
       "municipio": "Santa Amélia",
-      "obitos": 16,
-      "taxa": 4.8,
+      "obitos": 22,
+      "taxa": 6.8,
       "populacao": 3358
     },
     {
       "cod_ibge": "4123204",
       "municipio": "Santa Cecília do Pavão",
-      "obitos": 29,
-      "taxa": 8.9,
+      "obitos": 26,
+      "taxa": 8.0,
       "populacao": 3357
     },
     {
       "cod_ibge": "4123303",
       "municipio": "Santa Cruz de Monte Castelo",
-      "obitos": 76,
-      "taxa": 8.6,
+      "obitos": 52,
+      "taxa": 6.0,
       "populacao": 8840
     },
     {
       "cod_ibge": "4123402",
       "municipio": "Santa Fé",
-      "obitos": 64,
-      "taxa": 5.5,
+      "obitos": 107,
+      "taxa": 9.2,
       "populacao": 11730
     },
     {
       "cod_ibge": "4123501",
       "municipio": "Santa Helena",
-      "obitos": 174,
-      "taxa": 6.6,
+      "obitos": 236,
+      "taxa": 8.9,
       "populacao": 26461
     },
     {
       "cod_ibge": "4123600",
       "municipio": "Santa Inês",
-      "obitos": 13,
-      "taxa": 7.6,
+      "obitos": 9,
+      "taxa": 5.3,
       "populacao": 1745
     },
     {
       "cod_ibge": "4123709",
       "municipio": "Santa Isabel do Ivaí",
-      "obitos": 42,
-      "taxa": 4.7,
+      "obitos": 44,
+      "taxa": 5.0,
       "populacao": 9043
     },
     {
       "cod_ibge": "4123808",
       "municipio": "Santa Izabel do Oeste",
-      "obitos": 124,
-      "taxa": 8.6,
+      "obitos": 100,
+      "taxa": 6.9,
       "populacao": 14462
     },
     {
       "cod_ibge": "4123824",
       "municipio": "Santa Lúcia",
-      "obitos": 21,
-      "taxa": 6.0,
+      "obitos": 27,
+      "taxa": 7.5,
       "populacao": 3638
     },
     {
       "cod_ibge": "4123857",
       "municipio": "Santa Maria do Oeste",
-      "obitos": 69,
-      "taxa": 7.0,
+      "obitos": 66,
+      "taxa": 6.7,
       "populacao": 9869
     },
     {
       "cod_ibge": "4123907",
       "municipio": "Santa Mariana",
-      "obitos": 74,
-      "taxa": 6.8,
+      "obitos": 58,
+      "taxa": 5.4,
       "populacao": 10941
     },
     {
       "cod_ibge": "4123956",
       "municipio": "Santa Mônica",
-      "obitos": 26,
-      "taxa": 7.8,
+      "obitos": 24,
+      "taxa": 7.4,
       "populacao": 3361
     },
     {
       "cod_ibge": "4124004",
       "municipio": "Santana do Itararé",
-      "obitos": 32,
-      "taxa": 5.7,
+      "obitos": 33,
+      "taxa": 6.0,
       "populacao": 5646
     },
     {
       "cod_ibge": "4124020",
       "municipio": "Santa Tereza do Oeste",
-      "obitos": 127,
-      "taxa": 9.2,
+      "obitos": 80,
+      "taxa": 5.8,
       "populacao": 13938
     },
     {
       "cod_ibge": "4124053",
       "municipio": "Santa Terezinha de Itaipu",
-      "obitos": 224,
+      "obitos": 225,
       "taxa": 8.9,
       "populacao": 25300
     },
     {
       "cod_ibge": "4124103",
       "municipio": "Santo Antônio da Platina",
-      "obitos": 334,
-      "taxa": 7.3,
+      "obitos": 418,
+      "taxa": 9.2,
       "populacao": 45628
     },
     {
       "cod_ibge": "4124202",
       "municipio": "Santo Antônio do Caiuá",
-      "obitos": 18,
-      "taxa": 7.6,
+      "obitos": 21,
+      "taxa": 8.7,
       "populacao": 2474
     },
     {
       "cod_ibge": "4124301",
       "municipio": "Santo Antônio do Paraíso",
-      "obitos": 14,
-      "taxa": 6.9,
+      "obitos": 11,
+      "taxa": 5.7,
       "populacao": 2088
     },
     {
       "cod_ibge": "4124400",
       "municipio": "Santo Antônio do Sudoeste",
-      "obitos": 199,
-      "taxa": 8.0,
+      "obitos": 167,
+      "taxa": 6.7,
       "populacao": 24980
     },
     {
       "cod_ibge": "4124509",
       "municipio": "Santo Inácio",
-      "obitos": 39,
-      "taxa": 6.2,
+      "obitos": 36,
+      "taxa": 5.6,
       "populacao": 6463
     },
     {
       "cod_ibge": "4124608",
       "municipio": "São Carlos do Ivaí",
-      "obitos": 55,
-      "taxa": 8.3,
+      "obitos": 54,
+      "taxa": 8.1,
       "populacao": 6727
     },
     {
       "cod_ibge": "4124707",
       "municipio": "São Jerônimo da Serra",
-      "obitos": 78,
-      "taxa": 7.2,
+      "obitos": 99,
+      "taxa": 9.1,
       "populacao": 10884
     },
     {
       "cod_ibge": "4124806",
       "municipio": "São João",
-      "obitos": 111,
-      "taxa": 9.0,
+      "obitos": 99,
+      "taxa": 8.1,
       "populacao": 12297
     },
     {
       "cod_ibge": "4124905",
       "municipio": "São João do Caiuá",
-      "obitos": 27,
-      "taxa": 4.9,
+      "obitos": 40,
+      "taxa": 7.2,
       "populacao": 5607
     },
     {
       "cod_ibge": "4125001",
       "municipio": "São João do Ivaí",
-      "obitos": 57,
-      "taxa": 5.4,
+      "obitos": 60,
+      "taxa": 5.7,
       "populacao": 10639
     },
     {
       "cod_ibge": "4125100",
       "municipio": "São João do Triunfo",
-      "obitos": 80,
-      "taxa": 5.8,
+      "obitos": 69,
+      "taxa": 5.0,
       "populacao": 13899
     },
     {
       "cod_ibge": "4125209",
       "municipio": "São Jorge d'Oeste",
-      "obitos": 67,
-      "taxa": 7.1,
+      "obitos": 58,
+      "taxa": 6.1,
       "populacao": 9587
     },
     {
       "cod_ibge": "4125308",
       "municipio": "São Jorge do Ivaí",
-      "obitos": 35,
-      "taxa": 6.9,
+      "obitos": 40,
+      "taxa": 7.8,
       "populacao": 5170
     },
     {
       "cod_ibge": "4125357",
       "municipio": "São Jorge do Patrocínio",
-      "obitos": 60,
-      "taxa": 9.1,
+      "obitos": 57,
+      "taxa": 8.6,
       "populacao": 6690
     },
     {
       "cod_ibge": "4125407",
       "municipio": "São José da Boa Vista",
-      "obitos": 32,
-      "taxa": 5.4,
+      "obitos": 54,
+      "taxa": 9.0,
       "populacao": 6023
     },
     {
       "cod_ibge": "4125456",
       "municipio": "São José das Palmeiras",
-      "obitos": 28,
-      "taxa": 7.0,
+      "obitos": 27,
+      "taxa": 6.8,
       "populacao": 4031
     },
     {
       "cod_ibge": "4125506",
       "municipio": "São José dos Pinhais",
-      "obitos": 2323,
-      "taxa": 6.6,
+      "obitos": 2621,
+      "taxa": 7.5,
       "populacao": 349880
     },
     {
       "cod_ibge": "4125555",
       "municipio": "São Manoel do Paraná",
-      "obitos": 20,
-      "taxa": 9.2,
+      "obitos": 18,
+      "taxa": 8.3,
       "populacao": 2176
     },
     {
       "cod_ibge": "4125605",
       "municipio": "São Mateus do Sul",
-      "obitos": 374,
-      "taxa": 8.6,
+      "obitos": 335,
+      "taxa": 7.7,
       "populacao": 43490
     },
     {
       "cod_ibge": "4125704",
       "municipio": "São Miguel do Iguaçu",
-      "obitos": 162,
-      "taxa": 5.3,
+      "obitos": 132,
+      "taxa": 4.4,
       "populacao": 30416
     },
     {
       "cod_ibge": "4125753",
       "municipio": "São Pedro do Iguaçu",
-      "obitos": 33,
-      "taxa": 5.9,
+      "obitos": 36,
+      "taxa": 6.3,
       "populacao": 5730
     },
     {
       "cod_ibge": "4125803",
       "municipio": "São Pedro do Ivaí",
-      "obitos": 54,
-      "taxa": 6.4,
+      "obitos": 61,
+      "taxa": 7.2,
       "populacao": 8514
     },
     {
       "cod_ibge": "4125902",
       "municipio": "São Pedro do Paraná",
-      "obitos": 12,
-      "taxa": 4.7,
+      "obitos": 25,
+      "taxa": 9.2,
       "populacao": 2726
     },
     {
       "cod_ibge": "4126009",
       "municipio": "São Sebastião da Amoreira",
-      "obitos": 58,
-      "taxa": 7.3,
+      "obitos": 68,
+      "taxa": 8.5,
       "populacao": 8063
     },
     {
       "cod_ibge": "4126108",
       "municipio": "São Tomé",
-      "obitos": 39,
-      "taxa": 7.5,
+      "obitos": 46,
+      "taxa": 8.8,
       "populacao": 5282
     },
     {
       "cod_ibge": "4126207",
       "municipio": "Sapopema",
-      "obitos": 53,
-      "taxa": 7.9,
+      "obitos": 37,
+      "taxa": 5.5,
       "populacao": 6778
     },
     {
       "cod_ibge": "4126256",
       "municipio": "Sarandi",
-      "obitos": 772,
-      "taxa": 6.0,
+      "obitos": 660,
+      "taxa": 5.2,
       "populacao": 128106
     },
     {
       "cod_ibge": "4126272",
       "municipio": "Saudade do Iguaçu",
-      "obitos": 35,
-      "taxa": 5.6,
+      "obitos": 36,
+      "taxa": 5.7,
       "populacao": 6413
     },
     {
       "cod_ibge": "4126306",
       "municipio": "Sengés",
-      "obitos": 99,
-      "taxa": 5.8,
+      "obitos": 94,
+      "taxa": 5.5,
       "populacao": 17256
     },
     {
       "cod_ibge": "4126355",
       "municipio": "Serranópolis do Iguaçu",
-      "obitos": 38,
-      "taxa": 7.4,
+      "obitos": 31,
+      "taxa": 6.1,
       "populacao": 5161
     },
     {
       "cod_ibge": "4126405",
       "municipio": "Sertaneja",
-      "obitos": 31,
-      "taxa": 5.6,
+      "obitos": 30,
+      "taxa": 5.4,
       "populacao": 5654
     },
     {
       "cod_ibge": "4126504",
       "municipio": "Sertanópolis",
-      "obitos": 85,
-      "taxa": 5.3,
+      "obitos": 87,
+      "taxa": 5.4,
       "populacao": 16210
     },
     {
       "cod_ibge": "4126603",
       "municipio": "Siqueira Campos",
-      "obitos": 109,
-      "taxa": 4.6,
+      "obitos": 187,
+      "taxa": 7.8,
       "populacao": 24031
     },
     {
       "cod_ibge": "4126652",
       "municipio": "Sulina",
-      "obitos": 32,
-      "taxa": 9.2,
+      "obitos": 25,
+      "taxa": 7.4,
       "populacao": 3498
     },
     {
       "cod_ibge": "4126678",
       "municipio": "Tamarana",
-      "obitos": 66,
-      "taxa": 6.3,
+      "obitos": 45,
+      "taxa": 4.3,
       "populacao": 10540
     },
     {
       "cod_ibge": "4126702",
       "municipio": "Tamboara",
-      "obitos": 45,
-      "taxa": 9.1,
+      "obitos": 22,
+      "taxa": 4.4,
       "populacao": 4986
     },
     {
       "cod_ibge": "4126801",
       "municipio": "Tapejara",
-      "obitos": 111,
-      "taxa": 6.8,
+      "obitos": 112,
+      "taxa": 6.9,
       "populacao": 16326
     },
     {
       "cod_ibge": "4126900",
       "municipio": "Tapira",
-      "obitos": 46,
-      "taxa": 8.0,
+      "obitos": 41,
+      "taxa": 7.2,
       "populacao": 5807
     },
     {
       "cod_ibge": "4127007",
       "municipio": "Teixeira Soares",
-      "obitos": 49,
-      "taxa": 5.2,
+      "obitos": 58,
+      "taxa": 6.2,
       "populacao": 9540
     },
     {
       "cod_ibge": "4127106",
       "municipio": "Telêmaco Borba",
-      "obitos": 582,
-      "taxa": 7.5,
+      "obitos": 697,
+      "taxa": 9.0,
       "populacao": 77479
     },
     {
       "cod_ibge": "4127205",
       "municipio": "Terra Boa",
-      "obitos": 130,
-      "taxa": 7.2,
+      "obitos": 98,
+      "taxa": 5.4,
       "populacao": 18168
     },
     {
       "cod_ibge": "4127304",
       "municipio": "Terra Rica",
-      "obitos": 132,
-      "taxa": 8.8,
+      "obitos": 83,
+      "taxa": 5.6,
       "populacao": 14961
     },
     {
       "cod_ibge": "4127403",
       "municipio": "Terra Roxa",
-      "obitos": 83,
-      "taxa": 4.5,
+      "obitos": 108,
+      "taxa": 5.8,
       "populacao": 18636
     },
     {
       "cod_ibge": "4127502",
       "municipio": "Tibagi",
-      "obitos": 157,
-      "taxa": 7.7,
+      "obitos": 144,
+      "taxa": 7.1,
       "populacao": 20374
     },
     {
       "cod_ibge": "4127601",
       "municipio": "Tijucas do Sul",
-      "obitos": 85,
-      "taxa": 4.6,
+      "obitos": 152,
+      "taxa": 8.2,
       "populacao": 18458
     },
     {
       "cod_ibge": "4127700",
       "municipio": "Toledo",
-      "obitos": 963,
-      "taxa": 6.0,
+      "obitos": 712,
+      "taxa": 4.4,
       "populacao": 160701
     },
     {
       "cod_ibge": "4127809",
       "municipio": "Tomazina",
-      "obitos": 68,
-      "taxa": 8.0,
+      "obitos": 78,
+      "taxa": 9.2,
       "populacao": 8523
     },
     {
       "cod_ibge": "4127858",
       "municipio": "Três Barras do Paraná",
-      "obitos": 85,
-      "taxa": 7.7,
+      "obitos": 102,
+      "taxa": 9.2,
       "populacao": 11157
     },
     {
       "cod_ibge": "4127882",
       "municipio": "Tunas do Paraná",
-      "obitos": 30,
-      "taxa": 4.8,
+      "obitos": 38,
+      "taxa": 6.1,
       "populacao": 6304
     },
     {
       "cod_ibge": "4127908",
       "municipio": "Tuneiras do Oeste",
-      "obitos": 41,
-      "taxa": 5.1,
+      "obitos": 42,
+      "taxa": 5.2,
       "populacao": 8067
     },
     {
       "cod_ibge": "4127957",
       "municipio": "Tupãssi",
-      "obitos": 48,
-      "taxa": 5.9,
+      "obitos": 41,
+      "taxa": 5.1,
       "populacao": 8208
     },
     {
       "cod_ibge": "4127965",
       "municipio": "Turvo",
-      "obitos": 76,
-      "taxa": 5.5,
+      "obitos": 80,
+      "taxa": 5.7,
       "populacao": 14101
     },
     {
       "cod_ibge": "4128005",
       "municipio": "Ubiratã",
-      "obitos": 226,
-      "taxa": 8.8,
+      "obitos": 230,
+      "taxa": 8.9,
       "populacao": 25732
     },
     {
       "cod_ibge": "4128104",
       "municipio": "Umuarama",
-      "obitos": 901,
-      "taxa": 7.3,
+      "obitos": 778,
+      "taxa": 6.3,
       "populacao": 123059
     },
     {
       "cod_ibge": "4128203",
       "municipio": "União da Vitória",
-      "obitos": 310,
-      "taxa": 5.5,
+      "obitos": 432,
+      "taxa": 7.6,
       "populacao": 56560
     },
     {
       "cod_ibge": "4128302",
       "municipio": "Uniflor",
-      "obitos": 18,
-      "taxa": 8.8,
+      "obitos": 11,
+      "taxa": 5.6,
       "populacao": 2106
     },
     {
       "cod_ibge": "4128401",
       "municipio": "Uraí",
-      "obitos": 54,
-      "taxa": 5.3,
+      "obitos": 93,
+      "taxa": 9.1,
       "populacao": 10308
     },
     {
       "cod_ibge": "4128500",
       "municipio": "Wenceslau Braz",
-      "obitos": 126,
-      "taxa": 6.5,
+      "obitos": 168,
+      "taxa": 8.7,
       "populacao": 19398
     },
     {
       "cod_ibge": "4128534",
       "municipio": "Ventania",
-      "obitos": 61,
-      "taxa": 6.3,
+      "obitos": 84,
+      "taxa": 8.7,
       "populacao": 9760
     },
     {
       "cod_ibge": "4128559",
       "municipio": "Vera Cruz do Oeste",
-      "obitos": 61,
-      "taxa": 7.6,
+      "obitos": 62,
+      "taxa": 7.7,
       "populacao": 8178
     },
     {
       "cod_ibge": "4128609",
       "municipio": "Verê",
-      "obitos": 51,
-      "taxa": 6.4,
+      "obitos": 39,
+      "taxa": 4.9,
       "populacao": 8077
     },
     {
       "cod_ibge": "4128625",
       "municipio": "Alto Paraíso",
-      "obitos": 28,
-      "taxa": 9.2,
+      "obitos": 19,
+      "taxa": 6.3,
       "populacao": 3067
     },
     {
       "cod_ibge": "4128633",
       "municipio": "Doutor Ulysses",
-      "obitos": 33,
-      "taxa": 5.8,
+      "obitos": 32,
+      "taxa": 5.6,
       "populacao": 5744
     },
     {
       "cod_ibge": "4128658",
       "municipio": "Virmond",
-      "obitos": 19,
-      "taxa": 5.1,
+      "obitos": 20,
+      "taxa": 5.3,
       "populacao": 3828
     },
     {
       "cod_ibge": "4128708",
       "municipio": "Vitorino",
-      "obitos": 64,
-      "taxa": 6.1,
+      "obitos": 61,
+      "taxa": 5.9,
       "populacao": 10549
     },
     {
       "cod_ibge": "4128807",
       "municipio": "Xambrê",
-      "obitos": 29,
-      "taxa": 5.0,
+      "obitos": 35,
+      "taxa": 6.1,
       "populacao": 5835
     }
   ],
   "topMunicipios": [
     {
-      "cod_ibge": "4107751",
-      "municipio": "Figueira",
-      "obitos": 75,
+      "cod_ibge": "4101804",
+      "municipio": "Araucária",
+      "obitos": 1505,
       "taxa": 9.3,
-      "populacao": 8129
+      "populacao": 162247
     },
     {
-      "cod_ibge": "4108908",
-      "municipio": "Guairaçá",
-      "obitos": 62,
+      "cod_ibge": "4104105",
+      "municipio": "Campo do Tenente",
+      "obitos": 71,
       "taxa": 9.3,
-      "populacao": 6762
+      "populacao": 7693
     },
     {
-      "cod_ibge": "4111704",
-      "municipio": "Jaboti",
-      "obitos": 52,
+      "cod_ibge": "4107850",
+      "municipio": "Flor da Serra do Sul",
+      "obitos": 40,
       "taxa": 9.3,
-      "populacao": 5655
+      "populacao": 4342
     },
     {
-      "cod_ibge": "4119608",
-      "municipio": "Pitanga",
-      "obitos": 321,
+      "cod_ibge": "4110904",
+      "municipio": "Itaguajé",
+      "obitos": 41,
       "taxa": 9.3,
-      "populacao": 34527
+      "populacao": 4530
     },
     {
-      "cod_ibge": "4121307",
-      "municipio": "Rancho Alegre",
-      "obitos": 32,
+      "cod_ibge": "4112207",
+      "municipio": "Janiópolis",
+      "obitos": 53,
       "taxa": 9.3,
-      "populacao": 3472
+      "populacao": 5807
     },
     {
-      "cod_ibge": "4102703",
-      "municipio": "Barra do Jacaré",
-      "obitos": 26,
-      "taxa": 9.2,
-      "populacao": 2872
+      "cod_ibge": "4118006",
+      "municipio": "Paraíso do Norte",
+      "obitos": 127,
+      "taxa": 9.3,
+      "populacao": 13728
     },
     {
-      "cod_ibge": "4104451",
-      "municipio": "Cantagalo",
-      "obitos": 97,
+      "cod_ibge": "4103354",
+      "municipio": "Braganey",
+      "obitos": 43,
       "taxa": 9.2,
-      "populacao": 10672
+      "populacao": 4745
     },
     {
-      "cod_ibge": "4106407",
-      "municipio": "Cornélio Procópio",
-      "obitos": 420,
+      "cod_ibge": "4113452",
+      "municipio": "Lindoeste",
+      "obitos": 48,
       "taxa": 9.2,
-      "populacao": 45720
+      "populacao": 5217
     },
     {
-      "cod_ibge": "4106456",
-      "municipio": "Coronel Domingos Soares",
-      "obitos": 49,
+      "cod_ibge": "4113601",
+      "municipio": "Lobato",
+      "obitos": 43,
       "taxa": 9.2,
-      "populacao": 5427
+      "populacao": 4707
     },
     {
-      "cod_ibge": "4113908",
-      "municipio": "Mallet",
-      "obitos": 126,
+      "cod_ibge": "4121208",
+      "municipio": "Quitandinha",
+      "obitos": 174,
       "taxa": 9.2,
-      "populacao": 13681
+      "populacao": 18882
     }
   ]
 }
