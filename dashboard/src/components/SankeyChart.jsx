@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 /**
  * SankeyChart - Diagrama Sankey com D3
  * Padrão DataGeo Paraná - Módulo Saúde
@@ -173,11 +174,11 @@ function SankeyChart({
 
       gradient.append('stop')
         .attr('offset', '0%')
-        .attr('stop-color', link.source.color || '#94a3b8');
+        .attr('stop-color', link.source.color || '#918058');
 
       gradient.append('stop')
         .attr('offset', '100%')
-        .attr('stop-color', link.target.color || '#94a3b8');
+        .attr('stop-color', link.target.color || '#918058');
 
       link.gradientId = gradientId;
     });
@@ -217,7 +218,7 @@ function SankeyChart({
       .attr('width', d => d.x1 - d.x0)
       .attr('height', d => Math.max(d.y1 - d.y0, 4))
       .attr('rx', 3)
-      .attr('fill', d => d.color || '#6366f1')
+      .attr('fill', d => d.color || '#7a4e88')
       .attr('fill-opacity', d => hoveredNode === d.id ? 1 : 0.9)
       .style('cursor', onNodeClick ? 'pointer' : 'default')
       .on('mouseenter', (event, d) => {

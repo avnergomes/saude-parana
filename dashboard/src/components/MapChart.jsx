@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 /**
  * MapChart - Mapa coroplético com Leaflet
  * Padrão DataGeo Paraná - Módulo Saúde
@@ -35,12 +36,12 @@ function FitBounds({ geoData }) {
 
 // Escalas de cores para diferentes métricas
 const COLOR_SCALES = {
-  obitos: ['#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b'],
-  internacoes: ['#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985'],
-  cobertura: ['#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534'],
-  leitos: ['#fef3c7', '#fde68a', '#fcd34d', '#fbbf24', '#f59e0b', '#d97706', '#b45309', '#92400e'],
+  obitos: ['#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#D55E00', '#a8482c', '#893824', '#991b1b'],
+  internacoes: ['#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69', '#075985'],
+  cobertura: ['#d9e6f0', '#bbf7d0', '#87afcd', '#4ade80', '#0072B2', '#005c8e', '#004a72', '#166534'],
+  leitos: ['#fef3c7', '#fde68a', '#fcd34d', '#e0b850', '#c89b3c', '#a87f2d', '#b45309', '#92400e'],
   repasse: ['#f0fdfa', '#ccfbf1', '#99f6e4', '#5eead4', '#2dd4bf', '#14b8a6', '#0d9488', '#0f766e'],
-  default: ['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1']
+  default: ['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69']
 };
 
 function getColor(value, min, max, scale = 'default') {
@@ -122,7 +123,7 @@ function MapChart({
       fillColor: getColor(value, min, max, colorScale),
       weight: isSelected ? 3 : isHovered ? 2 : 1,
       opacity: 1,
-      color: isSelected ? '#1e40af' : isHovered ? '#3b82f6' : '#94a3b8',
+      color: isSelected ? '#1e40af' : isHovered ? '#3b82f6' : '#918058',
       fillOpacity: isSelected ? 0.9 : isHovered ? 0.85 : 0.7
     };
   };

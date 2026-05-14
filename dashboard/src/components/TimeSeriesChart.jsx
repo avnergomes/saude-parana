@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 import {
   LineChart,
   Line,
@@ -11,12 +12,12 @@ import {
 import { formatNumber, formatCurrency } from '../utils/format';
 
 const metricConfig = {
-  total: { label: 'Total', color: '#0284c7', format: formatNumber },
-  obitos: { label: 'Óbitos', color: '#ef4444', format: formatNumber },
+  total: { label: 'Total', color: '#2d5f7f', format: formatNumber },
+  obitos: { label: 'Óbitos', color: '#D55E00', format: formatNumber },
   internacoes: { label: 'Internações', color: '#3b82f6', format: formatNumber },
   valor_sus: { label: 'Valor SUS', color: '#10b981', format: (v) => formatCurrency(v, false) },
-  taxa_bruta: { label: 'Taxa/mil hab', color: '#8b5cf6', format: (v) => v?.toFixed(2) },
-  cobertura: { label: 'Cobertura %', color: '#f59e0b', format: (v) => v?.toFixed(1) + '%' }
+  taxa_bruta: { label: 'Taxa/mil hab', color: '#CC79A7', format: (v) => v?.toFixed(2) },
+  cobertura: { label: 'Cobertura %', color: '#c89b3c', format: (v) => v?.toFixed(1) + '%' }
 };
 
 export default function TimeSeriesChart({
@@ -110,7 +111,7 @@ export default function TimeSeriesChart({
           {referenceYear && (
             <ReferenceLine
               x={referenceYear}
-              stroke="#94a3b8"
+              stroke="#918058"
               strokeDasharray="5 5"
               label={{ value: 'COVID-19', position: 'top', fontSize: 10 }}
             />

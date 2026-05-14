@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 /**
  * TreemapChart - Treemap hierárquico com D3
  * Padrão DataGeo Paraná - Módulo Saúde
@@ -37,7 +38,7 @@ function TreemapChart({
       children: data.map(item => ({
         name: item[nameKey] || 'Sem nome',
         value: item[valueKey] || 0,
-        color: item[colorKey] || '#6366f1',
+        color: item[colorKey] || '#7a4e88',
         codigo: item.codigo || item.capitulo || item.id,
         original: item
       }))

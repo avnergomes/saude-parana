@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 import { useState, useCallback, useMemo } from 'react';
 import {
   useData,
@@ -668,7 +669,7 @@ function FinanciamentoTab({ data, indicadores, geoData, geoMap, filters, onAnoCl
     const ultimoAno = data.porAno[data.porAno.length - 1];
 
     const nodes = [
-      { id: 'FNS', name: 'FNS', level: 0, color: '#0ea5e9', value: ultimoAno.total },
+      { id: 'FNS', name: 'FNS', level: 0, color: '#3d729c', value: ultimoAno.total },
       ...data.blocos.map(b => ({
         id: b.codigo,
         name: b.nome,

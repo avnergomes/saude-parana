@@ -115,49 +115,7 @@ export function formatDateTime(dateString) {
 }
 
 // Cores para gráficos
-export const CHART_COLORS = {
-  // Cores principais do módulo saúde (azul water)
-  primary: ['#0ea5e9', '#0284c7', '#0369a1', '#075985', '#0c4a6e'],
-
-  // Cores secundárias (verde forest)
-  secondary: ['#10b981', '#059669', '#047857', '#065f46', '#064e3b'],
-
-  // Cores de destaque (vermelho health)
-  accent: ['#ef4444', '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d'],
-
-  // Arco-íris para múltiplas categorias
-  rainbow: [
-    '#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6',
-    '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'
-  ],
-
-  // Tons neutros
-  neutral: ['#64748b', '#475569', '#334155', '#1e293b', '#0f172a'],
-
-  // Positivo/Negativo
-  positive: '#10b981',
-  negative: '#ef4444',
-  warning: '#f59e0b'
-};
-
 // Gradientes para mapas
-export const MAP_GRADIENTS = {
-  // Azul (padrão saúde)
-  blue: ['#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1'],
-
-  // Verde (indicadores positivos)
-  green: ['#d1fae5', '#a7f3d0', '#6ee7b7', '#34d399', '#10b981', '#059669', '#047857'],
-
-  // Vermelho (mortalidade, alertas)
-  red: ['#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444', '#dc2626', '#b91c1c'],
-
-  // Amarelo (vacinação, cobertura)
-  yellow: ['#fef9c3', '#fef08a', '#fde047', '#facc15', '#eab308', '#ca8a04', '#a16207'],
-
-  // Roxo (infraestrutura)
-  purple: ['#f3e8ff', '#e9d5ff', '#d8b4fe', '#c084fc', '#a855f7', '#9333ea', '#7c3aed']
-};
-
 // Função para obter cor baseada em valor (escala)
 export function getColorScale(value, min, max, gradient = MAP_GRADIENTS.blue) {
   if (value === null || value === undefined) return '#e5e7eb';
@@ -182,3 +140,7 @@ export function formatCodIBGE(codigo) {
   // Remover dígito verificador se tiver 7 dígitos
   return str.length === 7 ? str.substring(0, 6) : str;
 }
+
+// ATLAS-PALETTE-V1
+// Re-export the shared Atlas Editorial palette (daltonic-safe).
+export { CHART_COLORS, MAP_GRADIENTS, ATLAS_CATEGORICAL, ATLAS_FOREST, ATLAS_WATER, ATLAS_CLAY, ATLAS_EARTH, ATLAS_HARVEST, ATLAS_DIVERGING, ATLAS_CHROME, categoricalColor, sequentialColor } from './chart-palette.js';

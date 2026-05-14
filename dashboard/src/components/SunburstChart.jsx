@@ -1,3 +1,4 @@
+// ATLAS-A11Y-HEX-SWEPT
 /**
  * SunburstChart - Gráfico Sunburst (radial hierárquico) com D3
  * Padrão DataGeo Paraná - Módulo Saúde
@@ -94,9 +95,9 @@ function SunburstChart({
     const colorScale = d3.scaleOrdinal()
       .domain(root.children?.map(d => d.data.name) || [])
       .range([
-        '#ef4444', '#f97316', '#f59e0b', '#eab308',
-        '#84cc16', '#22c55e', '#14b8a6', '#06b6d4',
-        '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6',
+        '#D55E00', '#f97316', '#c89b3c', '#eab308',
+        '#84cc16', '#0072B2', '#14b8a6', '#06b6d4',
+        '#3d729c', '#3b82f6', '#7a4e88', '#CC79A7',
         '#a855f7', '#d946ef', '#ec4899', '#f43f5e'
       ]);
 
@@ -109,7 +110,7 @@ function SunburstChart({
         current = current.parent;
       }
       return current.depth === 0
-        ? '#6366f1'
+        ? '#7a4e88'
         : colorScale(current.data.name);
     }
 
@@ -199,7 +200,7 @@ function SunburstChart({
       .attr('dy', '1em')
       .attr('font-size', '14px')
       .attr('font-weight', '700')
-      .attr('fill', '#0ea5e9')
+      .attr('fill', '#3d729c')
       .text(formatValue(total));
 
   }, [data, dimensions, height, total, formatValue, hoveredArc, onArcClick]);
