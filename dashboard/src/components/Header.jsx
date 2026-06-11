@@ -34,28 +34,17 @@ export default function Header({ metadata }) {
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-4 h-4 text-water-200" />
-              <span className="text-water-100">2010-2024</span>
+              <span className="text-water-100">2003-2024</span>
               <span className="text-water-200">período</span>
             </div>
           </div>
         </div>
 
-        {/* Fonte dos dados */}
+        {/* Fonte dos dados — somente fontes reais */}
         <div className="mt-4 pt-4 border-t border-water-500/30">
           <p className="text-xs text-water-200">
-            Fontes: DATASUS (SIM, SIH, SI-PNI, CNES), FNS/MS, SISAB/Previne Brasil, IBGE
+            Fontes: IBGE — Estatísticas do Registro Civil (óbitos e nascidos vivos) e Estimativas de População
           </p>
-        </div>
-      </div>
-
-      {/* Aviso de dados demonstrativos — remover quando a ingestão real do
-          DATASUS substituir os valores simulados do preprocess_data.py */}
-      <div className="bg-amber-100 text-amber-900 border-t border-amber-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 text-xs md:text-sm">
-          <strong>Versão demonstrativa:</strong> parte dos indicadores exibidos
-          (taxas municipais, cobertura vacinal, leitos e Previne Brasil) usa
-          valores simulados enquanto a integração completa com o DATASUS é
-          finalizada. Não utilize estes números para decisões ou citações.
         </div>
       </div>
     </header>

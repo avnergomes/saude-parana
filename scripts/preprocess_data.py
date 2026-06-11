@@ -1,606 +1,299 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Preprocessamento de dados de saude do Parana
-Gera JSONs otimizados para o dashboard a partir de dados brutos e APIs
+Preprocess do dashboard Saúde Paraná — SOMENTE DADOS REAIS.
+
+Entrada (data/raw, gerada por download_data.py — API SIDRA/IBGE):
+  - obitos_municipios_pr.json   óbitos por município/ano (Registro Civil t2654)
+  - obitos_piramide_pr.json     óbitos por sexo e faixa etária, PR (t2654)
+  - nascidos_municipios_pr.json nascidos vivos por município/ano (t2609)
+  - populacao_anos_pr.json      população estimada por município/ano (t6579)
+
+Saída (dashboard/public/data):
+  - mortalidade.json
+  - metadata.json
+  (geo_map.json é um artefato estático já versionado, construído da malha IDR)
+
+A versão anterior fabricava indicadores com np.random (taxas municipais,
+vacinação, leitos, repasses, Previne Brasil) rotulados como DATASUS — tudo
+isso foi removido do dashboard até existir ingestão real.
 """
 
-import os
-import sys
 import json
-import requests
-import pandas as pd
-import numpy as np
-from pathlib import Path
+import sys
 from datetime import datetime
+from pathlib import Path
 
-# Configuracao de encoding para Windows
-if sys.platform == 'win32':
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
-# Configuracao de diretorios
 BASE_DIR = Path(__file__).parent.parent
 RAW_DIR = BASE_DIR / "data" / "raw"
-PROCESSED_DIR = BASE_DIR / "data" / "processed"
 PUBLIC_DATA_DIR = BASE_DIR / "dashboard" / "public" / "data"
-
-# Criar diretorios
-RAW_DIR.mkdir(parents=True, exist_ok=True)
-PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 PUBLIC_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+# Mapeamento das faixas do Registro Civil para as faixas da pirâmide
+FAIXA_MAP = {
+    "Menos de 1 ano": "0-4",
+    "1 a 4 anos": "0-4",
+    "5 a 9 anos": "5-9",
+    "10 a 14 anos": "10-14",
+    "15 a 19 anos": "15-19",
+    "20 a 24 anos": "20-24",
+    "25 a 29 anos": "25-29",
+    "30 a 34 anos": "30-34",
+    "35 a 39 anos": "35-39",
+    "40 a 44 anos": "40-44",
+    "45 a 49 anos": "45-49",
+    "50 a 54 anos": "50-54",
+    "55 a 59 anos": "55-59",
+    "60 a 64 anos": "60-64",
+    "65 a 69 anos": "65-69",
+    "70 a 74 anos": "70-74",
+    "75 a 79 anos": "75-79",
+    "80 a 84 anos": "80+",
+    "85 a 89 anos": "80+",
+    "90 a 94 anos": "80+",
+    "95 a 99 anos": "80+",
+    "100 anos ou mais": "80+",
 }
 
-
-def load_populacao():
-    """Carrega dados de populacao dos municipios do PR"""
-    pop_file = RAW_DIR / "populacao_municipios_pr.csv"
-
-    if pop_file.exists():
-        df = pd.read_csv(pop_file)
-        df['cod_ibge'] = df['cod_ibge'].astype(str)
-        df['municipio'] = df['municipio'].str.replace(' - PR', '', regex=False)
-        return df
-
-    return None
+FAIXAS_ORDEM = [
+    "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34",
+    "35-39", "40-44", "45-49", "50-54", "55-59", "60-64",
+    "65-69", "70-74", "75-79", "80+",
+]
 
 
-def download_mortalidade_ibge():
-    """
-    Download de dados de mortalidade via API SIDRA/IBGE
-    Tabela 5457 - Obitos por residencia
-    """
-    print("Baixando dados de mortalidade via IBGE SIDRA...")
+def load_raw(name: str) -> list:
+    path = RAW_DIR / name
+    if not path.exists():
+        print(f"ERRO: {path} não encontrado — rode scripts/download_data.py antes.")
+        sys.exit(1)
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
-    # Tabela 2680 - Obitos por ocorrencia por ano
-    # https://sidra.ibge.gov.br/tabela/2680
 
-    anos = list(range(2010, 2023))
-    all_data = []
+def parse_valor(v) -> int | None:
+    if v in ("-", "...", "X", None, ""):
+        return None
+    try:
+        return int(float(v))
+    except (ValueError, TypeError):
+        return None
 
-    for ano in anos:
-        url = f"https://apisidra.ibge.gov.br/values/t/2681/n6/all/v/all/p/{ano}/c2/all"
 
+def build_populacao(rows: list) -> dict:
+    """cod_ibge(7) -> {ano -> populacao} a partir da t6579."""
+    pop: dict[str, dict[int, int]] = {}
+    for r in rows:
+        cod = str(r.get("D1C", ""))
+        ano = r.get("D3N") or r.get("D2N")
+        val = parse_valor(r.get("V"))
         try:
-            response = requests.get(url, headers=HEADERS, timeout=60)
-            if response.status_code == 200:
-                data = response.json()
-                # Filtrar PR (codigo comeca com 41)
-                for item in data[1:]:
-                    if item.get("D1C", "").startswith("41"):
-                        all_data.append({
-                            "ano": ano,
-                            "cod_ibge": item["D1C"],
-                            "municipio": item["D1N"].replace(" - PR", ""),
-                            "sexo": item.get("D3N", "Total"),
-                            "obitos": int(item["V"]) if item["V"] not in ["-", "...", "X"] else 0
-                        })
-                print(f"  {ano}: OK")
-        except Exception as e:
-            print(f"  {ano}: Erro - {e}")
-
-    if all_data:
-        df = pd.DataFrame(all_data)
-        df.to_csv(RAW_DIR / "mortalidade_ibge_pr.csv", index=False)
-        return df
-
-    return None
-
-
-def download_mortalidade_capitulos():
-    """
-    Baixa dados de mortalidade por capitulo CID-10
-    Usando estatisticas vitais do IBGE
-    """
-    print("Gerando dados de mortalidade por causa...")
-
-    # Dados baseados em estatisticas publicas do DATASUS/MS
-    # Proporcoes tipicas de causas de obito no Brasil
-    # Cores: paleta categórica Okabe-Ito (daltônico-segura) + variações —
-    # nunca verde e vermelho puros no mesmo gráfico (regra do ecossistema).
-    capitulos_cid = [
-        {"codigo": "IX", "nome": "Doencas do aparelho circulatorio", "percentual": 27.5, "cor": "#0072B2"},
-        {"codigo": "II", "nome": "Neoplasias (tumores)", "percentual": 17.8, "cor": "#D55E00"},
-        {"codigo": "X", "nome": "Doencas do aparelho respiratorio", "percentual": 12.2, "cor": "#56B4E9"},
-        {"codigo": "IV", "nome": "Doencas endocrinas e metabolicas", "percentual": 7.5, "cor": "#E69F00"},
-        {"codigo": "XX", "nome": "Causas externas", "percentual": 6.8, "cor": "#009E73"},
-        {"codigo": "I", "nome": "Doencas infecciosas", "percentual": 5.2, "cor": "#CC79A7"},
-        {"codigo": "XI", "nome": "Doencas do aparelho digestivo", "percentual": 5.0, "cor": "#F0E442"},
-        {"codigo": "VI", "nome": "Doencas do sistema nervoso", "percentual": 4.2, "cor": "#2a2419"},
-        {"codigo": "XIV", "nome": "Doencas geniturinarias", "percentual": 3.1, "cor": "#2f88c4"},
-        {"codigo": "Outros", "nome": "Outros capitulos", "percentual": 10.7, "cor": "#8a8273"}
-    ]
-
-    return capitulos_cid
-
-
-def generate_mortalidade_json(pop_df):
-    """Gera JSON de mortalidade para o dashboard"""
-    print("Gerando mortalidade.json...")
-
-    capitulos = download_mortalidade_capitulos()
-
-    # Dados de obitos baseados em taxas reais do Parana
-    # Taxa bruta de mortalidade PR: ~6.5 por 1000 habitantes
-    populacao_total = pop_df['populacao'].sum() if pop_df is not None else 11500000
-
-    # Gerar serie temporal realista
-    obitos_base = int(populacao_total * 0.0065)
-
-    por_ano = []
-    for ano in range(2010, 2024):
-        # Variacao anual + pico COVID
-        fator = 1.0
-        if ano == 2020:
-            fator = 1.18
-        elif ano == 2021:
-            fator = 1.38
-        elif ano == 2022:
-            fator = 1.05
-
-        obitos = int(obitos_base * (1 + (ano - 2010) * 0.012) * fator)
-        taxa = round(obitos / (populacao_total / 1000), 2)
-
-        por_ano.append({
-            "ano": ano,
-            "total": obitos,
-            "taxa_bruta": taxa
-        })
-
-    # Calcular totais por capitulo
-    total_geral = sum(item["total"] for item in por_ano)
-    por_capitulo = []
-    for cap in capitulos:
-        total_cap = int(total_geral * cap["percentual"] / 100)
-        por_capitulo.append({
-            "capitulo": cap["codigo"],
-            "nome": cap["nome"],
-            "total": total_cap,
-            "percentual": cap["percentual"],
-            "cor": cap["cor"]
-        })
-
-    # Piramide etaria (proporcoes tipicas)
-    piramide = {
-        "2023": [
-            {"faixa": "0-4", "homens": -420, "mulheres": 310},
-            {"faixa": "5-9", "homens": -85, "mulheres": 62},
-            {"faixa": "10-14", "homens": -130, "mulheres": 88},
-            {"faixa": "15-19", "homens": -450, "mulheres": 195},
-            {"faixa": "20-24", "homens": -675, "mulheres": 285},
-            {"faixa": "25-29", "homens": -750, "mulheres": 342},
-            {"faixa": "30-34", "homens": -865, "mulheres": 455},
-            {"faixa": "35-39", "homens": -1020, "mulheres": 588},
-            {"faixa": "40-44", "homens": -1340, "mulheres": 755},
-            {"faixa": "45-49", "homens": -1785, "mulheres": 985},
-            {"faixa": "50-54", "homens": -2450, "mulheres": 1342},
-            {"faixa": "55-59", "homens": -3230, "mulheres": 1875},
-            {"faixa": "60-64", "homens": -4120, "mulheres": 2565},
-            {"faixa": "65-69", "homens": -4875, "mulheres": 3232},
-            {"faixa": "70-74", "homens": -5230, "mulheres": 4120},
-            {"faixa": "75-79", "homens": -4985, "mulheres": 4565},
-            {"faixa": "80+", "homens": -8760, "mulheres": 11230}
-        ]
-    }
-
-    # Dados por municipio (todos os 399)
-    por_municipio = []
-    top_municipios = []
-    if pop_df is not None:
-        for _, row in pop_df.iterrows():
-            # Taxa varia por municipio (simulacao realista)
-            taxa_base = 6.8 + np.random.uniform(-2.5, 2.5)
-            obitos_mun = int(row['populacao'] * taxa_base / 1000)
-            por_municipio.append({
-                "cod_ibge": row['cod_ibge'],
-                "municipio": row['municipio'],
-                "obitos": obitos_mun,
-                "taxa": round(taxa_base, 1),
-                "populacao": int(row['populacao'])
-            })
-
-        # Ordenar por taxa decrescente e pegar top 10
-        por_municipio_sorted = sorted(por_municipio, key=lambda x: x['taxa'], reverse=True)
-        top_municipios = por_municipio_sorted[:10]
-
-    mortalidade_json = {
-        "metadata": {
-            "fonte": "IBGE/Estatisticas Vitais, DATASUS/SIM",
-            "periodo": "2010-2023",
-            "totalObitos": total_geral,
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "capitulos_cid": capitulos,
-        "porAno": por_ano,
-        "porCapitulo": por_capitulo,
-        "piramideEtaria": piramide,
-        "porMunicipio": por_municipio,
-        "topMunicipios": top_municipios
-    }
-
-    output_path = PUBLIC_DATA_DIR / "mortalidade.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(mortalidade_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return mortalidade_json
-
-
-def generate_internacoes_json(pop_df):
-    """Gera JSON de internacoes para o dashboard"""
-    print("Gerando internacoes.json...")
-
-    populacao_total = pop_df['populacao'].sum() if pop_df is not None else 11500000
-
-    # Taxa de internacao ~4% da populacao/ano
-    internacoes_ano_base = int(populacao_total * 0.04)
-    valor_medio_aih = 1850  # Valor medio aproximado AIH
-
-    por_ano = []
-    for ano in range(2015, 2025):
-        fator = 1.0
-        if ano == 2020:
-            fator = 0.85  # Reducao por cancelamento eletivas
-        elif ano == 2021:
-            fator = 0.88
-
-        internacoes = int(internacoes_ano_base * (1 + (ano - 2015) * 0.008) * fator)
-        valor_sus = int(internacoes * valor_medio_aih * (1 + (ano - 2015) * 0.05))
-
-        por_ano.append({
-            "ano": ano,
-            "internacoes": internacoes,
-            "valor_sus": valor_sus,
-            "media_dias": round(4.5 + np.random.uniform(-0.3, 0.3), 1)
-        })
-
-    # Grupos diagnostico
-    grupos_diagnostico = [
-        {"grupo": "Gravidez, parto e puerperio", "codigo_cid": "XV", "percentual": 18.5},
-        {"grupo": "Doencas do aparelho circulatorio", "codigo_cid": "IX", "percentual": 12.8},
-        {"grupo": "Doencas do aparelho respiratorio", "codigo_cid": "X", "percentual": 10.5},
-        {"grupo": "Doencas do aparelho digestivo", "codigo_cid": "XI", "percentual": 9.2},
-        {"grupo": "Lesoes e causas externas", "codigo_cid": "XIX", "percentual": 8.1},
-        {"grupo": "Neoplasias", "codigo_cid": "II", "percentual": 6.8},
-        {"grupo": "Doencas infecciosas", "codigo_cid": "I", "percentual": 5.9},
-        {"grupo": "Doencas geniturinarias", "codigo_cid": "XIV", "percentual": 5.4},
-        {"grupo": "Transtornos mentais", "codigo_cid": "V", "percentual": 4.6},
-        {"grupo": "Outros grupos", "codigo_cid": "Outros", "percentual": 18.2}
-    ]
-
-    total_internacoes = sum(item["internacoes"] for item in por_ano)
-    total_valor = sum(item["valor_sus"] for item in por_ano)
-
-    por_grupo = []
-    for grupo in grupos_diagnostico:
-        intern = int(total_internacoes * grupo["percentual"] / 100)
-        valor = int(total_valor * grupo["percentual"] / 100)
-        por_grupo.append({
-            "grupo": grupo["grupo"],
-            "codigo_cid": grupo["codigo_cid"],
-            "internacoes": intern,
-            "valor_sus": valor,
-            "percentual": grupo["percentual"]
-        })
-
-    internacoes_json = {
-        "metadata": {
-            "fonte": "DATASUS/SIH-SUS",
-            "periodo": "2015-2024",
-            "totalInternacoes": total_internacoes,
-            "valorTotalSUS": total_valor,
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "porAno": por_ano,
-        "porGrupoDiagnostico": por_grupo
-    }
-
-    output_path = PUBLIC_DATA_DIR / "internacoes.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(internacoes_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return internacoes_json
-
-
-def generate_vacinacao_json():
-    """Gera JSON de vacinacao para o dashboard"""
-    print("Gerando vacinacao.json...")
-
-    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
-    vacinas = [
-        {"codigo": "BCG", "nome": "BCG", "meta": 90, "cor": "#0072B2"},
-        {"codigo": "HEP_B", "nome": "Hepatite B", "meta": 95, "cor": "#D55E00"},
-        {"codigo": "PENTA", "nome": "Pentavalente", "meta": 95, "cor": "#009E73"},
-        {"codigo": "POLIO", "nome": "Poliomielite", "meta": 95, "cor": "#E69F00"},
-        {"codigo": "ROTAVIRUS", "nome": "Rotavirus", "meta": 90, "cor": "#CC79A7"},
-        {"codigo": "PNEUMO", "nome": "Pneumococica", "meta": 95, "cor": "#56B4E9"},
-        {"codigo": "MENINGO", "nome": "Meningococica C", "meta": 95, "cor": "#F0E442"},
-        {"codigo": "TRIPLICE", "nome": "Triplice Viral", "meta": 95, "cor": "#2a2419"},
-        {"codigo": "FEBRE_AM", "nome": "Febre Amarela", "meta": 95, "cor": "#b8ad32"},
-        {"codigo": "COVID", "nome": "COVID-19", "meta": 90, "cor": "#2f88c4"}
-    ]
-
-    # Cobertura por ano (baseado em dados reais do SI-PNI)
-    cobertura_por_ano = []
-    for ano in range(2015, 2025):
-        cob = {"ano": ano}
-        base_cob = 95 - (ano - 2015) * 1.2  # Tendencia de queda
-
-        if ano >= 2020:
-            base_cob -= 8  # Impacto COVID
-        if ano >= 2022:
-            base_cob += 4  # Recuperacao
-
-        for vac in vacinas:
-            if vac["codigo"] == "COVID":
-                if ano < 2021:
-                    cob[vac["codigo"]] = 0
-                elif ano == 2021:
-                    cob[vac["codigo"]] = 45.2
-                else:
-                    cob[vac["codigo"]] = round(75 + np.random.uniform(-5, 5), 1)
-            else:
-                variacao = np.random.uniform(-3, 3)
-                cob[vac["codigo"]] = round(min(98, max(60, base_cob + variacao)), 1)
-
-        cobertura_por_ano.append(cob)
-
-    vacinacao_json = {
-        "metadata": {
-            "fonte": "DATASUS/SI-PNI",
-            "periodo": "2015-2024",
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "vacinas": vacinas,
-        "coberturaPorAno": cobertura_por_ano
-    }
-
-    output_path = PUBLIC_DATA_DIR / "vacinacao.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(vacinacao_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return vacinacao_json
-
-
-def process_cnes_estabelecimentos():
-    """Processa dados CNES para JSON de estabelecimentos"""
-    print("Processando estabelecimentos.json...")
-
-    cnes_file = RAW_DIR / "cnes_estabelecimentos_pr.csv"
-
-    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
-    tipos = [
-        {"codigo": "01", "tipo": "Posto de Saude", "quantidade": 456, "cor": "#0072B2"},
-        {"codigo": "02", "tipo": "Centro de Saude/UBS", "quantidade": 1876, "cor": "#D55E00"},
-        {"codigo": "04", "tipo": "Policlinica", "quantidade": 234, "cor": "#009E73"},
-        {"codigo": "05", "tipo": "Hospital Geral", "quantidade": 345, "cor": "#E69F00"},
-        {"codigo": "07", "tipo": "Hospital Especializado", "quantidade": 123, "cor": "#CC79A7"},
-        {"codigo": "15", "tipo": "UPA 24h", "quantidade": 89, "cor": "#56B4E9"},
-        {"codigo": "22", "tipo": "Consultorio", "quantidade": 5678, "cor": "#F0E442"},
-        {"codigo": "36", "tipo": "Clinica Especializada", "quantidade": 2345, "cor": "#2a2419"},
-        {"codigo": "40", "tipo": "Laboratorio", "quantidade": 1234, "cor": "#b8ad32"},
-        {"codigo": "70", "tipo": "CAPS", "quantidade": 187, "cor": "#2f88c4"}
-    ]
-
-    if cnes_file.exists():
-        df = pd.read_csv(cnes_file)
-        total_estab = len(df)
-        print(f"  Carregados {total_estab} estabelecimentos do CNES")
-    else:
-        total_estab = sum(t["quantidade"] for t in tipos)
-
-    estabelecimentos_json = {
-        "metadata": {
-            "fonte": "DATASUS/CNES",
-            "periodo": "2025",
-            "totalEstabelecimentos": total_estab,
-            "totalLeitosSUS": 23456,
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "tiposEstabelecimento": tipos
-    }
-
-    output_path = PUBLIC_DATA_DIR / "estabelecimentos.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(estabelecimentos_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return estabelecimentos_json
-
-
-def generate_repasses_json(pop_df):
-    """Gera JSON de repasses SUS"""
-    print("Gerando repasses_sus.json...")
-
-    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
-    blocos = [
-        {"codigo": "AB", "nome": "Atencao Basica", "cor": "#0072B2"},
-        {"codigo": "MAC", "nome": "Media e Alta Complexidade", "cor": "#D55E00"},
-        {"codigo": "VIGIL", "nome": "Vigilancia em Saude", "cor": "#009E73"},
-        {"codigo": "FARM", "nome": "Assistencia Farmaceutica", "cor": "#E69F00"},
-        {"codigo": "GESTAO", "nome": "Gestao do SUS", "cor": "#CC79A7"},
-        {"codigo": "INV", "nome": "Investimentos", "cor": "#56B4E9"}
-    ]
-
-    # Proporcoes tipicas dos blocos
-    proporcoes = {"AB": 0.35, "MAC": 0.45, "VIGIL": 0.05, "FARM": 0.08, "GESTAO": 0.04, "INV": 0.03}
-
-    populacao_total = pop_df['populacao'].sum() if pop_df is not None else 11500000
-
-    # Repasse per capita aproximado
-    per_capita_base = 850
-
-    por_ano = []
-    for ano in range(2018, 2025):
-        total_ano = int(populacao_total * per_capita_base * (1 + (ano - 2018) * 0.06))
-
-        ano_data = {"ano": ano, "total": total_ano}
-        for bloco, prop in proporcoes.items():
-            ano_data[bloco] = int(total_ano * prop)
-
-        por_ano.append(ano_data)
-
-    repasses_json = {
-        "metadata": {
-            "fonte": "FNS/Ministerio da Saude",
-            "periodo": "2018-2024",
-            "totalRepassado": sum(item["total"] for item in por_ano),
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "blocos": blocos,
-        "porAno": por_ano
-    }
-
-    output_path = PUBLIC_DATA_DIR / "repasses_sus.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(repasses_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return repasses_json
-
-
-def generate_indicadores_ab_json():
-    """Gera JSON de indicadores da Atencao Basica (Previne Brasil)"""
-    print("Gerando indicadores_ab.json...")
-
-    indicadores = [
-        {"codigo": "IND1", "nome": "Pre-natal (6+ consultas)", "meta": 60, "cor": "#ec4899"},
-        {"codigo": "IND2", "nome": "Saude bucal gestantes", "meta": 60, "cor": "#8b5cf6"},
-        {"codigo": "IND3", "nome": "Exame citopatologico", "meta": 40, "cor": "#f59e0b"},
-        {"codigo": "IND4", "nome": "Vacinacao Polio/Penta", "meta": 95, "cor": "#10b981"},
-        {"codigo": "IND5", "nome": "Hipertensao (PA aferida)", "meta": 50, "cor": "#ef4444"},
-        {"codigo": "IND6", "nome": "Diabetes (Hb glicada)", "meta": 50, "cor": "#3b82f6"},
-        {"codigo": "IND7", "nome": "Exame HIV/Sifilis gestantes", "meta": 60, "cor": "#14b8a6"}
-    ]
-
-    por_quadrimestre = []
-    for ano in range(2020, 2025):
-        for quad in [1, 2, 3]:
-            if ano == 2024 and quad > 2:
-                continue
-
-            quad_data = {"ano": ano, "quadrimestre": quad}
-            for ind in indicadores:
-                # Resultado progressivo
-                base = ind["meta"] * 0.7
-                progresso = (ano - 2020) * 3 + quad * 1
-                resultado = min(100, base + progresso + np.random.uniform(-5, 5))
-                quad_data[ind["codigo"]] = round(resultado, 1)
-
-            por_quadrimestre.append(quad_data)
-
-    indicadores_json = {
-        "metadata": {
-            "fonte": "SISAB/Previne Brasil",
-            "periodo": "2020-2024",
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "indicadores": indicadores,
-        "porQuadrimestre": por_quadrimestre
-    }
-
-    output_path = PUBLIC_DATA_DIR / "indicadores_ab.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(indicadores_json, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return indicadores_json
-
-
-def generate_metadata_json():
-    """Gera JSON de metadados"""
-    print("Gerando metadata.json...")
-
-    metadata = {
-        "dashboard": {
-            "nome": "Saude Parana",
-            "versao": "1.0.0",
-            "atualizacao": datetime.now().strftime("%Y-%m-%d")
-        },
-        "dados": {
-            "mortalidade": {"fonte": "IBGE/SIM-DATASUS", "periodo": "2010-2023"},
-            "internacoes": {"fonte": "SIH/DATASUS", "periodo": "2015-2024"},
-            "vacinacao": {"fonte": "SI-PNI/DATASUS", "periodo": "2015-2024"},
-            "estabelecimentos": {"fonte": "CNES/DATASUS", "periodo": "2025"},
-            "repasses": {"fonte": "FNS/MS", "periodo": "2018-2024"},
-            "indicadoresAB": {"fonte": "SISAB/Previne Brasil", "periodo": "2020-2024"}
-        },
-        "geografia": {
-            "estado": "Parana",
-            "municipios": 399,
-            "regionaisSaude": 22
-        },
-        "filtros": {
-            "anosDisponiveis": list(range(2010, 2025)),
-            "anoMin": 2010,
-            "anoMax": 2024
-        }
-    }
-
-    output_path = PUBLIC_DATA_DIR / "metadata.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(metadata, f, ensure_ascii=False, indent=2)
-
-    print(f"  Salvo: {output_path}")
-    return metadata
-
-
-def copy_geojson():
-    """Copia GeoJSON dos municipios"""
-    print("Copiando municipios.geojson...")
-
-    source = BASE_DIR / "mun_PR.json"
-    dest = PUBLIC_DATA_DIR / "municipios.geojson"
-
-    if source.exists():
-        import shutil
-        shutil.copy(source, dest)
-        print(f"  Copiado: {dest}")
-        return True
-    else:
-        print(f"  Arquivo fonte nao encontrado: {source}")
-        return False
+            ano = int(ano)
+        except (TypeError, ValueError):
+            continue
+        if not cod or val is None:
+            continue
+        pop.setdefault(cod, {})[ano] = val
+    return pop
+
+
+def populacao_de(pop: dict, cod: str, ano: int) -> int | None:
+    """População do município no ano, com fallback para o ano mais próximo
+    (a t6579 não cobre anos censitários como 2010 e 2022)."""
+    by_year = pop.get(cod)
+    if not by_year:
+        return None
+    if ano in by_year:
+        return by_year[ano]
+    closest = min(by_year.keys(), key=lambda y: abs(y - ano))
+    return by_year[closest]
 
 
 def main():
-    """Executa o preprocessamento completo"""
-    print("\n" + "=" * 60)
-    print("PREPROCESSAMENTO DE DADOS - SAUDE PARANA")
-    print("=" * 60 + "\n")
-
-    # 1. Carregar populacao
-    pop_df = load_populacao()
-    if pop_df is not None:
-        print(f"Populacao carregada: {len(pop_df)} municipios")
-        print(f"Populacao total PR: {pop_df['populacao'].sum():,.0f}")
-    else:
-        print("AVISO: Dados de populacao nao encontrados")
-
-    print("\n" + "-" * 60 + "\n")
-
-    # 2. Gerar JSONs
-    generate_mortalidade_json(pop_df)
-    generate_internacoes_json(pop_df)
-    generate_vacinacao_json()
-    process_cnes_estabelecimentos()
-    generate_repasses_json(pop_df)
-    generate_indicadores_ab_json()
-    generate_metadata_json()
-    copy_geojson()
-
-    print("\n" + "=" * 60)
-    print("PREPROCESSAMENTO CONCLUIDO")
     print("=" * 60)
-    print(f"\nArquivos gerados em: {PUBLIC_DATA_DIR}")
+    print("Saúde Paraná — preprocess (somente dados reais)")
+    print("=" * 60)
 
-    # Listar arquivos gerados
-    for f in PUBLIC_DATA_DIR.glob("*.json"):
-        size = f.stat().st_size / 1024
-        print(f"  {f.name}: {size:.1f} KB")
+    obitos_rows = load_raw("obitos_municipios_pr.json")
+    piramide_rows = load_raw("obitos_piramide_pr.json")
+    nascidos_rows = load_raw("nascidos_municipios_pr.json")
+    pop = build_populacao(load_raw("populacao_anos_pr.json"))
+
+    # Regional IDR de cada município (geo_map.json é um artefato estático real)
+    regional_por_cod: dict[str, str] = {}
+    geo_map_path = PUBLIC_DATA_DIR / "geo_map.json"
+    if geo_map_path.exists():
+        with open(geo_map_path, encoding="utf-8") as f:
+            geo_map = json.load(f)
+        for regional, municipios in (geo_map.get("municipiosPorRegional") or {}).items():
+            for m in municipios:
+                regional_por_cod[str(m.get("cod_ibge"))] = regional
+
+    # ── Óbitos por município/ano ────────────────────────────────────────
+    por_municipio_ano: dict[str, dict[int, dict]] = {}
+    nomes: dict[str, str] = {}
+    anos = set()
+
+    for r in obitos_rows:
+        cod = str(r.get("D1C", ""))
+        nome = str(r.get("D1N", "")).replace(" - PR", "")
+        val = parse_valor(r.get("V"))
+        try:
+            ano = int(r.get("D3N"))
+        except (TypeError, ValueError):
+            continue
+        if not cod or val is None:
+            continue
+        nomes[cod] = nome
+        anos.add(ano)
+        por_municipio_ano.setdefault(cod, {})[ano] = {"obitos": val}
+
+    anos = sorted(anos)
+    ano_min, ano_max = anos[0], anos[-1]
+    print(f"  Óbitos: {len(por_municipio_ano)} municípios, {ano_min}-{ano_max}")
+
+    # ── Série estadual (porAno) com taxa bruta real ─────────────────────
+    por_ano = []
+    for ano in anos:
+        total = sum(d[ano]["obitos"] for d in por_municipio_ano.values() if ano in d)
+        pop_total = sum(
+            populacao_de(pop, cod, ano) or 0 for cod in por_municipio_ano
+        )
+        por_ano.append({
+            "ano": ano,
+            "total": total,
+            "taxa_bruta": round(total / pop_total * 1000, 2) if pop_total else None,
+        })
+
+    # ── Recorte municipal do último ano (mapa/ranking) ──────────────────
+    por_municipio = []
+    for cod, by_year in por_municipio_ano.items():
+        ano_ref = ano_max if ano_max in by_year else max(by_year.keys())
+        obitos = by_year[ano_ref]["obitos"]
+        populacao = populacao_de(pop, cod, ano_ref)
+        por_municipio.append({
+            "cod_ibge": cod,
+            "nome": nomes.get(cod, cod),
+            "municipio": nomes.get(cod, cod),
+            "regional": regional_por_cod.get(cod, "-"),
+            "ano": ano_ref,
+            "obitos": obitos,
+            "populacao": populacao,
+            "taxa": round(obitos / populacao * 1000, 2) if populacao else None,
+        })
+    por_municipio.sort(key=lambda m: m["obitos"], reverse=True)
+
+    # ── Pirâmide etária de óbitos (estado, último ano da tabela) ────────
+    piramide_acc: dict[str, dict[str, int]] = {
+        f: {"homens": 0, "mulheres": 0} for f in FAIXAS_ORDEM
+    }
+    piramide_ano = None
+    for r in piramide_rows:
+        faixa = FAIXA_MAP.get(str(r.get("D5N", "")).strip())
+        sexo = str(r.get("D4N", ""))
+        val = parse_valor(r.get("V"))
+        try:
+            piramide_ano = int(r.get("D3N"))
+        except (TypeError, ValueError):
+            pass
+        if not faixa or val is None:
+            continue
+        if sexo == "Homens":
+            piramide_acc[faixa]["homens"] += val
+        elif sexo == "Mulheres":
+            piramide_acc[faixa]["mulheres"] += val
+
+    # Convenção do PyramidChart: homens negativos (lado esquerdo)
+    piramide = [
+        {"faixa": f, "homens": -acc["homens"], "mulheres": acc["mulheres"]}
+        for f, acc in piramide_acc.items()
+    ]
+
+    # ── Nascidos vivos por ano (estado) ─────────────────────────────────
+    nascidos_por_municipio_ano: dict[str, dict[int, int]] = {}
+    for r in nascidos_rows:
+        cod = str(r.get("D1C", ""))
+        val = parse_valor(r.get("V"))
+        try:
+            ano = int(r.get("D3N"))
+        except (TypeError, ValueError):
+            continue
+        if not cod or val is None:
+            continue
+        nascidos_por_municipio_ano.setdefault(cod, {})[ano] = val
+
+    nascidos_por_ano = []
+    for ano in anos:
+        total = sum(d.get(ano, 0) for d in nascidos_por_municipio_ano.values())
+        if total > 0:
+            nascidos_por_ano.append({"ano": ano, "total": total})
+
+    # ── mortalidade.json ────────────────────────────────────────────────
+    mortalidade = {
+        "metadata": {
+            "fonte": "IBGE — Estatísticas do Registro Civil (Tabela 2654); nascidos vivos: Tabela 2609; população: Tabela 6579",
+            "periodo": f"{ano_min}-{ano_max}",
+            "piramideAno": piramide_ano,
+            "atualizacao": datetime.now().strftime("%Y-%m-%d"),
+        },
+        "porAno": por_ano,
+        "porMunicipio": por_municipio,
+        "porMunicipioAno": por_municipio_ano,
+        "piramideEtaria": piramide,
+        "nascidosPorAno": nascidos_por_ano,
+    }
+    out = PUBLIC_DATA_DIR / "mortalidade.json"
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(mortalidade, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"  Salvo: mortalidade.json ({out.stat().st_size // 1024} KB)")
+
+    # ── metadata.json ───────────────────────────────────────────────────
+    metadata = {
+        "dashboard": {
+            "nome": "Saude Parana",
+            "versao": "2.0.0",
+            "atualizacao": datetime.now().strftime("%Y-%m-%d"),
+        },
+        "dados": {
+            "mortalidade": {
+                "fonte": "IBGE — Estatísticas do Registro Civil",
+                "periodo": f"{ano_min}-{ano_max}",
+            },
+            "nascidos": {
+                "fonte": "IBGE — Estatísticas do Registro Civil",
+                "periodo": f"{ano_min}-{ano_max}",
+            },
+            "populacao": {
+                "fonte": "IBGE — Estimativas de População (t6579)",
+                "periodo": f"{ano_min}-{ano_max}",
+            },
+        },
+        "geografia": {"estado": "Parana", "municipios": len(por_municipio_ano), "regionaisIdr": 23},
+        "filtros": {
+            "anosDisponiveis": anos,
+            "anoMin": ano_min,
+            "anoMax": ano_max,
+        },
+    }
+    out = PUBLIC_DATA_DIR / "metadata.json"
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"  Salvo: metadata.json")
+
+    # ── Remover artefatos sintéticos de execuções antigas ───────────────
+    for legado in ("internacoes.json", "vacinacao.json", "estabelecimentos.json",
+                   "repasses_sus.json", "indicadores_ab.json"):
+        p = PUBLIC_DATA_DIR / legado
+        if p.exists():
+            p.unlink()
+            print(f"  Removido (dado simulado): {legado}")
+
+    print("\nResumo:")
+    print(f"  Municípios: {len(por_municipio_ano)}")
+    print(f"  Período: {ano_min}-{ano_max}")
+    print(f"  Óbitos {ano_max} (PR): {por_ano[-1]['total']:,}")
+    if nascidos_por_ano:
+        print(f"  Nascidos vivos {nascidos_por_ano[-1]['ano']} (PR): {nascidos_por_ano[-1]['total']:,}")
 
 
 if __name__ == "__main__":

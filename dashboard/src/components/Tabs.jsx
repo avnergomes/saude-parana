@@ -1,19 +1,14 @@
 import {
   LayoutDashboard,
-  Skull,
-  BedDouble,
-  Syringe,
-  Building2,
-  Wallet
+  Skull
 } from 'lucide-react';
 
+// Abas restritas aos domínios com fonte real (IBGE Registro Civil).
+// Internações/Vacinação/Infraestrutura/Financiamento exibiam dados
+// simulados e foram removidas até existir ingestão real do DATASUS.
 const tabs = [
   { id: 'visao-geral', label: 'Visão Geral', icon: LayoutDashboard },
   { id: 'mortalidade', label: 'Mortalidade', icon: Skull },
-  { id: 'internacoes', label: 'Internações', icon: BedDouble },
-  { id: 'vacinacao', label: 'Vacinação', icon: Syringe },
-  { id: 'infraestrutura', label: 'Infraestrutura', icon: Building2 },
-  { id: 'financiamento', label: 'Financiamento', icon: Wallet },
 ];
 
 export default function Tabs({ activeTab, onTabChange }) {

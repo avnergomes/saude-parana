@@ -1,16 +1,15 @@
 import {
   Skull,
-  BedDouble,
-  Syringe,
-  Building2,
-  Bed,
-  Wallet,
+  Activity,
+  Baby,
+  Users,
   TrendingUp,
   TrendingDown,
   Minus
 } from 'lucide-react';
-import { formatNumber, formatCurrency, formatPercent } from '../utils/format';
+import { formatNumber } from '../utils/format';
 
+// KPIs restritos ao que tem fonte real (IBGE Registro Civil + população).
 const kpiConfig = {
   obitos: {
     label: 'Óbitos',
@@ -19,40 +18,26 @@ const kpiConfig = {
     color: 'health',
     format: (v) => formatNumber(v)
   },
-  internacoes: {
-    label: 'Internações SUS',
-    sublabel: 'último ano',
-    icon: BedDouble,
+  taxaBruta: {
+    label: 'Taxa Bruta',
+    sublabel: 'óbitos/1.000 hab',
+    icon: Activity,
     color: 'water',
+    format: (v) => (v == null ? '-' : v.toFixed(1))
+  },
+  nascidos: {
+    label: 'Nascidos Vivos',
+    sublabel: 'último ano',
+    icon: Baby,
+    color: 'forest',
     format: (v) => formatNumber(v)
   },
-  coberturaVacinal: {
-    label: 'Cobertura Vacinal',
-    sublabel: 'média infantil',
-    icon: Syringe,
-    color: 'forest',
-    format: (v) => formatPercent(v, 1)
-  },
-  estabelecimentos: {
-    label: 'Estabelecimentos',
-    sublabel: 'ativos no PR',
-    icon: Building2,
+  populacao: {
+    label: 'População',
+    sublabel: 'estimativa IBGE',
+    icon: Users,
     color: 'secondary',
     format: (v) => formatNumber(v)
-  },
-  leitosSus: {
-    label: 'Leitos SUS',
-    sublabel: 'disponíveis',
-    icon: Bed,
-    color: 'water',
-    format: (v) => formatNumber(v)
-  },
-  repassePerCapita: {
-    label: 'Repasse SUS',
-    sublabel: 'per capita/ano',
-    icon: Wallet,
-    color: 'harvest',
-    format: (v) => formatCurrency(v, true)
   }
 };
 
@@ -135,10 +120,10 @@ function KpiCard({ kpiKey, data }) {
 }
 
 export default function KpiCards({ kpis }) {
-  const kpiKeys = ['obitos', 'internacoes', 'coberturaVacinal', 'estabelecimentos', 'leitosSus', 'repassePerCapita'];
+  const kpiKeys = ['obitos', 'taxaBruta', 'nascidos', 'populacao'];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       {kpiKeys.map((key) => (
         <KpiCard key={key} kpiKey={key} data={kpis?.[key]} />
       ))}
