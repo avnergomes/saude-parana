@@ -98,17 +98,19 @@ def download_mortalidade_capitulos():
 
     # Dados baseados em estatisticas publicas do DATASUS/MS
     # Proporcoes tipicas de causas de obito no Brasil
+    # Cores: paleta categórica Okabe-Ito (daltônico-segura) + variações —
+    # nunca verde e vermelho puros no mesmo gráfico (regra do ecossistema).
     capitulos_cid = [
-        {"codigo": "IX", "nome": "Doencas do aparelho circulatorio", "percentual": 27.5, "cor": "#ef4444"},
-        {"codigo": "II", "nome": "Neoplasias (tumores)", "percentual": 17.8, "cor": "#8b5cf6"},
-        {"codigo": "X", "nome": "Doencas do aparelho respiratorio", "percentual": 12.2, "cor": "#3b82f6"},
-        {"codigo": "IV", "nome": "Doencas endocrinas e metabolicas", "percentual": 7.5, "cor": "#f59e0b"},
-        {"codigo": "XX", "nome": "Causas externas", "percentual": 6.8, "cor": "#10b981"},
-        {"codigo": "I", "nome": "Doencas infecciosas", "percentual": 5.2, "cor": "#ec4899"},
-        {"codigo": "XI", "nome": "Doencas do aparelho digestivo", "percentual": 5.0, "cor": "#6366f1"},
-        {"codigo": "VI", "nome": "Doencas do sistema nervoso", "percentual": 4.2, "cor": "#14b8a6"},
-        {"codigo": "XIV", "nome": "Doencas geniturinarias", "percentual": 3.1, "cor": "#f97316"},
-        {"codigo": "Outros", "nome": "Outros capitulos", "percentual": 10.7, "cor": "#64748b"}
+        {"codigo": "IX", "nome": "Doencas do aparelho circulatorio", "percentual": 27.5, "cor": "#0072B2"},
+        {"codigo": "II", "nome": "Neoplasias (tumores)", "percentual": 17.8, "cor": "#D55E00"},
+        {"codigo": "X", "nome": "Doencas do aparelho respiratorio", "percentual": 12.2, "cor": "#56B4E9"},
+        {"codigo": "IV", "nome": "Doencas endocrinas e metabolicas", "percentual": 7.5, "cor": "#E69F00"},
+        {"codigo": "XX", "nome": "Causas externas", "percentual": 6.8, "cor": "#009E73"},
+        {"codigo": "I", "nome": "Doencas infecciosas", "percentual": 5.2, "cor": "#CC79A7"},
+        {"codigo": "XI", "nome": "Doencas do aparelho digestivo", "percentual": 5.0, "cor": "#F0E442"},
+        {"codigo": "VI", "nome": "Doencas do sistema nervoso", "percentual": 4.2, "cor": "#2a2419"},
+        {"codigo": "XIV", "nome": "Doencas geniturinarias", "percentual": 3.1, "cor": "#2f88c4"},
+        {"codigo": "Outros", "nome": "Outros capitulos", "percentual": 10.7, "cor": "#8a8273"}
     ]
 
     return capitulos_cid
@@ -307,17 +309,18 @@ def generate_vacinacao_json():
     """Gera JSON de vacinacao para o dashboard"""
     print("Gerando vacinacao.json...")
 
+    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
     vacinas = [
-        {"codigo": "BCG", "nome": "BCG", "meta": 90, "cor": "#10b981"},
-        {"codigo": "HEP_B", "nome": "Hepatite B", "meta": 95, "cor": "#3b82f6"},
-        {"codigo": "PENTA", "nome": "Pentavalente", "meta": 95, "cor": "#8b5cf6"},
-        {"codigo": "POLIO", "nome": "Poliomielite", "meta": 95, "cor": "#f59e0b"},
-        {"codigo": "ROTAVIRUS", "nome": "Rotavirus", "meta": 90, "cor": "#ef4444"},
-        {"codigo": "PNEUMO", "nome": "Pneumococica", "meta": 95, "cor": "#ec4899"},
-        {"codigo": "MENINGO", "nome": "Meningococica C", "meta": 95, "cor": "#6366f1"},
-        {"codigo": "TRIPLICE", "nome": "Triplice Viral", "meta": 95, "cor": "#14b8a6"},
-        {"codigo": "FEBRE_AM", "nome": "Febre Amarela", "meta": 95, "cor": "#eab308"},
-        {"codigo": "COVID", "nome": "COVID-19", "meta": 90, "cor": "#0ea5e9"}
+        {"codigo": "BCG", "nome": "BCG", "meta": 90, "cor": "#0072B2"},
+        {"codigo": "HEP_B", "nome": "Hepatite B", "meta": 95, "cor": "#D55E00"},
+        {"codigo": "PENTA", "nome": "Pentavalente", "meta": 95, "cor": "#009E73"},
+        {"codigo": "POLIO", "nome": "Poliomielite", "meta": 95, "cor": "#E69F00"},
+        {"codigo": "ROTAVIRUS", "nome": "Rotavirus", "meta": 90, "cor": "#CC79A7"},
+        {"codigo": "PNEUMO", "nome": "Pneumococica", "meta": 95, "cor": "#56B4E9"},
+        {"codigo": "MENINGO", "nome": "Meningococica C", "meta": 95, "cor": "#F0E442"},
+        {"codigo": "TRIPLICE", "nome": "Triplice Viral", "meta": 95, "cor": "#2a2419"},
+        {"codigo": "FEBRE_AM", "nome": "Febre Amarela", "meta": 95, "cor": "#b8ad32"},
+        {"codigo": "COVID", "nome": "COVID-19", "meta": 90, "cor": "#2f88c4"}
     ]
 
     # Cobertura por ano (baseado em dados reais do SI-PNI)
@@ -369,17 +372,18 @@ def process_cnes_estabelecimentos():
 
     cnes_file = RAW_DIR / "cnes_estabelecimentos_pr.csv"
 
+    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
     tipos = [
-        {"codigo": "01", "tipo": "Posto de Saude", "quantidade": 456, "cor": "#10b981"},
-        {"codigo": "02", "tipo": "Centro de Saude/UBS", "quantidade": 1876, "cor": "#3b82f6"},
-        {"codigo": "04", "tipo": "Policlinica", "quantidade": 234, "cor": "#8b5cf6"},
-        {"codigo": "05", "tipo": "Hospital Geral", "quantidade": 345, "cor": "#ef4444"},
-        {"codigo": "07", "tipo": "Hospital Especializado", "quantidade": 123, "cor": "#f59e0b"},
-        {"codigo": "15", "tipo": "UPA 24h", "quantidade": 89, "cor": "#ec4899"},
-        {"codigo": "22", "tipo": "Consultorio", "quantidade": 5678, "cor": "#6366f1"},
-        {"codigo": "36", "tipo": "Clinica Especializada", "quantidade": 2345, "cor": "#14b8a6"},
-        {"codigo": "40", "tipo": "Laboratorio", "quantidade": 1234, "cor": "#84cc16"},
-        {"codigo": "70", "tipo": "CAPS", "quantidade": 187, "cor": "#f97316"}
+        {"codigo": "01", "tipo": "Posto de Saude", "quantidade": 456, "cor": "#0072B2"},
+        {"codigo": "02", "tipo": "Centro de Saude/UBS", "quantidade": 1876, "cor": "#D55E00"},
+        {"codigo": "04", "tipo": "Policlinica", "quantidade": 234, "cor": "#009E73"},
+        {"codigo": "05", "tipo": "Hospital Geral", "quantidade": 345, "cor": "#E69F00"},
+        {"codigo": "07", "tipo": "Hospital Especializado", "quantidade": 123, "cor": "#CC79A7"},
+        {"codigo": "15", "tipo": "UPA 24h", "quantidade": 89, "cor": "#56B4E9"},
+        {"codigo": "22", "tipo": "Consultorio", "quantidade": 5678, "cor": "#F0E442"},
+        {"codigo": "36", "tipo": "Clinica Especializada", "quantidade": 2345, "cor": "#2a2419"},
+        {"codigo": "40", "tipo": "Laboratorio", "quantidade": 1234, "cor": "#b8ad32"},
+        {"codigo": "70", "tipo": "CAPS", "quantidade": 187, "cor": "#2f88c4"}
     ]
 
     if cnes_file.exists():
@@ -412,13 +416,14 @@ def generate_repasses_json(pop_df):
     """Gera JSON de repasses SUS"""
     print("Gerando repasses_sus.json...")
 
+    # Cores: paleta Okabe-Ito (sem verde+vermelho no mesmo gráfico)
     blocos = [
-        {"codigo": "AB", "nome": "Atencao Basica", "cor": "#10b981"},
-        {"codigo": "MAC", "nome": "Media e Alta Complexidade", "cor": "#3b82f6"},
-        {"codigo": "VIGIL", "nome": "Vigilancia em Saude", "cor": "#8b5cf6"},
-        {"codigo": "FARM", "nome": "Assistencia Farmaceutica", "cor": "#f59e0b"},
-        {"codigo": "GESTAO", "nome": "Gestao do SUS", "cor": "#ef4444"},
-        {"codigo": "INV", "nome": "Investimentos", "cor": "#ec4899"}
+        {"codigo": "AB", "nome": "Atencao Basica", "cor": "#0072B2"},
+        {"codigo": "MAC", "nome": "Media e Alta Complexidade", "cor": "#D55E00"},
+        {"codigo": "VIGIL", "nome": "Vigilancia em Saude", "cor": "#009E73"},
+        {"codigo": "FARM", "nome": "Assistencia Farmaceutica", "cor": "#E69F00"},
+        {"codigo": "GESTAO", "nome": "Gestao do SUS", "cor": "#CC79A7"},
+        {"codigo": "INV", "nome": "Investimentos", "cor": "#56B4E9"}
     ]
 
     # Proporcoes tipicas dos blocos

@@ -38,7 +38,7 @@ export default function Filters({
       // Buscar pela mesorregiao
       lista = geoMap.municipiosPorMesorregiao?.[filters.mesorregiao] || [];
     } else {
-      // Todos os municipios
+      // Todos os municípios
       lista = Object.values(geoMap.municipiosPorRegional).flat();
     }
 
@@ -79,7 +79,8 @@ export default function Filters({
     onFiltersChange({
       ...filters,
       regional: regionalNome === filters.regional ? null : regionalNome,
-      municipio: null // Reset municipio quando regional muda
+      municipio: null, // Reset municipio quando regional muda
+      municipioCodigo: null
     });
     setOpenDropdown(null);
     setSearchMunicipio('');
@@ -90,16 +91,17 @@ export default function Filters({
       ...filters,
       mesorregiao: mesorregiao === filters.mesorregiao ? null : mesorregiao,
       regional: null, // Reset regional quando mesorregiao muda
-      municipio: null
+      municipio: null,
+      municipioCodigo: null
     });
     setOpenDropdown(null);
     setSearchMunicipio('');
   };
 
   const handleMunicipioChange = (municipio) => {
-    // municipio pode ser objeto {cod_ibge, nome} ou string
-    const codIbge = typeof municipio === 'object' ? municipio.cod_ibge : null;
-    const nome = typeof municipio === 'object' ? municipio.nome : municipio;
+    // municipio pode ser objeto {cod_ibge, nome}, string ou null ("Todos")
+    const codIbge = municipio && typeof municipio === 'object' ? municipio.cod_ibge : null;
+    const nome = municipio && typeof municipio === 'object' ? municipio.nome : municipio;
 
     onFiltersChange({
       ...filters,
@@ -129,7 +131,7 @@ export default function Filters({
       <div className="flex flex-wrap items-center gap-4">
         {/* Periodo */}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-dark-600">Periodo:</span>
+          <span className="text-sm font-medium text-dark-600">Período:</span>
 
           {/* Ano Minimo */}
           <div className="relative">
@@ -282,7 +284,7 @@ export default function Filters({
                   <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400" />
                   <input
                     type="text"
-                    placeholder="Buscar municipio..."
+                    placeholder="Buscar município..."
                     value={searchMunicipio}
                     onChange={(e) => setSearchMunicipio(e.target.value)}
                     className="w-full pl-8 pr-3 py-1.5 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-water-500/20 focus:border-water-500"
@@ -297,7 +299,7 @@ export default function Filters({
                   onClick={() => handleMunicipioChange(null)}
                   className="w-full px-4 py-1.5 text-left text-sm hover:bg-neutral-100 text-dark-500"
                 >
-                  Todos os municipios
+                  Todos os municípios
                 </button>
                 {municipios.slice(0, 100).map((mun, index) => {
                   const nome = typeof mun === 'object' ? mun.nome : mun;

@@ -218,6 +218,7 @@ function MapChart({
           />
 
           <GeoJSON
+            key={`geojson-${metric}-${Array.isArray(data) ? data.length : Object.keys(data || {}).length}-${min}-${max}`}
             ref={geoJsonRef}
             data={geoData}
             style={getFeatureStyle}

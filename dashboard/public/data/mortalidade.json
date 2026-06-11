@@ -10,61 +10,61 @@
       "codigo": "IX",
       "nome": "Doencas do aparelho circulatorio",
       "percentual": 27.5,
-      "cor": "#ef4444"
+      "cor": "#0072B2"
     },
     {
       "codigo": "II",
       "nome": "Neoplasias (tumores)",
       "percentual": 17.8,
-      "cor": "#8b5cf6"
+      "cor": "#D55E00"
     },
     {
       "codigo": "X",
       "nome": "Doencas do aparelho respiratorio",
       "percentual": 12.2,
-      "cor": "#3b82f6"
+      "cor": "#56B4E9"
     },
     {
       "codigo": "IV",
       "nome": "Doencas endocrinas e metabolicas",
       "percentual": 7.5,
-      "cor": "#f59e0b"
+      "cor": "#E69F00"
     },
     {
       "codigo": "XX",
       "nome": "Causas externas",
       "percentual": 6.8,
-      "cor": "#10b981"
+      "cor": "#009E73"
     },
     {
       "codigo": "I",
       "nome": "Doencas infecciosas",
       "percentual": 5.2,
-      "cor": "#ec4899"
+      "cor": "#CC79A7"
     },
     {
       "codigo": "XI",
       "nome": "Doencas do aparelho digestivo",
       "percentual": 5.0,
-      "cor": "#6366f1"
+      "cor": "#F0E442"
     },
     {
       "codigo": "VI",
       "nome": "Doencas do sistema nervoso",
       "percentual": 4.2,
-      "cor": "#14b8a6"
+      "cor": "#2a2419"
     },
     {
       "codigo": "XIV",
       "nome": "Doencas geniturinarias",
       "percentual": 3.1,
-      "cor": "#f97316"
+      "cor": "#2f88c4"
     },
     {
       "codigo": "Outros",
       "nome": "Outros capitulos",
       "percentual": 10.7,
-      "cor": "#64748b"
+      "cor": "#8a8273"
     }
   ],
   "porAno": [
@@ -145,70 +145,70 @@
       "nome": "Doencas do aparelho circulatorio",
       "total": 335409,
       "percentual": 27.5,
-      "cor": "#ef4444"
+      "cor": "#0072B2"
     },
     {
       "capitulo": "II",
       "nome": "Neoplasias (tumores)",
       "total": 217101,
       "percentual": 17.8,
-      "cor": "#8b5cf6"
+      "cor": "#D55E00"
     },
     {
       "capitulo": "X",
       "nome": "Doencas do aparelho respiratorio",
       "total": 148799,
       "percentual": 12.2,
-      "cor": "#3b82f6"
+      "cor": "#56B4E9"
     },
     {
       "capitulo": "IV",
       "nome": "Doencas endocrinas e metabolicas",
       "total": 91475,
       "percentual": 7.5,
-      "cor": "#f59e0b"
+      "cor": "#E69F00"
     },
     {
       "capitulo": "XX",
       "nome": "Causas externas",
       "total": 82937,
       "percentual": 6.8,
-      "cor": "#10b981"
+      "cor": "#009E73"
     },
     {
       "capitulo": "I",
       "nome": "Doencas infecciosas",
       "total": 63422,
       "percentual": 5.2,
-      "cor": "#ec4899"
+      "cor": "#CC79A7"
     },
     {
       "capitulo": "XI",
       "nome": "Doencas do aparelho digestivo",
       "total": 60983,
       "percentual": 5.0,
-      "cor": "#6366f1"
+      "cor": "#F0E442"
     },
     {
       "capitulo": "VI",
       "nome": "Doencas do sistema nervoso",
       "total": 51226,
       "percentual": 4.2,
-      "cor": "#14b8a6"
+      "cor": "#2a2419"
     },
     {
       "capitulo": "XIV",
       "nome": "Doencas geniturinarias",
       "total": 37809,
       "percentual": 3.1,
-      "cor": "#f97316"
+      "cor": "#2f88c4"
     },
     {
       "capitulo": "Outros",
       "nome": "Outros capitulos",
       "total": 130504,
       "percentual": 10.7,
-      "cor": "#64748b"
+      "cor": "#8a8273"
     }
   ],
   "piramideEtaria": {

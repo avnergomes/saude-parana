@@ -9,32 +9,32 @@
     {
       "codigo": "AB",
       "nome": "Atencao Basica",
-      "cor": "#10b981"
+      "cor": "#0072B2"
     },
     {
       "codigo": "MAC",
       "nome": "Media e Alta Complexidade",
-      "cor": "#3b82f6"
+      "cor": "#D55E00"
     },
     {
       "codigo": "VIGIL",
       "nome": "Vigilancia em Saude",
-      "cor": "#8b5cf6"
+      "cor": "#009E73"
     },
     {
       "codigo": "FARM",
       "nome": "Assistencia Farmaceutica",
-      "cor": "#f59e0b"
+      "cor": "#E69F00"
     },
     {
       "codigo": "GESTAO",
       "nome": "Gestao do SUS",
-      "cor": "#ef4444"
+      "cor": "#CC79A7"
     },
     {
       "codigo": "INV",
       "nome": "Investimentos",
-      "cor": "#ec4899"
+      "cor": "#56B4E9"
     }
   ],
   "porAno": [

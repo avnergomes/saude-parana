@@ -58,9 +58,9 @@ const kpiConfig = {
 
 const colorClasses = {
   health: {
-    bg: 'bg-red-50',
-    icon: 'bg-red-100 text-red-600',
-    text: 'text-red-600'
+    bg: 'bg-orange-50',
+    icon: 'bg-orange-100 text-orange-700',
+    text: 'text-orange-700'
   },
   water: {
     bg: 'bg-water-50',
@@ -68,9 +68,9 @@ const colorClasses = {
     text: 'text-water-600'
   },
   forest: {
-    bg: 'bg-green-50',
-    icon: 'bg-green-100 text-green-600',
-    text: 'text-green-600'
+    bg: 'bg-sky-50',
+    icon: 'bg-sky-100 text-sky-700',
+    text: 'text-sky-700'
   },
   secondary: {
     bg: 'bg-indigo-50',
@@ -99,11 +99,12 @@ function KpiCard({ kpiKey, data }) {
   if (variacao !== null && variacao !== undefined) {
     if (variacao > 0) {
       VariationIcon = TrendingUp;
-      // Para mortalidade, aumento é negativo
-      variationColor = kpiKey === 'obitos' ? 'text-red-500' : 'text-green-500';
+      // Para mortalidade, aumento é negativo. Par azul/laranja em vez de
+      // verde/vermelho (regra daltônica); o ícone reforça a direção.
+      variationColor = kpiKey === 'obitos' ? 'text-orange-700' : 'text-sky-700';
     } else if (variacao < 0) {
       VariationIcon = TrendingDown;
-      variationColor = kpiKey === 'obitos' ? 'text-green-500' : 'text-red-500';
+      variationColor = kpiKey === 'obitos' ? 'text-sky-700' : 'text-orange-700';
     }
   }
 

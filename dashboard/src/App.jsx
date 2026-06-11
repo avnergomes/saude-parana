@@ -292,7 +292,7 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, geoMap, f
           geoData={geoData}
           data={mapData}
           metric="taxa"
-          title="Taxa de Mortalidade por Municipio (por 1.000 hab)"
+          title="Taxa de Mortalidade por Município (por 1.000 hab)"
           colorScale="obitos"
           formatValue={(v) => v?.toFixed(1) || '-'}
           onFeatureClick={onMunicipioClick}
@@ -302,7 +302,7 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, geoMap, f
         <TimeSeriesChart
           data={serieTemporalMortalidade}
           metrics={['total']}
-          title="Evolucao da Mortalidade"
+          title="Evolução da Mortalidade"
           onPointClick={onAnoClick}
           selectedAno={selectedAno}
           referenceYear={2020}
@@ -350,11 +350,9 @@ function VisaoGeralTab({ mortalidade, internacoes, vacinacao, geoData, geoMap, f
 }
 
 function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onCapituloClick, onMunicipioClick, selectedAno, selectedCapitulo, selectedMunicipio }) {
-  if (!data) return null;
-
-  // Preparar hierarquia para Sunburst
+  // Hooks precisam vir antes de qualquer return condicional (Rules of Hooks)
   const sunburstData = useMemo(() => {
-    if (!data.porCapitulo) return null;
+    if (!data?.porCapitulo) return null;
 
     return {
       name: 'Obitos',
@@ -365,7 +363,9 @@ function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onCapitulo
         codigo: cap.capitulo
       }))
     };
-  }, [data.porCapitulo]);
+  }, [data]);
+
+  if (!data) return null;
 
   return (
     <div className="space-y-6">
@@ -386,7 +386,7 @@ function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onCapitulo
           geoData={geoData}
           data={data.porMunicipio}
           metric="taxa"
-          title="Taxa de Mortalidade por Municipio"
+          title="Taxa de Mortalidade por Município"
           colorScale="obitos"
           formatValue={(v) => v?.toFixed(1) || '-'}
           onFeatureClick={onMunicipioClick}
@@ -408,7 +408,7 @@ function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onCapitulo
           valueKey="total"
           nameKey="nome"
           colorKey="cor"
-          title="Obitos por Capitulo CID-10"
+          title="Óbitos por Capítulo CID-10"
           height={400}
           onItemClick={onCapituloClick}
           selectedItem={selectedCapitulo}
@@ -660,11 +660,9 @@ function InfraestruturaTab({ data, geoData, geoMap, filters, onMunicipioClick, s
 }
 
 function FinanciamentoTab({ data, indicadores, geoData, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
-  if (!data) return null;
-
-  // Preparar dados para Sankey
+  // Hooks precisam vir antes de qualquer return condicional (Rules of Hooks)
   const sankeyData = useMemo(() => {
-    if (!data.blocos || !data.porAno?.length) return { nodes: [], links: [] };
+    if (!data?.blocos || !data?.porAno?.length) return { nodes: [], links: [] };
 
     const ultimoAno = data.porAno[data.porAno.length - 1];
 
@@ -688,6 +686,8 @@ function FinanciamentoTab({ data, indicadores, geoData, geoMap, filters, onAnoCl
     return { nodes, links };
   }, [data]);
 
+  if (!data) return null;
+
   return (
     <div className="space-y-6">
       {/* Serie temporal de repasses */}
@@ -697,7 +697,7 @@ function FinanciamentoTab({ data, indicadores, geoData, geoMap, filters, onAnoCl
           total: item.total
         }))}
         metrics={['total']}
-        title="Evolucao dos Repasses SUS"
+        title="Evolução dos Repasses SUS"
         height={350}
         onPointClick={onAnoClick}
         selectedAno={selectedAno}

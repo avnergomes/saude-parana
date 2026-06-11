@@ -109,6 +109,10 @@ function RankingTable({
       : <ChevronDown className="w-4 h-4 text-water-600" />;
   };
 
+  // Sem dados municipais (vários domínios ainda não têm porMunicipio):
+  // não renderizar uma tabela permanentemente vazia.
+  if (!data || data.length === 0) return null;
+
   return (
     <div className="bg-white rounded-2xl shadow-card p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">

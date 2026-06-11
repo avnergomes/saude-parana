@@ -9,61 +9,61 @@
       "codigo": "BCG",
       "nome": "BCG",
       "meta": 90,
-      "cor": "#10b981"
+      "cor": "#0072B2"
     },
     {
       "codigo": "HEP_B",
       "nome": "Hepatite B",
       "meta": 95,
-      "cor": "#3b82f6"
+      "cor": "#D55E00"
     },
     {
       "codigo": "PENTA",
       "nome": "Pentavalente",
       "meta": 95,
-      "cor": "#8b5cf6"
+      "cor": "#009E73"
     },
     {
       "codigo": "POLIO",
       "nome": "Poliomielite",
       "meta": 95,
-      "cor": "#f59e0b"
+      "cor": "#E69F00"
     },
     {
       "codigo": "ROTAVIRUS",
       "nome": "Rotavirus",
       "meta": 90,
-      "cor": "#ef4444"
+      "cor": "#CC79A7"
     },
     {
       "codigo": "PNEUMO",
       "nome": "Pneumococica",
       "meta": 95,
-      "cor": "#ec4899"
+      "cor": "#56B4E9"
     },
     {
       "codigo": "MENINGO",
       "nome": "Meningococica C",
       "meta": 95,
-      "cor": "#6366f1"
+      "cor": "#F0E442"
     },
     {
       "codigo": "TRIPLICE",
       "nome": "Triplice Viral",
       "meta": 95,
-      "cor": "#14b8a6"
+      "cor": "#2a2419"
     },
     {
       "codigo": "FEBRE_AM",
       "nome": "Febre Amarela",
       "meta": 95,
-      "cor": "#eab308"
+      "cor": "#b8ad32"
     },
     {
       "codigo": "COVID",
       "nome": "COVID-19",
       "meta": 90,
-      "cor": "#0ea5e9"
+      "cor": "#2f88c4"
     }
   ],
   "coberturaPorAno": [

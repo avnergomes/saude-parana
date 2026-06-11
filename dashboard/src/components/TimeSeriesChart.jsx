@@ -15,7 +15,7 @@ const metricConfig = {
   total: { label: 'Total', color: '#2d5f7f', format: formatNumber },
   obitos: { label: 'Óbitos', color: '#D55E00', format: formatNumber },
   internacoes: { label: 'Internações', color: '#3b82f6', format: formatNumber },
-  valor_sus: { label: 'Valor SUS', color: '#10b981', format: (v) => formatCurrency(v, false) },
+  valor_sus: { label: 'Valor SUS', color: '#009E73', format: (v) => formatCurrency(v, false) },
   taxa_bruta: { label: 'Taxa/mil hab', color: '#CC79A7', format: (v) => v?.toFixed(2) },
   cobertura: { label: 'Cobertura %', color: '#c89b3c', format: (v) => v?.toFixed(1) + '%' }
 };

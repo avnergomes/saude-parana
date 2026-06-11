@@ -1,5 +1,7 @@
 # Saúde Paraná
 
+> **⚠️ Versão demonstrativa:** parte dos indicadores exibidos (taxas municipais de mortalidade, cobertura vacinal, leitos SUS e Previne Brasil) é gerada com valores simulados em `scripts/preprocess_data.py` enquanto a integração completa com o DATASUS não é finalizada. Não utilize estes números para decisões ou citações.
+
 Dashboard de indicadores de saúde pública do estado do Paraná (2010–2024), com dados do DATASUS. Consolida informações sobre mortalidade, internações SUS, cobertura vacinal, estabelecimentos de saúde, leitos e repasses financeiros do SUS.
 
 **🔗 [Acessar](https://avnergomes.github.io/saude-parana/)**
