@@ -7,6 +7,7 @@
 import { useEffect, useRef, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import { formatNumber, formatPercent, formatCurrency } from '../utils/format';
+import { ATLAS_CLAY } from '../utils/chart-palette';
 
 // Componente para ajustar bounds do mapa
 function FitBounds({ geoData }) {
@@ -36,7 +37,9 @@ function FitBounds({ geoData }) {
 
 // Escalas de cores para diferentes métricas
 const COLOR_SCALES = {
-  obitos: ['#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#D55E00', '#a8482c', '#893824', '#991b1b'],
+  // Sequencial mono-matiz (ATLAS_CLAY): ordem preservada por luminância,
+  // segura para daltonismo, alinhada à paleta do ecossistema.
+  obitos: ATLAS_CLAY,
   internacoes: ['#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69', '#075985'],
   cobertura: ['#d9e6f0', '#bbf7d0', '#87afcd', '#4ade80', '#0072B2', '#005c8e', '#004a72', '#166534'],
   leitos: ['#fef3c7', '#fde68a', '#fcd34d', '#e0b850', '#c89b3c', '#a87f2d', '#b45309', '#92400e'],
@@ -62,6 +65,8 @@ function getColor(value, min, max, scale = 'default') {
 
 function MapChart({
   geoData,
+  geoError = false,
+  onRetryGeo,
   data,
   metric = 'valor',
   title = 'Mapa',
@@ -116,7 +121,9 @@ function MapChart({
     const featureData = dataByCode[code];
     const value = featureData ? featureData[metric] : null;
 
-    const isSelected = selectedFeature === code;
+    // selectedFeature pode chegar com 7 dígitos (dados) ou 6 (mapa)
+    const isSelected = selectedFeature != null
+      && String(selectedFeature).substring(0, 6) === code;
     const isHovered = hoveredFeature === code;
 
     return {
@@ -177,14 +184,14 @@ function MapChart({
     });
   };
 
-  // Gerar legenda
+  // Gerar legenda: todas as classes, rotuladas por faixa (inclui o teto)
   const legendItems = useMemo(() => {
     const colors = COLOR_SCALES[colorScale] || COLOR_SCALES.default;
     const step = (max - min) / colors.length;
 
     return colors.map((color, i) => ({
       color,
-      label: formatValue(min + step * i)
+      label: `${formatValue(min + step * i)} - ${formatValue(min + step * (i + 1))}`
     }));
   }, [min, max, colorScale, formatValue]);
 
@@ -192,9 +199,28 @@ function MapChart({
     return (
       <div className="bg-white rounded-2xl shadow-card p-6" style={{ height }}>
         <h3 className="font-display font-semibold text-dark-900 mb-4">{title}</h3>
-        <div className="flex items-center justify-center h-full text-dark-400">
-          Carregando mapa...
-        </div>
+        {geoError ? (
+          <div className="flex flex-col items-center justify-center h-full gap-3 px-6 text-center">
+            <p className="text-dark-600 font-medium">Não foi possível carregar o mapa.</p>
+            <p className="text-dark-400 text-sm">
+              Falha ao baixar a malha municipal. Verifique sua conexão e tente novamente.
+            </p>
+            {onRetryGeo && (
+              <button
+                type="button"
+                onClick={onRetryGeo}
+                className="px-4 py-2 bg-water-600 text-white rounded-lg text-sm font-medium hover:bg-water-700 transition-colors"
+              >
+                Tentar novamente
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-6">
+            <span className="text-dark-400">Carregando mapa...</span>
+            <span className="text-dark-400 text-xs">Baixando a malha municipal (aprox. 4 MB)</span>
+          </div>
+        )}
       </div>
     );
   }
@@ -232,7 +258,7 @@ function MapChart({
         <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-3 z-[1000]">
           <p className="text-xs font-medium text-dark-700 mb-2">Legenda</p>
           <div className="flex flex-col gap-1">
-            {legendItems.slice(0, 5).map((item, i) => (
+            {legendItems.map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div
                   className="w-4 h-3 rounded-sm"

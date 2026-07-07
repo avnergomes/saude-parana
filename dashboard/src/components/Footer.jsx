@@ -14,12 +14,9 @@ export default function Footer() {
               Fonte de Dados
             </h4>
             <ul className="space-y-1.5 text-xs text-dark-400">
-              <li>DATASUS - Departamento de Informática do SUS</li>
-              <li>SIM - Mortalidade</li>
-              <li>SIH - Internações</li>
-              <li>SI-PNI - Vacinação</li>
-              <li>CNES - Estabelecimentos</li>
-              <li>FNS - Repasses SUS</li>
+              <li>IBGE - Estatísticas do Registro Civil (óbitos)</li>
+              <li>IBGE - Estatísticas do Registro Civil (nascidos vivos)</li>
+              <li>IBGE - Estimativas de População</li>
             </ul>
           </div>
 
@@ -136,7 +133,7 @@ export default function Footer() {
           <p>&copy; {currentYear} Saúde Paraná. Dados públicos.</p>
           <div className="flex gap-2">
             <span className="px-2 py-0.5 bg-water-900/30 text-water-400 rounded-full">399 municípios</span>
-            <span className="px-2 py-0.5 bg-water-900/30 text-water-400 rounded-full">22 regionais</span>
+            <span className="px-2 py-0.5 bg-water-900/30 text-water-400 rounded-full">23 regionais</span>
           </div>
         </div>
       </div>

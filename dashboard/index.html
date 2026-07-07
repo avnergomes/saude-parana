@@ -31,14 +31,25 @@
           btn.setAttribute('aria-label', 'Fechar');
           btn.textContent = '\u00d7';
           btn.style.cssText = 'background:none;border:0;color:#f1e9d6;font-size:20px;line-height:1;cursor:pointer;padding:0 4px';
+          // Empilha o aviso LGPD acima deste banner: os dois ficam visiveis
+          // e clicaveis (o botao Entendi nunca fica coberto).
+          function syncLgpdOffset() {
+            var lgpd = document.getElementById('lgpd-banner');
+            if (!lgpd) return;
+            var mounted = bar.parentNode && lgpd.style.display !== 'none';
+            lgpd.style.bottom = mounted ? bar.offsetHeight + 'px' : '0px';
+          }
           btn.onclick = function () {
             try { localStorage.setItem(KEY, '1'); } catch (e) {}
             bar.parentNode && bar.parentNode.removeChild(bar);
+            syncLgpdOffset();
           };
           bar.appendChild(span);
           bar.appendChild(a);
           bar.appendChild(btn);
           document.body.appendChild(bar);
+          syncLgpdOffset();
+          window.addEventListener('resize', syncLgpdOffset);
         }
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', mount);
@@ -51,18 +62,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14110c" />
 
     <!-- SEO Meta Tags -->
     <title>Saúde Paraná | DataGeo Paraná - Indicadores de Saúde Pública</title>
-    <meta name="description" content="Dashboard interativo de indicadores de saúde pública do Paraná: mortalidade, internações SUS, cobertura vacinal, infraestrutura hospitalar e repasses do SUS desde 2010." />
-    <meta name="keywords" content="saúde pública, Paraná, DATASUS, mortalidade, internações, vacinação, SUS, CNES, FNS, indicadores de saúde" />
+    <meta name="description" content="Dashboard interativo de saúde pública do Paraná: mortalidade, nascidos vivos e taxa bruta de mortalidade por município, com dados do IBGE (Registro Civil e Estimativas de População) de 2003 a 2024." />
+    <meta name="keywords" content="saúde pública, Paraná, mortalidade, nascidos vivos, taxa de mortalidade, IBGE, Registro Civil, indicadores de saúde, municípios" />
     <meta name="author" content="DataGeo Paraná" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://avnergomes.github.io/saude-parana/" />
     <meta property="og:title" content="Saúde Paraná | DataGeo Paraná" />
-    <meta property="og:description" content="Indicadores municipais de saúde pública: mortalidade, internações, vacinação e infraestrutura do SUS no Paraná." />
+    <meta property="og:description" content="Indicadores municipais de mortalidade e nascidos vivos no Paraná, com dados do IBGE Registro Civil e Estimativas de População." />
     <meta property="og:image" content="https://avnergomes.github.io/saude-parana/og-image.png" />
 
     <!-- Twitter -->

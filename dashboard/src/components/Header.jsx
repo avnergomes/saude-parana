@@ -1,5 +1,11 @@
 import { Activity, MapPin, Building2, Calendar } from 'lucide-react';
 
+// "2026-06-11" -> "11/06/2026" (mantém o valor original se o formato divergir)
+function formatDateBr(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(iso || '');
+}
+
 export default function Header({ metadata }) {
   return (
     <header className="bg-gradient-to-r from-water-600 to-water-700 text-white">
@@ -41,10 +47,15 @@ export default function Header({ metadata }) {
         </div>
 
         {/* Fonte dos dados — somente fontes reais */}
-        <div className="mt-4 pt-4 border-t border-water-500/30">
+        <div className="mt-4 pt-4 border-t border-water-500/30 flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs text-water-200">
             Fontes: IBGE — Estatísticas do Registro Civil (óbitos e nascidos vivos) e Estimativas de População
           </p>
+          {metadata?.dashboard?.atualizacao && (
+            <p className="text-xs text-water-200">
+              Dados atualizados em <span>{formatDateBr(metadata.dashboard.atualizacao)}</span>
+            </p>
+          )}
         </div>
       </div>
     </header>

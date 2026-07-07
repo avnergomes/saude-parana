@@ -28,7 +28,10 @@ function App() {
     geoMap,
     metadata,
     loading,
-    error
+    error,
+    geoError,
+    retry,
+    retryGeo
   } = useData();
 
   // Estado de navegação
@@ -54,10 +57,14 @@ function App() {
   // Anos disponíveis
   const { anos } = useAvailableYears(metadata);
 
-  // Merge de filtros
+  // Merge de filtros (ano e município vindos de cliques nos gráficos)
   const mergedFilters = useMemo(() => ({
     ...filters,
-    ...(interactiveFilters.ano && { anoMin: interactiveFilters.ano, anoMax: interactiveFilters.ano })
+    ...(interactiveFilters.ano && { anoMin: interactiveFilters.ano, anoMax: interactiveFilters.ano }),
+    ...(interactiveFilters.municipioCodigo && {
+      municipio: interactiveFilters.municipio,
+      municipioCodigo: interactiveFilters.municipioCodigo
+    })
   }), [filters, interactiveFilters]);
 
   // Dados filtrados usando os hooks
@@ -75,12 +82,21 @@ function App() {
   }, []);
 
   const handleMunicipioClick = useCallback((codIbge, nomeMunicipio) => {
+    // Normaliza o código IBGE: o mapa envia 6 dígitos, o ranking envia 7.
+    const cod = String(codIbge || '');
+    const full = cod.length >= 7
+      ? cod
+      : String(
+          (mortalidade?.porMunicipio || []).find(
+            m => String(m.cod_ibge).startsWith(cod)
+          )?.cod_ibge || cod
+        );
     setInteractiveFilters(prev => ({
       ...prev,
-      municipio: prev.municipioCodigo === codIbge ? null : nomeMunicipio,
-      municipioCodigo: prev.municipioCodigo === codIbge ? null : codIbge
+      municipio: prev.municipioCodigo === full ? null : nomeMunicipio,
+      municipioCodigo: prev.municipioCodigo === full ? null : full
     }));
-  }, []);
+  }, [mortalidade]);
 
   const clearInteractiveFilters = useCallback(() => {
     setInteractiveFilters({
@@ -111,6 +127,13 @@ function App() {
         <div className="text-center p-8">
           <h2 className="text-xl font-semibold text-dark-900 mb-2">Erro ao carregar dados</h2>
           <p className="text-dark-500">{error}</p>
+          <button
+            type="button"
+            onClick={retry}
+            className="mt-4 px-4 py-2 bg-water-600 text-white rounded-lg text-sm font-medium hover:bg-water-700 transition-colors"
+          >
+            Tentar novamente
+          </button>
         </div>
       </div>
     );
@@ -123,6 +146,8 @@ function App() {
         return <VisaoGeralTab
           mortalidade={filteredMortalidade}
           geoData={geoData}
+          geoError={geoError}
+          onRetryGeo={retryGeo}
           geoMap={geoMap}
           filters={mergedFilters}
           onAnoClick={handleAnoClick}
@@ -134,6 +159,8 @@ function App() {
         return <MortalidadeTab
           data={filteredMortalidade}
           geoData={geoData}
+          geoError={geoError}
+          onRetryGeo={retryGeo}
           geoMap={geoMap}
           filters={mergedFilters}
           onAnoClick={handleAnoClick}
@@ -177,7 +204,7 @@ function App() {
 
 // ========== ABAS ==========
 
-function VisaoGeralTab({ mortalidade, geoData, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
+function VisaoGeralTab({ mortalidade, geoData, geoError, onRetryGeo, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
   // Dados já vêm filtrados
   const mapData = mortalidade?.porMunicipio || [];
   const serieTemporalMortalidade = mortalidade?.porAno || [];
@@ -190,6 +217,8 @@ function VisaoGeralTab({ mortalidade, geoData, geoMap, filters, onAnoClick, onMu
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <MapChart
           geoData={geoData}
+          geoError={geoError}
+          onRetryGeo={onRetryGeo}
           data={mapData}
           metric="taxa"
           title="Taxa de Mortalidade por Município (por 1.000 hab)"
@@ -248,7 +277,7 @@ function VisaoGeralTab({ mortalidade, geoData, geoMap, filters, onAnoClick, onMu
   );
 }
 
-function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
+function MortalidadeTab({ data, geoData, geoError, onRetryGeo, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
   if (!data) return null;
 
   return (
@@ -268,6 +297,8 @@ function MortalidadeTab({ data, geoData, geoMap, filters, onAnoClick, onMunicipi
         {/* Mapa */}
         <MapChart
           geoData={geoData}
+          geoError={geoError}
+          onRetryGeo={onRetryGeo}
           data={data.porMunicipio}
           metric="taxa"
           title="Taxa de Mortalidade por Município"

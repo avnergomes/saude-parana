@@ -4,7 +4,7 @@
  * Suporta filtragem por ano, regional, mesorregião e município
  */
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { feature } from 'topojson-client';
 
 const BASE_PATH = import.meta.env.BASE_URL || '/saude-parana/';
@@ -23,51 +23,88 @@ export function useData() {
   const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [geoError, setGeoError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+  const [geoReloadKey, setGeoReloadKey] = useState(0);
 
+  // Dados locais essenciais (mortalidade, geo_map, metadata).
+  // Falha no dataset principal vira erro real, não painel zerado.
   useEffect(() => {
+    let cancelled = false;
+
     async function loadData() {
       try {
         setLoading(true);
         setError(null);
 
-        const files = [
-          'mortalidade.json',
-          null, // municipios: loaded from CDN below
-          'geo_map.json',
-          'metadata.json'
-        ];
+        const files = ['mortalidade.json', 'geo_map.json', 'metadata.json'];
 
         const responses = await Promise.all(
-          files.map(f => f ? fetch(`${BASE_PATH}data/${f}`) : fetch(TOPO_URL))
+          files.map(f => fetch(`${BASE_PATH}data/${f}`))
         );
 
         const data = await Promise.all(
           responses.map(async (r, i) => {
-            if (r.ok) {
-              const json = await r.json();
-              if (i === 1) return feature(json, json.objects.municipalities);
-              return json;
-            }
+            if (r.ok) return r.json();
             console.warn(`Erro ao carregar ${files[i]}: ${r.status}`);
             return null;
           })
         );
 
+        if (cancelled) return;
+
+        if (!data[0]) {
+          // Dataset essencial ausente: sem ele o painel mostraria zeros
+          // com aparência de dado real.
+          setError('Não foi possível carregar os dados do painel. Verifique sua conexão e tente novamente.');
+          return;
+        }
+
         setMortalidade(data[0]);
-        setGeoData(data[1]);
-        setGeoMap(data[2]);
-        setMetadata(data[3]);
+        setGeoMap(data[1]);
+        setMetadata(data[2]);
 
       } catch (err) {
         console.error('Erro ao carregar dados:', err);
-        setError(err.message);
+        if (!cancelled) {
+          setError('Não foi possível carregar os dados do painel. Verifique sua conexão e tente novamente.');
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     loadData();
-  }, []);
+    return () => { cancelled = true; };
+  }, [reloadKey]);
+
+  // Malha municipal (TopoJSON de CDN externa, ~4 MB): carregada fora do
+  // caminho crítico. Falha aqui não bloqueia KPIs, séries nem ranking;
+  // o MapChart mostra erro localizado com botão de tentar de novo.
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadGeo() {
+      try {
+        setGeoError(false);
+        const res = await fetch(TOPO_URL);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        if (!cancelled) {
+          setGeoData(feature(json, json.objects.municipalities));
+        }
+      } catch (err) {
+        console.warn('Erro ao carregar malha municipal:', err);
+        if (!cancelled) setGeoError(true);
+      }
+    }
+
+    loadGeo();
+    return () => { cancelled = true; };
+  }, [geoReloadKey]);
+
+  const retry = useCallback(() => setReloadKey(k => k + 1), []);
+  const retryGeo = useCallback(() => setGeoReloadKey(k => k + 1), []);
 
   return {
     mortalidade,
@@ -75,7 +112,10 @@ export function useData() {
     geoMap,
     metadata,
     loading,
-    error
+    error,
+    geoError,
+    retry,
+    retryGeo
   };
 }
 
