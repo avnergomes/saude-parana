@@ -8,7 +8,29 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { feature } from 'topojson-client';
 
 const BASE_PATH = import.meta.env.BASE_URL || '/saude-parana/';
-const TOPO_URL = 'https://cdn.jsdelivr.net/gh/datageoparana/datageoparana.github.io@main/assets/parana-municipalities.topojson';
+// Malha municipal: primeiro a versão reduzida self-hosted (~749 KB); em
+// qualquer falha, cai para a malha completa no CDN (jsdelivr, ~4,4 MB).
+// Ambas expõem as mesmas propriedades e o object key 'municipalities'.
+const TOPO_URL = 'https://datageoparana.github.io/assets/parana-municipalities.min.topojson';
+const TOPO_URL_FALLBACK = 'https://cdn.jsdelivr.net/gh/datageoparana/datageoparana.github.io@main/assets/parana-municipalities.topojson';
+
+/**
+ * Busca o TopoJSON da malha municipal tentando primeiro a fonte primária
+ * (self-hosted) e, em qualquer falha (rede ou HTTP não-OK), a fonte de
+ * fallback (CDN) antes de propagar o erro. Retorna a Response já validada
+ * (res.ok), mantendo a mesma semântica de erro do fetch original.
+ */
+async function fetchTopo() {
+  try {
+    const res = await fetch(TOPO_URL);
+    if (res.ok) return res;
+    throw new Error(`HTTP ${res.status}`);
+  } catch (primaryErr) {
+    const res = await fetch(TOPO_URL_FALLBACK);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res;
+  }
+}
 
 /**
  * Hook principal de carregamento de dados
@@ -87,8 +109,7 @@ export function useData() {
     async function loadGeo() {
       try {
         setGeoError(false);
-        const res = await fetch(TOPO_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const res = await fetchTopo();
         const json = await res.json();
         if (!cancelled) {
           setGeoData(feature(json, json.objects.municipalities));
