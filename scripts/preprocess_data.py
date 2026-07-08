@@ -189,8 +189,9 @@ def main():
     }
     piramide_ano = None
     for r in piramide_rows:
-        faixa = FAIXA_MAP.get(str(r.get("D5N", "")).strip())
-        sexo = str(r.get("D4N", ""))
+        # SIDRA t2654: sexo em D6N, faixa etária em D7N (D4N/D5N são "Total").
+        faixa = FAIXA_MAP.get(str(r.get("D7N", "")).strip())
+        sexo = str(r.get("D6N", ""))
         val = parse_valor(r.get("V"))
         try:
             piramide_ano = int(r.get("D3N"))
