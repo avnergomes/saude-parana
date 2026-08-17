@@ -30,7 +30,7 @@
           btn.type = 'button';
           btn.setAttribute('aria-label', 'Fechar');
           btn.textContent = '\u00d7';
-          btn.style.cssText = 'background:none;border:0;color:#f1e9d6;font-size:20px;line-height:1;cursor:pointer;padding:0 4px';
+          btn.style.cssText = 'background:none;border:0;color:#f1e9d6;font-size:20px;line-height:1;cursor:pointer;padding:12px 8px;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center';
           // Empilha o aviso LGPD acima deste banner: os dois ficam visiveis
           // e clicaveis (o botao Entendi nunca fica coberto).
           function syncLgpdOffset() {
@@ -258,7 +258,7 @@
         </p>
         <button type="button"
           onclick="document.getElementById('lgpd-banner').style.display='none';localStorage.setItem('lgpd-accepted','true')"
-          style="flex-shrink:0;padding:10px 18px;border:1px solid #f1e9d6;background:transparent;color:#f1e9d6;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;">
+          style="flex-shrink:0;padding:14px 18px;min-height:44px;border:1px solid #f1e9d6;background:transparent;color:#f1e9d6;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;">
           Entendi
         </button>
       </div>

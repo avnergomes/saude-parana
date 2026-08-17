@@ -190,6 +190,20 @@
     background-color: theme('colors.neutral.400');
     border-radius: 3px;
   }
+
+  /* Oculta a barra de rolagem mantendo a funcionalidade de scroll */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+}
+
+/* Mapa responsivo — altura adaptada para mobile */
+@media (max-width: 639px) {
+  .map-viewport {
+    height: clamp(280px, 60vh, 480px) !important;
+  }
 }
 
 /* Leaflet customizations */

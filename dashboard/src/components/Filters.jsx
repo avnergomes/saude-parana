@@ -137,7 +137,7 @@ export default function Filters({
           <div className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === 'anoMin' ? null : 'anoMin')}
-              className="flex items-center gap-1 px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 min-h-[44px] bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
             >
               {filters.anoMin || anos[0]}
               <ChevronDown className="w-4 h-4" />
@@ -165,7 +165,7 @@ export default function Filters({
           <div className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === 'anoMax' ? null : 'anoMax')}
-              className="flex items-center gap-1 px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 min-h-[44px] bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
             >
               {filters.anoMax || anos[anos.length - 1]}
               <ChevronDown className="w-4 h-4" />
@@ -195,7 +195,7 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'mesorregiao' ? null : 'mesorregiao')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+            className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.mesorregiao
                 ? 'bg-primary-100 text-primary-700 border border-primary-300'
                 : 'bg-neutral-100 hover:bg-neutral-200'
@@ -231,7 +231,7 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'regional' ? null : 'regional')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+            className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.regional
                 ? 'bg-water-100 text-water-700 border border-water-300'
                 : 'bg-neutral-100 hover:bg-neutral-200'
@@ -267,7 +267,7 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'municipio' ? null : 'municipio')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+            className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.municipio
                 ? 'bg-water-100 text-water-700 border border-water-300'
                 : 'bg-neutral-100 hover:bg-neutral-200'
@@ -287,7 +287,7 @@ export default function Filters({
                     placeholder="Buscar município..."
                     value={searchMunicipio}
                     onChange={(e) => setSearchMunicipio(e.target.value)}
-                    className="w-full pl-8 pr-3 py-1.5 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-water-500/20 focus:border-water-500"
+                    className="w-full pl-8 pr-3 py-1.5 text-base sm:text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-water-500/20 focus:border-water-500"
                     autoFocus
                   />
                 </div>

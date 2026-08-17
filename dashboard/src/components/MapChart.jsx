@@ -195,9 +195,11 @@ function MapChart({
     }));
   }, [min, max, colorScale, formatValue]);
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+
   if (!geoData?.features) {
     return (
-      <div className="bg-white rounded-2xl shadow-card p-6" style={{ height }}>
+      <div className="bg-white rounded-2xl shadow-card p-6 map-viewport" style={{ height }}>
         <h3 className="font-display font-semibold text-dark-900 mb-4">{title}</h3>
         {geoError ? (
           <div className="flex flex-col items-center justify-center h-full gap-3 px-6 text-center">
@@ -229,13 +231,14 @@ function MapChart({
     <div className="bg-white rounded-2xl shadow-card p-6">
       <h3 className="font-display font-semibold text-dark-900 mb-4">{title}</h3>
 
-      <div className="relative" style={{ height }}>
+      <div className="relative map-viewport" style={{ height }}>
         <MapContainer
           ref={mapRef}
           center={[-24.5, -51.5]}
           zoom={7}
           style={{ height: '100%', width: '100%', borderRadius: '0.75rem' }}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
+          dragging={!isMobile}
           zoomControl={true}
         >
           <TileLayer
@@ -255,16 +258,16 @@ function MapChart({
         </MapContainer>
 
         {/* Legenda */}
-        <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-3 z-[1000]">
-          <p className="text-xs font-medium text-dark-700 mb-2">Legenda</p>
-          <div className="flex flex-col gap-1">
+        <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-2 sm:p-3 z-[1000]">
+          <p className="text-xs font-medium text-dark-700 mb-1.5">Legenda</p>
+          <div className="grid grid-cols-2 sm:grid-cols-1 gap-x-3 gap-y-0.5">
             {legendItems.map((item, i) => (
-              <div key={i} className="flex items-center gap-2">
+              <div key={i} className="flex items-center gap-1.5">
                 <div
-                  className="w-4 h-3 rounded-sm"
+                  className="w-3 h-2.5 flex-shrink-0 rounded-sm"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-xs text-dark-600">{item.label}</span>
+                <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">{item.label}</span>
               </div>
             ))}
           </div>
