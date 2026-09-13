@@ -46,7 +46,7 @@
     "descricao": "Cobertura potencial da APS por município do PR, 2026 (e-Gestor AB)",
     "linhas": 2786,
     "sha256": "aed2ccb74ca790b0ab2fb29c9efd64f17668bf93f8d26d9b1e0f4559912aa1e5",
-    "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202601&nuCompFim=202609"
+    "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202601&nuCompFim=202612"
   },
   "cnes_estabelecimentos_csv.zip": {
     "alterado_em": "2026-09-13",
