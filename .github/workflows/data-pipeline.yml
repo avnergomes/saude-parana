@@ -15,8 +15,10 @@ permissions:
 jobs:
   process:
     runs-on: ubuntu-latest
-    # O SIDRA às vezes demora minutos por consulta; 30 min já estourou (07/2026).
-    timeout-minutes: 45
+    # O SIDRA às vezes demora minutos por consulta (30 min estourou em 07/2026)
+    # e o InfoDengue (399 chamadas) levou ~24 min no runner em 13/09/2026;
+    # a primeira rodada completa fechou em 32 min.
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
