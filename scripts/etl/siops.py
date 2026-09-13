@@ -164,21 +164,20 @@ def recorte_municipal(anos: list[AnoSiops], ano_ref: int) -> dict[str, dict]:
 
 # ── Download ────────────────────────────────────────────────────────────
 
-def baixar_ano(http: requests.Session | None, ano: int, arquivo: str, manifesto: dict,
-               mapa: dict[str, str], cfg: ConfigSiops = CONFIG) -> tuple[dict, AnoSiops]:
-    """Consulta um ano, registra o bruto e devolve (novo manifesto, tabela do ano)."""
+def baixar_ano(http: requests.Session | None, ano: int, arquivo: str,
+               mapa: dict[str, str], cfg: ConfigSiops = CONFIG) -> tuple[tabnet.Bruto, AnoSiops]:
+    """Consulta um ano e devolve (bruto ainda não registrado, tabela do ano)."""
     texto = tabnet.consultar(cfg.def_path, campos(arquivo, cfg), servidor=SERVIDOR, http=http)
-    registros = tabnet.parse_csv(texto)
-    bruto = f"tabnet/siops_{ano}.csv"
-    manifesto = common.registrar_texto(
-        manifesto, bruto, texto,
+    registros = tabnet.parse_municipios(texto)
+    bruto = tabnet.Bruto(
+        f"tabnet/siops_{ano}.csv", texto,
         f"SIOPS/TabNet: indicadores municipais de financiamento da saúde, Paraná, {ano}",
-        SERVIDOR.url_tabulacao(cfg.def_path), linhas=len(registros),
+        SERVIDOR.url_tabulacao(cfg.def_path), len(registros),
     )
     tabela = valores_por_municipio(registros, mapa, cfg)
     log.info("  SIOPS %d: %d municípios, despesa/hab média %s", ano, len(tabela),
              media_ponderada(tabela, INDICADORES[0].codigo))
-    return manifesto, AnoSiops(ano, bruto, tabela)
+    return bruto, AnoSiops(ano, bruto.arquivo, tabela)
 
 
 # ── Montagem da saída ───────────────────────────────────────────────────
@@ -227,10 +226,13 @@ def executar(manifesto: dict) -> dict:
     mapa = common.cod6_para_7()
     log.info("  SIOPS: %d anos (%d-%d)", len(arquivos), min(arquivos), max(arquivos))
     anos: list[AnoSiops] = []
+    brutos: list[tabnet.Bruto] = []
     for ano, arquivo in sorted(arquivos.items()):
         with _sem_aviso_de_cabecalhos():
-            manifesto, dados = baixar_ano(http, ano, arquivo, manifesto, mapa)
+            bruto, dados = baixar_ano(http, ano, arquivo, mapa)
+        brutos.append(bruto)
         anos.append(dados)
+    manifesto = tabnet.registrar_brutos(manifesto, brutos)
     saida = montar_saida(anos, common.alterado_em(manifesto, [a.bruto for a in anos]))
     common.escrever_json(SAIDA, saida)
     log.info("  Referência %d; %d municípios", saida["anoReferencia"], len(saida["porMunicipio"]))

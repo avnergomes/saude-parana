@@ -170,35 +170,35 @@ def recorte_municipal(dados: AnoSih, pop: dict, ordem: list[str]) -> dict[str, d
 
 # ── Download ────────────────────────────────────────────────────────────
 
-def baixar_ano(http: requests.Session | None, ano: int, arquivos: list[str], manifesto: dict,
-               mapa: dict[str, str], cfg: ConfigSih = CONFIG) -> tuple[dict, AnoSih]:
-    """Dois POSTs do ano; registra os brutos e devolve (novo manifesto, dados)."""
+def baixar_ano(http: requests.Session | None, ano: int, arquivos: list[str],
+               mapa: dict[str, str], cfg: ConfigSih = CONFIG) -> tuple[list[tabnet.Bruto], AnoSih]:
+    """Dois POSTs do ano; devolve (brutos ainda não registrados, dados do ano)."""
     url = tabnet.TABNET.url_tabulacao(cfg.def_path)
-    brutos = (f"tabnet/sih_{ano}.csv", f"tabnet/sih_{ano}_totais.csv")
+    nomes = (f"tabnet/sih_{ano}.csv", f"tabnet/sih_{ano}_totais.csv")
 
     texto_cap = tabnet.consultar(cfg.def_path, campos_capitulos(arquivos, cfg), http=http)
-    registros_cap = tabnet.parse_csv(texto_cap)
-    manifesto = common.registrar_texto(
-        manifesto, brutos[0], texto_cap,
-        f"SIH/TabNet: internações por município de residência e capítulo CID-10, {ano}",
-        url, linhas=len(registros_cap),
-    )
+    registros_cap = tabnet.parse_municipios(texto_cap)
     texto_tot = tabnet.consultar(cfg.def_path, campos_totais(arquivos, cfg), http=http)
-    registros_tot = tabnet.parse_csv(texto_tot)
-    manifesto = common.registrar_texto(
-        manifesto, brutos[1], texto_tot,
-        f"SIH/TabNet: internações, valor total e óbitos por município de residência, {ano}",
-        url, linhas=len(registros_tot),
-    )
+    registros_tot = tabnet.parse_municipios(texto_tot)
+    brutos = [
+        tabnet.Bruto(
+            nomes[0], texto_cap,
+            f"SIH/TabNet: internações por município de residência e capítulo CID-10, {ano}",
+            url, len(registros_cap)),
+        tabnet.Bruto(
+            nomes[1], texto_tot,
+            f"SIH/TabNet: internações, valor total e óbitos por município de residência, {ano}",
+            url, len(registros_tot)),
+    ]
     dados = AnoSih(
-        ano=ano, brutos=brutos, parcial=len(arquivos) < cfg.meses_por_ano,
+        ano=ano, brutos=nomes, parcial=len(arquivos) < cfg.meses_por_ano,
         capitulos=tabnet.tabela_capitulos(registros_cap, mapa),
         totais=totais_por_municipio(registros_tot, mapa, cfg),
     )
     log.info("  SIH %d (%d meses%s): %d municípios, %d internações", ano, len(arquivos),
              ", parcial" if dados.parcial else "", len(dados.totais),
              sum(m["internacoes"] for m in dados.totais.values()))
-    return manifesto, dados
+    return brutos, dados
 
 
 # ── Montagem da saída ───────────────────────────────────────────────────
@@ -243,11 +243,19 @@ def executar(manifesto: dict) -> dict:
     log.info("  SIH: %d anos (%d-%d), última competência %s",
              len(arquivos), min(arquivos), max(arquivos), competencia)
     anos: list[AnoSih] = []
+    brutos: list[tabnet.Bruto] = []
     for ano, lista in arquivos.items():
-        manifesto, dados = baixar_ano(http, ano, lista, manifesto, mapa)
+        brutos_ano, dados = baixar_ano(http, ano, lista, mapa)
+        brutos.extend(brutos_ano)
         anos.append(dados)
-    brutos = [b for a in anos for b in a.brutos]
-    saida = montar_saida(anos, pop, competencia, common.alterado_em(manifesto, brutos))
+    manifesto = tabnet.registrar_brutos(manifesto, brutos)
+    parciais_antigos = [a.ano for a in anos if a.parcial and a.ano != max(arquivos)]
+    if parciais_antigos:
+        # Só o ano corrente deveria estar incompleto; outro ano parcial recua o
+        # ano de referência e merece conferência no TabNet.
+        log.warning("  SIH: anos anteriores com meses faltando no TabNet: %s", parciais_antigos)
+    nomes = [b for a in anos for b in a.brutos]
+    saida = montar_saida(anos, pop, competencia, common.alterado_em(manifesto, nomes))
     common.escrever_json(SAIDA, saida)
     log.info("  Referência %d; ano parcial %s; %d municípios", saida["anoReferencia"],
              saida["metadata"]["anoParcial"], len(saida["porMunicipio"]))

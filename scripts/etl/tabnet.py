@@ -153,7 +153,14 @@ def consultar(def_path: str, campos: dict[str, str | list[str]],
     time.sleep(PAUSA)
     texto = _requisitar(http, "GET", servidor.host + achado.group(1))
     time.sleep(PAUSA)
-    return "\n".join(texto.splitlines()) + "\n"
+    return normalizar_quebras(texto)
+
+
+def normalizar_quebras(texto: str) -> str:
+    """CRLF -> LF e quebra final garantida. Não usa str.splitlines(): ele também
+    quebra em U+0085 e outros controles C1 que aparecem em CSV ISO-8859-1."""
+    texto = texto.replace("\r\n", "\n").replace("\r", "\n")
+    return texto if texto.endswith("\n") else texto + "\n"
 
 
 # ── CSV ─────────────────────────────────────────────────────────────────
@@ -195,19 +202,66 @@ def _registro(cabecalho: list[str], celulas: list[str]) -> dict:
 
 def parse_csv(texto: str) -> list[dict]:
     """Registros do CSV do TabNet (uma linha por município), sem a linha Total
-    nem o rodapé. Chaves: cod6, nome e cada coluna do cabeçalho."""
-    linhas = texto.splitlines()
+    nem o rodapé. Chaves: cod6, nome e cada coluna do cabeçalho.
+    Linhas em branco são ignoradas; linha com número de células diferente
+    do cabeçalho indica CSV truncado e levanta FonteIndisponivel."""
+    linhas = normalizar_quebras(texto).split("\n")
     inicio = _indice_cabecalho(linhas)
     cabecalho = [c.strip() for c in _celulas(linhas[inicio])]
     registros: list[dict] = []
     for linha in linhas[inicio + 1:]:
+        if not linha.strip():
+            continue
         if not linha.startswith('"'):
             break  # rodapé: Fonte, Notas
         celulas = _celulas(linha)
         if celulas[0].strip().lower() == "total":
             break
+        if len(celulas) != len(cabecalho):
+            raise FonteIndisponivel(
+                f"CSV do TabNet truncado: {len(celulas)} células em '{celulas[0][:40]}', "
+                f"cabeçalho com {len(cabecalho)}")
         registros.append(_registro(cabecalho, celulas))
     return registros
+
+
+# Paraná tem 399 municípios; menos que isto numa tabulação municipal
+# significa resposta truncada ou filtro errado, não dado real.
+MINIMO_MUNICIPIOS_PR = 390
+
+
+def parse_municipios(texto: str, minimo: int | None = None) -> list[dict]:
+    """parse_csv com invariante: pelo menos `minimo` linhas com código IBGE
+    (padrão MINIMO_MUNICIPIOS_PR, resolvido na chamada para permitir ajuste em testes)."""
+    minimo = MINIMO_MUNICIPIOS_PR if minimo is None else minimo
+    registros = parse_csv(texto)
+    com_codigo = sum(1 for r in registros if r["cod6"])
+    if com_codigo < minimo:
+        raise FonteIndisponivel(
+            f"tabulação municipal com {com_codigo} municípios (mínimo {minimo})")
+    return registros
+
+
+# ── Brutos ──────────────────────────────────────────────────────────────
+
+@dataclass(frozen=True)
+class Bruto:
+    """CSV baixado, ainda não registrado no manifesto."""
+    arquivo: str
+    texto: str
+    descricao: str
+    url: str
+    linhas: int
+
+
+def registrar_brutos(manifesto: dict, brutos: list[Bruto]) -> dict:
+    """Registra todos os brutos de uma vez, só depois de todos os downloads do
+    domínio darem certo: uma falha no meio não deixa CSVs novos no disco com
+    a saída JSON antiga."""
+    for b in brutos:
+        manifesto = common.registrar_texto(
+            manifesto, b.arquivo, b.texto, b.descricao, b.url, linhas=b.linhas)
+    return manifesto
 
 
 # ── Capítulos CID-10 ────────────────────────────────────────────────────

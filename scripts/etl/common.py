@@ -18,6 +18,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import sys
 from dataclasses import dataclass
 from datetime import date
@@ -110,10 +111,19 @@ def carregar_manifesto() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
+def escrever_atomico(destino: Path, texto: str) -> None:
+    """Grava em arquivo temporário e renomeia: um job morto no meio da escrita
+    não deixa JSON truncado no repositório."""
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    temporario = destino.with_name(destino.name + ".tmp")
+    temporario.write_text(texto, encoding="utf-8")
+    os.replace(temporario, destino)
+
+
 def salvar_manifesto(manifesto: dict) -> None:
-    MANIFEST_PATH.write_text(
+    escrever_atomico(
+        MANIFEST_PATH,
         json.dumps(manifesto, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
     )
 
 
@@ -210,9 +220,7 @@ def taxa(numerador: float | None, denominador: float | None, por: int = 1000,
 
 def escrever_json(nome: str, obj: dict) -> Path:
     """Grava JSON minificado, UTF-8, chaves na ordem de inserção (determinístico)."""
-    PUBLIC_DATA_DIR.mkdir(parents=True, exist_ok=True)
     destino = PUBLIC_DATA_DIR / nome
-    destino.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")),
-                       encoding="utf-8")
+    escrever_atomico(destino, json.dumps(obj, ensure_ascii=False, separators=(",", ":")))
     log.info("  Salvo: %s (%d KB)", nome, destino.stat().st_size // 1024)
     return destino

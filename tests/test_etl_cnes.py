@@ -335,13 +335,15 @@ def test_montar_saida_e_deterministica_e_nao_muta_entradas(processado):
 
 # ── Metadados e manifesto ───────────────────────────────────────────────
 
-def test_data_competencia_usa_last_modified_ou_data_do_csv(zip_cnes: Path):
-    com_cabecalho = cnes.common.Download(zip_cnes, "Sat, 12 Sep 2026 06:11:53 GMT", 1)
-    assert cnes.data_competencia(com_cabecalho) == "2026-09-12"
-    sem_cabecalho = cnes.common.Download(zip_cnes, None, 1)
+def test_data_competencia_usa_a_data_do_csv_e_ignora_last_modified(zip_cnes: Path):
+    # Um reenvio dos mesmos bytes ao S3 muda o Last-Modified sem mudar o dado:
+    # a competência vem da data do CSV dentro do zip.
     with zipfile.ZipFile(zip_cnes) as zf:
-        data_csv = zf.infolist()[0].date_time[:3]
-    assert cnes.data_competencia(sem_cabecalho) == "%04d-%02d-%02d" % data_csv
+        data_csv = "%04d-%02d-%02d" % zf.infolist()[0].date_time[:3]
+    com_cabecalho = cnes.common.Download(zip_cnes, "Sat, 12 Sep 2026 06:11:53 GMT", 1)
+    sem_cabecalho = cnes.common.Download(zip_cnes, None, 1)
+    assert cnes.data_competencia(com_cabecalho) == data_csv
+    assert cnes.data_competencia(sem_cabecalho) == data_csv
 
 
 def test_registrar_brutos_grava_texto_reduzido_e_hash_do_zip(processado, zip_cnes, tmp_path, monkeypatch):

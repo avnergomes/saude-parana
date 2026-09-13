@@ -123,6 +123,7 @@ def test_executar_grava_saida_brutos_e_manifesto(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "cod6_para_7", lambda: MAPA)
     monkeypatch.setattr(tabnet, "baixar_formulario", lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
+    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
 
     manifesto_inicial = {"outro.json": {"sha256": "x", "alterado_em": "2020-01-01"}}
     manifesto = sim_cid.executar(manifesto_inicial)

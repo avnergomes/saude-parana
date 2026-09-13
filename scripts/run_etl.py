@@ -34,7 +34,12 @@ def executar_dominio(nome: str, manifesto: dict) -> tuple[dict, bool]:
     try:
         modulo = importlib.import_module(f"etl.{nome}")
     except ModuleNotFoundError as exc:
-        log.warning("Domínio %s não implementado (%s); pulando.", nome, exc)
+        if exc.name != f"etl.{nome}":
+            # Dependência ausente dentro do módulo (ex.: requests): é falha, não
+            # "domínio não implementado".
+            log.exception("Domínio %s: dependência ausente (%s).", nome, exc.name)
+            return manifesto, False
+        log.warning("Domínio %s não implementado; pulando.", nome)
         return manifesto, True
 
     log.info("=" * 60)

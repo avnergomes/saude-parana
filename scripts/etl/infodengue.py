@@ -45,9 +45,12 @@ class ConfigInfodengue:
     url: str = "https://info.dengue.mat.br/api/alertcity"
     doencas: tuple[str, ...] = ("dengue",)
     ano_inicio: int = 2024
-    timeout: int = 60
+    # Orçamento de tempo: sem retry na sessão e timeout curto, senão uma fonte
+    # travada consome o job inteiro (399 chamadas x retries x timeout).
+    timeout: int = 30
     pausa: float = 0.2
     tolerancia_falhas: float = 0.05
+    max_falhas_consecutivas: int = 5
     limite_persistencia: int = 5 * 1024 * 1024
     nivel_alerta: int = 3
 
@@ -85,15 +88,18 @@ def baixar_doenca(http: requests.Session, cfg: ConfigInfodengue, doenca: str,
     maximo = int(len(codigos) * cfg.tolerancia_falhas)
     por_municipio: dict[str, list[dict]] = {}
     falhas: list[str] = []
+    consecutivas = 0
     for i, cod in enumerate(sorted(codigos), 1):
         dados = baixar_municipio(http, cfg, cod, doenca, ano_fim)
         if dados is None:
             falhas = falhas + [cod]
-            if len(falhas) > maximo:
+            consecutivas += 1
+            if len(falhas) > maximo or consecutivas >= cfg.max_falhas_consecutivas:
                 raise FonteIndisponivel(
                     f"InfoDengue {doenca}: {len(falhas)} municípios sem resposta "
-                    f"(tolerância {maximo})")
+                    f"({consecutivas} seguidos; tolerância {maximo})")
         else:
+            consecutivas = 0
             por_municipio[cod] = dados
         if i % 50 == 0 or i == len(codigos):
             log.info("  InfoDengue %s: %d/%d municípios", doenca, i, len(codigos))
@@ -268,7 +274,7 @@ def executar(manifesto: dict, cfg: ConfigInfodengue = CONFIG,
     """Baixa, processa e grava arboviroses.json; devolve o novo manifesto."""
     ano_fim = (hoje or date.today()).year
     codigos = sorted(common.geo_municipios())
-    http = common.sessao()
+    http = common.sessao(tentativas=1)
     resultados: dict[str, dict] = {}
     falhas: dict[str, list[str]] = {}
     arquivos: list[str] = []

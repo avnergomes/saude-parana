@@ -95,10 +95,12 @@ def baixar_tudo(manifesto: dict, cfg: ConfigAps,
         # Só o hash entra no manifesto: cada ano tem ~2,7 MB e o ano corrente
         # mudaria todo mês, inflando o repositório sem ganho (a saída
         # atencao_primaria.json é o que importa).
+        # URL registrada com o ano inteiro (nuCompFim=12), estável entre meses:
+        # a URL real usa o mês corrente e mudaria o manifesto sem mudança de dado.
         manifesto = common.registrar_texto(
             manifesto, arquivo, texto,
             f"Cobertura potencial da APS por município do PR, {ano} (e-Gestor AB)",
-            url_ano(cfg, ano, mes_fim), linhas=len(dados), persistir=False)
+            url_ano(cfg, ano, 12), linhas=len(dados), persistir=False)
         registros = registros + dados
         arquivos = arquivos + [arquivo]
     return manifesto, registros, arquivos

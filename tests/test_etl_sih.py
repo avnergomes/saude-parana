@@ -144,6 +144,7 @@ def test_executar_faz_dois_posts_por_ano_e_grava_tudo(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "sessao", lambda: None)
     monkeypatch.setattr(common, "cod6_para_7", lambda: MAPA)
     monkeypatch.setattr(common, "populacao_municipal", lambda: POP)
+    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
     monkeypatch.setattr(tabnet, "baixar_formulario", lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
 

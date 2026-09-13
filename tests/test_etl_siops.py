@@ -134,6 +134,7 @@ def test_executar_usa_o_servidor_do_siops_e_grava_tudo(tmp_path, monkeypatch):
     monkeypatch.setattr(tabnet, "baixar_formulario",
                         lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
+    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
 
     manifesto = siops.executar({})
 

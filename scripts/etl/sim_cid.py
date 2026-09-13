@@ -85,26 +85,29 @@ def campos(arquivo: str, cfg: ConfigSim = CONFIG) -> dict[str, str]:
 def ano_final(texto_csv: str, cfg: ConfigSim = CONFIG) -> int:
     """Último ano com dados finais, pela nota do rodapé; senão o padrão da config."""
     achado = _RE_NOTA_FINAL.search(texto_csv)
-    return int(achado.group(1)) if achado else cfg.ultimo_ano_final
+    if not achado:
+        log.warning("  SIM: nota 'dados finais disponíveis até' ausente no rodapé; "
+                    "usando %d como último ano final (conferir o TabNet)", cfg.ultimo_ano_final)
+        return cfg.ultimo_ano_final
+    return int(achado.group(1))
 
 
 # ── Download ────────────────────────────────────────────────────────────
 
-def baixar_ano(http: requests.Session | None, ano: int, arquivo: str, manifesto: dict,
-               mapa: dict[str, str], cfg: ConfigSim = CONFIG) -> tuple[dict, AnoSim]:
-    """Consulta um ano, registra o bruto e devolve (novo manifesto, tabela do ano)."""
+def baixar_ano(http: requests.Session | None, ano: int, arquivo: str,
+               mapa: dict[str, str], cfg: ConfigSim = CONFIG) -> tuple[tabnet.Bruto, AnoSim]:
+    """Consulta um ano e devolve (bruto ainda não registrado, tabela do ano)."""
     texto = tabnet.consultar(cfg.def_path, campos(arquivo, cfg), http=http)
-    registros = tabnet.parse_csv(texto)
-    bruto = f"tabnet/sim_{ano}.csv"
-    manifesto = common.registrar_texto(
-        manifesto, bruto, texto,
+    registros = tabnet.parse_municipios(texto)
+    bruto = tabnet.Bruto(
+        f"tabnet/sim_{ano}.csv", texto,
         f"SIM/TabNet: óbitos por município de residência e capítulo CID-10, {ano}",
-        tabnet.TABNET.url_tabulacao(cfg.def_path), linhas=len(registros),
+        tabnet.TABNET.url_tabulacao(cfg.def_path), len(registros),
     )
     tabela = tabnet.tabela_capitulos(registros, mapa)
     log.info("  SIM %d: %d municípios, %d óbitos", ano, len(tabela),
              sum(m["total"] for m in tabela.values()))
-    return manifesto, AnoSim(ano, bruto, tabela, ano_final(texto, cfg))
+    return bruto, AnoSim(ano, bruto.arquivo, tabela, ano_final(texto, cfg))
 
 
 # ── Montagem da saída ───────────────────────────────────────────────────
@@ -150,9 +153,12 @@ def executar(manifesto: dict) -> dict:
     log.info("  SIM: %d anos (%d-%d), %d municípios no mapa",
              len(arquivos), min(arquivos), max(arquivos), len(mapa))
     anos: list[AnoSim] = []
+    brutos: list[tabnet.Bruto] = []
     for ano, arquivo in sorted(arquivos.items()):
-        manifesto, dados = baixar_ano(http, ano, arquivo, manifesto, mapa)
+        bruto, dados = baixar_ano(http, ano, arquivo, mapa)
+        brutos.append(bruto)
         anos.append(dados)
+    manifesto = tabnet.registrar_brutos(manifesto, brutos)
     saida = montar_saida(anos, common.alterado_em(manifesto, [a.bruto for a in anos]))
     common.escrever_json(SAIDA, saida)
     log.info("  Referência %d; preliminares %s; %d municípios",

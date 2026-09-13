@@ -25,7 +25,6 @@ import zipfile
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date
-from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import IO, Iterable, Iterator, Mapping, Sequence
 
@@ -262,12 +261,8 @@ def baixar_regioes(http: requests.Session, url: str = URL_REGIOES) -> tuple[dict
 
 
 def data_competencia(download: common.Download) -> str:
-    """Data do Last-Modified do zip; sem cabeçalho, data do CSV dentro do zip."""
-    if download.ultima_modificacao:
-        try:
-            return parsedate_to_datetime(download.ultima_modificacao).date().isoformat()
-        except (TypeError, ValueError):
-            log.warning("  Last-Modified ilegível: %s", download.ultima_modificacao)
+    """Data do CSV dentro do zip (extração do CNES). O Last-Modified do S3 não
+    serve: um reenvio dos mesmos bytes mudaria a saída sem mudança de dado."""
     with zipfile.ZipFile(download.caminho) as zf:
         return date(*membro_csv(zf).date_time[:3]).isoformat()
 
