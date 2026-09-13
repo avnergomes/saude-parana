@@ -10,6 +10,30 @@ import {
 } from 'recharts';
 import { formatNumber, formatCurrency, formatPercent, CHART_COLORS } from '../utils/format';
 
+// Fora do componente: criar componentes durante o render reinicia o estado
+// deles a cada renderização (regra react-hooks/static-components). O Recharts
+// injeta active/payload no elemento; nameKey/dataKey/formatValue vêm do pai.
+function CustomTooltip({ active, payload, nameKey, dataKey, formatValue }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const item = payload[0].payload;
+  return (
+    <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
+      <p className="font-semibold text-dark-900 mb-1">
+        {item[nameKey]}
+      </p>
+      <p className="text-sm text-dark-600">
+        {formatValue(item[dataKey])}
+      </p>
+      {item.percentual && (
+        <p className="text-xs text-dark-400 mt-1">
+          {item.percentual}% do total
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function BarChart({
   data,
   dataKey = 'total',
@@ -37,27 +61,6 @@ export default function BarChart({
     if (showPercentage) return formatPercent(value, 1);
     if (value >= 1e6) return formatCurrency(value, false);
     return formatNumber(value);
-  };
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (!active || !payload || payload.length === 0) return null;
-
-    const item = payload[0].payload;
-    return (
-      <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
-        <p className="font-semibold text-dark-900 mb-1">
-          {item[nameKey]}
-        </p>
-        <p className="text-sm text-dark-600">
-          {formatValue(item[dataKey])}
-        </p>
-        {item.percentual && (
-          <p className="text-xs text-dark-400 mt-1">
-            {item.percentual}% do total
-          </p>
-        )}
-      </div>
-    );
   };
 
   const handleClick = (data) => {
@@ -131,7 +134,9 @@ export default function BarChart({
             </>
           )}
 
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={<CustomTooltip nameKey={nameKey} dataKey={dataKey} formatValue={formatValue} />}
+          />
 
           <Bar
             dataKey={dataKey}

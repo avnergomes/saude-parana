@@ -198,16 +198,20 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
     // Se há filtro de município, recalcular série temporal
     if (hasFiltroMunicipio && mortalidade.porMunicipioAno) {
       const anos = porAno.map(a => a.ano);
+      // População do último ano: só como fallback para arquivos antigos em
+      // que porMunicipioAno não carrega a população de cada ano.
+      const popUltimoAno = porMunicipio.reduce((sum, m) => sum + (m.populacao || 0), 0);
       porAno = anos.map(ano => {
         let total = 0;
+        let popAno = 0;
         municipiosFiltrados.forEach(codIbge => {
-          const dadosMun = mortalidade.porMunicipioAno[codIbge];
-          if (dadosMun && dadosMun[ano]) {
-            total += dadosMun[ano].obitos;
+          const dadosAno = mortalidade.porMunicipioAno[codIbge]?.[ano];
+          if (dadosAno) {
+            total += dadosAno.obitos;
+            popAno += dadosAno.populacao || 0;
           }
         });
-        // Calcular população total dos municípios filtrados
-        const popTotal = porMunicipio.reduce((sum, m) => sum + (m.populacao || 0), 0);
+        const popTotal = popAno > 0 ? popAno : popUltimoAno;
         return {
           ano,
           total,

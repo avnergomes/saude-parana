@@ -243,7 +243,7 @@ function VisaoGeralTab({ mortalidade, geoData, geoError, onRetryGeo, geoMap, fil
         <TimeSeriesChart
           data={nascidosPorAno}
           metrics={['total']}
-          title="Nascidos Vivos por Ano"
+          title="Nascidos Vivos Registrados por Ano"
           onPointClick={onAnoClick}
           selectedAno={selectedAno}
         />

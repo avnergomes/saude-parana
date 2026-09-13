@@ -10,6 +10,31 @@ import {
 } from 'recharts';
 import { formatNumber } from '../utils/format';
 
+// Fora do componente: criar componentes durante o render reinicia o estado
+// deles a cada renderização (regra react-hooks/static-components).
+function CustomTooltip({ active, payload }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  const item = payload[0].payload;
+  return (
+    <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
+      <p className="font-semibold text-dark-900 mb-2">
+        Faixa: {item.faixa} anos
+      </p>
+      <div className="space-y-1 text-sm">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-blue-500" />
+          <span>Homens: {formatNumber(Math.abs(item.homens))}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-pink-500" />
+          <span>Mulheres: {formatNumber(Math.abs(item.mulheres))}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PyramidChart({
   data,
   title = 'Pirâmide Etária de Óbitos',
@@ -37,29 +62,6 @@ export default function PyramidChart({
   const maxValue = Math.max(
     ...data.map(d => Math.max(Math.abs(d.homens), Math.abs(d.mulheres)))
   );
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (!active || !payload || payload.length === 0) return null;
-
-    const item = payload[0].payload;
-    return (
-      <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
-        <p className="font-semibold text-dark-900 mb-2">
-          Faixa: {item.faixa} anos
-        </p>
-        <div className="space-y-1 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500" />
-            <span>Homens: {formatNumber(Math.abs(item.homens))}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-pink-500" />
-            <span>Mulheres: {formatNumber(Math.abs(item.mulheres))}</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="bg-white rounded-xl shadow-card p-6">

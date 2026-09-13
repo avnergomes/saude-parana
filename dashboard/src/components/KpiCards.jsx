@@ -27,7 +27,8 @@ const kpiConfig = {
   },
   nascidos: {
     label: 'Nascidos Vivos',
-    sublabel: 'último ano',
+    // Registro Civil (t2609): registrados no ano, inclui registros tardios.
+    sublabel: 'registrados no ano',
     icon: Baby,
     color: 'forest',
     format: (v) => formatNumber(v)

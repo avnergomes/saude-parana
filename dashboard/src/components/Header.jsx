@@ -7,6 +7,14 @@ function formatDateBr(iso) {
 }
 
 export default function Header({ metadata }) {
+  // Contadores e período vêm do metadata.json gerado pelo preprocess;
+  // os fallbacks só cobrem o primeiro render sem dados.
+  const municipios = metadata?.geografia?.municipios ?? 399;
+  const regionais = metadata?.geografia?.regionaisIdr ?? 23;
+  const periodo = metadata?.filtros?.anoMin && metadata?.filtros?.anoMax
+    ? `${metadata.filtros.anoMin}-${metadata.filtros.anoMax}`
+    : '-';
+
   return (
     <header className="bg-gradient-to-r from-water-600 to-water-700 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -30,17 +38,17 @@ export default function Header({ metadata }) {
           <div className="flex flex-wrap gap-4 md:gap-6">
             <div className="flex items-center gap-2 text-sm">
               <MapPin className="w-4 h-4 text-water-200" />
-              <span className="text-water-100">399</span>
+              <span className="text-water-100">{municipios}</span>
               <span className="text-water-200">municípios</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Building2 className="w-4 h-4 text-water-200" />
-              <span className="text-water-100">23</span>
+              <span className="text-water-100">{regionais}</span>
               <span className="text-water-200">regionais (malha IDR)</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Calendar className="w-4 h-4 text-water-200" />
-              <span className="text-water-100">2003-2024</span>
+              <span className="text-water-100">{periodo}</span>
               <span className="text-water-200">período</span>
             </div>
           </div>

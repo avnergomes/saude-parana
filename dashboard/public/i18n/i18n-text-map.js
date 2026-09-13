@@ -1164,6 +1164,8 @@ window.__I18N_TEXT_MAP__ = (function () {
     ["Evolução da Mortalidade", "Mortality Evolution", "Evolución de la Mortalidad"],
     ["Nascidos Vivos", "Live Births", "Nacidos Vivos"],
     ["Nascidos Vivos por Ano", "Live Births by Year", "Nacidos Vivos por Año"],
+    ["Nascidos Vivos Registrados por Ano", "Registered Live Births by Year", "Nacidos Vivos Registrados por Año"],
+    ["registrados no ano", "registered in the year", "registrados en el año"],
     ["Taxa Bruta", "Crude Rate", "Tasa Bruta"],
     ["Taxa Bruta de Mortalidade (óbitos/1.000 hab)", "Crude Mortality Rate (deaths/1,000 inhab.)", "Tasa Bruta de Mortalidad (defunciones/1.000 hab.)"],
     ["Taxa de Mortalidade por Município", "Mortality Rate by Municipality", "Tasa de Mortalidad por Municipio"],

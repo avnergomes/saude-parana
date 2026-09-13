@@ -20,6 +20,33 @@ const metricConfig = {
   cobertura: { label: 'Cobertura %', color: '#c89b3c', format: (v) => v?.toFixed(1) + '%' }
 };
 
+// Definido fora do componente: criar componentes durante o render
+// reinicia o estado deles a cada renderização (regra react-hooks/static-components).
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload || payload.length === 0) return null;
+
+  return (
+    <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
+      <p className="font-semibold text-dark-900 mb-2">{label}</p>
+      {payload.map((item, index) => {
+        const config = metricConfig[item.dataKey] || { label: item.dataKey, format: formatNumber };
+        return (
+          <div key={index} className="flex items-center gap-2 text-sm">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-dark-600">{config.label}:</span>
+            <span className="font-medium text-dark-900">
+              {config.format(item.value)}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function TimeSeriesChart({
   data,
   metrics = ['total'],
@@ -37,31 +64,6 @@ export default function TimeSeriesChart({
       </div>
     );
   }
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload || payload.length === 0) return null;
-
-    return (
-      <div className="bg-white rounded-lg shadow-lg border border-neutral-200 p-3">
-        <p className="font-semibold text-dark-900 mb-2">{label}</p>
-        {payload.map((item, index) => {
-          const config = metricConfig[item.dataKey] || { label: item.dataKey, format: formatNumber };
-          return (
-            <div key={index} className="flex items-center gap-2 text-sm">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: item.color }}
-              />
-              <span className="text-dark-600">{config.label}:</span>
-              <span className="font-medium text-dark-900">
-                {config.format(item.value)}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
 
   const handleClick = (data) => {
     if (onPointClick && data?.activePayload?.[0]?.payload?.ano) {

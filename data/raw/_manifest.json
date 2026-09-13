@@ -1,0 +1,43 @@
+{
+  "nascidos_municipios_pr.json": {
+    "alterado_em": "2026-06-11",
+    "linhas": 8778,
+    "sha256": "50f6ced44264af27c363859c58d09292cf3267932366fc095f7e17a28c99c45e"
+  },
+  "obitos_municipios_pr.json": {
+    "alterado_em": "2026-06-11",
+    "linhas": 8778,
+    "sha256": "93ce2154de15d1d3e182f0134ece1717573e40b87be88030e9c34768904bce77"
+  },
+  "obitos_piramide_pr.json": {
+    "alterado_em": "2026-06-11",
+    "linhas": 44,
+    "sha256": "c0f36d349989698c65a23bfd7b4fc177c50188242b628c7272396c5054f7147c"
+  },
+  "populacao_anos_pr.json": {
+    "alterado_em": "2026-09-01",
+    "linhas": 8778,
+    "sha256": "e5257992c103cbe9f78f8e24054aa538abde46781e494bd3a45a09bcdf49c6f2"
+  },
+  "populacao_censo_2007_pr.json": {
+    "alterado_em": "2026-09-13",
+    "descricao": "População por município, Contagem 2007 (t793)",
+    "linhas": 399,
+    "sha256": "fd5173d815914e240b479d1c0356a563222bce07a8f4d6c63034b46d2561afea",
+    "url": "https://apisidra.ibge.gov.br/values/t/793/n6/in%20n3%2041/v/93/p/all"
+  },
+  "populacao_censo_2010_pr.json": {
+    "alterado_em": "2026-09-13",
+    "descricao": "População por município, Censo 2010 (t1378)",
+    "linhas": 399,
+    "sha256": "c2e02691d63c1adb015d20fa206e11fb0e07de6ca0e48df4a5453892152d438c",
+    "url": "https://apisidra.ibge.gov.br/values/t/1378/n6/in%20n3%2041/v/93/p/all/c1/0/c2/0/c287/0/c455/0"
+  },
+  "populacao_censo_2022_pr.json": {
+    "alterado_em": "2026-09-13",
+    "descricao": "População por município, Censo 2022 (t4714)",
+    "linhas": 399,
+    "sha256": "7a1a7c37b6f5549f9f7541dd84a45d1d3234a5fc0b2ccd1841ae57f45b41d920",
+    "url": "https://apisidra.ibge.gov.br/values/t/4714/n6/in%20n3%2041/v/93/p/all"
+  }
+}
