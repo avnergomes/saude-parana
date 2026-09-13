@@ -42,7 +42,9 @@ export function kpisEstado(porAno, ano) {
     ano,
     parcial: Boolean(linha.parcial),
     internacoes: Number(linha.internacoes) || 0,
-    taxa: linha.taxa ?? null,
+    // Ano parcial: taxa anual não se aplica (sete meses sobre população cheia
+    // pareceriam uma queda); fica nulo e o gráfico interrompe a linha.
+    taxa: linha.parcial ? null : (linha.taxa ?? null),
     valorTotal: Number(linha.valor_total) || 0,
     obitos: Number(linha.obitos) || 0,
     letalidade: letalidade(linha.obitos, linha.internacoes)

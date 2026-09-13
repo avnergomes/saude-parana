@@ -8,17 +8,19 @@ import TimeSeriesChart from '../TimeSeriesChart';
 import PyramidChart from '../PyramidChart';
 import RankingTable from '../RankingTable';
 import CausasCidPanel from './CausasCidPanel';
+import { formatDecimal } from '../../utils/format';
 
 const COLUNAS_RANKING = [
-  { key: 'municipio', label: 'Municipio' },
+  { key: 'municipio', label: 'Município' },
   { key: 'regional', label: 'Regional' },
-  { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
+  { key: 'obitos', label: 'Óbitos', align: 'right', format: 'number' },
   { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
 ];
 
 export default function MortalidadeTab({
   data,
   mortalidadeCid,
+  carregando = false,
   geoData,
   geoError,
   onRetryGeo,
@@ -52,7 +54,7 @@ export default function MortalidadeTab({
           metric="taxa"
           title="Taxa de Mortalidade por Município"
           colorScale="obitos"
-          formatValue={(v) => v?.toFixed(1) || '-'}
+          formatValue={(v) => formatDecimal(v, 1)}
           onFeatureClick={onMunicipioClick}
           selectedFeature={selectedMunicipio}
         />
@@ -68,7 +70,7 @@ export default function MortalidadeTab({
       <RankingTable
         data={data.topMunicipios || []}
         columns={COLUNAS_RANKING}
-        title="Ranking de Municipios por Mortalidade"
+        title="Ranking de Municípios por Mortalidade"
         defaultSort="obitos"
         pageSize={10}
         onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}
@@ -76,7 +78,12 @@ export default function MortalidadeTab({
       />
 
       {/* Causas de óbito por capítulo CID-10 (SIM/DATASUS, por residência) */}
-      <CausasCidPanel dados={mortalidadeCid} geoMap={geoMap} filters={filters} />
+      <CausasCidPanel
+        dados={mortalidadeCid}
+        carregando={carregando}
+        geoMap={geoMap}
+        filters={filters}
+      />
     </div>
   );
 }

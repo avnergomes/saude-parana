@@ -6,11 +6,12 @@
 import MapChart from '../MapChart';
 import TimeSeriesChart from '../TimeSeriesChart';
 import RankingTable from '../RankingTable';
+import { formatDecimal } from '../../utils/format';
 
 const COLUNAS_RANKING = [
-  { key: 'municipio', label: 'Municipio' },
+  { key: 'municipio', label: 'Município' },
   { key: 'regional', label: 'Regional' },
-  { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
+  { key: 'obitos', label: 'Óbitos', align: 'right', format: 'number' },
   { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
 ];
 
@@ -19,6 +20,7 @@ export default function VisaoGeralTab({
   geoData,
   geoError,
   onRetryGeo,
+  filters,
   onAnoClick,
   onMunicipioClick,
   selectedAno,
@@ -29,6 +31,10 @@ export default function VisaoGeralTab({
   const serieTemporalMortalidade = mortalidade?.porAno || [];
   const nascidosPorAno = mortalidade?.nascidosPorAno || [];
   const rankingMunicipios = mortalidade?.topMunicipios || [];
+  // Nascidos vivos só existem em série estadual (t2609 agregada por ano)
+  const temRecorteTerritorial = Boolean(
+    filters?.municipioCodigo || filters?.regional || filters?.mesorregiao
+  );
 
   return (
     <div className="space-y-6">
@@ -41,7 +47,7 @@ export default function VisaoGeralTab({
           metric="taxa"
           title="Taxa de Mortalidade por Município (por 1.000 hab)"
           colorScale="obitos"
-          formatValue={(v) => v?.toFixed(1) || '-'}
+          formatValue={(v) => formatDecimal(v, 1)}
           onFeatureClick={onMunicipioClick}
           selectedFeature={selectedMunicipio}
         />
@@ -63,6 +69,7 @@ export default function VisaoGeralTab({
           title="Nascidos Vivos Registrados por Ano"
           onPointClick={onAnoClick}
           selectedAno={selectedAno}
+          footer={temRecorteTerritorial ? 'Série estadual (sem recorte territorial)' : null}
         />
 
         <TimeSeriesChart
@@ -77,7 +84,7 @@ export default function VisaoGeralTab({
       <RankingTable
         data={rankingMunicipios}
         columns={COLUNAS_RANKING}
-        title="Ranking de Municipios por Obitos"
+        title="Ranking de Municípios por Óbitos"
         defaultSort="obitos"
         pageSize={10}
         onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}

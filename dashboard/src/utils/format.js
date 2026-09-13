@@ -71,6 +71,15 @@ export function formatPercent(value, decimals = 1) {
   }) + '%';
 }
 
+// Número decimal em pt-BR (vírgula), sem sufixo: taxas, índices, per capita
+export function formatDecimal(value, decimals = 1) {
+  if (value === null || value === undefined || isNaN(value)) return '-';
+  return Number(value).toLocaleString('pt-BR', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
 // Formatação de taxa (por 1000 hab)
 export function formatRate(value, decimals = 1) {
   if (value === null || value === undefined || isNaN(value)) return '-';

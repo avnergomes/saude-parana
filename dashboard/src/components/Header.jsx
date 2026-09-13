@@ -52,7 +52,7 @@ export default function Header({ metadata }) {
           </div>
         </div>
 
-        {/* Fonte dos dados — somente fontes reais */}
+        {/* Fonte dos dados: somente fontes oficiais reais */}
         <div className="mt-4 pt-4 border-t border-water-500/30 flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs text-water-200">
             Fontes: IBGE (Registro Civil, Estimativas e Censos), DATASUS (CNES, SIM, SIH, SIOPS), e-Gestor AB, ANS e InfoDengue

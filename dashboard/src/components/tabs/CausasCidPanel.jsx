@@ -7,6 +7,7 @@
 import TimeSeriesChart from '../TimeSeriesChart';
 import FonteNota from '../FonteNota';
 import SemDados from './SemDados';
+import CarregandoDominio from './CarregandoDominio';
 import CapitulosBarChart from './CapitulosBarChart';
 import { useMortalidadeCid } from '../../hooks/useMortalidadeCid';
 import { CODIGO_OUTROS } from '../../hooks/cidHelpers';
@@ -119,10 +120,10 @@ function TabelaParticipacao({ linhas, temSelecao, selecao, ano }) {
   );
 }
 
-export default function CausasCidPanel({ dados, geoMap, filters }) {
+export default function CausasCidPanel({ dados, geoMap, filters, carregando = false }) {
   const cid = useMortalidadeCid(dados, filters, geoMap);
 
-  if (!cid) return <SemDados fonte="SIM (DATASUS)" />;
+  if (!cid) return carregando ? <CarregandoDominio /> : <SemDados fonte="SIM (DATASUS)" />;
 
   const {
     metadata, porAno, porCapitulo, principais, metricConfig,

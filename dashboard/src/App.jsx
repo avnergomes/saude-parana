@@ -23,19 +23,12 @@ import RedeSaudeTab from './components/tabs/RedeSaudeTab';
 import AtencaoPrimariaTab from './components/tabs/AtencaoPrimariaTab';
 import ArbovirosesTab from './components/tabs/ArbovirosesTab';
 import FinanciamentoTab from './components/tabs/FinanciamentoTab';
+import CarregandoDominio from './components/tabs/CarregandoDominio';
 
 // Abas cujo JSON é opcional (gerado por scripts/run_etl.py)
 const ABAS_DE_DOMINIO = new Set([
   'internacoes', 'rede-saude', 'atencao-primaria', 'arboviroses', 'financiamento'
 ]);
-
-function CarregandoDominio() {
-  return (
-    <div className="bg-white rounded-xl shadow-card p-8 text-center text-dark-400">
-      Carregando dados do painel...
-    </div>
-  );
-}
 
 function App() {
   // Núcleo (IBGE) + domínios oficiais opcionais carregados em segundo plano
@@ -182,6 +175,7 @@ function App() {
           <MortalidadeTab
             data={filteredMortalidade}
             mortalidadeCid={dominios.mortalidadeCid}
+            carregando={dominiosLoading}
             {...propsComuns}
           />
         );

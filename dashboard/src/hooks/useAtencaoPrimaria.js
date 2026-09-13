@@ -75,7 +75,17 @@ export function somarCampo(itens, campo) {
  * à população de cada município, como na definição de cobertura potencial).
  */
 export function agregarSelecao(porMunicipio, codigos) {
-  const itens = (codigos || []).map(cod => porMunicipio?.[cod]).filter(Boolean);
+  const todos = (codigos || []).map(cod => porMunicipio?.[cod]).filter(Boolean);
+  // Município sem linha na competência (ex.: Anahy em 07/2026) vem com campos
+  // nulos: fica fora das somas, e uma seleção só com nulos mostra "-", não zero.
+  const itens = todos.filter(m => m.cobertura !== null && m.cobertura !== undefined);
+  const semDado = todos.length - itens.length;
+  if (itens.length === 0) {
+    return {
+      cobertura: null, esf: null, eap: null, capacidade: null, populacao: null,
+      populacaoCoberta: null, municipios: todos.length, semDado
+    };
+  }
   const cobertura = mediaPonderada(itens.map(m => ({ valor: m.cobertura, peso: m.populacao })));
   const populacaoCoberta = itens.reduce((acc, m) => {
     const capacidade = Number(m.capacidade) || 0;
@@ -90,7 +100,8 @@ export function agregarSelecao(porMunicipio, codigos) {
     capacidade: somarCampo(itens, 'capacidade'),
     populacao: somarCampo(itens, 'populacao'),
     populacaoCoberta,
-    municipios: itens.length
+    municipios: todos.length,
+    semDado
   };
 }
 
@@ -112,7 +123,9 @@ export function serieAnualSelecao(porMunicipioAno, porMunicipio, codigos, anoMin
       cobertura: arredondar1(mediaPonderada(
         codigos.map(cod => ({
           valor: porMunicipioAno?.[cod]?.[ano],
-          peso: porMunicipio?.[cod]?.populacao
+          // Sem população na última competência (linha nula) o município
+          // ainda entra na série, com peso mínimo, em vez de sumir.
+          peso: porMunicipio?.[cod]?.populacao || 1
         }))
       ))
     }))

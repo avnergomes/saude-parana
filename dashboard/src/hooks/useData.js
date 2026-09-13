@@ -25,7 +25,7 @@ async function fetchTopo() {
     const res = await fetch(TOPO_URL);
     if (res.ok) return res;
     throw new Error(`HTTP ${res.status}`);
-  } catch (primaryErr) {
+  } catch {
     const res = await fetch(TOPO_URL_FALLBACK);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res;
@@ -198,7 +198,7 @@ export function useFilteredMunicipios(geoMap, filters) {
   return useMemo(() => {
     if (!geoMap) return [];
 
-    const { regional, mesorregiao, municipio, municipioCodigo } = filters || {};
+    const { regional, mesorregiao, municipioCodigo } = filters || {};
 
     // Município específico selecionado
     if (municipioCodigo) {
@@ -280,7 +280,7 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
     const ultimoAno = porAno[porAno.length - 1];
     const penultimoAno = porAno.length > 1 ? porAno[porAno.length - 2] : null;
 
-    // Nascidos vivos (estado) — filtrados pelo mesmo recorte de anos
+    // Nascidos vivos (estado), filtrados pelo mesmo recorte de anos
     let nascidosPorAno = mortalidade.nascidosPorAno || [];
     if (anoMin) nascidosPorAno = nascidosPorAno.filter(item => item.ano >= anoMin);
     if (anoMax) nascidosPorAno = nascidosPorAno.filter(item => item.ano <= anoMax);
@@ -306,41 +306,47 @@ export function useAggregations(data, filters, geoMap) {
   const filteredMortalidade = useFilteredMortalidade(data.mortalidade, filters, geoMap);
 
   return useMemo(() => {
+    // Sem dado no recorte (ex.: clique num ano fora da série do IBGE) o KPI
+    // mostra "-", nunca zero com cara de dado real.
+    const semDadoNoAno = 'sem dado do IBGE no ano';
+    const temTerritorio = Boolean(filters?.municipioCodigo || filters?.regional || filters?.mesorregiao);
+    const ultimo = filteredMortalidade?.ultimoAno;
+    const penultimo = filteredMortalidade?.penultimoAno;
     const kpis = {
-      obitos: { valor: 0, variacao: null },
-      taxaBruta: { valor: null },
-      nascidos: { valor: 0, variacao: null },
-      populacao: { valor: 0 }
+      obitos: { valor: ultimo?.total ?? null, variacao: null, sublabel: ultimo ? String(ultimo.ano) : semDadoNoAno },
+      taxaBruta: { valor: ultimo?.taxa_bruta ?? null },
+      nascidos: {
+        valor: null,
+        variacao: null,
+        // A t2609 só existe agregada por ano (estado): avisar quando há recorte
+        sublabel: temTerritorio ? 'Paraná, registrados no ano' : 'registrados no ano'
+      },
+      populacao: { valor: null }
     };
 
-    if (filteredMortalidade?.ultimoAno) {
-      kpis.obitos.valor = filteredMortalidade.ultimoAno.total || 0;
-      kpis.taxaBruta.valor = filteredMortalidade.ultimoAno.taxa_bruta ?? null;
-      if (filteredMortalidade.penultimoAno) {
-        const anterior = filteredMortalidade.penultimoAno.total;
-        if (anterior > 0) {
-          kpis.obitos.variacao = ((kpis.obitos.valor - anterior) / anterior) * 100;
-        }
-      }
+    if (ultimo && penultimo?.total > 0) {
+      kpis.obitos.variacao = ((ultimo.total - penultimo.total) / penultimo.total) * 100;
     }
 
     const nascidos = filteredMortalidade?.nascidosPorAno || [];
     if (nascidos.length > 0) {
-      const ultimo = nascidos[nascidos.length - 1];
-      kpis.nascidos.valor = ultimo.total || 0;
-      if (nascidos.length > 1) {
-        const anterior = nascidos[nascidos.length - 2].total;
-        if (anterior > 0) {
-          kpis.nascidos.variacao = ((kpis.nascidos.valor - anterior) / anterior) * 100;
-        }
+      const ultimoNascidos = nascidos[nascidos.length - 1];
+      kpis.nascidos.valor = ultimoNascidos.total ?? null;
+      const anterior = nascidos.length > 1 ? nascidos[nascidos.length - 2].total : 0;
+      if (anterior > 0) {
+        kpis.nascidos.variacao = ((ultimoNascidos.total - anterior) / anterior) * 100;
       }
+    } else {
+      kpis.nascidos.sublabel = semDadoNoAno;
     }
 
-    kpis.populacao.valor = (filteredMortalidade?.porMunicipio || [])
-      .reduce((sum, m) => sum + (m.populacao || 0), 0);
+    const porMunicipio = filteredMortalidade?.porMunicipio || [];
+    if (porMunicipio.length > 0) {
+      kpis.populacao.valor = porMunicipio.reduce((sum, m) => sum + (m.populacao || 0), 0);
+    }
 
     return kpis;
-  }, [filteredMortalidade]);
+  }, [filteredMortalidade, filters]);
 }
 /**
  * Hook para extrair lista de anos disponíveis

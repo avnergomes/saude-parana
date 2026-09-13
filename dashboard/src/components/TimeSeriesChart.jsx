@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   ReferenceLine
 } from 'recharts';
-import { formatNumber, formatCurrency } from '../utils/format';
+import { formatNumber, formatCurrency, formatDecimal } from '../utils/format';
 
 // Métricas conhecidas; cada aba pode estender/sobrescrever via prop metricConfig
 // (label, color, format) sem editar este arquivo.
@@ -18,8 +18,8 @@ const DEFAULT_METRIC_CONFIG = {
   obitos: { label: 'Óbitos', color: '#D55E00', format: formatNumber },
   internacoes: { label: 'Internações', color: '#3b82f6', format: formatNumber },
   valor_sus: { label: 'Valor SUS', color: '#009E73', format: (v) => formatCurrency(v, false) },
-  taxa_bruta: { label: 'Taxa/mil hab', color: '#CC79A7', format: (v) => v?.toFixed(2) },
-  cobertura: { label: 'Cobertura %', color: '#c89b3c', format: (v) => v?.toFixed(1) + '%' }
+  taxa_bruta: { label: 'Taxa/mil hab', color: '#CC79A7', format: (v) => formatDecimal(v, 2) },
+  cobertura: { label: 'Cobertura %', color: '#c89b3c', format: (v) => formatDecimal(v, 1) + '%' }
 };
 
 // Definido fora do componente: criar componentes durante o render

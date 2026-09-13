@@ -10,12 +10,13 @@
     "lint": "eslint src/"
   },
   "dependencies": {
+    "@react-leaflet/core": "^3.0.0",
     "d3": "^7.9.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.294.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-leaflet": "^4.2.1",
+    "react-leaflet": "^5.0.0",
     "recharts": "^2.10.3",
     "topojson-client": "^3.1.0"
   },

@@ -7,9 +7,10 @@ import {
   TrendingDown,
   Minus
 } from 'lucide-react';
-import { formatNumber } from '../utils/format';
+import { formatNumber, formatDecimal } from '../utils/format';
 
-// KPIs restritos ao que tem fonte real (IBGE Registro Civil + população).
+// KPIs do núcleo (IBGE Registro Civil + população). O hook useAggregations
+// pode sobrescrever o sublabel (ano de referência, aviso de série estadual).
 const kpiConfig = {
   obitos: {
     label: 'Óbitos',
@@ -23,7 +24,7 @@ const kpiConfig = {
     sublabel: 'óbitos/1.000 hab',
     icon: Activity,
     color: 'water',
-    format: (v) => (v == null ? '-' : v.toFixed(1))
+    format: (v) => formatDecimal(v, 1)
   },
   nascidos: {
     label: 'Nascidos Vivos',
@@ -74,9 +75,10 @@ function KpiCard({ kpiKey, data }) {
   const config = kpiConfig[kpiKey];
   if (!config) return null;
 
-  const { label, sublabel, icon: Icon, color, format } = config;
+  const { label, icon: Icon, color, format } = config;
   const colors = colorClasses[color];
-  const { valor, variacao } = data || { valor: 0, variacao: null };
+  const { valor = null, variacao = null } = data || {};
+  const sublabel = data?.sublabel ?? config.sublabel;
 
   // Determinar ícone e cor da variação
   let VariationIcon = Minus;

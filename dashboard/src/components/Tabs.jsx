@@ -106,5 +106,3 @@ export default function Tabs({ activeTab, onTabChange }) {
     </div>
   );
 }
-
-export { tabs };

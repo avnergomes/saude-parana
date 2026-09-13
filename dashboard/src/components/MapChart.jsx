@@ -4,33 +4,53 @@
  * Padrão DataGeo Paraná - Módulo Saúde
  */
 
-import { useEffect, useRef, useMemo, useState } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, Pane, useMap } from 'react-leaflet';
-import { formatNumber, formatPercent, formatCurrency } from '../utils/format';
+import { formatNumber } from '../utils/format';
 import { ATLAS_CLAY } from '../utils/chart-palette';
 
-// Componente para ajustar bounds do mapa
-function FitBounds({ geoData }) {
+// Limites da malha calculados uma vez por objeto geoData (todas as instâncias
+// de mapa reaproveitam), em vez de achatar todos os vértices a cada montagem.
+const BOUNDS_CACHE = new WeakMap();
+
+function boundsDaMalha(geoData) {
+  if (!geoData?.features?.length) return null;
+  if (BOUNDS_CACHE.has(geoData)) return BOUNDS_CACHE.get(geoData);
+  let minLat = Infinity;
+  let maxLat = -Infinity;
+  let minLon = Infinity;
+  let maxLon = -Infinity;
+  geoData.features.forEach(feature => {
+    const coords = feature.geometry?.coordinates?.flat(3) || [];
+    for (let i = 0; i < coords.length; i += 2) {
+      const lon = coords[i];
+      const lat = coords[i + 1];
+      if (typeof lon === 'number' && typeof lat === 'number') {
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+        if (lon < minLon) minLon = lon;
+        if (lon > maxLon) maxLon = lon;
+      }
+    }
+  });
+  const bounds = Number.isFinite(minLat) ? [[minLat, minLon], [maxLat, maxLon]] : null;
+  BOUNDS_CACHE.set(geoData, bounds);
+  return bounds;
+}
+
+// Enquadra o mapa sem animação. Não chamar map.stop() no cleanup: ao trocar
+// de aba o react-leaflet já removeu o mapa e qualquer método que consulte o
+// painel quebra (TypeError _leaflet_pos). O zoomAnimation do MapContainer
+// fica desligado pelo mesmo motivo: o timeout de 250 ms da animação do
+// Leaflet sobrevive ao remove() e tentava mover um painel já destruído.
+function FitBounds({ bounds }) {
   const map = useMap();
 
   useEffect(() => {
-    if (geoData?.features?.length > 0) {
-      const bounds = [];
-      geoData.features.forEach(feature => {
-        if (feature.geometry?.coordinates) {
-          const coords = feature.geometry.coordinates.flat(3);
-          for (let i = 0; i < coords.length; i += 2) {
-            if (typeof coords[i] === 'number' && typeof coords[i + 1] === 'number') {
-              bounds.push([coords[i + 1], coords[i]]);
-            }
-          }
-        }
-      });
-      if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [20, 20] });
-      }
+    if (bounds) {
+      map.fitBounds(bounds, { padding: [20, 20], animate: false });
     }
-  }, [geoData, map]);
+  }, [bounds, map]);
 
   return null;
 }
@@ -107,7 +127,7 @@ function MapChart({
 }) {
   const mapRef = useRef(null);
   const geoJsonRef = useRef(null);
-  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const bounds = useMemo(() => boundsDaMalha(geoData), [geoData]);
 
   // Preparar dados por código IBGE
   const dataByCode = useMemo(() => {
@@ -153,14 +173,15 @@ function MapChart({
     // selectedFeature pode chegar com 7 dígitos (dados) ou 6 (mapa)
     const isSelected = selectedFeature != null
       && String(selectedFeature).substring(0, 6) === code;
-    const isHovered = hoveredFeature === code;
 
+    // O realce de hover é imperativo (setStyle/resetStyle nos handlers), sem
+    // estado React: um estado por hover re-renderizava 399 feições e 640 pontos.
     return {
       fillColor: getColor(value, min, max, colorScale),
-      weight: isSelected ? 3 : isHovered ? 2 : 1,
+      weight: isSelected ? 3 : 1,
       opacity: 1,
-      color: isSelected ? '#1e40af' : isHovered ? '#3b82f6' : '#918058',
-      fillOpacity: isSelected ? 0.9 : isHovered ? 0.85 : 0.7
+      color: isSelected ? '#1e40af' : '#918058',
+      fillOpacity: isSelected ? 0.9 : 0.7
     };
   };
 
@@ -191,7 +212,6 @@ function MapChart({
 
     layer.on({
       mouseover: (e) => {
-        setHoveredFeature(code);
         e.target.setStyle({
           weight: 2,
           color: '#3b82f6',
@@ -200,7 +220,6 @@ function MapChart({
         e.target.bringToFront();
       },
       mouseout: (e) => {
-        setHoveredFeature(null);
         if (geoJsonRef.current) {
           geoJsonRef.current.resetStyle(e.target);
         }
@@ -216,6 +235,10 @@ function MapChart({
   // Gerar legenda: todas as classes, rotuladas por faixa (inclui o teto)
   const legendItems = useMemo(() => {
     const colors = COLOR_SCALES[colorScale] || COLOR_SCALES.default;
+    if (max === min) {
+      // Um único valor (ex.: um município selecionado): uma classe só
+      return [{ color: colors[4], label: formatValue(min) }];
+    }
     const step = (max - min) / colors.length;
 
     return colors.map((color, i) => ({
@@ -233,6 +256,26 @@ function MapChart({
       .sort((a, b) => (b.leitos || 0) - (a.leitos || 0))
       .slice(0, MAX_POINTS);
   }, [points]);
+
+  // Props dos marcadores calculadas uma vez: objetos novos a cada render
+  // fariam o react-leaflet reaplicar setLatLng/setStyle em todos os pontos.
+  const marcadores = useMemo(() => visiblePoints.map((point, i) => {
+    const color = resolvePointColor(point, pointColor);
+    return {
+      point,
+      key: point.cnes || `${point.lat}-${point.lon}-${i}`,
+      code: String(point.cod_ibge || '').substring(0, 6),
+      center: [point.lat, point.lon],
+      radius: pointRadius(point.leitos),
+      pathOptions: {
+        color,
+        weight: 1.5,
+        opacity: 0.9,
+        fillColor: point.sus ? color : '#ffffff',
+        fillOpacity: point.sus ? 0.85 : 0.95
+      }
+    };
+  }), [visiblePoints, pointColor]);
 
   const pointLegend = useMemo(() => {
     const tipos = [...new Set(visiblePoints.map(p => p.tipo))];
@@ -288,9 +331,10 @@ function MapChart({
           scrollWheelZoom={false}
           dragging={!isMobile}
           zoomControl={true}
+          zoomAnimation={false}
         >
           <TileLayer
-            attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+            attribution='Tiles &copy; Esri, DeLorme, NAVTEQ'
             url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
             maxNativeZoom={16}
           />
@@ -303,23 +347,15 @@ function MapChart({
             onEachFeature={onEachFeature}
           />
 
-          {visiblePoints.length > 0 && (
+          {marcadores.length > 0 && (
             <Pane name="map-points" style={{ zIndex: 450 }}>
-              {visiblePoints.map((point, i) => {
-                const color = resolvePointColor(point, pointColor);
-                const code = String(point.cod_ibge || '').substring(0, 6);
+              {marcadores.map(({ point, key, code, center, radius, pathOptions }) => {
                 return (
                   <CircleMarker
-                    key={point.cnes || `${point.lat}-${point.lon}-${i}`}
-                    center={[point.lat, point.lon]}
-                    radius={pointRadius(point.leitos)}
-                    pathOptions={{
-                      color,
-                      weight: 1.5,
-                      opacity: 0.9,
-                      fillColor: point.sus ? color : '#ffffff',
-                      fillOpacity: point.sus ? 0.85 : 0.95
-                    }}
+                    key={key}
+                    center={center}
+                    radius={radius}
+                    pathOptions={pathOptions}
                     eventHandlers={{
                       click: () => {
                         if (onFeatureClick && code) {
@@ -354,7 +390,7 @@ function MapChart({
             </Pane>
           )}
 
-          <FitBounds geoData={geoData} />
+          <FitBounds bounds={bounds} />
         </MapContainer>
 
         {/* Legenda */}

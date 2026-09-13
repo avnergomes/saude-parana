@@ -93,7 +93,10 @@ function RankingTable({
       case 'currency':
         return formatCurrency(value);
       case 'decimal':
-        return value.toFixed(column.decimals || 1);
+        return Number(value).toLocaleString('pt-BR', {
+          minimumFractionDigits: column.decimals || 1,
+          maximumFractionDigits: column.decimals || 1
+        });
       default:
         return value;
     }
