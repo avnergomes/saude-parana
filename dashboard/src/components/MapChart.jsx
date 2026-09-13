@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useRef, useMemo, useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, Pane, useMap } from 'react-leaflet';
 import { formatNumber, formatPercent, formatCurrency } from '../utils/format';
 import { ATLAS_CLAY } from '../utils/chart-palette';
 
@@ -63,6 +63,33 @@ function getColor(value, min, max, scale = 'default') {
   return colors[Math.max(0, index)];
 }
 
+// Camada opcional de pontos (hospitais e UPAs): cor por tipo (tinta para a
+// classe numerosa, azul Okabe-Ito como acento), raio pela raiz quadrada dos
+// leitos e preenchimento cheio só para unidades que atendem pelo SUS.
+const POINT_COLORS = {
+  hospital: '#2a2419',
+  pronto_atendimento: '#0072B2',
+  default: '#6e6453'
+};
+const POINT_LABELS = {
+  hospital: 'Hospitais',
+  pronto_atendimento: 'UPA e pronto atendimento'
+};
+const MAX_POINTS = 800;
+const POINT_RADIUS_MIN = 3;
+const POINT_RADIUS_MAX = 12;
+
+function pointRadius(leitos) {
+  const n = typeof leitos === 'number' && leitos > 0 ? leitos : 0;
+  return Math.max(POINT_RADIUS_MIN, Math.min(POINT_RADIUS_MAX, POINT_RADIUS_MIN + Math.sqrt(n) * 0.45));
+}
+
+function resolvePointColor(point, pointColor) {
+  if (typeof pointColor === 'function') return pointColor(point) || POINT_COLORS.default;
+  const mapa = pointColor || POINT_COLORS;
+  return mapa[point?.tipo] || POINT_COLORS.default;
+}
+
 function MapChart({
   geoData,
   geoError = false,
@@ -74,7 +101,9 @@ function MapChart({
   formatValue = formatNumber,
   height = 450,
   onFeatureClick,
-  selectedFeature
+  selectedFeature,
+  points = null,
+  pointColor = null
 }) {
   const mapRef = useRef(null);
   const geoJsonRef = useRef(null);
@@ -195,6 +224,25 @@ function MapChart({
     }));
   }, [min, max, colorScale, formatValue]);
 
+  // Pontos válidos (lat/lon numéricos), maiores unidades primeiro, com teto
+  // para manter o mapa leve. Vazio quando a prop não é informada.
+  const visiblePoints = useMemo(() => {
+    if (!Array.isArray(points) || points.length === 0) return [];
+    return points
+      .filter(p => typeof p?.lat === 'number' && typeof p?.lon === 'number')
+      .sort((a, b) => (b.leitos || 0) - (a.leitos || 0))
+      .slice(0, MAX_POINTS);
+  }, [points]);
+
+  const pointLegend = useMemo(() => {
+    const tipos = [...new Set(visiblePoints.map(p => p.tipo))];
+    return tipos.map(tipo => ({
+      tipo,
+      label: POINT_LABELS[tipo] || tipo,
+      color: resolvePointColor({ tipo }, pointColor)
+    }));
+  }, [visiblePoints, pointColor]);
+
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   if (!geoData?.features) {
@@ -242,8 +290,9 @@ function MapChart({
           zoomControl={true}
         >
           <TileLayer
-            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+            attribution='Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+            maxNativeZoom={16}
           />
 
           <GeoJSON
@@ -253,6 +302,57 @@ function MapChart({
             style={getFeatureStyle}
             onEachFeature={onEachFeature}
           />
+
+          {visiblePoints.length > 0 && (
+            <Pane name="map-points" style={{ zIndex: 450 }}>
+              {visiblePoints.map((point, i) => {
+                const color = resolvePointColor(point, pointColor);
+                const code = String(point.cod_ibge || '').substring(0, 6);
+                return (
+                  <CircleMarker
+                    key={point.cnes || `${point.lat}-${point.lon}-${i}`}
+                    center={[point.lat, point.lon]}
+                    radius={pointRadius(point.leitos)}
+                    pathOptions={{
+                      color,
+                      weight: 1.5,
+                      opacity: 0.9,
+                      fillColor: point.sus ? color : '#ffffff',
+                      fillOpacity: point.sus ? 0.85 : 0.95
+                    }}
+                    eventHandlers={{
+                      click: () => {
+                        if (onFeatureClick && code) {
+                          const featureData = dataByCode[code];
+                          onFeatureClick(code, featureData?.municipio || featureData?.nome || code, featureData);
+                        }
+                      }
+                    }}
+                  >
+                    <Tooltip direction="top" className="leaflet-tooltip-custom">
+                      <div className="font-sans">
+                        <strong className="text-dark-900">{point.nome}</strong>
+                        <br />
+                        <span className="text-dark-600">{POINT_LABELS[point.tipo] || point.tipo}</span>
+                        {point.leitos != null && (
+                          <span className="text-dark-600">
+                            {' | '}
+                            <span>Leitos:</span>
+                            {' '}
+                            {formatNumber(point.leitos)}
+                          </span>
+                        )}
+                        <br />
+                        <span className="text-dark-500 text-xs">
+                          {point.sus ? 'Atende pelo SUS' : 'Não atende pelo SUS'}
+                        </span>
+                      </div>
+                    </Tooltip>
+                  </CircleMarker>
+                );
+              })}
+            </Pane>
+          )}
 
           <FitBounds geoData={geoData} />
         </MapContainer>
@@ -271,6 +371,26 @@ function MapChart({
               </div>
             ))}
           </div>
+          {pointLegend.length > 0 && (
+            <div className="mt-1.5 pt-1.5 border-t border-neutral-200 space-y-0.5">
+              {pointLegend.map(item => (
+                <div key={item.tipo} className="flex items-center gap-1.5">
+                  <span
+                    className="w-2.5 h-2.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">{item.label}</span>
+                </div>
+              ))}
+              <div className="flex items-center gap-1.5">
+                <span
+                  className="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-white"
+                  style={{ border: `1.5px solid ${POINT_COLORS.default}` }}
+                />
+                <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">Círculo vazado: não atende pelo SUS</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

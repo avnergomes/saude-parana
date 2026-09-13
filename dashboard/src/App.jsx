@@ -3,7 +3,6 @@ import { useState, useCallback, useMemo } from 'react';
 import {
   useData,
   useAggregations,
-  useAvailableYears,
   useFilteredMortalidade
 } from './hooks/useData';
 
@@ -15,15 +14,35 @@ import Tabs from './components/Tabs';
 import Filters from './components/Filters';
 import ActiveFilters from './components/ActiveFilters';
 import KpiCards from './components/KpiCards';
-import TimeSeriesChart from './components/TimeSeriesChart';
-import PyramidChart from './components/PyramidChart';
-import MapChart from './components/MapChart';
-import RankingTable from './components/RankingTable';
+
+// Abas (uma por domínio; ver docs/fontes-de-dados.md)
+import VisaoGeralTab from './components/tabs/VisaoGeralTab';
+import MortalidadeTab from './components/tabs/MortalidadeTab';
+import InternacoesTab from './components/tabs/InternacoesTab';
+import RedeSaudeTab from './components/tabs/RedeSaudeTab';
+import AtencaoPrimariaTab from './components/tabs/AtencaoPrimariaTab';
+import ArbovirosesTab from './components/tabs/ArbovirosesTab';
+import FinanciamentoTab from './components/tabs/FinanciamentoTab';
+
+// Abas cujo JSON é opcional (gerado por scripts/run_etl.py)
+const ABAS_DE_DOMINIO = new Set([
+  'internacoes', 'rede-saude', 'atencao-primaria', 'arboviroses', 'financiamento'
+]);
+
+function CarregandoDominio() {
+  return (
+    <div className="bg-white rounded-xl shadow-card p-8 text-center text-dark-400">
+      Carregando dados do painel...
+    </div>
+  );
+}
 
 function App() {
-  // Carregar dados (somente fontes reais — IBGE Registro Civil + população)
+  // Núcleo (IBGE) + domínios oficiais opcionais carregados em segundo plano
   const {
     mortalidade,
+    dominios,
+    dominiosLoading,
     geoData,
     geoMap,
     metadata,
@@ -37,10 +56,11 @@ function App() {
   // Estado de navegação
   const [activeTab, setActiveTab] = useState('visao-geral');
 
-  // Estado de filtros (dropdowns)
+  // Estado de filtros (dropdowns). anoMax = ano corrente: os domínios
+  // DATASUS/APS/InfoDengue chegam a 2025-2026 embora o núcleo IBGE pare em 2024.
   const [filters, setFilters] = useState({
     anoMin: 2010,
-    anoMax: 2024,
+    anoMax: new Date().getFullYear(),
     regional: null,
     mesorregiao: null,
     municipio: null,
@@ -53,9 +73,6 @@ function App() {
     municipio: null,
     municipioCodigo: null
   });
-
-  // Anos disponíveis
-  const { anos } = useAvailableYears(metadata);
 
   // Merge de filtros (ano e município vindos de cliques nos gráficos)
   const mergedFilters = useMemo(() => ({
@@ -139,35 +156,58 @@ function App() {
     );
   }
 
+  // Props comuns a todas as abas (mapa, filtros e interações)
+  const propsComuns = {
+    geoData,
+    geoError,
+    onRetryGeo: retryGeo,
+    geoMap,
+    filters: mergedFilters,
+    onAnoClick: handleAnoClick,
+    onMunicipioClick: handleMunicipioClick,
+    selectedAno: interactiveFilters.ano,
+    selectedMunicipio: interactiveFilters.municipioCodigo
+  };
+
   // Renderizar conteúdo da aba ativa
   const renderTabContent = () => {
+    if (ABAS_DE_DOMINIO.has(activeTab) && dominiosLoading) {
+      return <CarregandoDominio />;
+    }
     switch (activeTab) {
       case 'visao-geral':
-        return <VisaoGeralTab
-          mortalidade={filteredMortalidade}
-          geoData={geoData}
-          geoError={geoError}
-          onRetryGeo={retryGeo}
-          geoMap={geoMap}
-          filters={mergedFilters}
-          onAnoClick={handleAnoClick}
-          onMunicipioClick={handleMunicipioClick}
-          selectedAno={interactiveFilters.ano}
-          selectedMunicipio={interactiveFilters.municipioCodigo}
-        />;
+        return <VisaoGeralTab mortalidade={filteredMortalidade} {...propsComuns} />;
       case 'mortalidade':
-        return <MortalidadeTab
-          data={filteredMortalidade}
-          geoData={geoData}
-          geoError={geoError}
-          onRetryGeo={retryGeo}
-          geoMap={geoMap}
-          filters={mergedFilters}
-          onAnoClick={handleAnoClick}
-          onMunicipioClick={handleMunicipioClick}
-          selectedAno={interactiveFilters.ano}
-          selectedMunicipio={interactiveFilters.municipioCodigo}
-        />;
+        return (
+          <MortalidadeTab
+            data={filteredMortalidade}
+            mortalidadeCid={dominios.mortalidadeCid}
+            {...propsComuns}
+          />
+        );
+      case 'internacoes':
+        return <InternacoesTab dados={dominios.internacoes} {...propsComuns} />;
+      case 'rede-saude':
+        return (
+          <RedeSaudeTab
+            dados={dominios.estabelecimentos}
+            planos={dominios.planosSaude}
+            mortalidade={filteredMortalidade}
+            {...propsComuns}
+          />
+        );
+      case 'atencao-primaria':
+        return <AtencaoPrimariaTab dados={dominios.atencaoPrimaria} {...propsComuns} />;
+      case 'arboviroses':
+        return <ArbovirosesTab dados={dominios.arboviroses} {...propsComuns} />;
+      case 'financiamento':
+        return (
+          <FinanciamentoTab
+            dados={dominios.financiamento}
+            mortalidade={filteredMortalidade}
+            {...propsComuns}
+          />
+        );
       default:
         return null;
     }
@@ -198,139 +238,6 @@ function App() {
       </main>
 
       <Footer />
-    </div>
-  );
-}
-
-// ========== ABAS ==========
-
-function VisaoGeralTab({ mortalidade, geoData, geoError, onRetryGeo, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
-  // Dados já vêm filtrados
-  const mapData = mortalidade?.porMunicipio || [];
-  const serieTemporalMortalidade = mortalidade?.porAno || [];
-  const nascidosPorAno = mortalidade?.nascidosPorAno || [];
-  const rankingMunicipios = mortalidade?.topMunicipios || [];
-
-  return (
-    <div className="space-y-6">
-      {/* Mapa + Serie temporal */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <MapChart
-          geoData={geoData}
-          geoError={geoError}
-          onRetryGeo={onRetryGeo}
-          data={mapData}
-          metric="taxa"
-          title="Taxa de Mortalidade por Município (por 1.000 hab)"
-          colorScale="obitos"
-          formatValue={(v) => v?.toFixed(1) || '-'}
-          onFeatureClick={onMunicipioClick}
-          selectedFeature={selectedMunicipio}
-        />
-
-        <TimeSeriesChart
-          data={serieTemporalMortalidade}
-          metrics={['total']}
-          title="Evolução da Mortalidade"
-          onPointClick={onAnoClick}
-          selectedAno={selectedAno}
-          referenceYear={2020}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Nascidos vivos (Registro Civil) */}
-        <TimeSeriesChart
-          data={nascidosPorAno}
-          metrics={['total']}
-          title="Nascidos Vivos Registrados por Ano"
-          onPointClick={onAnoClick}
-          selectedAno={selectedAno}
-        />
-
-        {/* Taxa bruta de mortalidade */}
-        <TimeSeriesChart
-          data={serieTemporalMortalidade}
-          metrics={['taxa_bruta']}
-          title="Taxa Bruta de Mortalidade (óbitos/1.000 hab)"
-          onPointClick={onAnoClick}
-          selectedAno={selectedAno}
-        />
-      </div>
-
-      {/* Ranking de municipios */}
-      <RankingTable
-        data={rankingMunicipios}
-        columns={[
-          { key: 'municipio', label: 'Municipio' },
-          { key: 'regional', label: 'Regional' },
-          { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
-          { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
-        ]}
-        title="Ranking de Municipios por Obitos"
-        defaultSort="obitos"
-        pageSize={10}
-        onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}
-        selectedRow={selectedMunicipio}
-      />
-    </div>
-  );
-}
-
-function MortalidadeTab({ data, geoData, geoError, onRetryGeo, geoMap, filters, onAnoClick, onMunicipioClick, selectedAno, selectedMunicipio }) {
-  if (!data) return null;
-
-  return (
-    <div className="space-y-6">
-      {/* Serie temporal */}
-      <TimeSeriesChart
-        data={data.porAno}
-        metrics={['total', 'taxa_bruta']}
-        title="Mortalidade por Ano"
-        height={350}
-        onPointClick={onAnoClick}
-        selectedAno={selectedAno}
-        referenceYear={2020}
-      />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Mapa */}
-        <MapChart
-          geoData={geoData}
-          geoError={geoError}
-          onRetryGeo={onRetryGeo}
-          data={data.porMunicipio}
-          metric="taxa"
-          title="Taxa de Mortalidade por Município"
-          colorScale="obitos"
-          formatValue={(v) => v?.toFixed(1) || '-'}
-          onFeatureClick={onMunicipioClick}
-          selectedFeature={selectedMunicipio}
-        />
-
-        {/* Piramide etaria de obitos (Registro Civil, estado) */}
-        <PyramidChart
-          data={data.piramideEtaria}
-          title={`Pirâmide Etária de Óbitos (PR, ${data.metadata?.piramideAno || ''})`}
-          height={400}
-        />
-      </div>
-
-      {/* Ranking */}
-      <RankingTable
-        data={data.topMunicipios || []}
-        columns={[
-          { key: 'municipio', label: 'Municipio' },
-          { key: 'regional', label: 'Regional' },
-          { key: 'obitos', label: 'Obitos', align: 'right', format: 'number' },
-          { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
-        ]}
-        title="Ranking de Municipios por Mortalidade"
-        defaultSort="obitos"
-        pageSize={10}
-        onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}
-        selectedRow={selectedMunicipio}
-      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-# Saúde Paraná — Indicadores DATASUS
+# Saúde Paraná, indicadores de saúde dos municípios do Paraná
 
-> Saúde Paraná is a public interactive dashboard of public-health indicators for Paraná, built from DATASUS/MS open data. Part of the DataGeo Paraná ecosystem.
+> Saúde Paraná is a public interactive dashboard of health indicators for the 399 municipalities of Paraná, Brazil, built only from official open data: IBGE (civil registry, population estimates and censuses), DATASUS (CNES, SIM, SIH, SIOPS), Ministry of Health (e-Gestor AB), ANS and InfoDengue (Fiocruz/FGV). Part of the DataGeo Paraná ecosystem.
 
 ## Author and identity
 - Author: Avner Paes Gomes (Senior Data Scientist & Forest Engineer at IDR-Paraná, Curitiba, Brazil)
@@ -10,18 +10,20 @@
 - GitHub: https://github.com/avnergomes
 
 ## About this dashboard
-- Topic: Public health indicators (mortality, morbidity, hospitalizations) for Paraná, Brazil
-- Data source: DATASUS/MS (Departamento de Informática do Sistema Único de Saúde — Ministério da Saúde)
-- Coverage: All Paraná municipalities, multiple health indicators and time ranges
-- Stack: React, Vite, D3.js, Recharts, Python ETL, GitHub Actions
+- Topics: mortality and crude death rate (IBGE civil registry, 2003-2024), deaths by ICD-10 chapter (SIM/DATASUS, 2010-2024), SUS hospitalizations by municipality of residence (SIH/SUS, 2015 onwards), health facilities and SUS beds (CNES/DATASUS, current snapshot), private health-plan coverage (ANS), primary-care coverage (e-Gestor AB, 2021 onwards), dengue cases and alert levels by epidemiological week (InfoDengue, 2024 onwards), municipal health finance (SIOPS, 2015 onwards)
+- Data sources: IBGE/SIDRA; DATASUS (CNES, SIM, SIH, SIOPS via TabNet); Ministério da Saúde/SAPS (e-Gestor AB); ANS open data; InfoDengue (Fiocruz/FGV, based on SINAN)
+- Coverage: all 399 municipalities of Paraná, grouped in 23 IDR regionals and 7 mesoregions
+- Only aggregated data is published; no individual-level records (LGPD)
+- Stack: React, Vite, Recharts, D3.js, Leaflet, Python ETL, GitHub Actions (monthly pipeline)
+- Source inventory and methodology: https://github.com/avnergomes/saude-parana/blob/main/docs/fontes-de-dados.md
 - Free public access. Part of the DataGeo Paraná ecosystem.
 - Parent hub: https://datageoparana.github.io/ (lists all 10 dashboards)
 - All dashboards: https://datageoparana.github.io/llms.txt
 
 ## Frequently asked entities
-- Saúde Paraná dashboard — built and maintained by Avner Paes Gomes at IDR-Paraná
-- Saúde Paraná open data Paraná — part of DataGeo Paraná ecosystem
-- DATASUS/MS (Departamento de Informática do Sistema Único de Saúde — Ministério da Saúde) Paraná dashboard — Saúde Paraná
+- Saúde Paraná dashboard, built and maintained by Avner Paes Gomes
+- Saúde Paraná open data Paraná, part of DataGeo Paraná ecosystem
+- IBGE Registro Civil, DATASUS (CNES, SIM, SIH, SIOPS), e-Gestor AB, ANS, InfoDengue Paraná dashboard: Saúde Paraná
 
 ## Optional
 - [Sitemap](https://avnergomes.github.io/saude-parana/sitemap.xml)

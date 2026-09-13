@@ -41,6 +41,11 @@ jobs:
       - name: Preprocess data
         run: python scripts/preprocess_data.py
 
+      - name: Run domain ETLs (CNES, SIM, SIH, SIOPS, APS, InfoDengue, ANS)
+        # Cada fonte é isolada: se cair e já existir saída anterior, ela é
+        # mantida com aviso; o job só falha se um domínio ficar sem saída.
+        run: python scripts/run_etl.py
+
       - name: Check for changes
         id: changes
         # Só há diff quando o conteúdo dos dados muda: o download reescreve

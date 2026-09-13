@@ -14,9 +14,11 @@ export default function Footer() {
               Fonte de Dados
             </h4>
             <ul className="space-y-1.5 text-xs text-dark-400">
-              <li>IBGE - Estatísticas do Registro Civil (óbitos)</li>
-              <li>IBGE - Estatísticas do Registro Civil (nascidos vivos)</li>
-              <li>IBGE - Estimativas de População</li>
+              <li>IBGE - Registro Civil (óbitos e nascidos vivos), Estimativas e Censos</li>
+              <li>DATASUS - CNES, SIM, SIH e SIOPS</li>
+              <li>Ministério da Saúde - e-Gestor AB (cobertura da APS)</li>
+              <li>ANS - Dados Abertos (planos de saúde)</li>
+              <li>InfoDengue (Fiocruz/FGV) - dengue por semana epidemiológica</li>
             </ul>
           </div>
 

@@ -11,7 +11,9 @@ import {
 } from 'recharts';
 import { formatNumber, formatCurrency } from '../utils/format';
 
-const metricConfig = {
+// Métricas conhecidas; cada aba pode estender/sobrescrever via prop metricConfig
+// (label, color, format) sem editar este arquivo.
+const DEFAULT_METRIC_CONFIG = {
   total: { label: 'Total', color: '#2d5f7f', format: formatNumber },
   obitos: { label: 'Óbitos', color: '#D55E00', format: formatNumber },
   internacoes: { label: 'Internações', color: '#3b82f6', format: formatNumber },
@@ -22,7 +24,7 @@ const metricConfig = {
 
 // Definido fora do componente: criar componentes durante o render
 // reinicia o estado deles a cada renderização (regra react-hooks/static-components).
-function CustomTooltip({ active, payload, label }) {
+function CustomTooltip({ active, payload, label, config: metricConfig = DEFAULT_METRIC_CONFIG }) {
   if (!active || !payload || payload.length === 0) return null;
 
   return (
@@ -55,19 +57,27 @@ export default function TimeSeriesChart({
   onPointClick,
   selectedAno,
   showGrid = true,
-  referenceYear = null
+  referenceYear = null,
+  metricConfig: metricOverrides = {},
+  xKey = 'ano',
+  footer = null
 }) {
   if (!data || data.length === 0) {
     return (
       <div className="bg-white rounded-xl shadow-card p-6">
+        {title && (
+          <h3 className="font-display font-semibold text-dark-900 mb-4">{title}</h3>
+        )}
         <p className="text-dark-400 text-center">Sem dados disponíveis</p>
       </div>
     );
   }
 
+  const metricConfig = { ...DEFAULT_METRIC_CONFIG, ...metricOverrides };
+
   const handleClick = (data) => {
-    if (onPointClick && data?.activePayload?.[0]?.payload?.ano) {
-      onPointClick(data.activePayload[0].payload.ano);
+    if (onPointClick && data?.activePayload?.[0]?.payload?.[xKey]) {
+      onPointClick(data.activePayload[0].payload[xKey]);
     }
   };
 
@@ -91,7 +101,7 @@ export default function TimeSeriesChart({
           )}
 
           <XAxis
-            dataKey="ano"
+            dataKey={xKey}
             tick={{ fontSize: 12, fill: '#6b7280' }}
             tickLine={{ stroke: '#d1d5db' }}
             axisLine={{ stroke: '#d1d5db' }}
@@ -108,7 +118,7 @@ export default function TimeSeriesChart({
             }}
           />
 
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip config={metricConfig} />} />
 
           {referenceYear && (
             <ReferenceLine
@@ -130,9 +140,10 @@ export default function TimeSeriesChart({
                 strokeWidth={2}
                 dot={(props) => {
                   const { cx, cy, payload } = props;
-                  const isSelected = selectedAno === payload.ano;
+                  const isSelected = selectedAno === payload[xKey];
                   return (
                     <circle
+                      key={`${metric}-${payload[xKey]}`}
                       cx={cx}
                       cy={cy}
                       r={isSelected ? 6 : 4}
@@ -153,6 +164,9 @@ export default function TimeSeriesChart({
         <p className="text-xs text-center text-dark-400 mt-2">
           Clique em um ponto para filtrar por ano
         </p>
+      )}
+      {footer && (
+        <p className="text-xs text-dark-400 mt-2">{footer}</p>
       )}
     </div>
   );

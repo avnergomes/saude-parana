@@ -1,8 +1,6 @@
 # Saúde Paraná
 
-> **Fontes 100% reais (desde 2026-06):** óbitos e nascidos vivos por município vêm das Estatísticas do Registro Civil do IBGE (Tabelas 2654 e 2609, 2003-2024) e a população das Estimativas do IBGE (Tabela 6579). Os módulos sem fonte real disponível (internações SIH, vacinação SI-PNI, estabelecimentos CNES, repasses FNS e Previne Brasil) foram removidos do painel até existir ingestão real do DATASUS.
-
-Dashboard de indicadores de saúde pública do estado do Paraná (2003–2024), com dados oficiais do IBGE (Estatísticas do Registro Civil e Estimativas de População): mortalidade municipal, taxa bruta, pirâmide etária de óbitos e nascidos vivos.
+Painel público de indicadores de saúde dos 399 municípios do Paraná, construído apenas com dados oficiais e de fonte identificada: IBGE (Registro Civil, Estimativas e Censos), DATASUS (CNES, SIM, SIH, SIOPS), Ministério da Saúde (e-Gestor AB), ANS e InfoDengue (Fiocruz/FGV).
 
 **🔗 [Acessar](https://avnergomes.github.io/saude-parana/)**
 
@@ -10,166 +8,109 @@ Parte do ecossistema **[Datageo Paraná](https://datageoparana.github.io)**.
 
 ---
 
-## Sobre
+## Painéis
 
-O **Saúde Paraná** reúne os principais indicadores do sistema de saúde pública paranaense em um único painel analítico. Os dados provêm dos subsistemas do DATASUS — SIM (mortalidade), SIH (internações), PNI (vacinação), CNES (estabelecimentos) e FNS (repasses financeiros) — e são atualizados automaticamente via pipeline GitHub Actions.
+| Aba | O que mostra | Fonte | Período |
+|---|---|---|---|
+| Visão Geral | Óbitos, taxa bruta, nascidos vivos registrados, população; mapa e ranking municipal | IBGE, Registro Civil e população | 2003-2024 |
+| Mortalidade | Série anual, mapa, pirâmide etária de óbitos e óbitos por capítulo CID-10 | IBGE (Registro Civil) e SIM/DATASUS | 2003-2024; CID 2010-2024 |
+| Internações SUS | Internações por município de residência, taxa por mil habitantes, valor, óbitos hospitalares e capítulo CID-10 | SIH/SUS (TabNet) | 2015 até a última competência |
+| Rede de Saúde | Estabelecimentos por tipo, leitos SUS, hospitais e UPAs no mapa, cobertura de planos de saúde | CNES/DATASUS, CGHID/MS, ANS | retrato atual |
+| Atenção Primária | Cobertura potencial da APS por município e série mensal | e-Gestor AB (MS/SAPS) | 2021 até o mês corrente |
+| Dengue e arboviroses | Casos notificados e estimados por semana, incidência e nível de alerta por município | InfoDengue (Fiocruz/FGV), a partir do SINAN | 2024 até a semana corrente |
+| Financiamento | Despesa com saúde por habitante, % de receitas próprias aplicadas (EC 29), transferências SUS | SIOPS/DATASUS | 2015 até o último ano |
 
-### KPIs principais
+Os filtros de ano, regional IDR, mesorregião e município valem para todas as abas; clicar em um município no mapa ou no ranking, ou em um ano nas séries, filtra o restante.
 
-| Indicador | Descrição |
-|-----------|-----------|
-| **Óbitos** | Total de óbitos registrados no SIM no período selecionado |
-| **Internações SUS** | Número de internações hospitalares pelo SUS (SIH) |
-| **Cobertura vacinal** | Percentual de cobertura por imunobiológico (PNI) |
-| **Estabelecimentos** | Quantidade de estabelecimentos de saúde cadastrados no CNES |
-| **Leitos SUS** | Total de leitos hospitalares disponíveis pelo SUS |
-| **Repasse SUS** | Volume de recursos financeiros transferidos pelo Fundo Nacional de Saúde |
-
----
-
-## Fonte de Dados
-
-| Fonte | Subsistema | Conteúdo |
-|-------|-----------|----------|
-| **DATASUS** | SIM — Sistema de Informações sobre Mortalidade | Causas de óbito por CID-10 |
-| **DATASUS** | SIH — Sistema de Informações Hospitalares | Internações e produção hospitalar |
-| **DATASUS** | PNI — Programa Nacional de Imunizações | Cobertura vacinal por município |
-| **DATASUS** | CNES — Cadastro Nacional de Estabelecimentos de Saúde | Unidades, leitos e profissionais |
-| **DATASUS** | FNS — Fundo Nacional de Saúde | Repasses financeiros do SUS |
+Detalhes de cada fonte, limites metodológicos, tratamento LGPD e fontes avaliadas e não adotadas (Google Maps, CNPJ da Receita, OpenStreetMap, PNI) estão em [`docs/fontes-de-dados.md`](docs/fontes-de-dados.md). Os relatórios de pesquisa com os endpoints verificados estão em [`docs/pesquisa/`](docs/pesquisa/).
 
 ---
 
 ## Tecnologias
 
-| Categoria | Tecnologia | Versão |
-|-----------|-----------|--------|
-| Framework UI | React | 18 |
-| Build tool | Vite | 5 |
-| Estilização | Tailwind CSS | 3 |
-| Gráficos | Recharts | — |
-| Gráficos | D3.js | — |
-| Mapa | Leaflet / React-Leaflet | — |
-| Pipeline de dados | Python | 3.x |
-| CI/CD | GitHub Actions | — |
+| Categoria | Tecnologia |
+|---|---|
+| Interface | React 19, Vite 6, Tailwind CSS 3 |
+| Gráficos | Recharts, D3.js |
+| Mapa | Leaflet / React-Leaflet |
+| Pipeline de dados | Python 3.12 (requests, biblioteca padrão) |
+| Testes | pytest |
+| CI/CD | GitHub Actions (pipeline mensal + deploy no GitHub Pages) |
 
 ---
 
-## Estrutura do Projeto
+## Estrutura do projeto
 
 ```
 saude-parana/
 ├── dashboard/                      # Aplicação React (Vite)
-│   ├── public/
-│   │   └── data/
-│   │       ├── mortalidade.json        # Óbitos por CID-10, município e ano
-│   │       ├── internacoes.json        # Internações SUS por categoria
-│   │       ├── vacinacao.json          # Cobertura vacinal por imunobiológico
-│   │       ├── estabelecimentos.json   # CNES — unidades e leitos
-│   │       ├── repasses_sus.json       # Repasses FNS por município
-│   │       ├── indicadores_ab.json     # Indicadores de atenção básica
-│   │       ├── metadata.json           # Metadados e dicionário de variáveis
-│   │       └── geo_map.json            # GeoJSON para o mapa coroplético
+│   ├── public/data/
+│   │   ├── mortalidade.json        # IBGE: óbitos, nascidos vivos, população, pirâmide
+│   │   ├── mortalidade_cid.json    # SIM: óbitos por capítulo CID-10
+│   │   ├── internacoes.json        # SIH: internações SUS
+│   │   ├── estabelecimentos.json   # CNES: estabelecimentos, leitos, pontos de hospitais/UPAs
+│   │   ├── planos_saude.json       # ANS: cobertura de planos de saúde
+│   │   ├── atencao_primaria.json   # e-Gestor AB: cobertura potencial da APS
+│   │   ├── arboviroses.json        # InfoDengue: dengue por semana epidemiológica
+│   │   ├── financiamento.json      # SIOPS: indicadores de financiamento
+│   │   ├── metadata.json           # Períodos, fontes, anos interpolados
+│   │   └── geo_map.json            # Regionais IDR, mesorregiões e municípios
+│   ├── scripts/generate_geo_map.cjs
 │   └── src/
-│       ├── components/
-│       │   ├── ActiveFilters.jsx
-│       │   ├── BarChart.jsx
-│       │   ├── ErrorBoundary.jsx
-│       │   ├── Filters.jsx
-│       │   ├── Footer.jsx
-│       │   ├── Header.jsx
-│       │   ├── KpiCards.jsx
-│       │   ├── Loading.jsx
-│       │   ├── MapChart.jsx
-│       │   ├── PyramidChart.jsx
-│       │   ├── RankingTable.jsx
-│       │   ├── SankeyChart.jsx
-│       │   ├── SunburstChart.jsx
-│       │   ├── Tabs.jsx
-│       │   ├── TimeSeriesChart.jsx
-│       │   └── TreemapChart.jsx
-│       └── hooks/
-│           └── useData.js
+│       ├── components/             # Gráficos, mapa, filtros, KPIs
+│       ├── components/tabs/        # Uma aba por domínio
+│       └── hooks/                  # Carregamento e filtragem por domínio
 ├── scripts/
-│   ├── download_data.py            # Coleta dados das APIs DATASUS
-│   └── preprocess_data.py          # Transformação e exportação dos JSONs
-└── .github/
-    └── workflows/
-        ├── data-pipeline.yml       # Atualização automática dos dados
-        └── deploy.yml              # Deploy no GitHub Pages
+│   ├── download_data.py            # IBGE/SIDRA (com manifesto de mudanças)
+│   ├── preprocess_data.py          # Gera mortalidade.json e metadata.json
+│   ├── run_etl.py                  # Orquestra os ETLs de domínio
+│   └── etl/                        # cnes, sim_cid, sih, siops, aps, infodengue, ans
+├── data/raw/                       # Brutos pequenos versionados + _manifest.json
+├── tests/                          # pytest (sem rede)
+├── docs/                           # Fontes de dados e relatórios de pesquisa
+└── .github/workflows/
+    ├── data-pipeline.yml           # Dia 1 de cada mês: baixa, processa, comita, dispara o deploy
+    └── deploy.yml                  # Build e publicação no GitHub Pages
 ```
 
 ---
 
-## Funcionalidades
+## Desenvolvimento local
 
-- **Mortalidade por CID-10** — análise das principais causas de óbito com agrupamento por capítulo e categoria
-- **Internações SUS** — volume e perfil das internações hospitalares pelo SUS no Paraná
-- **Cobertura vacinal** — evolução temporal por imunobiológico e município (PNI)
-- **Estabelecimentos de saúde** — mapeamento das unidades do CNES com filtro por tipo
-- **Leitos SUS** — disponibilidade e distribuição de leitos hospitalares por especialidade
-- **Repasses FNS** — fluxo de recursos financeiros do SUS por município e programa
-- **Diagrama Sankey** — visualização do fluxo de internações (origem → especialidade → desfecho)
-- **Sunburst de causas** — hierarquia das causas de mortalidade por capítulo/categoria CID-10
-- **Mapa por município** — visualização coroplética de qualquer indicador nos 399 municípios
-- **Pirâmide etária** — perfil etário dos óbitos ou internações por faixa e sexo
-- **Séries temporais** — evolução de qualquer indicador entre 2010 e 2024
-- **Ranking** — tabela comparativa de municípios por qualquer indicador
-- **Filtros encadeados** — por ano, município, região, causa e tipo de estabelecimento
-
----
-
-## Desenvolvimento Local
-
-### Pré-requisitos
-
-- Node.js 18+
-- Python 3.x (para o pipeline de dados)
-
-### Instalação e execução
+Pré-requisitos: Node.js 20+, Python 3.12+.
 
 ```bash
-# Clonar o repositório
-git clone https://github.com/avnergomes/saude-parana.git
-cd saude-parana/dashboard
-
-# Instalar dependências
+# Interface
+cd dashboard
 npm install
+npm run dev          # http://localhost:5173
+npm run build        # produção
+npm run lint
 
-# Iniciar servidor de desenvolvimento
-npm run dev
+# Dados (na raiz do repositório)
+pip install -r scripts/requirements.txt pytest
+python -m pytest tests -q
+python scripts/download_data.py          # IBGE/SIDRA
+python scripts/preprocess_data.py        # mortalidade.json + metadata.json
+python scripts/run_etl.py                # todos os domínios
+python scripts/run_etl.py --dominio cnes # um domínio só
 ```
 
-A aplicação estará disponível em `http://localhost:5173`.
-
-```bash
-# Build de produção
-npm run build
-
-# Pré-visualizar build
-npm run preview
-```
+Os JSONs são gerados em `dashboard/public/data/` e servidos estaticamente.
 
 ---
 
-## Pipeline de Dados
+## Pipeline de dados
 
-O pipeline é executado automaticamente via GitHub Actions (`.github/workflows/data-pipeline.yml`) e pode ser rodado localmente:
+O workflow `data-pipeline.yml` roda no dia 1 de cada mês (ou manualmente):
 
-```bash
-# Instalar dependências Python
-pip install -r scripts/requirements.txt
-
-# 1. Baixar dados das APIs DATASUS
-python scripts/download_data.py
-
-# 2. Processar e exportar os JSONs
-python scripts/preprocess_data.py
-```
-
-Os arquivos são gerados em `dashboard/public/data/` e servidos estaticamente pelo Vite.
+1. Baixa as tabelas do SIDRA e grava cada arquivo bruto só quando o conteúdo muda. O manifesto `data/raw/_manifest.json` guarda o sha256 e a data da última mudança real; é dela que vem o "Dados atualizados em" do painel, e não do relógio. Uma resposta com menos de 95% das linhas anteriores é tratada como truncada e descartada.
+2. Gera `mortalidade.json` e `metadata.json`.
+3. Roda os ETLs de domínio. Cada fonte é isolada: se cair e já existir a saída anterior, ela é mantida com aviso.
+4. Comita apenas se algum dado mudou e dispara o deploy (o workflow tem `actions: write` para isso).
 
 ---
 
 ## Licença
 
-MIT License — consulte o arquivo `LICENSE` no repositório para detalhes.
+Código sob licença MIT (arquivo `LICENSE`). Os dados pertencem às fontes citadas: IBGE (dados abertos, com atribuição), DATASUS (CC BY-ND 3.0), ANS (dados abertos), InfoDengue (citar Codeço CT et al., 2018).

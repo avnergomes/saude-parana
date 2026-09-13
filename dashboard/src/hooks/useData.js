@@ -32,17 +32,42 @@ async function fetchTopo() {
   }
 }
 
+// Domínios opcionais (DATASUS/MS/ANS/InfoDengue), gerados por scripts/run_etl.py.
+// Carregados fora do caminho crítico: a ausência de um arquivo não é erro,
+// a aba correspondente mostra "sem dados".
+const DOMINIOS_OPCIONAIS = {
+  estabelecimentos: 'estabelecimentos.json',
+  mortalidadeCid: 'mortalidade_cid.json',
+  internacoes: 'internacoes.json',
+  financiamento: 'financiamento.json',
+  atencaoPrimaria: 'atencao_primaria.json',
+  arboviroses: 'arboviroses.json',
+  planosSaude: 'planos_saude.json'
+};
+
+async function fetchOpcional(arquivo) {
+  try {
+    const res = await fetch(`${BASE_PATH}data/${arquivo}`);
+    return res.ok ? await res.json() : null;
+  } catch (err) {
+    console.warn(`Domínio opcional indisponível (${arquivo}):`, err);
+    return null;
+  }
+}
+
 /**
  * Hook principal de carregamento de dados
  */
 export function useData() {
-  // Somente dados reais (IBGE Registro Civil + Estimativas de População).
-  // Os domínios sintéticos (internações, vacinação, estabelecimentos,
-  // repasses, Previne) foram removidos até existir ingestão real do DATASUS.
+  // Somente dados reais: IBGE (Registro Civil, Estimativas e Censos) no
+  // núcleo, e domínios oficiais opcionais (CNES, SIM, SIH, SIOPS, APS,
+  // InfoDengue, ANS) carregados em segundo plano.
   const [mortalidade, setMortalidade] = useState(null);
   const [geoData, setGeoData] = useState(null);
   const [geoMap, setGeoMap] = useState(null);
   const [metadata, setMetadata] = useState(null);
+  const [dominios, setDominios] = useState({});
+  const [dominiosLoading, setDominiosLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [geoError, setGeoError] = useState(false);
@@ -100,6 +125,27 @@ export function useData() {
     return () => { cancelled = true; };
   }, [reloadKey]);
 
+  // Domínios opcionais: um fetch por arquivo, em paralelo, sem bloquear
+  // os KPIs e as abas do núcleo.
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadDominios() {
+      setDominiosLoading(true);
+      const entradas = Object.entries(DOMINIOS_OPCIONAIS);
+      const carregados = await Promise.all(
+        entradas.map(async ([chave, arquivo]) => [chave, await fetchOpcional(arquivo)])
+      );
+      if (!cancelled) {
+        setDominios(Object.fromEntries(carregados));
+        setDominiosLoading(false);
+      }
+    }
+
+    loadDominios();
+    return () => { cancelled = true; };
+  }, [reloadKey]);
+
   // Malha municipal (TopoJSON de CDN externa, ~4 MB): carregada fora do
   // caminho crítico. Falha aqui não bloqueia KPIs, séries nem ranking;
   // o MapChart mostra erro localizado com botão de tentar de novo.
@@ -129,6 +175,8 @@ export function useData() {
 
   return {
     mortalidade,
+    dominios,
+    dominiosLoading,
     geoData,
     geoMap,
     metadata,

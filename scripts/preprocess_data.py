@@ -356,7 +356,14 @@ def main() -> None:
             "municipios": len(por_municipio_ano),
             "regionaisIdr": len(set(regional_por_cod.values())) or 23,
         },
-        "filtros": {"anosDisponiveis": anos, "anoMin": ano_min, "anoMax": ano_max},
+        # O filtro de ano vai até o ano corrente: os domínios DATASUS/APS/InfoDengue
+        # chegam a 2025-2026 embora a série do Registro Civil pare em ano_max.
+        "filtros": {
+            "anosDisponiveis": list(range(ano_min, max(ano_max, date.today().year) + 1)),
+            "anosComDados": anos,
+            "anoMin": ano_min,
+            "anoMax": ano_max,
+        },
     }
     write_json(PUBLIC_DATA_DIR / "metadata.json", metadata)
 

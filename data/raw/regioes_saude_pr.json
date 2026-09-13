@@ -1,0 +1,3194 @@
+[
+ {
+  "codigo_municipio": "410010",
+  "municipio": "PR - ABATIA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410020",
+  "municipio": "PR - ADRIANOPOLIS",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410030",
+  "municipio": "PR - AGUDOS DO SUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410040",
+  "municipio": "PR - ALMIRANTE TAMANDARE",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410045",
+  "municipio": "PR - ALTAMIRA DO PARANA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410050",
+  "municipio": "PR - ALTONIA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410060",
+  "municipio": "PR - ALTO PARANA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410070",
+  "municipio": "PR - ALTO PIQUIRI",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410080",
+  "municipio": "PR - ALVORADA DO SUL",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410090",
+  "municipio": "PR - AMAPORA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410100",
+  "municipio": "PR - AMPERE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410105",
+  "municipio": "PR - ANAHY",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410110",
+  "municipio": "PR - ANDIRA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410115",
+  "municipio": "PR - ANGULO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410120",
+  "municipio": "PR - ANTONINA",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410130",
+  "municipio": "PR - ANTONIO OLINTO",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410140",
+  "municipio": "PR - APUCARANA",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410150",
+  "municipio": "PR - ARAPONGAS",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410160",
+  "municipio": "PR - ARAPOTI",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410165",
+  "municipio": "PR - ARAPUA",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410170",
+  "municipio": "PR - ARARUNA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410180",
+  "municipio": "PR - ARAUCARIA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410185",
+  "municipio": "PR - ARIRANHA DO IVAI",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410190",
+  "municipio": "PR - ASSAI",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410200",
+  "municipio": "PR - ASSIS CHATEAUBRIAND",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410210",
+  "municipio": "PR - ASTORGA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410220",
+  "municipio": "PR - ATALAIA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410230",
+  "municipio": "PR - BALSA NOVA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410240",
+  "municipio": "PR - BANDEIRANTES",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410250",
+  "municipio": "PR - BARBOSA FERRAZ",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410260",
+  "municipio": "PR - BARRACAO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410270",
+  "municipio": "PR - BARRA DO JACARE",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410275",
+  "municipio": "PR - BELA VISTA DA CAROBA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410280",
+  "municipio": "PR - BELA VISTA DO PARAISO",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410290",
+  "municipio": "PR - BITURUNA",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410300",
+  "municipio": "PR - BOA ESPERANCA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410302",
+  "municipio": "PR - BOA ESPERANCA DO IGUACU",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410304",
+  "municipio": "PR - BOA VENTURA DE SAO ROQUE",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410305",
+  "municipio": "PR - BOA VISTA DA APARECIDA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410310",
+  "municipio": "PR - BOCAIUVA DO SUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410315",
+  "municipio": "PR - BOM JESUS DO SUL",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410320",
+  "municipio": "PR - BOM SUCESSO",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410322",
+  "municipio": "PR - BOM SUCESSO DO SUL",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410330",
+  "municipio": "PR - BORRAZOPOLIS",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410335",
+  "municipio": "PR - BRAGANEY",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410337",
+  "municipio": "PR - BRASILANDIA DO SUL",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410340",
+  "municipio": "PR - CAFEARA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410345",
+  "municipio": "PR - CAFELANDIA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410347",
+  "municipio": "PR - CAFEZAL DO SUL",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410350",
+  "municipio": "PR - CALIFORNIA",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410360",
+  "municipio": "PR - CAMBARA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410370",
+  "municipio": "PR - CAMBE",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410380",
+  "municipio": "PR - CAMBIRA",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410390",
+  "municipio": "PR - CAMPINA DA LAGOA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410395",
+  "municipio": "PR - CAMPINA DO SIMAO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410400",
+  "municipio": "PR - CAMPINA GRANDE DO SUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410405",
+  "municipio": "PR - CAMPO BONITO",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410410",
+  "municipio": "PR - CAMPO DO TENENTE",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410420",
+  "municipio": "PR - CAMPO LARGO",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410425",
+  "municipio": "PR - CAMPO MAGRO",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410430",
+  "municipio": "PR - CAMPO MOURAO",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410440",
+  "municipio": "PR - CANDIDO DE ABREU",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410442",
+  "municipio": "PR - CANDOI",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410445",
+  "municipio": "PR - CANTAGALO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410450",
+  "municipio": "PR - CAPANEMA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410460",
+  "municipio": "PR - CAPITAO LEONIDAS MARQUES",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410465",
+  "municipio": "PR - CARAMBEI",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410470",
+  "municipio": "PR - CARLOPOLIS",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410480",
+  "municipio": "PR - CASCAVEL",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410490",
+  "municipio": "PR - CASTRO",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410500",
+  "municipio": "PR - CATANDUVAS",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410510",
+  "municipio": "PR - CENTENARIO DO SUL",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410520",
+  "municipio": "PR - CERRO AZUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410530",
+  "municipio": "PR - CEU AZUL",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410540",
+  "municipio": "PR - CHOPINZINHO",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410550",
+  "municipio": "PR - CIANORTE",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410560",
+  "municipio": "PR - CIDADE GAUCHA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410570",
+  "municipio": "PR - CLEVELANDIA",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410580",
+  "municipio": "PR - COLOMBO",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410590",
+  "municipio": "PR - COLORADO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410600",
+  "municipio": "PR - CONGONHINHAS",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410610",
+  "municipio": "PR - CONSELHEIRO MAIRINCK",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410620",
+  "municipio": "PR - CONTENDA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410630",
+  "municipio": "PR - CORBELIA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410640",
+  "municipio": "PR - CORNELIO PROCOPIO",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410645",
+  "municipio": "PR - CORONEL DOMINGOS SOARES",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410650",
+  "municipio": "PR - CORONEL VIVIDA",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410655",
+  "municipio": "PR - CORUMBATAI DO SUL",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410657",
+  "municipio": "PR - CRUZEIRO DO IGUACU",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410660",
+  "municipio": "PR - CRUZEIRO DO OESTE",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410670",
+  "municipio": "PR - CRUZEIRO DO SUL",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410680",
+  "municipio": "PR - CRUZ MACHADO",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410685",
+  "municipio": "PR - CRUZMALTINA",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410690",
+  "municipio": "PR - CURITIBA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410700",
+  "municipio": "PR - CURIUVA",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410710",
+  "municipio": "PR - DIAMANTE DO NORTE",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410712",
+  "municipio": "PR - DIAMANTE DO SUL",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410715",
+  "municipio": "PR - DIAMANTE D'OESTE",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410720",
+  "municipio": "PR - DOIS VIZINHOS",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410725",
+  "municipio": "PR - DOURADINA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410730",
+  "municipio": "PR - DOUTOR CAMARGO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410740",
+  "municipio": "PR - ENEAS MARQUES",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410750",
+  "municipio": "PR - ENGENHEIRO BELTRAO",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410752",
+  "municipio": "PR - ESPERANCA NOVA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410753",
+  "municipio": "PR - ENTRE RIOS DO OESTE",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410754",
+  "municipio": "PR - ESPIGAO ALTO DO IGUACU",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410755",
+  "municipio": "PR - FAROL",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410760",
+  "municipio": "PR - FAXINAL",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410765",
+  "municipio": "PR - FAZENDA RIO GRANDE",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410770",
+  "municipio": "PR - FENIX",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410773",
+  "municipio": "PR - FERNANDES PINHEIRO",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410775",
+  "municipio": "PR - FIGUEIRA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410780",
+  "municipio": "PR - FLORAI",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410785",
+  "municipio": "PR - FLOR DA SERRA DO SUL",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410790",
+  "municipio": "PR - FLORESTA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410800",
+  "municipio": "PR - FLORESTOPOLIS",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410810",
+  "municipio": "PR - FLORIDA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410820",
+  "municipio": "PR - FORMOSA DO OESTE",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410830",
+  "municipio": "PR - FOZ DO IGUACU",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410832",
+  "municipio": "PR - FRANCISCO ALVES",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410840",
+  "municipio": "PR - FRANCISCO BELTRAO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410845",
+  "municipio": "PR - FOZ DO JORDAO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410850",
+  "municipio": "PR - GENERAL CARNEIRO",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410855",
+  "municipio": "PR - GODOY MOREIRA",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410860",
+  "municipio": "PR - GOIOERE",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410865",
+  "municipio": "PR - GOIOXIM",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410870",
+  "municipio": "PR - GRANDES RIOS",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410880",
+  "municipio": "PR - GUAIRA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410890",
+  "municipio": "PR - GUAIRACA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410895",
+  "municipio": "PR - GUAMIRANGA",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410900",
+  "municipio": "PR - GUAPIRAMA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410910",
+  "municipio": "PR - GUAPOREMA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "410920",
+  "municipio": "PR - GUARACI",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410930",
+  "municipio": "PR - GUARANIACU",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410940",
+  "municipio": "PR - GUARAPUAVA",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410950",
+  "municipio": "PR - GUARAQUECABA",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410960",
+  "municipio": "PR - GUARATUBA",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "410965",
+  "municipio": "PR - HONORIO SERPA",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410970",
+  "municipio": "PR - IBAITI",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410975",
+  "municipio": "PR - IBEMA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "410980",
+  "municipio": "PR - IBIPORA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "410990",
+  "municipio": "PR - ICARAIMA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411000",
+  "municipio": "PR - IGUARACU",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411005",
+  "municipio": "PR - IGUATU",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411007",
+  "municipio": "PR - IMBAU",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411010",
+  "municipio": "PR - IMBITUVA",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411020",
+  "municipio": "PR - INACIO MARTINS",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411030",
+  "municipio": "PR - INAJA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411040",
+  "municipio": "PR - INDIANOPOLIS",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411050",
+  "municipio": "PR - IPIRANGA",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411060",
+  "municipio": "PR - IPORA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411065",
+  "municipio": "PR - IRACEMA DO OESTE",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411070",
+  "municipio": "PR - IRATI",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411080",
+  "municipio": "PR - IRETAMA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411090",
+  "municipio": "PR - ITAGUAJE",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411095",
+  "municipio": "PR - ITAIPULANDIA",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411100",
+  "municipio": "PR - ITAMBARACA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411110",
+  "municipio": "PR - ITAMBE",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411120",
+  "municipio": "PR - ITAPEJARA D'OESTE",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411125",
+  "municipio": "PR - ITAPERUCU",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411130",
+  "municipio": "PR - ITAUNA DO SUL",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411140",
+  "municipio": "PR - IVAI",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411150",
+  "municipio": "PR - IVAIPORA",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411155",
+  "municipio": "PR - IVATE",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411160",
+  "municipio": "PR - IVATUBA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411170",
+  "municipio": "PR - JABOTI",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411180",
+  "municipio": "PR - JACAREZINHO",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411190",
+  "municipio": "PR - JAGUAPITA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411200",
+  "municipio": "PR - JAGUARIAIVA",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411210",
+  "municipio": "PR - JANDAIA DO SUL",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411220",
+  "municipio": "PR - JANIOPOLIS",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411230",
+  "municipio": "PR - JAPIRA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411240",
+  "municipio": "PR - JAPURA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411250",
+  "municipio": "PR - JARDIM ALEGRE",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411260",
+  "municipio": "PR - JARDIM OLINDA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411270",
+  "municipio": "PR - JATAIZINHO",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411275",
+  "municipio": "PR - JESUITAS",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411280",
+  "municipio": "PR - JOAQUIM TAVORA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411290",
+  "municipio": "PR - JUNDIAI DO SUL",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411295",
+  "municipio": "PR - JURANDA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411300",
+  "municipio": "PR - JUSSARA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411310",
+  "municipio": "PR - KALORE",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411320",
+  "municipio": "PR - LAPA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411325",
+  "municipio": "PR - LARANJAL",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411330",
+  "municipio": "PR - LARANJEIRAS DO SUL",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411340",
+  "municipio": "PR - LEOPOLIS",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411342",
+  "municipio": "PR - LIDIANOPOLIS",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411345",
+  "municipio": "PR - LINDOESTE",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411350",
+  "municipio": "PR - LOANDA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411360",
+  "municipio": "PR - LOBATO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411370",
+  "municipio": "PR - LONDRINA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411373",
+  "municipio": "PR - LUIZIANA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411375",
+  "municipio": "PR - LUNARDELLI",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411380",
+  "municipio": "PR - LUPIONOPOLIS",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411390",
+  "municipio": "PR - MALLET",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411400",
+  "municipio": "PR - MAMBORE",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411410",
+  "municipio": "PR - MANDAGUACU",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411420",
+  "municipio": "PR - MANDAGUARI",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411430",
+  "municipio": "PR - MANDIRITUBA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411435",
+  "municipio": "PR - MANFRINOPOLIS",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411440",
+  "municipio": "PR - MANGUEIRINHA",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411450",
+  "municipio": "PR - MANOEL RIBAS",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411460",
+  "municipio": "PR - MARECHAL CANDIDO RONDON",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411470",
+  "municipio": "PR - MARIA HELENA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411480",
+  "municipio": "PR - MARIALVA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411490",
+  "municipio": "PR - MARILANDIA DO SUL",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411500",
+  "municipio": "PR - MARILENA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411510",
+  "municipio": "PR - MARILUZ",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411520",
+  "municipio": "PR - MARINGA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411530",
+  "municipio": "PR - MARIOPOLIS",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411535",
+  "municipio": "PR - MARIPA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411540",
+  "municipio": "PR - MARMELEIRO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411545",
+  "municipio": "PR - MARQUINHO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411550",
+  "municipio": "PR - MARUMBI",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411560",
+  "municipio": "PR - MATELANDIA",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411570",
+  "municipio": "PR - MATINHOS",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411573",
+  "municipio": "PR - MATO RICO",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411575",
+  "municipio": "PR - MAUA DA SERRA",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411580",
+  "municipio": "PR - MEDIANEIRA",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411585",
+  "municipio": "PR - MERCEDES",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411590",
+  "municipio": "PR - MIRADOR",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411600",
+  "municipio": "PR - MIRASELVA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411605",
+  "municipio": "PR - MISSAL",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411610",
+  "municipio": "PR - MOREIRA SALES",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411620",
+  "municipio": "PR - MORRETES",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411630",
+  "municipio": "PR - MUNHOZ DE MELO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411640",
+  "municipio": "PR - NOSSA SENHORA DAS GRACAS",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411650",
+  "municipio": "PR - NOVA ALIANCA DO IVAI",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411660",
+  "municipio": "PR - NOVA AMERICA DA COLINA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411670",
+  "municipio": "PR - NOVA AURORA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411680",
+  "municipio": "PR - NOVA CANTU",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411690",
+  "municipio": "PR - NOVA ESPERANCA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411695",
+  "municipio": "PR - NOVA ESPERANCA DO SUDOESTE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411700",
+  "municipio": "PR - NOVA FATIMA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411705",
+  "municipio": "PR - NOVA LARANJEIRAS",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411710",
+  "municipio": "PR - NOVA LONDRINA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411720",
+  "municipio": "PR - NOVA OLIMPIA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411721",
+  "municipio": "PR - NOVA SANTA BARBARA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411722",
+  "municipio": "PR - NOVA SANTA ROSA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411725",
+  "municipio": "PR - NOVA PRATA DO IGUACU",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411727",
+  "municipio": "PR - NOVA TEBAS",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411729",
+  "municipio": "PR - NOVO ITACOLOMI",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411730",
+  "municipio": "PR - ORTIGUEIRA",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411740",
+  "municipio": "PR - OURIZONA",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411745",
+  "municipio": "PR - OURO VERDE DO OESTE",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411750",
+  "municipio": "PR - PAICANDU",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411760",
+  "municipio": "PR - PALMAS",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411770",
+  "municipio": "PR - PALMEIRA",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411780",
+  "municipio": "PR - PALMITAL",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411790",
+  "municipio": "PR - PALOTINA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411800",
+  "municipio": "PR - PARAISO DO NORTE",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411810",
+  "municipio": "PR - PARANACITY",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411820",
+  "municipio": "PR - PARANAGUA",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411830",
+  "municipio": "PR - PARANAPOEMA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411840",
+  "municipio": "PR - PARANAVAI",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411845",
+  "municipio": "PR - PATO BRAGADO",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411850",
+  "municipio": "PR - PATO BRANCO",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411860",
+  "municipio": "PR - PAULA FREITAS",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411870",
+  "municipio": "PR - PAULO FRONTIN",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411880",
+  "municipio": "PR - PEABIRU",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411885",
+  "municipio": "PR - PEROBAL",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411890",
+  "municipio": "PR - PEROLA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411900",
+  "municipio": "PR - PEROLA D'OESTE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411910",
+  "municipio": "PR - PIEN",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411915",
+  "municipio": "PR - PINHAIS",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411920",
+  "municipio": "PR - PINHALAO",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411925",
+  "municipio": "PR - PINHAL DE SAO BENTO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411930",
+  "municipio": "PR - PINHAO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411940",
+  "municipio": "PR - PIRAI DO SUL",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411950",
+  "municipio": "PR - PIRAQUARA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411960",
+  "municipio": "PR - PITANGA",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411965",
+  "municipio": "PR - PITANGUEIRAS",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "411970",
+  "municipio": "PR - PLANALTINA DO PARANA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "411980",
+  "municipio": "PR - PLANALTO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "411990",
+  "municipio": "PR - PONTA GROSSA",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "411995",
+  "municipio": "PR - PONTAL DO PARANA",
+  "codigo_regiao_saude": "41001",
+  "regiao_saude": "1ª RS PARANAGUA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412000",
+  "municipio": "PR - PORECATU",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412010",
+  "municipio": "PR - PORTO AMAZONAS",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412015",
+  "municipio": "PR - PORTO BARREIRO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412020",
+  "municipio": "PR - PORTO RICO",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412030",
+  "municipio": "PR - PORTO VITORIA",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412033",
+  "municipio": "PR - PRADO FERREIRA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412035",
+  "municipio": "PR - PRANCHITA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412040",
+  "municipio": "PR - PRESIDENTE CASTELO BRANCO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412050",
+  "municipio": "PR - PRIMEIRO DE MAIO",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412060",
+  "municipio": "PR - PRUDENTOPOLIS",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412065",
+  "municipio": "PR - QUARTO CENTENARIO",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412070",
+  "municipio": "PR - QUATIGUA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412080",
+  "municipio": "PR - QUATRO BARRAS",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412085",
+  "municipio": "PR - QUATRO PONTES",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412090",
+  "municipio": "PR - QUEDAS DO IGUACU",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412100",
+  "municipio": "PR - QUERENCIA DO NORTE",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412110",
+  "municipio": "PR - QUINTA DO SOL",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412120",
+  "municipio": "PR - QUITANDINHA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412125",
+  "municipio": "PR - RAMILANDIA",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412130",
+  "municipio": "PR - RANCHO ALEGRE",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412135",
+  "municipio": "PR - RANCHO ALEGRE D'OESTE",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412140",
+  "municipio": "PR - REALEZA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412150",
+  "municipio": "PR - REBOUCAS",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412160",
+  "municipio": "PR - RENASCENCA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412170",
+  "municipio": "PR - RESERVA",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412175",
+  "municipio": "PR - RESERVA DO IGUACU",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412180",
+  "municipio": "PR - RIBEIRAO CLARO",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412190",
+  "municipio": "PR - RIBEIRAO DO PINHAL",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412200",
+  "municipio": "PR - RIO AZUL",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412210",
+  "municipio": "PR - RIO BOM",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412215",
+  "municipio": "PR - RIO BONITO DO IGUACU",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412217",
+  "municipio": "PR - RIO BRANCO DO IVAI",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412220",
+  "municipio": "PR - RIO BRANCO DO SUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412230",
+  "municipio": "PR - RIO NEGRO",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412240",
+  "municipio": "PR - ROLANDIA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412250",
+  "municipio": "PR - RONCADOR",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412260",
+  "municipio": "PR - RONDON",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412265",
+  "municipio": "PR - ROSARIO DO IVAI",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412270",
+  "municipio": "PR - SABAUDIA",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412280",
+  "municipio": "PR - SALGADO FILHO",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412290",
+  "municipio": "PR - SALTO DO ITARARE",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412300",
+  "municipio": "PR - SALTO DO LONTRA",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412310",
+  "municipio": "PR - SANTA AMELIA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412320",
+  "municipio": "PR - SANTA CECILIA DO PAVAO",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412330",
+  "municipio": "PR - SANTA CRUZ DE MONTE CASTELO",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412340",
+  "municipio": "PR - SANTA FE",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412350",
+  "municipio": "PR - SANTA HELENA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412360",
+  "municipio": "PR - SANTA INES",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412370",
+  "municipio": "PR - SANTA ISABEL DO IVAI",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412380",
+  "municipio": "PR - SANTA IZABEL DO OESTE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412382",
+  "municipio": "PR - SANTA LUCIA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412385",
+  "municipio": "PR - SANTA MARIA DO OESTE",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412390",
+  "municipio": "PR - SANTA MARIANA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412395",
+  "municipio": "PR - SANTA MONICA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412400",
+  "municipio": "PR - SANTANA DO ITARARE",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412402",
+  "municipio": "PR - SANTA TEREZA DO OESTE",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412405",
+  "municipio": "PR - SANTA TEREZINHA DE ITAIPU",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412410",
+  "municipio": "PR - SANTO ANTONIO DA PLATINA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412420",
+  "municipio": "PR - SANTO ANTONIO DO CAIUA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412430",
+  "municipio": "PR - SANTO ANTONIO DO PARAISO",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412440",
+  "municipio": "PR - SANTO ANTONIO DO SUDOESTE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412450",
+  "municipio": "PR - SANTO INACIO",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412460",
+  "municipio": "PR - SAO CARLOS DO IVAI",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412470",
+  "municipio": "PR - SAO JERONIMO DA SERRA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412480",
+  "municipio": "PR - SAO JOAO",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412490",
+  "municipio": "PR - SAO JOAO DO CAIUA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412500",
+  "municipio": "PR - SAO JOAO DO IVAI",
+  "codigo_regiao_saude": "41022",
+  "regiao_saude": "22ª RS IVAIPORA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412510",
+  "municipio": "PR - SAO JOAO DO TRIUNFO",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412520",
+  "municipio": "PR - SAO JORGE D'OESTE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412530",
+  "municipio": "PR - SAO JORGE DO IVAI",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412535",
+  "municipio": "PR - SAO JORGE DO PATROCINIO",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412540",
+  "municipio": "PR - SAO JOSE DA BOA VISTA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412545",
+  "municipio": "PR - SAO JOSE DAS PALMEIRAS",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412550",
+  "municipio": "PR - SAO JOSE DOS PINHAIS",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412555",
+  "municipio": "PR - SAO MANOEL DO PARANA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412560",
+  "municipio": "PR - SAO MATEUS DO SUL",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412570",
+  "municipio": "PR - SAO MIGUEL DO IGUACU",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412575",
+  "municipio": "PR - SAO PEDRO DO IGUACU",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412580",
+  "municipio": "PR - SAO PEDRO DO IVAI",
+  "codigo_regiao_saude": "41016",
+  "regiao_saude": "16ª RS APUCARANA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412590",
+  "municipio": "PR - SAO PEDRO DO PARANA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412600",
+  "municipio": "PR - SAO SEBASTIAO DA AMOREIRA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412610",
+  "municipio": "PR - SAO TOME",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412620",
+  "municipio": "PR - SAPOPEMA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412625",
+  "municipio": "PR - SARANDI",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412627",
+  "municipio": "PR - SAUDADE DO IGUACU",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412630",
+  "municipio": "PR - SENGES",
+  "codigo_regiao_saude": "41003",
+  "regiao_saude": "3ª RS PONTA GROSSA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412635",
+  "municipio": "PR - SERRANOPOLIS DO IGUACU",
+  "codigo_regiao_saude": "41009",
+  "regiao_saude": "9ª RS FOZ DO IGUACU",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412640",
+  "municipio": "PR - SERTANEJA",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412650",
+  "municipio": "PR - SERTANOPOLIS",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412660",
+  "municipio": "PR - SIQUEIRA CAMPOS",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412665",
+  "municipio": "PR - SULINA",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412667",
+  "municipio": "PR - TAMARANA",
+  "codigo_regiao_saude": "41017",
+  "regiao_saude": "17ª RS LONDRINA",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412670",
+  "municipio": "PR - TAMBOARA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412680",
+  "municipio": "PR - TAPEJARA",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412690",
+  "municipio": "PR - TAPIRA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412700",
+  "municipio": "PR - TEIXEIRA SOARES",
+  "codigo_regiao_saude": "41004",
+  "regiao_saude": "4ª RS IRATI",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412710",
+  "municipio": "PR - TELEMACO BORBA",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412720",
+  "municipio": "PR - TERRA BOA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412730",
+  "municipio": "PR - TERRA RICA",
+  "codigo_regiao_saude": "41014",
+  "regiao_saude": "14ª RS PARANAVAI",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412740",
+  "municipio": "PR - TERRA ROXA",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412750",
+  "municipio": "PR - TIBAGI",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412760",
+  "municipio": "PR - TIJUCAS DO SUL",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412770",
+  "municipio": "PR - TOLEDO",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412780",
+  "municipio": "PR - TOMAZINA",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412785",
+  "municipio": "PR - TRES BARRAS DO PARANA",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412788",
+  "municipio": "PR - TUNAS DO PARANA",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412790",
+  "municipio": "PR - TUNEIRAS DO OESTE",
+  "codigo_regiao_saude": "41013",
+  "regiao_saude": "13ª RS CIANORTE",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412795",
+  "municipio": "PR - TUPASSI",
+  "codigo_regiao_saude": "41020",
+  "regiao_saude": "20ª RS TOLEDO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412796",
+  "municipio": "PR - TURVO",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412800",
+  "municipio": "PR - UBIRATA",
+  "codigo_regiao_saude": "41011",
+  "regiao_saude": "11ª RS CAMPO MOURAO",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412810",
+  "municipio": "PR - UMUARAMA",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412820",
+  "municipio": "PR - UNIAO DA VITORIA",
+  "codigo_regiao_saude": "41006",
+  "regiao_saude": "6ª RS UNIAO DA VITORIA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412830",
+  "municipio": "PR - UNIFLOR",
+  "codigo_regiao_saude": "41015",
+  "regiao_saude": "15ª RS MARINGA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412840",
+  "municipio": "PR - URAI",
+  "codigo_regiao_saude": "41018",
+  "regiao_saude": "18ª RS CORNELIO PROCOPIO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412850",
+  "municipio": "PR - WENCESLAU BRAZ",
+  "codigo_regiao_saude": "41019",
+  "regiao_saude": "19ª RS JACAREZINHO",
+  "codigo_macrorregiao_saude": "4105",
+  "macrorregiao_saude": "MACRORREGIONAL NORTE"
+ },
+ {
+  "codigo_municipio": "412853",
+  "municipio": "PR - VENTANIA",
+  "codigo_regiao_saude": "41021",
+  "regiao_saude": "21ª RS TELEMACO BORBA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412855",
+  "municipio": "PR - VERA CRUZ DO OESTE",
+  "codigo_regiao_saude": "41010",
+  "regiao_saude": "10ª RS CASCAVEL",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412860",
+  "municipio": "PR - VERE",
+  "codigo_regiao_saude": "41008",
+  "regiao_saude": "8ª RS FRANCISCO BELTRAO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412862",
+  "municipio": "PR - ALTO PARAISO",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ },
+ {
+  "codigo_municipio": "412863",
+  "municipio": "PR - DOUTOR ULYSSES",
+  "codigo_regiao_saude": "41002",
+  "regiao_saude": "2ª RS METROPOLITANA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412865",
+  "municipio": "PR - VIRMOND",
+  "codigo_regiao_saude": "41005",
+  "regiao_saude": "5ª RS GUARAPUAVA",
+  "codigo_macrorregiao_saude": "4107",
+  "macrorregiao_saude": "MACRORREGIONAL LESTE"
+ },
+ {
+  "codigo_municipio": "412870",
+  "municipio": "PR - VITORINO",
+  "codigo_regiao_saude": "41007",
+  "regiao_saude": "7ª RS PATO BRANCO",
+  "codigo_macrorregiao_saude": "4108",
+  "macrorregiao_saude": "MACRORREGIAO OESTE"
+ },
+ {
+  "codigo_municipio": "412880",
+  "municipio": "PR - XAMBRE",
+  "codigo_regiao_saude": "41012",
+  "regiao_saude": "12ª RS UMUARAMA",
+  "codigo_macrorregiao_saude": "4106",
+  "macrorregiao_saude": "MACRORREGIONAL NOROESTE"
+ }
+]

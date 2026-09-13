@@ -1,12 +1,26 @@
 import { useRef, useEffect, useState } from 'react';
-import { LayoutDashboard, Skull, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Skull,
+  BedDouble,
+  Building2,
+  Stethoscope,
+  Bug,
+  Landmark,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 
-// Abas restritas aos domínios com fonte real (IBGE Registro Civil).
-// Internações/Vacinação/Infraestrutura/Financiamento exibiam dados
-// simulados e foram removidas até existir ingestão real do DATASUS.
+// Uma aba por domínio com fonte oficial real (ver docs/fontes-de-dados.md).
+// Vacinação segue fora: não há fonte agregada por município desde 2020.
 const tabs = [
   { id: 'visao-geral', label: 'Visão Geral', icon: LayoutDashboard },
   { id: 'mortalidade', label: 'Mortalidade', icon: Skull },
+  { id: 'internacoes', label: 'Internações SUS', icon: BedDouble },
+  { id: 'rede-saude', label: 'Rede de Saúde', icon: Building2 },
+  { id: 'atencao-primaria', label: 'Atenção Primária', icon: Stethoscope },
+  { id: 'arboviroses', label: 'Dengue', icon: Bug },
+  { id: 'financiamento', label: 'Financiamento', icon: Landmark },
 ];
 
 export default function Tabs({ activeTab, onTabChange }) {

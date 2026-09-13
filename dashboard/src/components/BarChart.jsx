@@ -10,6 +10,12 @@ import {
 } from 'recharts';
 import { formatNumber, formatCurrency, formatPercent, CHART_COLORS } from '../utils/format';
 
+function formatEixoNumerico(v) {
+  if (v >= 1e6) return (v / 1e6).toFixed(0) + 'M';
+  if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
+  return v;
+}
+
 // Fora do componente: criar componentes durante o render reinicia o estado
 // deles a cada renderização (regra react-hooks/static-components). O Recharts
 // injeta active/payload no elemento; nameKey/dataKey/formatValue vêm do pai.
@@ -96,42 +102,35 @@ export default function BarChart({
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
 
+          {/* Eixos como filhos diretos: o Recharts 2 não atravessa Fragments
+              (com React 19 um <>...</> aqui deixava o gráfico sem eixos e sem barras). */}
           {isHorizontal ? (
-            <>
-              <XAxis
-                type="number"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                tickFormatter={(v) => {
-                  if (v >= 1e6) return (v / 1e6).toFixed(0) + 'M';
-                  if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
-                  return v;
-                }}
-              />
-              <YAxis
-                type="category"
-                dataKey={nameKey}
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                width={90}
-                tickFormatter={(v) => v?.length > 15 ? v.substring(0, 15) + '...' : v}
-              />
-            </>
+            <XAxis
+              type="number"
+              tick={{ fontSize: 11, fill: '#6b7280' }}
+              tickFormatter={formatEixoNumerico}
+            />
           ) : (
-            <>
-              <XAxis
-                dataKey={nameKey}
-                tick={{ fontSize: 11, fill: '#6b7280', angle: -45, textAnchor: 'end' }}
-                height={60}
-                tickFormatter={(v) => v?.length > 10 ? v.substring(0, 10) + '...' : v}
-              />
-              <YAxis
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                tickFormatter={(v) => {
-                  if (v >= 1e6) return (v / 1e6).toFixed(0) + 'M';
-                  if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
-                  return v;
-                }}
-              />
-            </>
+            <XAxis
+              dataKey={nameKey}
+              tick={{ fontSize: 11, fill: '#6b7280', angle: -45, textAnchor: 'end' }}
+              height={60}
+              tickFormatter={(v) => v?.length > 10 ? v.substring(0, 10) + '...' : v}
+            />
+          )}
+          {isHorizontal ? (
+            <YAxis
+              type="category"
+              dataKey={nameKey}
+              tick={{ fontSize: 11, fill: '#6b7280' }}
+              width={90}
+              tickFormatter={(v) => v?.length > 15 ? v.substring(0, 15) + '...' : v}
+            />
+          ) : (
+            <YAxis
+              tick={{ fontSize: 11, fill: '#6b7280' }}
+              tickFormatter={formatEixoNumerico}
+            />
           )}
 
           <Tooltip
