@@ -49,6 +49,9 @@ SIDRA = "https://apisidra.ibge.gov.br/values"
 TIMEOUT_S = 240
 TENTATIVAS = 3
 PAUSA_ENTRE_CONSULTAS_S = 2
+# Uma resposta com menos linhas que 95% da anterior é tratada como truncada:
+# as séries do SIDRA só crescem (ano novo), nunca encolhem.
+LIMIAR_ENCOLHIMENTO = 0.95
 
 # Faixas quinquenais da classificação c260 da Tabela 2654 (nível 2),
 # + "Menos de 1 ano" (nível 1). Os grupos 80+ são agregados no preprocess.
@@ -150,28 +153,34 @@ def salvar_manifesto(manifesto: dict) -> None:
     )
 
 
+def encolheu(manifesto: dict, consulta: Consulta, rows: list) -> bool:
+    """True se a resposta veio bem menor que a última registrada (truncada)."""
+    linhas_anteriores = manifesto.get(consulta.arquivo, {}).get("linhas") or 0
+    return len(rows) < linhas_anteriores * LIMIAR_ENCOLHIMENTO
+
+
 def registrar(manifesto: dict, consulta: Consulta, rows: list) -> dict:
-    """Grava o arquivo só se o conteúdo mudou; devolve um novo manifesto."""
+    """Grava o arquivo só se o conteúdo mudou (ou se sumiu do disco);
+    a data alterado_em só avança quando o conteúdo muda. Devolve um novo manifesto."""
     texto = serializar(rows)
     digest = sha256_texto(texto)
     destino = RAW_DIR / consulta.arquivo
     anterior = manifesto.get(consulta.arquivo, {})
-    inalterado = anterior.get("sha256") == digest and destino.exists()
+    mudou = anterior.get("sha256") != digest
+    hoje = date.today().isoformat()
 
-    if inalterado:
-        log.info("  sem mudança: %s", consulta.arquivo)
-    else:
+    if mudou or not destino.exists():
         destino.write_text(texto, encoding="utf-8")
         log.info("  gravado: %s (%d KB)", consulta.arquivo, len(texto.encode("utf-8")) // 1024)
+    else:
+        log.info("  sem mudança: %s", consulta.arquivo)
 
     entrada = {
         "descricao": consulta.descricao,
         "url": consulta.url,
         "linhas": len(rows),
         "sha256": digest,
-        "alterado_em": (anterior.get("alterado_em") or date.today().isoformat())
-        if inalterado
-        else date.today().isoformat(),
+        "alterado_em": hoje if mudou else (anterior.get("alterado_em") or hoje),
     }
     return {**manifesto, consulta.arquivo: entrada}
 
@@ -196,10 +205,14 @@ def main() -> int:
 
     for consulta in consultas:
         rows = fetch_sidra(consulta.url, consulta.descricao)
-        if rows:
-            manifesto = registrar(manifesto, consulta, rows)
-        else:
+        if not rows:
             falhas.append(consulta.arquivo)
+        elif encolheu(manifesto, consulta, rows):
+            log.error("  resposta truncada: %d linhas (antes: %d); mantendo o arquivo anterior",
+                      len(rows), manifesto[consulta.arquivo]["linhas"])
+            falhas.append(consulta.arquivo)
+        else:
+            manifesto = registrar(manifesto, consulta, rows)
         time.sleep(PAUSA_ENTRE_CONSULTAS_S)
 
     salvar_manifesto(manifesto)

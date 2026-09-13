@@ -11,9 +11,7 @@ export default function Header({ metadata }) {
   // os fallbacks só cobrem o primeiro render sem dados.
   const municipios = metadata?.geografia?.municipios ?? 399;
   const regionais = metadata?.geografia?.regionaisIdr ?? 23;
-  const periodo = metadata?.filtros?.anoMin && metadata?.filtros?.anoMax
-    ? `${metadata.filtros.anoMin}-${metadata.filtros.anoMax}`
-    : '-';
+  const periodo = metadata?.dados?.mortalidade?.periodo ?? '-';
 
   return (
     <header className="bg-gradient-to-r from-water-600 to-water-700 text-white">

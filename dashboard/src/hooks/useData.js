@@ -203,19 +203,26 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
       const popUltimoAno = porMunicipio.reduce((sum, m) => sum + (m.populacao || 0), 0);
       porAno = anos.map(ano => {
         let total = 0;
+        // Taxa: numerador e denominador só com municípios que têm população
+        // no ano (mesmo recorte do preprocess), para não inflar a taxa.
+        let obitosComPop = 0;
         let popAno = 0;
         municipiosFiltrados.forEach(codIbge => {
           const dadosAno = mortalidade.porMunicipioAno[codIbge]?.[ano];
           if (dadosAno) {
             total += dadosAno.obitos;
-            popAno += dadosAno.populacao || 0;
+            if (dadosAno.populacao) {
+              obitosComPop += dadosAno.obitos;
+              popAno += dadosAno.populacao;
+            }
           }
         });
+        const numerador = popAno > 0 ? obitosComPop : total;
         const popTotal = popAno > 0 ? popAno : popUltimoAno;
         return {
           ano,
           total,
-          taxa_bruta: popTotal > 0 ? parseFloat((total / popTotal * 1000).toFixed(2)) : 0
+          taxa_bruta: popTotal > 0 ? parseFloat((numerador / popTotal * 1000).toFixed(2)) : 0
         };
       });
     }

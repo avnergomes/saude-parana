@@ -197,16 +197,21 @@ def anexar_populacao(por_municipio_ano: dict, pop: dict) -> tuple[dict, set[int]
 
 
 def build_por_ano(por_municipio_ano: dict, anos: list[int]) -> list[dict]:
-    """Série estadual com taxa bruta calculada com a população do próprio ano."""
+    """Série estadual com taxa bruta calculada com a população do próprio ano.
+
+    O total conta todos os municípios; a taxa usa só os que têm população
+    (numerador e denominador no mesmo recorte, para não inflar a taxa)."""
     serie = []
     for ano in anos:
         registros = [d[ano] for d in por_municipio_ano.values() if ano in d]
+        com_pop = [d for d in registros if d["populacao"]]
         total = sum(d["obitos"] for d in registros)
-        pop_total = sum(d["populacao"] or 0 for d in registros)
+        obitos_com_pop = sum(d["obitos"] for d in com_pop)
+        pop_total = sum(d["populacao"] for d in com_pop)
         serie.append({
             "ano": ano,
             "total": total,
-            "taxa_bruta": round(total / pop_total * 1000, 2) if pop_total else None,
+            "taxa_bruta": round(obitos_com_pop / pop_total * 1000, 2) if pop_total else None,
         })
     return serie
 
@@ -340,9 +345,17 @@ def main() -> None:
                 "periodo": f"{ano_min}-{ano_max}",
                 "censos": censos,
                 "interpolados": sorted(interpolados),
+                "nota": "Anos sem dado oficial são preenchidos por interpolação linear entre os "
+                        "anos vizinhos (ou pelo mais próximo, nas pontas). As estimativas até 2021 "
+                        "têm base no Censo 2010 e as de 2024 em diante no Censo 2022; há quebra de "
+                        "série em 2022.",
             },
         },
-        "geografia": {"estado": "Parana", "municipios": len(por_municipio_ano), "regionaisIdr": 23},
+        "geografia": {
+            "estado": "Parana",
+            "municipios": len(por_municipio_ano),
+            "regionaisIdr": len(set(regional_por_cod.values())) or 23,
+        },
         "filtros": {"anosDisponiveis": anos, "anoMin": ano_min, "anoMax": ano_max},
     }
     write_json(PUBLIC_DATA_DIR / "metadata.json", metadata)

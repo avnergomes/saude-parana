@@ -3,6 +3,7 @@
 Rodar na raiz do repositório: py -3 -m pytest tests -q
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -83,6 +84,29 @@ def test_build_por_ano_usa_populacao_do_proprio_ano():
         {"ano": 2023, "total": 15, "taxa_bruta": 10.0},
         {"ano": 2024, "total": 12, "taxa_bruta": 6.0},
     ]
+
+
+def test_build_por_ano_ignora_municipio_sem_populacao_na_taxa():
+    por_mun = {
+        "a": {2024: {"obitos": 10, "populacao": 1000}},
+        "b": {2024: {"obitos": 50, "populacao": None}},
+    }
+    serie = pp.build_por_ano(por_mun, [2024])
+    # Total conta os dois; a taxa usa só "a" (10/1000), sem inflar com "b"
+    assert serie == [{"ano": 2024, "total": 60, "taxa_bruta": 10.0}]
+
+
+def test_data_atualizacao_vem_do_manifesto(tmp_path, monkeypatch):
+    manifesto = tmp_path / "_manifest.json"
+    monkeypatch.setattr(pp, "MANIFEST_PATH", manifesto)
+    assert pp.data_atualizacao() == pp.date.today().isoformat()
+
+    manifesto.write_text(json.dumps({
+        "a.json": {"alterado_em": "2026-06-11"},
+        "b.json": {"alterado_em": "2026-09-01"},
+        "c.json": {},
+    }), encoding="utf-8")
+    assert pp.data_atualizacao() == "2026-09-01"
 
 
 def test_build_por_municipio_ordena_por_obitos_e_calcula_taxa():
