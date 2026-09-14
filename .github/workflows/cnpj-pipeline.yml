@@ -1,0 +1,198 @@
+name: CNPJ Saúde - Receita Federal
+
+# Estabelecimentos de saúde do Paraná a partir dos Dados Abertos do CNPJ.
+# O dump mensal tem 10 partes (5,3 GB) que o servidor entrega a ~2 MB/s com
+# travamentos intermitentes, então cada parte é baixada e filtrada em um job
+# da matriz; só CSVs reduzidos e anônimos (sem CNPJ, nome ou contato) circulam
+# como artefato e o job final agrega tudo em cnpj_saude.json.
+#
+# Não há segredo: o "usuário" YggdBLfdninEJX9 usado no Basic auth do WebDAV é
+# o token do link público publicado na página de dados abertos da Receita
+# (o mesmo que o navegador usa ao abrir o compartilhamento). Ele fica em
+# scripts/cnpj/webdav.py; nada é lido de secrets.
+
+on:
+  schedule:
+    # Toda segunda-feira, 6h UTC. A Receita publica as 10 partes no 2º domingo
+    # do mês, à noite (UTC), entre os dias 9 e 14 (medido por PROPFIND em
+    # 2026-04 a 2026-08: 12/04, 10/05, 14/06, 12/07 e 09/08). A segunda-feira
+    # seguinte pega a competência nova; nas outras semanas o job "descobrir"
+    # vê que a competência já está publicada e o resto é pulado (só um PROPFIND).
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      pasta:
+        description: 'Competência AAAA-MM (vazio = mais recente completa)'
+        required: false
+        type: string
+
+# contents: commit dos dados. actions: disparar o deploy.yml via API (mesmo
+# motivo do data-pipeline.yml).
+permissions:
+  contents: write
+  actions: write
+
+env:
+  PYTHON_VERSION: '3.12'
+
+jobs:
+  descobrir:
+    name: Descobrir competência
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      pasta: ${{ steps.pasta.outputs.pasta }}
+      nova: ${{ steps.pasta.outputs.nova }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Escolher a pasta (entrada manual ou PROPFIND)
+        id: pasta
+        # "nova" evita baixar 5,3 GB para gerar um JSON idêntico: se a competência
+        # escolhida já é a de cnpj_saude.json, filtrar e consolidar são pulados.
+        # Uma competência informada à mão sempre é processada.
+        env:
+          PASTA_INFORMADA: ${{ inputs.pasta }}
+          JSON_ATUAL: dashboard/public/data/cnpj_saude.json
+        run: |
+          if [ -n "$PASTA_INFORMADA" ]; then
+            pasta="$PASTA_INFORMADA"
+          else
+            pasta="$(python scripts/cnpj/webdav.py --listar)"
+          fi
+          atual="$(python -c "import json,os;print(json.load(open(os.environ['JSON_ATUAL'],encoding='utf-8'))['metadata']['competencia'])" 2>/dev/null || true)"
+          if [ -n "$PASTA_INFORMADA" ] || [ "$pasta" != "$atual" ]; then
+            nova=true
+          else
+            nova=false
+          fi
+          echo "Competência: $pasta (publicada: ${atual:-nenhuma}; processar: $nova)"
+          echo "pasta=$pasta" >> "$GITHUB_OUTPUT"
+          echo "nova=$nova" >> "$GITHUB_OUTPUT"
+
+  filtrar:
+    name: Filtrar parte ${{ matrix.parte }}
+    needs: descobrir
+    # Pulado quando a competência já está publicada; consolidar depende deste
+    # job e é pulado junto, e o run termina como sucesso sem download.
+    if: needs.descobrir.outputs.nova == 'true'
+    runs-on: ubuntu-latest
+    # Parte 0 tem 2,2 GB (~17 min a 2 MB/s); as demais ~340 MB. O filtro em si
+    # leva ~20 s por parte. A folga cobre retomadas por Range.
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Baixar e filtrar (só PR, só saúde, sem identificadores)
+        run: >
+          python scripts/cnpj/filtrar.py
+          --pasta "${{ needs.descobrir.outputs.pasta }}"
+          --parte ${{ matrix.parte }}
+          --saida parte_${{ matrix.parte }}.csv
+
+      - name: Publicar CSV reduzido
+        uses: actions/upload-artifact@v7
+        with:
+          name: cnpj-parte-${{ matrix.parte }}
+          path: parte_${{ matrix.parte }}.csv
+          retention-days: 3
+          if-no-files-found: error
+
+  consolidar:
+    name: Consolidar e publicar
+    needs: [descobrir, filtrar]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt pytest
+
+      - name: Run tests
+        run: python -m pytest tests -q -k cnpj
+
+      - name: Baixar as 10 partes reduzidas
+        uses: actions/download-artifact@v8
+        with:
+          pattern: cnpj-parte-*
+          merge-multiple: true
+          path: partes
+
+      - name: Consolidar (exige as 10 partes)
+        run: >
+          python scripts/cnpj/consolidar.py
+          --partes partes
+          --pasta "${{ needs.descobrir.outputs.pasta }}"
+          --esperadas 10
+
+      - name: Check for changes
+        id: changes
+        # Só há diff quando os agregados mudam: a "atualizacao" vem do
+        # manifesto (hash do CSV reduzido), não do relógio.
+        run: |
+          git add dashboard/public/data/cnpj_saude.json data/raw/_manifest.json data/raw/cnpj
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.has_changes == 'true'
+        # O data-pipeline.yml (dia 1) pode ter comitado nesse meio-tempo:
+        # rebase antes do push para não falhar por histórico divergente.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(data): atualiza CNPJ saúde ${{ needs.descobrir.outputs.pasta }}"
+          git pull --rebase origin main
+          git push
+
+      - name: Trigger deploy workflow
+        # Commits do GITHUB_TOKEN não disparam workflows de push; sem este
+        # dispatch o site do Pages não recebe os dados novos.
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main'
+            });

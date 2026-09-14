@@ -1,7 +1,8 @@
 /**
  * Aba Rede de Saúde: estabelecimentos e leitos (CNES) e cobertura de planos
  * de saúde (ANS) para o recorte atual. O CNES é uma fotografia da
- * competência: o filtro de ano só vale para a série da ANS.
+ * competência: o filtro de ano só vale para a série da ANS. Ao final, o
+ * painel de empresas de saúde no CNPJ (Receita Federal).
  */
 
 import MapChart from '../MapChart';
@@ -11,6 +12,7 @@ import RankingTable from '../RankingTable';
 import TabKpis from '../TabKpis';
 import FonteNota from '../FonteNota';
 import SemDados from './SemDados';
+import EmpresasSaudePanel from './EmpresasSaudePanel';
 import { useRedeSaude, MAX_PONTOS } from '../../hooks/useRedeSaude';
 import { formatDecimal } from '../../hooks/agregacoes';
 import { formatNumber, formatPercent } from '../../utils/format';
@@ -73,6 +75,7 @@ function Destaques({ destaques, tipos }) {
 export default function RedeSaudeTab({
   dados,
   planos,
+  cnpj,
   geoData,
   geoError,
   onRetryGeo,
@@ -84,8 +87,28 @@ export default function RedeSaudeTab({
 }) {
   const rede = useRedeSaude(dados, planos, geoMap, filters, mortalidade);
 
+  // Props do painel do CNPJ (mapa, filtros e interações), iguais às da aba.
+  const painelCnpj = (
+    <EmpresasSaudePanel
+      cnpj={cnpj}
+      geoData={geoData}
+      geoError={geoError}
+      onRetryGeo={onRetryGeo}
+      geoMap={geoMap}
+      filters={filters}
+      onMunicipioClick={onMunicipioClick}
+      selectedMunicipio={selectedMunicipio}
+    />
+  );
+
   if (!dados) {
-    return <SemDados fonte="CNES (DATASUS) e ANS" />;
+    // Sem CNES a aba avisa, mas o painel do CNPJ (fonte independente) segue.
+    return (
+      <div className="space-y-6">
+        <SemDados fonte="CNES (DATASUS) e ANS" />
+        {painelCnpj}
+      </div>
+    );
   }
 
   const k = rede.kpis;
@@ -214,6 +237,8 @@ export default function RedeSaudeTab({
       </FonteNota>
 
       {temPlanos && planos.metadata && <FonteNota metadata={planos.metadata} />}
+
+      {painelCnpj}
     </div>
   );
 }

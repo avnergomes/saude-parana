@@ -186,6 +186,7 @@ function App() {
           <RedeSaudeTab
             dados={dominios.estabelecimentos}
             planos={dominios.planosSaude}
+            cnpj={dominios.cnpjSaude}
             mortalidade={filteredMortalidade}
             {...propsComuns}
           />

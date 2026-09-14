@@ -42,7 +42,8 @@ const DOMINIOS_OPCIONAIS = {
   financiamento: 'financiamento.json',
   atencaoPrimaria: 'atencao_primaria.json',
   arboviroses: 'arboviroses.json',
-  planosSaude: 'planos_saude.json'
+  planosSaude: 'planos_saude.json',
+  cnpjSaude: 'cnpj_saude.json'
 };
 
 async function fetchOpcional(arquivo) {
