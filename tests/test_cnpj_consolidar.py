@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import pytest
+import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
@@ -241,6 +242,48 @@ def test_executar_grava_json_manifesto_e_tabela_utf8(pasta_partes: Path, tmp_pat
     assert manifesto["cnpj/municipios_tom_ibge.csv"]["linhas"] == 5
     assert not (tmp_path / "raw" / "cnpj" / "estabelecimentos_pr_saude.csv").exists()  # só o hash
     assert gravado["metadata"]["atualizacao"] == manifesto["cnpj/estabelecimentos_pr_saude.csv"]["alterado_em"]
+
+
+class HttpGovBrRecusa:
+    def get(self, url, timeout=None):
+        raise requests.ConnectionError("gov.br recusou o runner")
+
+
+def test_executar_usa_a_tabela_versionada_se_o_gov_br_falhar(pasta_partes: Path, tmp_path: Path,
+                                                             monkeypatch):
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "pub")
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "MANIFEST_PATH", tmp_path / "raw" / "_manifest.json")
+    monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
+    monkeypatch.setattr(common, "populacao_municipal", lambda: POP)
+    monkeypatch.setattr(consolidar.webdav, "url_pasta",
+                        lambda fonte, competencia, http=None: f"https://espelho/{competencia}-09/")
+    copia = tmp_path / "raw" / consolidar.ARQUIVO_MUNICIPIOS
+    copia.parent.mkdir(parents=True)
+    copia.write_text(MUNICIPIOS_CSV, encoding="utf-8")
+    cfg = consolidar.Config(esperadas=2, limite_tom_nao_mapeado=0.5)
+
+    saida = consolidar.executar(pasta_partes, "2026-08", cfg, http=HttpGovBrRecusa(), fonte="espelho")
+
+    assert saida["totais"]["ativos"] == 5
+    assert saida["metadata"]["fonte"].endswith("conferida pela data de extração)")
+    assert "competência 2026-08" in saida["metadata"]["fonte"]
+    manifesto = json.loads((tmp_path / "raw" / "_manifest.json").read_text(encoding="utf-8"))
+    assert manifesto["cnpj/estabelecimentos_pr_saude.csv"]["url"] == "https://espelho/2026-08-09/"
+    assert manifesto["cnpj/municipios_tom_ibge.csv"]["url"] == consolidar.URL_MUNICIPIOS
+    assert copia.read_text(encoding="utf-8") == MUNICIPIOS_CSV  # cópia intacta
+
+
+def test_executar_falha_se_o_gov_br_falhar_sem_copia_versionada(pasta_partes: Path, tmp_path: Path,
+                                                                monkeypatch):
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "pub")
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "MANIFEST_PATH", tmp_path / "raw" / "_manifest.json")
+    monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
+    cfg = consolidar.Config(esperadas=2)
+    with pytest.raises(common.FonteIndisponivel, match="municipios.csv"):
+        consolidar.executar(pasta_partes, "2026-08", cfg, http=HttpGovBrRecusa())
+    assert not (tmp_path / "pub").exists()
 
 
 def test_executar_falha_com_partes_faltando_sem_gravar(pasta_partes: Path, tmp_path: Path, monkeypatch):

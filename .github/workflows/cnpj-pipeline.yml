@@ -10,6 +10,12 @@ name: CNPJ Saúde - Receita Federal
 # o token do link público publicado na página de dados abertos da Receita
 # (o mesmo que o navegador usa ao abrir o compartilhamento). Ele fica em
 # scripts/cnpj/webdav.py; nada é lido de secrets.
+#
+# Fonte: do GitHub Actions o servidor da Receita não aceita conexão (connect
+# timeout em todas as rotas, medido em 2026-09-14), então o modo "auto" sonda a
+# fonte oficial com uma tentativa curta e, sem resposta, usa o espelho público
+# da Casa dos Dados (mesmos arquivos, sha256 conferido). filtrar.py confere a
+# competência pela data de extração no nome do membro de cada zip.
 
 on:
   schedule:
@@ -25,6 +31,12 @@ on:
         description: 'Competência AAAA-MM (vazio = mais recente completa)'
         required: false
         type: string
+      fonte:
+        description: 'De onde baixar (auto = oficial se responder, senão espelho)'
+        required: false
+        type: choice
+        default: auto
+        options: [auto, oficial, espelho]
 
 # contents: commit dos dados. actions: disparar o deploy.yml via API (mesmo
 # motivo do data-pipeline.yml).
@@ -42,6 +54,7 @@ jobs:
     timeout-minutes: 15
     outputs:
       pasta: ${{ steps.pasta.outputs.pasta }}
+      fonte: ${{ steps.pasta.outputs.fonte }}
       nova: ${{ steps.pasta.outputs.nova }}
     steps:
       - name: Checkout
@@ -57,19 +70,26 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Escolher a pasta (entrada manual ou PROPFIND)
+      - name: Escolher fonte e competência (entrada manual ou listagem)
         id: pasta
         # "nova" evita baixar 5,3 GB para gerar um JSON idêntico: se a competência
         # escolhida já é a de cnpj_saude.json, filtrar e consolidar são pulados.
-        # Uma competência informada à mão sempre é processada.
+        # Uma competência informada à mão sempre é processada, mas antes é
+        # conferida (as 10 partes têm de existir na fonte escolhida).
         env:
           PASTA_INFORMADA: ${{ inputs.pasta }}
+          FONTE_INFORMADA: ${{ inputs.fonte || 'auto' }}
           JSON_ATUAL: dashboard/public/data/cnpj_saude.json
         run: |
+          set -euo pipefail
+          args=(--listar --fonte "$FONTE_INFORMADA")
           if [ -n "$PASTA_INFORMADA" ]; then
-            pasta="$PASTA_INFORMADA"
-          else
-            pasta="$(python scripts/cnpj/webdav.py --listar)"
+            args+=(--pasta "$PASTA_INFORMADA")
+          fi
+          read -r pasta fonte <<< "$(python scripts/cnpj/webdav.py "${args[@]}")"
+          if [ -z "${pasta:-}" ] || [ -z "${fonte:-}" ]; then
+            echo "::error::webdav.py --listar não devolveu competência e fonte"
+            exit 1
           fi
           atual="$(python -c "import json,os;print(json.load(open(os.environ['JSON_ATUAL'],encoding='utf-8'))['metadata']['competencia'])" 2>/dev/null || true)"
           if [ -n "$PASTA_INFORMADA" ] || [ "$pasta" != "$atual" ]; then
@@ -77,8 +97,9 @@ jobs:
           else
             nova=false
           fi
-          echo "Competência: $pasta (publicada: ${atual:-nenhuma}; processar: $nova)"
+          echo "Competência: $pasta via $fonte (publicada: ${atual:-nenhuma}; processar: $nova)"
           echo "pasta=$pasta" >> "$GITHUB_OUTPUT"
+          echo "fonte=$fonte" >> "$GITHUB_OUTPUT"
           echo "nova=$nova" >> "$GITHUB_OUTPUT"
 
   filtrar:
@@ -88,8 +109,9 @@ jobs:
     # job e é pulado junto, e o run termina como sucesso sem download.
     if: needs.descobrir.outputs.nova == 'true'
     runs-on: ubuntu-latest
-    # Parte 0 tem 2,2 GB (~17 min a 2 MB/s); as demais ~340 MB. O filtro em si
-    # leva ~20 s por parte. A folga cobre retomadas por Range.
+    # Parte 0 tem 2,2 GB (~17 min a 2 MB/s na fonte oficial; no espelho o runner
+    # mediu ~4 MB/s); as demais ~340 MB. O filtro em si leva ~20 s por parte. A
+    # folga cobre retomadas por Range.
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -113,6 +135,7 @@ jobs:
         run: >
           python scripts/cnpj/filtrar.py
           --pasta "${{ needs.descobrir.outputs.pasta }}"
+          --fonte "${{ needs.descobrir.outputs.fonte }}"
           --parte ${{ matrix.parte }}
           --saida parte_${{ matrix.parte }}.csv
 
@@ -158,6 +181,7 @@ jobs:
           python scripts/cnpj/consolidar.py
           --partes partes
           --pasta "${{ needs.descobrir.outputs.pasta }}"
+          --fonte "${{ needs.descobrir.outputs.fonte }}"
           --esperadas 10
 
       - name: Check for changes

@@ -260,6 +260,149 @@ def test_baixar_recomeca_se_o_total_anunciado_muda(tmp_path):
     assert http.chamadas == [{}, {"Range": "bytes=4-"}, {}]
 
 
+# ── Espelho (autoindex do Apache) ───────────────────────────────────────
+
+def linha_indice(href: str, tamanho: str) -> str:
+    """Uma <tr> no formato do autoindex do espelho (verificado em 2026-09-13)."""
+    return (f'<tr><td valign="top"><img src="/icons/compressed.gif" alt="[   ]"></td>'
+            f'<td><a href="{href}">{href}</a>  </td><td align="right">2026-08-20 18:18  </td>'
+            f'<td align="right">{tamanho}</td><td>&nbsp;</td></tr>\n')
+
+
+def indice(linhas: list[tuple[str, str]]) -> str:
+    cabecalho = ('<tr><th valign="top"><img src="/icons/blank.gif" alt="[ICO]"></th>'
+                 '<th><a href="?C=N;O=D">Name</a></th></tr>\n'
+                 '<tr><td valign="top"><img src="/icons/back.gif" alt="[PARENTDIR]"></td>'
+                 '<td><a href="/">Parent Directory</a></td><td>&nbsp;</td>'
+                 '<td align="right">  - </td><td>&nbsp;</td></tr>\n')
+    corpo = "".join(linha_indice(h, t) for h, t in linhas)
+    return (f"<html><body><h1>Index of /arquivos</h1><table>{cabecalho}{corpo}</table>"
+            "<script>(function(){/* desafio do Cloudflare */})();</script></body></html>")
+
+
+RAIZ_ESPELHO = indice([("2026-06-14/", "  - "), ("2026-07-12/", "  - "), ("2026-07-30/", "  - "),
+                       ("2026-08-09/", "  - "), ("leia-me.txt", "1.2K")])
+COPIA_COMPLETA = indice([("Cnaes.zip", " 22K"), ("Estabelecimentos0.zip", "2.0G")]
+                        + [(f"Estabelecimentos{i}.zip", "320M") for i in range(1, 10)])
+COPIA_INCOMPLETA = indice([(f"Estabelecimentos{i}.zip", "320M") for i in range(9)]
+                          + [("Estabelecimentos9.zip", "  0 ")])
+
+
+def test_tamanho_aproximado_le_o_formato_humano_do_apache():
+    assert webdav.tamanho_aproximado("320M") == 320 << 20
+    assert webdav.tamanho_aproximado(" 22K") == 22 << 10
+    assert webdav.tamanho_aproximado("2.0G") == 2 << 30
+    assert webdav.tamanho_aproximado("0") == 0
+    assert webdav.tamanho_aproximado("-") is None
+
+
+def test_interpretar_indice_ignora_parent_ordenacao_e_script():
+    entradas = webdav.interpretar_indice(RAIZ_ESPELHO)
+    assert [e.nome for e in entradas] == ["2026-06-14", "2026-07-12", "2026-07-30", "2026-08-09",
+                                          "leia-me.txt"]
+    assert all(e.pasta for e in entradas[:4]) and not entradas[4].pasta
+    assert webdav.partes_presentes(webdav.interpretar_indice(COPIA_COMPLETA)) == frozenset(range(10))
+    assert webdav.partes_presentes(webdav.interpretar_indice(COPIA_INCOMPLETA)) == frozenset(range(9))
+
+
+def test_pastas_espelho_mapeia_competencia_para_a_copia_mais_recente_do_mes():
+    mapa = webdav.pastas_espelho(webdav.interpretar_indice(RAIZ_ESPELHO))
+    assert mapa == {"2026-06": "2026-06-14", "2026-07": "2026-07-30", "2026-08": "2026-08-09"}
+
+
+class HttpIndice:
+    def __init__(self, paginas: dict[str, str]):
+        self._paginas = paginas
+        self.urls: list[str] = []
+
+    def get(self, url, timeout=None, **_):
+        self.urls.append(url)
+        caminho = url.removeprefix(webdav.URL_ESPELHO)
+        return RespostaIndice(self._paginas.get(caminho))
+
+
+class RespostaIndice:
+    def __init__(self, html: str | None):
+        self.status_code = 200 if html is not None else 404
+        self.text = html or ""
+
+    def raise_for_status(self) -> None:
+        if self.status_code >= 400:
+            raise requests.HTTPError(f"HTTP {self.status_code}")
+
+
+def test_pasta_mais_recente_no_espelho_volta_uma_competencia_se_a_ultima_esta_incompleta():
+    http = HttpIndice({"": RAIZ_ESPELHO, "2026-08-09/": COPIA_INCOMPLETA,
+                       "2026-07-30/": COPIA_COMPLETA})
+    assert webdav.pasta_mais_recente(http=http, cfg=CFG, fonte="espelho") == "2026-07"
+    assert [u.removeprefix(webdav.URL_ESPELHO) for u in http.urls] == ["", "2026-08-09/",
+                                                                       "2026-07-30/"]
+
+
+def test_listar_espelho_falha_com_pagina_sem_entradas():
+    # Um desafio do Cloudflare ou um layout novo não pode virar "nenhuma pasta".
+    http = HttpIndice({"": "<html><body>Just a moment...</body></html>"})
+    with pytest.raises(common.FonteIndisponivel, match="índice vazio"):
+        webdav.listar_espelho("", http=http, cfg=CFG)
+
+
+def test_localizar_parte_no_espelho_usa_a_pasta_da_copia_e_nao_autentica():
+    http = HttpIndice({"": RAIZ_ESPELHO})
+    url, autenticar = webdav.localizar_parte("espelho", "2026-08", 5, http=http, cfg=CFG)
+    assert url == webdav.URL_ESPELHO + "2026-08-09/Estabelecimentos5.zip"
+    assert autenticar is False
+    assert webdav.localizar_parte("oficial", "2026-08", 5) == (
+        webdav.URL_BASE + "2026-08/Estabelecimentos5.zip", True)
+
+
+def test_pasta_espelho_falha_se_a_competencia_nao_foi_copiada():
+    http = HttpIndice({"": RAIZ_ESPELHO})
+    with pytest.raises(common.FonteIndisponivel, match="2026-09 não está no espelho"):
+        webdav.pasta_espelho("2026-09", http=http, cfg=CFG)
+
+
+def test_url_parte_espelho_valida_a_data_da_copia():
+    assert webdav.url_parte_espelho("2026-08-09", 0).endswith("/2026-08-09/Estabelecimentos0.zip")
+    with pytest.raises(ValueError):
+        webdav.url_parte_espelho("2026-08", 0)
+
+
+def test_escolher_fonte_auto_cai_para_o_espelho_quando_a_oficial_nao_responde(monkeypatch):
+    chamadas = []
+
+    def propfind_mudo(caminho, http=None, cfg=webdav.CONFIG):
+        chamadas.append((cfg.tentativas, cfg.timeout_conexao))
+        raise common.FonteIndisponivel("PROPFIND /: sem sucesso após 1 tentativas")
+
+    monkeypatch.setattr(webdav, "propfind", propfind_mudo)
+    assert webdav.escolher_fonte("auto") == "espelho"
+    assert chamadas == [(1, webdav.CONFIG.timeout_sonda)]  # uma sonda curta, não 6 tentativas
+    assert webdav.escolher_fonte("oficial") == "oficial"  # forçada: nem sonda
+    assert len(chamadas) == 1
+    with pytest.raises(ValueError):
+        webdav.escolher_fonte("ftp")
+
+
+def test_escolher_fonte_auto_fica_na_oficial_quando_ela_responde(monkeypatch):
+    monkeypatch.setattr(webdav, "propfind", lambda caminho, http=None, cfg=None: ())
+    assert webdav.escolher_fonte("auto") == "oficial"
+
+
+def test_baixar_do_espelho_nao_envia_basic_auth(tmp_path):
+    enviados = []
+
+    class HttpAuth(HttpFalso):
+        def get(self, url, stream=False, headers=None, auth=None, timeout=None):
+            enviados.append(auth)
+            return super().get(url, stream, headers, auth, timeout)
+
+    http = HttpAuth([RespostaFalsa(200, {"Content-Length": "3"}, [b"abc"])])
+    webdav.baixar("http://espelho/p.zip", tmp_path / "p.zip", http=http, cfg=CFG, autenticar=False)
+    http = HttpAuth([RespostaFalsa(200, {"Content-Length": "3"}, [b"abc"])])
+    webdav.baixar("http://oficial/p.zip", tmp_path / "q.zip", http=http, cfg=CFG)
+    assert enviados == [None, ("YggdBLfdninEJX9", "")]
+
+
 def test_interpretar_content_range_aceita_so_o_formato_bytes():
     assert webdav.interpretar_content_range("bytes 4-9/10") == (4, 10)
     assert webdav.interpretar_content_range("bytes 4-9/*") == (4, None)

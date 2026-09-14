@@ -7,8 +7,10 @@ em dashboard/public/data/cnpj_saude.json: agregados por município e classe CNAE
 Município: o campo MUNICIPIO do CNPJ é o código TOM da jurisdição fiscal, não
 IBGE. A tabela oficial TOM -> IBGE (municipios.csv, gov.br/receitafederal) é
 baixada, versionada em data/raw/cnpj/ e validada contra os 399 códigos do
-geo_map.json. No CSV o TOM vem sem zeros à esquerda ('830'); no ESTABELE vem
-com 4 dígitos ('0830'): os dois lados são normalizados antes do cruzamento.
+geo_map.json. Se www.gov.br recusar o runner (como em 2026-09-14), vale a cópia
+versionada, com aviso no log; sem cópia, é falha. No CSV o TOM vem sem zeros à
+esquerda ('830'); no ESTABELE vem com 4 dígitos ('0830'): os dois lados são
+normalizados antes do cruzamento.
 
 Regras de contagem: estabelecimento de saúde = CNAE principal na divisão 86 ou
 farmácia (4771-7/01 a 03); ativo = situação cadastral 02; as contagens por grupo
@@ -23,7 +25,7 @@ linhasInvalidas (linhas malformadas nas partes + linhas sem CNAE de saúde) e
 partesRecebidas; servem para auditar perdas silenciosas.
 
 Uso: python scripts/cnpj/consolidar.py --partes ./partes --pasta 2026-08 [--esperadas 10]
-     [--saida-dir DIR]  (modo de ensaio: JSON, manifesto e brutos vão para DIR)
+     [--fonte oficial|espelho] [--saida-dir DIR]  (ensaio: JSON, manifesto e brutos vão para DIR)
 """
 
 from __future__ import annotations
@@ -45,7 +47,7 @@ import requests
 if str(Path(__file__).resolve().parents[1]) not in sys.path:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from cnpj import cnae, filtrar  # noqa: E402
+from cnpj import cnae, filtrar, webdav  # noqa: E402
 from cnpj.filtrar import LinhaReduzida  # noqa: E402
 from etl import common  # noqa: E402
 
@@ -58,6 +60,8 @@ CABECALHO_MUNICIPIOS = ("CÓDIGO DO MUNICÍPIO - TOM", "CÓDIGO DO MUNICÍPIO - 
 
 FONTE = ("Receita Federal do Brasil, Dados Abertos do CNPJ (arquivo Estabelecimentos), "
          "competência {competencia}")
+FONTE_ESPELHO = (", arquivos oficiais obtidos pelo espelho público da Casa dos Dados "
+                 "(cópia sem alteração, conferida pela data de extração)")
 CRITERIO = ("CNAE fiscal principal na divisão 86 (atenção à saúde humana) ou farmácias "
             "(4771-7/01 a 03); município pela jurisdição fiscal (código TOM) convertido para IBGE")
 NOTA = ("Somente agregados por município e classe CNAE, sem nenhum dado individual (LGPD art. 12). "
@@ -119,6 +123,19 @@ def baixar_municipios(http: requests.Session, url: str = URL_MUNICIPIOS) -> str:
     if not texto.startswith(CABECALHO_MUNICIPIOS[0]):
         raise common.FonteIndisponivel("municipios.csv: cabeçalho inesperado")
     return texto if texto.endswith("\n") else texto + "\n"
+
+
+def obter_municipios(http: requests.Session) -> str:
+    """Tabela TOM -> IBGE baixada agora ou, se o gov.br falhar, a cópia versionada
+    em data/raw/cnpj/ (já em UTF-8). O mapa continua validado contra o geo_map."""
+    try:
+        return baixar_municipios(http)
+    except common.FonteIndisponivel as exc:
+        copia = common.RAW_DIR / ARQUIVO_MUNICIPIOS
+        if not copia.exists():
+            raise
+        log.warning("  %s; usando a cópia versionada %s", exc, ARQUIVO_MUNICIPIOS)
+        return copia.read_text(encoding="utf-8")
 
 
 def normalizar_tom(tom: str) -> str:
@@ -270,12 +287,13 @@ def montar_grupos(por_municipio: Mapping[str, Mapping[str, int]]) -> list[dict]:
 
 def montar_saida(agregado: Agregado, partes_recebidas: int, competencia: str,
                  atualizacao: str, geo: Mapping[str, Mapping[str, str]], pop: Mapping,
-                 cfg: Config = CONFIG) -> dict:
+                 cfg: Config = CONFIG, fonte: str = "oficial") -> dict:
     ano_pop = max((ano for anos in pop.values() for ano in anos), default=int(competencia[:4]))
     por_municipio = montar_por_municipio(agregado, geo, pop, ano_pop)
     return {
         "metadata": {
-            "fonte": FONTE.format(competencia=competencia),
+            "fonte": FONTE.format(competencia=competencia)
+                     + (FONTE_ESPELHO if fonte == "espelho" else ""),
             "competencia": competencia,
             "atualizacao": atualizacao,
             "criterio": CRITERIO,
@@ -299,14 +317,14 @@ def montar_saida(agregado: Agregado, partes_recebidas: int, competencia: str,
 # ── Orquestração ────────────────────────────────────────────────────────
 
 def registrar_brutos(manifesto: dict, texto_municipios: str, linhas: Sequence[LinhaReduzida],
-                     competencia: str) -> dict:
+                     url_origem: str) -> dict:
     """Novo manifesto: tabela TOM -> IBGE gravada; CSV reduzido concatenado só com hash."""
     novo = common.registrar_texto(manifesto, ARQUIVO_MUNICIPIOS, texto_municipios,
                                   DESC_MUNICIPIOS, URL_MUNICIPIOS,
                                   linhas=texto_municipios.count("\n") - 1)
-    url = f"https://arquivos.receitafederal.gov.br/public.php/webdav/{competencia}/"
     return common.registrar_texto(novo, ARQUIVO_ESTABELECIMENTOS, filtrar.serializar(linhas),
-                                  DESC_ESTABELECIMENTOS, url, linhas=len(linhas), persistir=False)
+                                  DESC_ESTABELECIMENTOS, url_origem, linhas=len(linhas),
+                                  persistir=False)
 
 
 def verificar_descartes(agregado: Agregado, total: int, cfg: Config = CONFIG) -> None:
@@ -316,27 +334,37 @@ def verificar_descartes(agregado: Agregado, total: int, cfg: Config = CONFIG) ->
             f"(limite {cfg.limite_tom_nao_mapeado:.0%})")
 
 
+def url_origem(fonte: str, competencia: str, http: requests.Session) -> str:
+    """Pasta da competência na fonte usada; se o espelho não listar agora, fica a raiz dele
+    (o manifesto só registra a origem, a conferência da competência já foi feita no filtro)."""
+    try:
+        return webdav.url_pasta(fonte, competencia, http)
+    except common.FonteIndisponivel as exc:
+        log.warning("  origem exata indisponível (%s); registrando a raiz da fonte", exc)
+        return webdav.URL_ESPELHO if fonte == "espelho" else webdav.URL_BASE
+
+
 def executar(pasta_partes: Path, competencia: str, cfg: Config = CONFIG,
-             http: requests.Session | None = None) -> dict:
+             http: requests.Session | None = None, fonte: str = "oficial") -> dict:
     """Lê as partes, cruza TOM -> IBGE, agrega e grava cnpj_saude.json; devolve a saída."""
     inicio = time.perf_counter()
     http = http or common.sessao()
     partes = ler_partes(pasta_partes, cfg)
     geo = common.geo_municipios()
-    texto_municipios = baixar_municipios(http)
+    texto_municipios = obter_municipios(http)
     tom_ibge = mapa_tom_ibge(texto_municipios, cfg.uf)
     validar_mapa(tom_ibge, geo)
     agregado = agregar(partes.linhas, tom_ibge, geo)
     verificar_descartes(agregado, len(partes.linhas), cfg)
     manifesto = registrar_brutos(common.carregar_manifesto(), texto_municipios, partes.linhas,
-                                 competencia)
+                                 url_origem(fonte, competencia, http))
     atualizacao = common.alterado_em(manifesto, [ARQUIVO_MUNICIPIOS, ARQUIVO_ESTABELECIMENTOS])
     # Linhas malformadas das partes (contagem de campos errada) também são perda e
     # entram em descartados.linhasInvalidas, junto com as linhas sem CNAE de saúde.
     com_malformadas = replace(agregado,
                               linhas_invalidas=agregado.linhas_invalidas + partes.invalidas)
     saida = montar_saida(com_malformadas, partes.recebidas, competencia, atualizacao, geo,
-                         common.populacao_municipal(), cfg)
+                         common.populacao_municipal(), cfg, fonte)
     common.salvar_manifesto(manifesto)
     common.escrever_json(SAIDA, saida)
     log.info("  Totais: %s; descartados: %s (%.1f s)", saida["totais"],
@@ -360,6 +388,8 @@ def main() -> int:
     parser.add_argument("--pasta", required=True, help="competência AAAA-MM das partes")
     parser.add_argument("--esperadas", type=int, default=CONFIG.esperadas,
                         help="número mínimo de partes (padrão: 10)")
+    parser.add_argument("--fonte", choices=("oficial", "espelho"), default="oficial",
+                        help="fonte de onde as partes foram baixadas (metadados e manifesto)")
     parser.add_argument("--saida-dir", help="modo de ensaio: grava tudo nesta pasta")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -369,7 +399,7 @@ def main() -> int:
         redirecionar_saidas(Path(args.saida_dir))
     cfg = Config(esperadas=args.esperadas)
     try:
-        executar(Path(args.partes), args.pasta, cfg)
+        executar(Path(args.partes), args.pasta, cfg, fonte=args.fonte)
     except common.FonteIndisponivel as exc:
         log.error("ERRO: %s", exc)
         return 1

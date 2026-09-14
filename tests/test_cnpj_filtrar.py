@@ -155,6 +155,54 @@ def test_main_com_zip_nao_baixa_nem_apaga_o_zip(zip_parte: Path, tmp_path: Path,
     assert saida.exists() and zip_parte.exists()
 
 
+def test_conferir_competencia_pela_data_de_extracao_no_nome_do_membro():
+    filtrar.conferir_competencia("K3241.K03200Y5.D60808.ESTABELE", "2026-08")
+    filtrar.conferir_competencia("K3241.K03200Y9.D41214.ESTABELE", "2024-12")
+    with pytest.raises(common.FonteIndisponivel, match="outra competência"):
+        filtrar.conferir_competencia("K3241.K03200Y9.D60711.ESTABELE", "2026-08")  # mês errado
+    with pytest.raises(common.FonteIndisponivel, match="outra competência"):
+        filtrar.conferir_competencia("K3241.K03200Y9.D50808.ESTABELE", "2026-08")  # ano errado
+    with pytest.raises(common.FonteIndisponivel, match="sem data"):
+        filtrar.conferir_competencia("ESTABELE.csv", "2026-08")
+
+
+def test_main_com_pasta_confere_a_competencia_antes_de_gravar(zip_parte: Path, tmp_path: Path,
+                                                              monkeypatch):
+    saida = tmp_path / "parte_5.csv"
+    monkeypatch.setattr(sys, "argv", ["filtrar.py", "--parte", "5", "--zip", str(zip_parte),
+                                      "--pasta", "2026-07", "--saida", str(saida)])
+    assert filtrar.main() == 1
+    assert not saida.exists()
+    monkeypatch.setattr(sys, "argv", ["filtrar.py", "--parte", "5", "--zip", str(zip_parte),
+                                      "--pasta", "2026-08", "--saida", str(saida)])
+    assert filtrar.main() == 0
+    assert saida.exists()
+
+
+def test_main_baixa_da_fonte_pedida(tmp_path: Path, monkeypatch):
+    pedidos = []
+
+    def localizar(fonte, competencia, n):
+        pedidos.append((fonte, competencia, n))
+        return f"https://espelho/{competencia}-09/Estabelecimentos{n}.zip", False
+
+    def baixar(url, destino, autenticar=True):
+        pedidos.append((url, autenticar))
+        zip_estabele(destino, LINHAS)
+        return destino.stat().st_size
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(filtrar.webdav, "localizar_parte", localizar)
+    monkeypatch.setattr(filtrar.webdav, "baixar", baixar)
+    monkeypatch.setattr(sys, "argv", ["filtrar.py", "--parte", "5", "--pasta", "2026-08",
+                                      "--fonte", "espelho", "--saida", "parte_5.csv"])
+    assert filtrar.main() == 0
+    assert pedidos == [("espelho", "2026-08", 5),
+                       ("https://espelho/2026-08-09/Estabelecimentos5.zip", False)]
+    assert (tmp_path / "parte_5.csv").exists()
+    assert not (tmp_path / "Estabelecimentos5.zip").exists()  # zip apagado depois do filtro
+
+
 def test_main_devolve_1_quando_a_parte_nao_tem_pr(tmp_path: Path, monkeypatch):
     zip_sc = zip_estabele(tmp_path / "sc.zip", [linha_estabele(uf="SC")])
     monkeypatch.setattr(sys, "argv", ["filtrar.py", "--parte", "0", "--zip", str(zip_sc),

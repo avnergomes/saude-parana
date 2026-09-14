@@ -14,11 +14,17 @@ Saída (UTF-8, ';'): matriz_filial;situacao;data_inicio;cnae_principal;
 cnaes_secundarias_saude;tom. Nunca entram CNPJ, nome, endereço, CEP, telefone
 ou e-mail (LGPD): o artefato que sai do runner já é anônimo.
 
-Uso: python scripts/cnpj/filtrar.py --pasta 2026-08 --parte 5 [--saida parte_5.csv]
-     python scripts/cnpj/filtrar.py --parte 5 --zip Estabelecimentos5.zip   (sem download)
+Competência: o nome do membro traz a data de extração (D<ano, 1 dígito><mês><dia>,
+ex.: D60808 = 08/08/2026), sempre no mês da competência (conferido em 7 cópias de
+2024-08 a 2026-08). Com --pasta, ano e mês do membro têm de bater: é o que impede
+que uma pasta do espelho mapeada para a competência errada vire dado publicado.
 
-Falha com saída diferente de zero em erro HTTP, contagem de campos errada ou
-zero linhas do PR: um download truncado nunca vira artefato parcial em silêncio.
+Uso: python scripts/cnpj/filtrar.py --pasta 2026-08 --parte 5 [--fonte espelho] [--saida parte_5.csv]
+     python scripts/cnpj/filtrar.py --parte 5 --zip Estabelecimentos5.zip [--pasta 2026-08]   (sem download)
+
+Falha com saída diferente de zero em erro HTTP, contagem de campos errada,
+competência do membro diferente da pedida ou zero linhas do PR: um download
+truncado nunca vira artefato parcial em silêncio.
 """
 
 from __future__ import annotations
@@ -27,6 +33,7 @@ import argparse
 import csv
 import io
 import logging
+import re
 import sys
 import time
 import zipfile
@@ -44,6 +51,8 @@ CABECALHO: tuple[str, ...] = ("matriz_filial", "situacao", "data_inicio", "cnae_
                               "cnaes_secundarias_saude", "tom")
 SEPARADOR = ";"
 SEPARADOR_SECUNDARIAS = ","
+# '.D60808.' no nome do membro: último dígito do ano, mês e dia da extração.
+PADRAO_DATA_MEMBRO = re.compile(r"\.D(\d)(\d{2})(\d{2})\.")
 
 log = logging.getLogger("cnpj.filtrar")
 
@@ -91,6 +100,30 @@ def membro_estabelecimentos(zf: zipfile.ZipFile) -> zipfile.ZipInfo:
         raise common.FonteIndisponivel(
             f"zip com {len(membros)} membros, esperado 1: {[m.filename for m in membros]}")
     return membros[0]
+
+
+def conferir_competencia(nome_membro: str, competencia: str) -> None:
+    """Falha se a data de extração no nome do membro não é do ano e mês da competência."""
+    m = PADRAO_DATA_MEMBRO.search(nome_membro)
+    if m is None:
+        raise common.FonteIndisponivel(f"membro {nome_membro!r} sem data de extração (.DAMMDD.)")
+    digito_ano, mes = m.group(1), m.group(2)
+    if digito_ano != competencia[3] or mes != competencia[5:7]:
+        raise common.FonteIndisponivel(
+            f"membro {nome_membro!r} é de outra competência (ano ...{digito_ano}, mês {mes}); "
+            f"pedida {competencia}")
+
+
+def competencia_do_zip(caminho_zip: Path, competencia: str) -> str:
+    """Confere o membro do zip contra a competência; devolve o nome do membro."""
+    try:
+        with zipfile.ZipFile(caminho_zip) as zf:
+            nome = membro_estabelecimentos(zf).filename
+    except (zipfile.BadZipFile, OSError) as exc:
+        raise common.FonteIndisponivel(f"zip inválido ou truncado {caminho_zip.name}: {exc}") from exc
+    conferir_competencia(nome, competencia)
+    log.info("  membro %s confere com a competência %s", nome, competencia)
+    return nome
 
 
 def ler_linhas(caminho_zip: Path, cfg: Config = CONFIG) -> Iterator[list[str]]:
@@ -161,8 +194,11 @@ def escrever_reduzido(linhas: Iterable[LinhaReduzida], destino: Path) -> Path:
 
 # ── Orquestração ────────────────────────────────────────────────────────
 
-def processar(caminho_zip: Path, destino: Path, cfg: Config = CONFIG) -> Contagem:
+def processar(caminho_zip: Path, destino: Path, cfg: Config = CONFIG,
+              competencia: str | None = None) -> Contagem:
     inicio = time.perf_counter()
+    if competencia:
+        competencia_do_zip(caminho_zip, competencia)
     linhas, contagem = filtrar_linhas(ler_linhas(caminho_zip, cfg), cfg)
     escrever_reduzido(linhas, destino)
     log.info("  %s: %d linhas lidas, %d da UF %s, %d de saúde (%.0f s)", caminho_zip.name,
@@ -173,26 +209,31 @@ def processar(caminho_zip: Path, destino: Path, cfg: Config = CONFIG) -> Contage
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--pasta", help="competência AAAA-MM (obrigatória sem --zip)")
+    parser.add_argument("--pasta", help="competência AAAA-MM (obrigatória sem --zip; com --zip, "
+                                        "confere o membro)")
     parser.add_argument("--parte", type=int, required=True, choices=range(webdav.NUM_PARTES),
                         help="índice da parte Estabelecimentos<n>.zip")
+    parser.add_argument("--fonte", choices=("oficial", "espelho"), default="oficial",
+                        help="de onde baixar: WebDAV da Receita (padrão) ou espelho")
     parser.add_argument("--saida", help="CSV reduzido (padrão: parte_<n>.csv)")
     parser.add_argument("--zip", help="zip já baixado; pula o download e não o apaga")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    if args.pasta and not webdav.PADRAO_PASTA.match(args.pasta):
+        parser.error(f"--pasta deve ser AAAA-MM, recebido {args.pasta!r}")
 
     destino = Path(args.saida or f"parte_{args.parte}.csv")
     try:
         if args.zip:
-            processar(Path(args.zip), destino)
+            processar(Path(args.zip), destino, competencia=args.pasta)
             return 0
         if not args.pasta:
             parser.error("--pasta é obrigatório quando não há --zip")
-        url = webdav.url_parte(args.pasta, args.parte)
+        url, autenticar = webdav.localizar_parte(args.fonte, args.pasta, args.parte)
         caminho_zip = Path.cwd() / webdav.NOME_PARTE.format(n=args.parte)
-        log.info("CNPJ: baixando %s", url)
-        webdav.baixar(url, caminho_zip)
-        processar(caminho_zip, destino)
+        log.info("CNPJ: baixando %s (fonte %s)", url, args.fonte)
+        webdav.baixar(url, caminho_zip, autenticar=autenticar)
+        processar(caminho_zip, destino, competencia=args.pasta)
         caminho_zip.unlink()
     except common.FonteIndisponivel as exc:
         log.error("ERRO: %s", exc)

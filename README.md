@@ -121,11 +121,11 @@ O workflow `data-pipeline.yml` roda no dia 1 de cada mês (ou manualmente):
 
 O workflow `cnpj-pipeline.yml` roda toda segunda-feira às 6h UTC (ou manualmente, com a competência `AAAA-MM` opcional). A Receita publica a competência nova no 2º domingo do mês, entre os dias 9 e 14, à noite; a segunda-feira seguinte é a primeira execução que a encontra, e nas outras semanas o run custa só uma consulta ao servidor. O dump do CNPJ tem 10 partes que somam 5,3 GB e o servidor da Receita entrega a cerca de 2 MB/s, então o trabalho é dividido:
 
-1. `descobrir`: consulta o compartilhamento público (WebDAV), escolhe a competência mais recente com as 10 partes de Estabelecimentos e a compara com a de `cnpj_saude.json`; se for a mesma, os jobs seguintes são pulados (uma competência informada à mão é sempre processada).
-2. `filtrar` (matriz de 10 jobs, um por parte, sem `fail-fast`): baixa a parte em streaming com retomada por Range, lê o zip em Latin-1, mantém só o Paraná e só CNAE de saúde e publica um CSV reduzido com seis colunas de código como artefato de 3 dias. CNPJ, nome, endereço e contatos nunca saem do runner. Zero linhas do PR, contagem de campos errada ou erro HTTP derrubam o job.
+1. `descobrir`: escolhe a fonte e a competência. O servidor da Receita não aceita conexões vindas do GitHub Actions, então, no modo `auto` (padrão), uma sondagem de 10 s decide entre o WebDAV oficial e o espelho público da Casa dos Dados, que guarda os mesmos arquivos. Em seguida escolhe a competência mais recente com as 10 partes de Estabelecimentos e a compara com a de `cnpj_saude.json`; se for a mesma, os jobs seguintes são pulados (uma competência informada à mão é sempre processada, depois de conferida).
+2. `filtrar` (matriz de 10 jobs, um por parte, sem `fail-fast`): baixa a parte em streaming com retomada por Range, confere se a data de extração no nome do membro do zip é da competência pedida, lê o zip em Latin-1, mantém só o Paraná e só CNAE de saúde e publica um CSV reduzido com seis colunas de código como artefato de 3 dias. CNPJ, nome, endereço e contatos nunca saem do runner. Zero linhas do PR, competência divergente, contagem de campos errada ou erro HTTP derrubam o job.
 3. `consolidar`: baixa os 10 artefatos, exige que todos estejam presentes, converte o código TOM em IBGE com a tabela oficial da Receita, agrega por município e classe CNAE em `cnpj_saude.json`, comita (com `git pull --rebase` antes do push, porque o pipeline mensal pode ter comitado nesse meio-tempo) e dispara o deploy.
 
-Não há segredo envolvido: o token no endereço do WebDAV é o identificador do link público da Receita, o mesmo que o navegador usa.
+Não há segredo envolvido: o token no endereço do WebDAV é o identificador do link público da Receita, o mesmo que o navegador usa, e o espelho não pede autenticação. O disparo manual aceita `fonte` (`auto`, `oficial` ou `espelho`) além da competência.
 
 ---
 
