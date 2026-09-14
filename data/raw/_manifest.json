@@ -55,6 +55,20 @@
     "sha256": "e385850e757755dd32ee76abee842a74198cf5c80f1a08cd0511f225aac42499",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/CNES/cnes_estabelecimentos_csv.zip"
   },
+  "cnpj/estabelecimentos_pr_saude.csv": {
+    "alterado_em": "2026-09-14",
+    "descricao": "CNPJ Estabelecimentos, PR e saúde, colunas reduzidas sem identificadores (concatenação das 10 partes; só o hash entra no manifesto)",
+    "linhas": 130202,
+    "sha256": "562a090d937a1c94533f85d045d31942eb96355ad82266f07544cf335357b747",
+    "url": "https://dados-abertos-rf-cnpj.casadosdados.com.br/arquivos/2026-08-09/"
+  },
+  "cnpj/municipios_tom_ibge.csv": {
+    "alterado_em": "2026-09-14",
+    "descricao": "Tabela TOM -> IBGE de municípios (Receita Federal), Latin-1 convertida para UTF-8",
+    "linhas": 5571,
+    "sha256": "74f6e3321132d54eace82cfd3a45b19c8d653a055af9660caf3270b9fdacb993",
+    "url": "https://www.gov.br/receitafederal/dados/municipios.csv"
+  },
   "infodengue/dengue_pr.json": {
     "alterado_em": "2026-09-13",
     "descricao": "InfoDengue, dengue: registros semanais por município do PR",
