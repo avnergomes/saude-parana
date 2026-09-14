@@ -1,0 +1,101 @@
+name: CNPJ diagnóstico de rede (descartável)
+
+# Descobre por que o PROPFIND no compartilhamento da Receita falha a partir do
+# runner do GitHub (RemoteDisconnected em todas as tentativas do run #1 do
+# cnpj-pipeline.yml, enquanto de um IP no Brasil a mesma chamada responde).
+# Cada probe é um step com continue-on-error: o resultado por rota fica
+# visível na API de jobs sem precisar abrir o log.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cnpj-diagnostico.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BASE: https://arquivos.receitafederal.gov.br
+  TOKEN: YggdBLfdninEJX9
+  PASTA: '2026-08'
+  PARTE: Estabelecimentos5.zip
+  FMT: '\nHTTP %{http_code} %{http_version} em %{time_total}s, remoto %{remote_ip}\n'
+  UA_NAV: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36'
+
+jobs:
+  probes:
+    name: Probes a partir do runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Egresso do runner (IP, país, DNS do host)
+        continue-on-error: true
+        run: |
+          curl -sS --max-time 20 https://ipinfo.io/json || true
+          echo
+          getent ahosts arquivos.receitafederal.gov.br || true
+
+      - name: GET raiz do host
+        continue-on-error: true
+        run: curl -sS -f --max-time 40 -o /dev/null -w "$FMT" "$BASE/"
+
+      - name: GET status.php do Nextcloud
+        continue-on-error: true
+        run: curl -sS -f --max-time 40 -w "$FMT" "$BASE/status.php"
+
+      - name: PROPFIND public.php/webdav (Basic, como o pipeline)
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
+
+      - name: PROPFIND forçando HTTP/1.1
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 --http1.1 -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
+
+      - name: PROPFIND com User-Agent de navegador
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -A "$UA_NAV" -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
+
+      - name: GET public.php/webdav Range 0-0 (Basic)
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -r 0-0 -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/$PASTA/$PARTE"
+
+      - name: GET public.php/dav/files sem auth Range 0-0
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -r 0-0
+          -o /dev/null -w "$FMT" "$BASE/public.php/dav/files/$TOKEN/$PASTA/$PARTE"
+
+      - name: GET /s/token/download (sem seguir redirect)
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -r 0-0 -D - -o /dev/null -w "$FMT"
+          "$BASE/s/$TOKEN/download?path=%2F$PASTA&files=$PARTE"
+
+      - name: GET com User-Agent de navegador Range 0-0 (Basic)
+        continue-on-error: true
+        run: >
+          curl -sS -f --max-time 40 -A "$UA_NAV" -r 0-0 -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/$PASTA/$PARTE"
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Python requests, mesmo código do pipeline (--listar)
+        continue-on-error: true
+        run: |
+          pip install -q -r scripts/requirements.txt
+          python scripts/cnpj/webdav.py --listar
