@@ -1,10 +1,14 @@
 name: CNPJ diagnóstico de rede (descartável)
 
-# Descobre por que o PROPFIND no compartilhamento da Receita falha a partir do
-# runner do GitHub (RemoteDisconnected em todas as tentativas do run #1 do
-# cnpj-pipeline.yml, enquanto de um IP no Brasil a mesma chamada responde).
-# Cada probe é um step com continue-on-error: o resultado por rota fica
-# visível na API de jobs sem precisar abrir o log.
+# Rodada 1 (run 34795030619) mostrou que, do runner do GitHub, o connect() para
+# arquivos.receitafederal.gov.br:443 não completa (timeout de 30 s em todas as
+# rotas, inclusive a raiz do host), enquanto de um IP no Brasil responde em
+# 0,3 s: o Serpro não atende as faixas do Azure. Rodada 2 testa as saídas:
+# o espelho dos mesmos arquivos (Casa dos Dados, Cloudflare) e www.gov.br,
+# de onde o consolidar baixa municipios.csv.
+#
+# Cada probe é um step com if: always(): a conclusão de cada um (success ou
+# failure) fica visível na API de jobs sem precisar abrir o log.
 
 on:
   push:
@@ -16,12 +20,13 @@ permissions:
   contents: read
 
 env:
-  BASE: https://arquivos.receitafederal.gov.br
+  OFICIAL: https://arquivos.receitafederal.gov.br
   TOKEN: YggdBLfdninEJX9
-  PASTA: '2026-08'
+  ESPELHO: https://dados-abertos-rf-cnpj.casadosdados.com.br/arquivos
+  PASTA_ESPELHO: '2026-08-09'
   PARTE: Estabelecimentos5.zip
-  FMT: '\nHTTP %{http_code} %{http_version} em %{time_total}s, remoto %{remote_ip}\n'
-  UA_NAV: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36'
+  GOVBR: https://www.gov.br/receitafederal/dados/municipios.csv
+  FMT: '\nHTTP %{http_code} %{http_version} em %{time_total}s, remoto %{remote_ip}, %{size_download} bytes, %{speed_download} B/s\n'
 
 jobs:
   probes:
@@ -29,73 +34,51 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Egresso do runner (IP, país, DNS do host)
-        continue-on-error: true
+      - name: Egresso do runner (IP, país, DNS dos hosts)
+        if: always()
         run: |
           curl -sS --max-time 20 https://ipinfo.io/json || true
           echo
           getent ahosts arquivos.receitafederal.gov.br || true
+          getent ahosts dados-abertos-rf-cnpj.casadosdados.com.br || true
+          getent ahosts www.gov.br || true
 
-      - name: GET raiz do host
-        continue-on-error: true
-        run: curl -sS -f --max-time 40 -o /dev/null -w "$FMT" "$BASE/"
-
-      - name: GET status.php do Nextcloud
-        continue-on-error: true
-        run: curl -sS -f --max-time 40 -w "$FMT" "$BASE/status.php"
-
-      - name: PROPFIND public.php/webdav (Basic, como o pipeline)
-        continue-on-error: true
+      - name: Oficial, PROPFIND public.php/webdav (Basic)
+        if: always()
         run: >
-          curl -sS -f --max-time 40 -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
-          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
+          curl -sS -f --max-time 25 -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
+          -o /dev/null -w "$FMT" "$OFICIAL/public.php/webdav/"
 
-      - name: PROPFIND forçando HTTP/1.1
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 --http1.1 -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
-          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
+      - name: gov.br, HEAD municipios.csv (TOM para IBGE)
+        if: always()
+        run: curl -sS -f -I --max-time 40 -o /dev/null -w "$FMT" "$GOVBR"
 
-      - name: PROPFIND com User-Agent de navegador
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 -A "$UA_NAV" -X PROPFIND -H 'Depth: 1' -u "$TOKEN:"
-          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/"
-
-      - name: GET public.php/webdav Range 0-0 (Basic)
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 -r 0-0 -u "$TOKEN:"
-          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/$PASTA/$PARTE"
-
-      - name: GET public.php/dav/files sem auth Range 0-0
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 -r 0-0
-          -o /dev/null -w "$FMT" "$BASE/public.php/dav/files/$TOKEN/$PASTA/$PARTE"
-
-      - name: GET /s/token/download (sem seguir redirect)
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 -r 0-0 -D - -o /dev/null -w "$FMT"
-          "$BASE/s/$TOKEN/download?path=%2F$PASTA&files=$PARTE"
-
-      - name: GET com User-Agent de navegador Range 0-0 (Basic)
-        continue-on-error: true
-        run: >
-          curl -sS -f --max-time 40 -A "$UA_NAV" -r 0-0 -u "$TOKEN:"
-          -o /dev/null -w "$FMT" "$BASE/public.php/webdav/$PASTA/$PARTE"
-
-      - name: Setup Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.12'
-
-      - name: Python requests, mesmo código do pipeline (--listar)
-        continue-on-error: true
+      - name: Espelho, GET índice /arquivos/
+        if: always()
         run: |
-          pip install -q -r scripts/requirements.txt
-          python scripts/cnpj/webdav.py --listar
+          curl -sS -f --max-time 40 -o indice.html -w "$FMT" "$ESPELHO/"
+          grep -o 'href="[0-9-]*/"' indice.html | tail -n 5
+
+      - name: Espelho, GET índice da pasta 2026-08-09
+        if: always()
+        run: |
+          curl -sS -f --max-time 40 -o pasta.html -w "$FMT" "$ESPELHO/$PASTA_ESPELHO/"
+          grep -c 'Estabelecimentos[0-9]\.zip' pasta.html
+
+      - name: Espelho, HEAD parte 5 (tamanho e Accept-Ranges)
+        if: always()
+        run: |
+          curl -sS -f -I --max-time 40 "$ESPELHO/$PASTA_ESPELHO/$PARTE" | tr -d '\r' | grep -iE '^(HTTP|content-length|accept-ranges|cf-cache-status|last-modified)'
+
+      - name: Espelho, GET parte 5 com Range 0-0 (espera 206)
+        if: always()
+        run: |
+          codigo="$(curl -sS -f --max-time 40 -r 0-0 -o /dev/null -w '%{http_code}' "$ESPELHO/$PASTA_ESPELHO/$PARTE")"
+          echo "HTTP $codigo"
+          test "$codigo" = "206"
+
+      - name: Espelho, velocidade nos primeiros 100 MB da parte 0
+        if: always()
+        run: >
+          curl -sS -f --max-time 120 -r 0-104857599 -o /dev/null -w "$FMT"
+          "$ESPELHO/$PASTA_ESPELHO/Estabelecimentos0.zip"
