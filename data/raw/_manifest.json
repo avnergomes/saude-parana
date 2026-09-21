@@ -56,11 +56,11 @@
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/CNES/cnes_estabelecimentos_csv.zip"
   },
   "cnpj/estabelecimentos_pr_saude.csv": {
-    "alterado_em": "2026-09-14",
+    "alterado_em": "2026-09-21",
     "descricao": "CNPJ Estabelecimentos, PR e saúde, colunas reduzidas sem identificadores (concatenação das 10 partes; só o hash entra no manifesto)",
-    "linhas": 130202,
-    "sha256": "562a090d937a1c94533f85d045d31942eb96355ad82266f07544cf335357b747",
-    "url": "https://dados-abertos-rf-cnpj.casadosdados.com.br/arquivos/2026-08-09/"
+    "linhas": 131389,
+    "sha256": "12e1f7643e5c88e694b720f2ac8dab6959af6c9dbb85499cae1ece8247cc5360",
+    "url": "https://dados-abertos-rf-cnpj.casadosdados.com.br/arquivos/2026-09-14/"
   },
   "cnpj/municipios_tom_ibge.csv": {
     "alterado_em": "2026-09-14",
