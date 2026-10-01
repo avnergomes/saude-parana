@@ -49,10 +49,10 @@
     "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202601&nuCompFim=202612"
   },
   "cnes_estabelecimentos_csv.zip": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "CNES, cadastro nacional de estabelecimentos (zip; lido em streaming, só PR)",
-    "linhas": 43725,
-    "sha256": "e385850e757755dd32ee76abee842a74198cf5c80f1a08cd0511f225aac42499",
+    "linhas": 43882,
+    "sha256": "da4e4490fd99ffc28dea78c19d4d6ec8961f4de225f0f5bf50fa003693255752",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/CNES/cnes_estabelecimentos_csv.zip"
   },
   "cnpj/estabelecimentos_pr_saude.csv": {
@@ -70,17 +70,17 @@
     "url": "https://www.gov.br/receitafederal/dados/municipios.csv"
   },
   "infodengue/dengue_pr.json": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "InfoDengue, dengue: registros semanais por município do PR",
-    "linhas": 55860,
-    "sha256": "55cf0e17c8205aa04aaf2c51b954e4d49388ff63ffa9845e5cd97a776246f1c1",
+    "linhas": 57057,
+    "sha256": "289680db5e8ec6f67bfab6bb2c46f9c6d91c6025e4b88aab8f0291fc949a5238",
     "url": "https://info.dengue.mat.br/api/alertcity?geocode=<geocode>&disease=dengue&format=json&ew_start=1&ew_end=53&ey_start=2024&ey_end=2026"
   },
   "leitos_pr.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "Leitos existentes e SUS por estabelecimento do PR (CGHID/MS), colunas reduzidas",
-    "linhas": 3127,
-    "sha256": "de1bfebdde90dfaba5635e1a960a4b00a61aec8f9c3fad453b0568b346ed0f4d",
+    "linhas": 3574,
+    "sha256": "b70c9e5922e5b8fc5723d47c432b7952cc89eabdb4e24304e5a9718dc5fa0427",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/Leitos_SUS/Leitos_csv_2026.zip"
   },
   "nascidos_municipios_pr.json": {
@@ -308,122 +308,122 @@
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sim_2010.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2010",
     "linhas": 400,
-    "sha256": "cade28d0bd308f79d99dced205446382e940ab1d996b0ee9d815b92afb87baae",
+    "sha256": "4bc08eb2bca0ec798020cfe0d61545ebcd6499791efeda62f673c6d451d99023",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2011.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2011",
     "linhas": 400,
-    "sha256": "58ccaa2ca9e2ca90949e590507e30555970dcb990c6280b3f62724a617976c97",
+    "sha256": "9423811b071bca5f0c7db8c466f20ec0614f018036071d8ed69ce8b184352bec",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2012.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2012",
     "linhas": 400,
-    "sha256": "1e3ea89aeb529dfbe38aa0fb7e84dccc8f11d489bd2fe95db0c9715d15f2c69f",
+    "sha256": "5f6b6254939e9471c5777e6f58956bc8841df498f2da72b3d2db947830e4fc46",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2013.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2013",
     "linhas": 400,
-    "sha256": "b41042e7d500c103525f4f2691b7a330aab33beed8afeb24ebeade953dda14c4",
+    "sha256": "26a9a25ac6cd9308447ccc288614b32a61725883ec434ac8aab028bd8df8a3ab",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2014.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2014",
     "linhas": 400,
-    "sha256": "058ec9815c272cbe9f9e6dee94ddc6496aabb9fa86f6aeef13584d6cbb1cbff9",
+    "sha256": "1289616909d698d42499f91f297e0f54808ac9169ec0aec9f63d128d14bc9919",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2015.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2015",
     "linhas": 400,
-    "sha256": "843097b7ef8dd9a381a6876e1ea55fdd1ecf909c822c7f96f7af4bbfc9a12b58",
+    "sha256": "e5dcbd165c9ec55b07e795fa7c633391d84a21c9bc44e7ee40b71e63ed2c03ac",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2016.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2016",
     "linhas": 400,
-    "sha256": "641d8495fd6b1a4450f7ae2bca926cc71fe96a2193e500dad697d8e7977e5a1c",
+    "sha256": "faa66eec52f847366107a5515624b4180178c18468812ffc7c298b3a2aeab1c4",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2017.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2017",
     "linhas": 400,
-    "sha256": "527c319cd6e12374690ee821ec33c446f72c43b07a6bda262c79b92ae68bcee3",
+    "sha256": "0fdc8dba032f865f9af19fee3e02c6d82450f523fced90b9fe7765116ae9b4cd",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2018.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2018",
     "linhas": 400,
-    "sha256": "1e6bcbe96d7c0426ff3dbb7c8081d4dee68a1e9d15fe988b623b4a9c9fc58082",
+    "sha256": "dd189887e6cf96312b48a8343998b2a3d359903f9dba8ec65b4497d19eb5da90",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2019.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2019",
     "linhas": 400,
-    "sha256": "5ec4e5b270b395f154eb1f2c265ad28e96638b2738f4334c2fa0a9a98461d443",
+    "sha256": "bd5d060961c2596ba4121bf4c60e19a5b645f394abc50e34238449be9d4b64bd",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2020.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2020",
     "linhas": 400,
-    "sha256": "f2d4eb981a024c04af3c8e815404843a1259be57db0e06a5b852e9835ba2088c",
+    "sha256": "8ec14d4ed7abe6ee8fdb48e34412d89045d205a40e95ee75a73d3fb9f8287ae8",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2021.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2021",
     "linhas": 400,
-    "sha256": "524f15d22c7f23c452d93a1607774f99bcc4f4c65953e34fedc51e67def296d0",
+    "sha256": "63b7ae595c5dfa0795987d3a22c1f18f8ea60975db8e98a9d3a7c340a405d40c",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2022.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2022",
     "linhas": 400,
-    "sha256": "bf51a709530aa800fdb3ff6d1d3bfcec8b847aa8df0a8b7dd2c38ac5654896ce",
+    "sha256": "fdb3ca6ee781e11d39012a7d200289bf05239a6177d9940c2844a7b001abbf85",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2023.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2023",
     "linhas": 400,
-    "sha256": "32452b5956bdeea13a06dfb3f56d241d9d775b3e75529c4f791f239e33490bf0",
+    "sha256": "f4a91a99db0b448dbc01b98f288bcb728867cfe1c04a35376db30011b9ae878e",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2024.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2024",
     "linhas": 400,
-    "sha256": "881b89c8621bbd82c1e65431cf5ff3310dd8ae2424252dae20d08bac6c6e51b3",
+    "sha256": "4a56e67f097d0523d4d3a74df942ae489ccc27c28add853f64df898dbe14d8f8",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2025.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2025",
     "linhas": 400,
-    "sha256": "333061beb07eb38c27a0d390c0e4f789a9e2926bf57dd479d7e8545b2636e468",
+    "sha256": "c99620867756d5d25a19343caef5f2d45fe6d692cabea862afc5df4654081684",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/sim_2026.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-01",
     "descricao": "SIM/TabNet: óbitos por município de residência e capítulo CID-10, 2026",
     "linhas": 400,
-    "sha256": "be13839e5f1dab080971e7c47c412703550f89f0a3bfcb133ffc087513bc9486",
+    "sha256": "c961f973bc844a7303f7d79a9ad8de65e09990da97957759e22ea2e3a9297f55",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sim/cnv/obt10pr.def"
   },
   "tabnet/siops_2015.csv": {
