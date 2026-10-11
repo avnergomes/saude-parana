@@ -8,6 +8,7 @@ import { useEffect, useLayoutEffect, useRef, useMemo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, Pane, useMap } from 'react-leaflet';
 import { formatNumber } from '../utils/format';
 import { ATLAS_CLAY } from '../utils/chart-palette';
+import { limitesClasses, classeDoValor, corDaClasse } from '../utils/graficos';
 
 // Limites da malha calculados uma vez por objeto geoData (todas as instâncias
 // de mapa reaproveitam), em vez de achatar todos os vértices a cada montagem.
@@ -47,9 +48,25 @@ function FitBounds({ bounds }) {
   const map = useMap();
 
   useEffect(() => {
-    if (bounds) {
-      map.fitBounds(bounds, { padding: [20, 20], animate: false });
-    }
+    if (!bounds) return undefined;
+    let ativo = true;
+    const enquadrar = () => {
+      if (!ativo) return;
+      map.invalidateSize({ animate: false });
+      map.fitBounds(bounds, { padding: [12, 12], animate: false });
+    };
+    enquadrar();
+    // O contêiner pode mudar de tamanho depois de montado (CSS do celular,
+    // fontes, grade): sem reenquadrar, o estado ficava deslocado com uma faixa
+    // vazia. O cleanup só desliga o observador, nunca chama o mapa removido.
+    const observador = typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(() => enquadrar())
+      : null;
+    observador?.observe(map.getContainer());
+    return () => {
+      ativo = false;
+      observador?.disconnect();
+    };
   }, [bounds, map]);
 
   return null;
@@ -61,7 +78,9 @@ const COLOR_SCALES = {
   // segura para daltonismo, alinhada à paleta do ecossistema.
   obitos: ATLAS_CLAY,
   internacoes: ['#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69', '#075985'],
-  cobertura: ['#d9e6f0', '#bbf7d0', '#87afcd', '#4ade80', '#0072B2', '#005c8e', '#004a72', '#166534'],
+  // Sequencial de um só tom (verde): a anterior alternava verde e azul fora
+  // de ordem e a cor não lia como "mais" ou "menos"
+  cobertura: ['#f0fdf4', '#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#166534'],
   leitos: ['#fef3c7', '#fde68a', '#fcd34d', '#e0b850', '#c89b3c', '#a87f2d', '#b45309', '#92400e'],
   repasse: ['#f0fdfa', '#ccfbf1', '#99f6e4', '#5eead4', '#2dd4bf', '#14b8a6', '#0d9488', '#0f766e'],
   default: ['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69']
@@ -72,20 +91,12 @@ const escapeHtml = (texto) => String(texto).replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[c]));
 
-function getColor(value, min, max, scale = 'default') {
+function getColor(value, limites, scale = 'default') {
   if (value === null || value === undefined || isNaN(value)) {
     return '#e5e7eb'; // Cinza para dados ausentes
   }
-
   const colors = COLOR_SCALES[scale] || COLOR_SCALES.default;
-  const range = max - min;
-
-  if (range === 0) return colors[4];
-
-  const normalized = (value - min) / range;
-  const index = Math.min(Math.floor(normalized * colors.length), colors.length - 1);
-
-  return colors[Math.max(0, index)];
+  return corDaClasse(classeDoValor(value, limites), limites.length - 1, colors);
 }
 
 // Camada opcional de pontos (hospitais e UPAs): cor por tipo (tinta para a
@@ -131,6 +142,10 @@ function MapChart({
   pointColor = null
 }) {
   const mapRef = useRef(null);
+  // Celular: pontos menores, senão os hospitais se encobrem (a altura do mapa
+  // no celular vem do CSS .map-viewport)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const escalaPontos = isMobile ? 0.6 : 1;
   const geoJsonRef = useRef(null);
   const bounds = useMemo(() => boundsDaMalha(geoData), [geoData]);
 
@@ -148,25 +163,16 @@ function MapChart({
     return map;
   }, [data]);
 
-  // Calcular min/max para escala de cores
-  const { min, max } = useMemo(() => {
-    if (!data || data.length === 0) {
-      return { min: 0, max: 100 };
-    }
-
-    const values = data
+  // Limites das classes de cor (iguais, ou quantis se a distribuição for
+  // muito assimétrica; ver limitesClasses)
+  const { limites, tipo: tipoClasses, contagem } = useMemo(() => {
+    const colors = COLOR_SCALES[colorScale] || COLOR_SCALES.default;
+    const values = (data || [])
       .map(item => item[metric])
-      .filter(v => v !== null && v !== undefined && !isNaN(v));
-
-    if (values.length === 0) {
-      return { min: 0, max: 100 };
-    }
-
-    return {
-      min: Math.min(...values),
-      max: Math.max(...values)
-    };
-  }, [data, metric]);
+      .filter(v => v !== null && v !== undefined && !isNaN(v))
+      .map(Number);
+    return limitesClasses(values, colors.length);
+  }, [data, metric, colorScale]);
 
   // Estilo para cada feature
   const getFeatureStyle = (feature) => {
@@ -182,7 +188,7 @@ function MapChart({
     // O realce de hover é imperativo (setStyle/resetStyle nos handlers), sem
     // estado React: um estado por hover re-renderizava 399 feições e 640 pontos.
     return {
-      fillColor: getColor(value, min, max, colorScale),
+      fillColor: getColor(value, limites, colorScale),
       weight: isSelected ? 3 : 1,
       opacity: 1,
       color: isSelected ? '#1e40af' : '#918058',
@@ -245,17 +251,21 @@ function MapChart({
   // Gerar legenda: todas as classes, rotuladas por faixa (inclui o teto)
   const legendItems = useMemo(() => {
     const colors = COLOR_SCALES[colorScale] || COLOR_SCALES.default;
-    if (max === min) {
+    const classes = limites.length - 1;
+    if (limites[0] === limites[classes]) {
       // Um único valor (ex.: um município selecionado): uma classe só
-      return [{ color: colors[4], label: formatValue(min) }];
+      return [{ color: corDaClasse(0, 1, colors), label: formatValue(limites[0]) }];
     }
-    const step = (max - min) / colors.length;
-
-    return colors.map((color, i) => ({
-      color,
-      label: `${formatValue(min + step * i)} - ${formatValue(min + step * (i + 1))}`
-    }));
-  }, [min, max, colorScale, formatValue]);
+    // Classes sem município não entram na legenda; a do mínimo repetido
+    // ([0, 0]) aparece como valor único ("0")
+    return Array.from({ length: classes }, (_, i) => ({
+      color: corDaClasse(i, classes, colors),
+      label: limites[i] === limites[i + 1]
+        ? formatValue(limites[i])
+        : `${formatValue(limites[i])} - ${formatValue(limites[i + 1])}`,
+      vazia: (contagem?.[i] ?? 1) === 0
+    })).filter((item) => !item.vazia);
+  }, [limites, contagem, colorScale, formatValue]);
 
   // Pontos válidos (lat/lon numéricos), maiores unidades primeiro, com teto
   // para manter o mapa leve. Vazio quando a prop não é informada.
@@ -276,7 +286,7 @@ function MapChart({
       key: point.cnes || `${point.lat}-${point.lon}-${i}`,
       code: String(point.cod_ibge || '').substring(0, 6),
       center: [point.lat, point.lon],
-      radius: pointRadius(point.leitos),
+      radius: pointRadius(point.leitos) * escalaPontos,
       pathOptions: {
         color,
         weight: 1.5,
@@ -285,7 +295,7 @@ function MapChart({
         fillOpacity: point.sus ? 0.85 : 0.95
       }
     };
-  }), [visiblePoints, pointColor]);
+  }), [visiblePoints, pointColor, escalaPontos]);
 
   const pointLegend = useMemo(() => {
     const tipos = [...new Set(visiblePoints.map(p => p.tipo))];
@@ -296,7 +306,6 @@ function MapChart({
     }));
   }, [visiblePoints, pointColor]);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   if (!geoData?.features) {
     return (
@@ -329,7 +338,7 @@ function MapChart({
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-card p-6">
+    <div className="bg-white rounded-2xl shadow-card p-6 h-full">
       <h3 className="font-display font-semibold text-dark-900 mb-4">{title}</h3>
 
       <div className="relative map-viewport" style={{ height }}>
@@ -342,6 +351,9 @@ function MapChart({
           dragging={!isMobile}
           zoomControl={true}
           zoomAnimation={false}
+          // zoom fracionário: com passos inteiros o Paraná ocupava ~metade do quadro
+          zoomSnap={0.25}
+          zoomDelta={0.5}
         >
           <TileLayer
             attribution='Tiles &copy; Esri, DeLorme, NAVTEQ'
@@ -350,7 +362,7 @@ function MapChart({
           />
 
           <GeoJSON
-            key={`geojson-${metric}-${Array.isArray(data) ? data.length : Object.keys(data || {}).length}-${min}-${max}`}
+            key={`geojson-${metric}-${Array.isArray(data) ? data.length : Object.keys(data || {}).length}-${limites.join('|')}`}
             ref={geoJsonRef}
             data={geoData}
             style={getFeatureStyle}
@@ -402,42 +414,49 @@ function MapChart({
 
           <FitBounds bounds={bounds} />
         </MapContainer>
+      </div>
 
-        {/* Legenda */}
-        <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-2 sm:p-3 z-[1000]">
-          <p className="text-xs font-medium text-dark-700 mb-1.5">Legenda</p>
-          <div className="grid grid-cols-2 sm:grid-cols-1 gap-x-3 gap-y-0.5">
-            {legendItems.map((item, i) => (
-              <div key={i} className="flex items-center gap-1.5">
-                <div
-                  className="w-3 h-2.5 flex-shrink-0 rounded-sm"
+      {/* Legenda abaixo do mapa: sobreposta, cobria o oeste do Paraná (e
+          metade do estado no mapa de leitos com pontos) */}
+      <div className="mt-3 space-y-1.5" aria-label="Legenda do mapa">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          {tipoClasses === 'quantis' && (
+            <span className="text-[11px] text-dark-500">Classes por quantis (cada faixa reúne parte parecida dos municípios):</span>
+          )}
+          {legendItems.map((item, i) => (
+            <div key={i} className="flex items-center gap-1.5">
+              <div
+                className="w-3 h-2.5 flex-shrink-0 rounded-sm"
+                style={{ backgroundColor: item.color }}
+              />
+              <span className="text-[11px] text-dark-600 leading-tight">{item.label}</span>
+            </div>
+          ))}
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-2.5 flex-shrink-0 rounded-sm" style={{ backgroundColor: '#e5e7eb' }} />
+            <span className="text-[11px] text-dark-600 leading-tight">Sem dados</span>
+          </div>
+        </div>
+        {pointLegend.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            {pointLegend.map(item => (
+              <div key={item.tipo} className="flex items-center gap-1.5">
+                <span
+                  className="w-2.5 h-2.5 flex-shrink-0 rounded-full"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">{item.label}</span>
+                <span className="text-[11px] text-dark-600 leading-tight">{item.label}</span>
               </div>
             ))}
-          </div>
-          {pointLegend.length > 0 && (
-            <div className="mt-1.5 pt-1.5 border-t border-neutral-200 space-y-0.5">
-              {pointLegend.map(item => (
-                <div key={item.tipo} className="flex items-center gap-1.5">
-                  <span
-                    className="w-2.5 h-2.5 flex-shrink-0 rounded-full"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">{item.label}</span>
-                </div>
-              ))}
-              <div className="flex items-center gap-1.5">
-                <span
-                  className="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-white"
-                  style={{ border: `1.5px solid ${POINT_COLORS.default}` }}
-                />
-                <span className="text-[10px] sm:text-xs text-dark-600 leading-tight">Círculo vazado: não atende pelo SUS</span>
-              </div>
+            <div className="flex items-center gap-1.5">
+              <span
+                className="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-white"
+                style={{ border: `1.5px solid ${POINT_COLORS.default}` }}
+              />
+              <span className="text-[11px] text-dark-600 leading-tight">Círculo vazado: não atende pelo SUS</span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

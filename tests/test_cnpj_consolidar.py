@@ -293,3 +293,73 @@ def test_executar_falha_com_partes_faltando_sem_gravar(pasta_partes: Path, tmp_p
     with pytest.raises(common.FonteIndisponivel):
         consolidar.executar(pasta_partes, "2026-08", consolidar.Config(esperadas=10), http=HttpFalso())
     assert not (tmp_path / "pub").exists() and not (tmp_path / "raw").exists()
+
+
+# ── Plausibilidade frente à competência publicada ───────────────────────
+
+def _publicado(ativos_total: int, por_municipio: dict[str, int]) -> dict:
+    return {"metadata": {"competencia": "2026-07"}, "totais": {"ativos": ativos_total},
+            "porMunicipio": {cod: {"ativos": n} for cod, n in por_municipio.items()}}
+
+
+def _saida(tom_ibge) -> dict:
+    agregado = consolidar.agregar(TODAS, tom_ibge, GEO)  # ativos 5: Curitiba 3, Arapuã 2
+    return consolidar.montar_saida(agregado, 2, "2026-08", "2026-09-13", GEO, POP)
+
+
+def test_verificar_plausibilidade_limite_de_variacao_dos_ativos(tom_ibge):
+    saida = _saida(tom_ibge)
+    consolidar.verificar_plausibilidade(saida, None)  # primeira publicação: sem conferência
+    consolidar.verificar_plausibilidade(saida, {"totais": {}, "porMunicipio": {}})
+    consolidar.verificar_plausibilidade(saida, _publicado(0, {}) | {"porMunicipio": {"x": {}}})
+    consolidar.verificar_plausibilidade(saida, _publicado(6, {"4106902": 3}))  # -16,7%
+    with pytest.raises(common.FonteIndisponivel, match="ativos no estado 10 -> 5"):
+        consolidar.verificar_plausibilidade(saida, _publicado(10, {"4106902": 3}))
+    with pytest.raises(common.FonteIndisponivel, match="--aceitar-variacao"):
+        consolidar.verificar_plausibilidade(saida, _publicado(4, {"4106902": 3}))  # +25%
+
+
+def test_verificar_plausibilidade_municipios_que_zeraram(tom_ibge):
+    saida = _saida(tom_ibge)  # Bom Jesus do Sul tem 0 ativos
+    publicado = _publicado(5, {"4106902": 3, "4101655": 2, "4103156": 1})
+    consolidar.verificar_plausibilidade(saida, publicado)  # 1 zerado: dentro do limite (5)
+    with pytest.raises(common.FonteIndisponivel, match="1 municípios zeraram"):
+        consolidar.verificar_plausibilidade(saida, publicado,
+                                            consolidar.Config(limite_municipios_zerados=0))
+    # Já era zero antes: não conta como "zerou".
+    consolidar.verificar_plausibilidade(saida, _publicado(5, {"4103156": 0}),
+                                        consolidar.Config(limite_municipios_zerados=0))
+
+
+def test_executar_nao_publica_saida_implausivel_sem_flag(pasta_partes: Path, tmp_path: Path,
+                                                        monkeypatch):
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "pub")
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "MANIFEST_PATH", tmp_path / "raw" / "_manifest.json")
+    monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
+    monkeypatch.setattr(common, "populacao_municipal", lambda: POP)
+    publicado = tmp_path / "pub" / consolidar.SAIDA
+    publicado.parent.mkdir()
+    texto_antigo = json.dumps(_publicado(1000, {"4106902": 900}), ensure_ascii=False)
+    publicado.write_text(texto_antigo, encoding="utf-8")
+    cfg = consolidar.Config(esperadas=2, limite_tom_nao_mapeado=0.5)
+
+    with pytest.raises(common.FonteIndisponivel, match="implausível"):
+        consolidar.executar(pasta_partes, "2026-08", cfg, http=HttpFalso())
+    assert publicado.read_text(encoding="utf-8") == texto_antigo
+    assert not (tmp_path / "raw" / "_manifest.json").exists()
+
+    saida = consolidar.executar(pasta_partes, "2026-08", cfg, http=HttpFalso(),
+                                aceitar_variacao=True)
+    assert json.loads(publicado.read_text(encoding="utf-8")) == saida
+    assert (tmp_path / "raw" / "_manifest.json").exists()
+
+
+def test_main_repassa_aceitar_variacao(monkeypatch, tmp_path: Path):
+    recebidos = {}
+    monkeypatch.setattr(consolidar, "executar",
+                        lambda *a, **k: recebidos.update(k) or {})
+    monkeypatch.setattr(sys, "argv", ["consolidar.py", "--partes", str(tmp_path), "--pasta",
+                                      "2026-08", "--aceitar-variacao"])
+    assert consolidar.main() == 0
+    assert recebidos["aceitar_variacao"] is True

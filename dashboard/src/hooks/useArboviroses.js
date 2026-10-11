@@ -4,12 +4,12 @@
  * recorte territorial e o período aos dados do domínio.
  *
  * Contrato de `dados` (public/data/arboviroses.json):
- *   metadata        { fonte, doencas, periodo, semanaUltima, atualizacao, nota }
+ *   metadata        { fonte, doencas, periodo, semanaUltima, anoParcial, atualizacao, nota }
  *   porSemana       [{ semana: "202401", inicio, casos_est, casos, municipiosAlerta }]  (estado)
- *   porAno          [{ ano, casos, casos_est, incidencia_100k }]                       (estado)
+ *   porAno          [{ ano, casos, casos_est, incidencia_100k, parcial? }]             (estado)
  *   porMunicipio    { "4106902": { casos_ano, casos_est_ano, incidencia_100k, nivel, pop } }
  *   porMunicipioAno { "4106902": { "2024": casos, "2025": casos } }
- *   anoReferencia   2026
+ *   anoReferencia   2026  (último ano com >= 4 semanas; NÃO é o ano parcial)
  */
 
 import { useMemo } from 'react';
@@ -123,6 +123,11 @@ export function useArboviroses(dados, geoMap, filters) {
       selecaoAtiva: codigosSelecao.length > 0,
       anoReferencia: dados.anoReferencia ?? null,
       semanaUltima: dados.metadata?.semanaUltima || null,
+      // Ano em curso (incompleto). Em janeiro anoReferencia aponta o ano
+      // anterior, completo; JSON antigo sem anoParcial cai no ano da última semana
+      anoParcial: dados.metadata?.anoParcial !== undefined
+        ? dados.metadata.anoParcial
+        : anoDaSemana(dados.metadata?.semanaUltima),
       resumo: agregarSelecao(porMunicipio, codigos),
       serieSemanal: montarSerieSemanal(dados.porSemana, anoMin, anoMax),
       serieAnual: serieAnualSelecao(dados.porMunicipioAno, codigos, anoMin, anoMax),

@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 import download_data as dl  # noqa: E402
@@ -100,3 +102,58 @@ def test_consultas_cobrem_todos_os_arquivos_do_preprocess():
     esperados = {"obitos_municipios_pr.json", "obitos_piramide_pr.json",
                  "nascidos_municipios_pr.json"} | set(pp.ARQUIVOS_POPULACAO)
     assert esperados <= arquivos
+
+
+def _rodar_main(tmp_path, monkeypatch, respostas: dict) -> int:
+    monkeypatch.setattr(dl, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(dl, "MANIFEST_PATH", tmp_path / "_manifest.json")
+    monkeypatch.setattr(dl.time, "sleep", lambda _s: None)
+    monkeypatch.setattr(dl, "CONSULTAS", tuple(dl.Consulta(a, f"http://{a}", "teste") for a in respostas))
+    monkeypatch.setattr(dl, "fetch_sidra", lambda url, _d: respostas[url.removeprefix("http://")])
+    monkeypatch.setattr(sys, "argv", ["download_data.py"])
+    return dl.main()
+
+
+def test_main_falha_parcial_nao_grava_bruto_truncado_e_sai_com_1(tmp_path, monkeypatch):
+    anteriores = {"vazio.json": [{"V": "São José"}] * 100, "truncado.json": [{"V": "Açaí"}] * 100}
+    manifesto = {}
+    for arquivo, rows in anteriores.items():
+        monkeypatch.setattr(dl, "RAW_DIR", tmp_path)
+        manifesto = dl.registrar(manifesto, dl.Consulta(arquivo, f"http://{arquivo}", "teste"), rows)
+    (tmp_path / "_manifest.json").write_text(json.dumps(manifesto, ensure_ascii=False), encoding="utf-8")
+    bytes_antes = {a: (tmp_path / a).read_bytes() for a in anteriores}
+
+    codigo = _rodar_main(tmp_path, monkeypatch, {
+        "ok.json": [{"V": "Maringá"}],
+        "vazio.json": [],  # todas as tentativas falharam
+        "truncado.json": [{"V": "Açaí"}] * 50,  # encolheu além do limiar
+    })
+
+    assert codigo == 1
+    assert json.loads((tmp_path / "ok.json").read_text(encoding="utf-8")) == [{"V": "Maringá"}]
+    for arquivo, conteudo in bytes_antes.items():
+        assert (tmp_path / arquivo).read_bytes() == conteudo
+    novo = json.loads((tmp_path / "_manifest.json").read_text(encoding="utf-8"))
+    assert {a: novo[a] for a in anteriores} == {a: manifesto[a] for a in anteriores}
+    assert "ok.json" in novo
+    assert not list(tmp_path.glob("*.tmp"))
+
+
+def test_main_sai_com_0_quando_todas_as_consultas_dao_certo(tmp_path, monkeypatch):
+    assert _rodar_main(tmp_path, monkeypatch, {"a.json": [{"V": "1"}], "b.json": [{"V": "2"}]}) == 0
+    assert (tmp_path / "a.json").exists() and (tmp_path / "b.json").exists()
+
+
+def test_registrar_escrita_interrompida_nao_trunca_o_bruto(tmp_path, monkeypatch):
+    monkeypatch.setattr(dl, "RAW_DIR", tmp_path)
+    consulta = dl.Consulta("x.json", "http://exemplo", "teste")
+    m1 = dl.registrar({}, consulta, [{"V": "Cascavel"}])
+    antes = (tmp_path / "x.json").read_bytes()
+
+    def morre(*_a, **_k):
+        raise OSError("job morto no meio da escrita")
+
+    monkeypatch.setattr(dl.os, "replace", morre)
+    with pytest.raises(OSError):
+        dl.registrar(m1, consulta, [{"V": "Foz do Iguaçu"}])
+    assert (tmp_path / "x.json").read_bytes() == antes

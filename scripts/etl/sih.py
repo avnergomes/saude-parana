@@ -95,6 +95,7 @@ def campos_capitulos(arquivos: list[str], cfg: ConfigSih = CONFIG) -> dict[str, 
         "Coluna": cfg.coluna_capitulos,
         "Incremento": cfg.inc_internacoes,
         "Arquivos": list(arquivos),
+        "zeradas": "exibirlz",  # sem isso o TabNet omite município zerado
         "formato": "table",
         "mostre": "Mostra",
     }
@@ -107,6 +108,7 @@ def campos_totais(arquivos: list[str], cfg: ConfigSih = CONFIG) -> dict[str, str
         "Coluna": cfg.coluna_inativa,
         "Incremento": [cfg.inc_internacoes, cfg.inc_valor, cfg.inc_obitos],
         "Arquivos": list(arquivos),
+        "zeradas": "exibirlz",  # sem isso o TabNet omite município zerado
         "formato": "table",
         "mostre": "Mostra",
     }
@@ -139,14 +141,16 @@ def taxa_estadual(totais: dict[str, dict[str, float]], pop: dict, ano: int) -> f
 
 
 def serie_por_ano(anos: list[AnoSih], pop: dict) -> list[dict]:
-    """Série estadual: internações, valor total (R$), óbitos, taxa e flag parcial."""
+    """Série estadual: internações, valor total (R$), óbitos, taxa (None no ano
+    parcial) e flag parcial."""
     return [
         {
             "ano": a.ano,
             "internacoes": sum(m["internacoes"] for m in a.totais.values()),
             "valor_total": round(sum(m["valor_total"] for m in a.totais.values()), 2),
             "obitos": sum(m["obitos"] for m in a.totais.values()),
-            "taxa": taxa_estadual(a.totais, pop, a.ano),
+            # Ano parcial (poucos meses sobre a população do ano inteiro) não tem taxa anual.
+            "taxa": None if a.parcial else taxa_estadual(a.totais, pop, a.ano),
             "parcial": a.parcial,
         }
         for a in anos
@@ -176,10 +180,14 @@ def baixar_ano(http: requests.Session | None, ano: int, arquivos: list[str],
     url = tabnet.TABNET.url_tabulacao(cfg.def_path)
     nomes = (f"tabnet/sih_{ano}.csv", f"tabnet/sih_{ano}_totais.csv")
 
+    parcial = len(arquivos) < cfg.meses_por_ano
+    # Ano parcial (poucos meses) pode ter município zerado; se a linha faltar, a
+    # soma contra o Total garante que o ausente vale zero.
+    tolerar = tabnet.LIMITE_AUSENTES if parcial else 0
     texto_cap = tabnet.consultar(cfg.def_path, campos_capitulos(arquivos, cfg), http=http)
-    registros_cap = tabnet.parse_municipios(texto_cap)
+    registros_cap = tabnet.parse_municipios(texto_cap, set(mapa), tolerar_ausentes=tolerar)
     texto_tot = tabnet.consultar(cfg.def_path, campos_totais(arquivos, cfg), http=http)
-    registros_tot = tabnet.parse_municipios(texto_tot)
+    registros_tot = tabnet.parse_municipios(texto_tot, set(mapa), tolerar_ausentes=tolerar)
     brutos = [
         tabnet.Bruto(
             nomes[0], texto_cap,
@@ -191,7 +199,7 @@ def baixar_ano(http: requests.Session | None, ano: int, arquivos: list[str],
             url, len(registros_tot)),
     ]
     dados = AnoSih(
-        ano=ano, brutos=nomes, parcial=len(arquivos) < cfg.meses_por_ano,
+        ano=ano, brutos=nomes, parcial=parcial,
         capitulos=tabnet.tabela_capitulos(registros_cap, mapa),
         totais=totais_por_municipio(registros_tot, mapa, cfg),
     )

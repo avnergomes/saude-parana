@@ -47,9 +47,11 @@ CSVS = {
                               '"410010 ABATIA";30;401658,21;4\n"410020 ADRIANOPOLIS";21;100,50;-\n'
                               '"Total";51;401758,71;4\n'),
     ("cap", 2026): csv_capitulos("Fev/2026, Jan/2026",
-                                 '"410010 ABATIA";2;3;-;5\n"Total";2;3;-;5\n'),
+                                 '"410010 ABATIA";2;3;-;5\n"410020 ADRIANOPOLIS";-;-;-;-\n'
+                                 '"Total";2;3;-;5\n'),
     ("tot", 2026): csv_totais("Fev/2026, Jan/2026",
-                              '"410010 ABATIA";5;1000,00;1\n"Total";5;1000,00;1\n'),
+                              '"410010 ABATIA";5;1000,00;1\n"410020 ADRIANOPOLIS";-;-;-\n'
+                              '"Total";5;1000,00;1\n'),
 }
 MAPA = {"410010": "4100103", "410020": "4100202"}
 POP = {"4100103": {2025: 10000, 2026: 10000}, "4100202": {2025: 5000}}
@@ -69,12 +71,12 @@ def test_campos_usam_os_valores_exatos_do_formulario():
     arquivos = ["nrpr2601.dbf", "nrpr2602.dbf"]
     assert sih.campos_capitulos(arquivos) == {
         "Linha": "Município", "Coluna": "Capítulo_CID-10", "Incremento": "Internações",
-        "Arquivos": arquivos, "formato": "table", "mostre": "Mostra",
+        "Arquivos": arquivos, "zeradas": "exibirlz", "formato": "table", "mostre": "Mostra",
     }
     assert sih.campos_totais(arquivos) == {
         "Linha": "Município", "Coluna": "--Não-Ativa--",
         "Incremento": ["Internações", "Valor_total", "Óbitos"],
-        "Arquivos": arquivos, "formato": "table", "mostre": "Mostra",
+        "Arquivos": arquivos, "zeradas": "exibirlz", "formato": "table", "mostre": "Mostra",
     }
 
 
@@ -110,7 +112,7 @@ def test_montar_saida_usa_ultimo_ano_completo_como_referencia():
     ]
     assert saida["porAno"] == [
         {"ano": 2025, "internacoes": 51, "valor_total": 401758.71, "obitos": 4, "taxa": 3.4, "parcial": False},
-        {"ano": 2026, "internacoes": 5, "valor_total": 1000.0, "obitos": 1, "taxa": 0.5, "parcial": True},
+        {"ano": 2026, "internacoes": 5, "valor_total": 1000.0, "obitos": 1, "taxa": None, "parcial": True},
     ]
     assert saida["porAnoCapitulo"] == [
         {"ano": 2025, "total": 51, "I": 15, "IX": 35, "XXII": 1},
@@ -127,7 +129,7 @@ def test_montar_saida_usa_ultimo_ano_completo_como_referencia():
 def test_montar_saida_so_com_ano_parcial_usa_o_proprio_ano():
     saida = sih.montar_saida([_ano(2026, True)], POP, "2026-02", "2026-09-13")
     assert saida["anoReferencia"] == 2026
-    assert list(saida["porMunicipio"]) == ["4100103"]
+    assert list(saida["porMunicipio"]) == ["4100103", "4100202"]
 
 
 def test_executar_faz_dois_posts_por_ano_e_grava_tudo(tmp_path, monkeypatch):
@@ -144,7 +146,7 @@ def test_executar_faz_dois_posts_por_ano_e_grava_tudo(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "sessao", lambda: None)
     monkeypatch.setattr(common, "cod6_para_7", lambda: MAPA)
     monkeypatch.setattr(common, "populacao_municipal", lambda: POP)
-    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
+
     monkeypatch.setattr(tabnet, "baixar_formulario", lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
 

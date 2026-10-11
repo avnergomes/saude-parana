@@ -200,11 +200,10 @@ def _registro(cabecalho: list[str], celulas: list[str]) -> dict:
     return {"cod6": cod6, "nome": nome, **valores}
 
 
-def parse_csv(texto: str) -> list[dict]:
-    """Registros do CSV do TabNet (uma linha por município), sem a linha Total
-    nem o rodapé. Chaves: cod6, nome e cada coluna do cabeçalho.
-    Linhas em branco são ignoradas; linha com número de células diferente
-    do cabeçalho indica CSV truncado e levanta FonteIndisponivel."""
+def _ler_csv(texto: str) -> tuple[list[dict], dict | None]:
+    """(registros municipais, linha Total ou None). Linhas em branco são
+    ignoradas; linha com número de células diferente do cabeçalho indica CSV
+    truncado e levanta FonteIndisponivel."""
     linhas = normalizar_quebras(texto).split("\n")
     inicio = _indice_cabecalho(linhas)
     cabecalho = [c.strip() for c in _celulas(linhas[inicio])]
@@ -215,30 +214,75 @@ def parse_csv(texto: str) -> list[dict]:
         if not linha.startswith('"'):
             break  # rodapé: Fonte, Notas
         celulas = _celulas(linha)
-        if celulas[0].strip().lower() == "total":
-            break
         if len(celulas) != len(cabecalho):
             raise FonteIndisponivel(
                 f"CSV do TabNet truncado: {len(celulas)} células em '{celulas[0][:40]}', "
                 f"cabeçalho com {len(cabecalho)}")
+        if celulas[0].strip().lower() == "total":
+            return registros, _registro(cabecalho, celulas)
         registros.append(_registro(cabecalho, celulas))
-    return registros
+    return registros, None
 
 
-# Paraná tem 399 municípios; menos que isto numa tabulação municipal
-# significa resposta truncada ou filtro errado, não dado real.
-MINIMO_MUNICIPIOS_PR = 390
+def parse_csv(texto: str) -> list[dict]:
+    """Registros do CSV do TabNet (uma linha por município), sem a linha Total
+    nem o rodapé. Chaves: cod6, nome e cada coluna do cabeçalho."""
+    return _ler_csv(texto)[0]
 
 
-def parse_municipios(texto: str, minimo: int | None = None) -> list[dict]:
-    """parse_csv com invariante: pelo menos `minimo` linhas com código IBGE
-    (padrão MINIMO_MUNICIPIOS_PR, resolvido na chamada para permitir ajuste em testes)."""
-    minimo = MINIMO_MUNICIPIOS_PR if minimo is None else minimo
-    registros = parse_csv(texto)
-    com_codigo = sum(1 for r in registros if r["cod6"])
-    if com_codigo < minimo:
+# Diferença aceita entre a soma das linhas e a linha Total: contagens batem
+# exatamente; meio centavo cobre o erro de ponto flutuante ao somar valores em
+# R$ com duas casas (Valor_total do SIH).
+TOLERANCIA_SOMA = 0.005
+
+
+def _soma(registros: list[dict], coluna: str) -> float:
+    total = 0.0
+    for r in registros:
+        valor = r.get(coluna)
+        if isinstance(valor, str):
+            raise FonteIndisponivel(f"valor não numérico {valor!r} na coluna {coluna!r}")
+        total += valor or 0
+    return total
+
+
+# Máximo de municípios ausentes aceito quando o TabNet omite linhas zeradas
+# porque o campo "zeradas" foi ignorado (SIM preliminar, SIH parcial). Acima
+# disso a tabulação é rejeitada. O SIOPS não usa este teto: omite quem não
+# declarou e tolera ausentes sem limite (siops.parse_ano); quem rejeita um ano
+# com poucas declarações é siops.ano_referencia (90% de preenchimento).
+LIMITE_AUSENTES = 10
+
+
+def parse_municipios(texto: str, esperados: set[str], colunas_soma: list[str] | None = None,
+                     tolerar_ausentes: int = 0) -> list[dict]:
+    """parse_csv com as invariantes de uma tabulação municipal completa:
+    - a linha Total existe (sem ela a resposta veio truncada);
+    - todos os códigos de `esperados` (cod6 do território) aparecem, salvo até
+      `tolerar_ausentes` deles (fonte que reconhecidamente omite municípios);
+      os tolerados vão para o log. Em contagens, a soma conferida abaixo prova
+      que o ausente vale zero;
+    - a soma de todas as linhas, inclusive "município ignorado", bate com o
+      Total em cada coluna de `colunas_soma` (padrão: todas; colunas de razão,
+      como indicadores per capita, não somam e devem ficar de fora)."""
+    registros, total = _ler_csv(texto)
+    if total is None:
+        raise FonteIndisponivel("CSV do TabNet sem linha Total (resposta truncada?)")
+    ausentes = esperados - {r["cod6"] for r in registros if r["cod6"]}
+    if len(ausentes) > tolerar_ausentes:
         raise FonteIndisponivel(
-            f"tabulação municipal com {com_codigo} municípios (mínimo {minimo})")
+            f"tabulação municipal sem {len(ausentes)} dos {len(esperados)} municípios "
+            f"esperados (tolerância {tolerar_ausentes}): {sorted(ausentes)[:10]}")
+    if ausentes:
+        log.warning("  TabNet: %d municípios ausentes tolerados: %s", len(ausentes), sorted(ausentes))
+    colunas = colunas_soma if colunas_soma is not None else [
+        c for c in total if c not in ("cod6", "nome")]
+    for coluna in colunas:
+        soma, esperado = _soma(registros, coluna), _soma([total], coluna)
+        if abs(soma - esperado) > TOLERANCIA_SOMA:
+            raise FonteIndisponivel(
+                f"soma dos municípios na coluna {coluna!r} ({soma:.2f}) diverge do Total "
+                f"({esperado:.2f}): CSV truncado ou incoerente")
     return registros
 
 

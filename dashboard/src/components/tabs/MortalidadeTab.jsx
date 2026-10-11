@@ -15,7 +15,7 @@ const COLUNAS_RANKING = [
   { key: 'municipio', label: 'Município' },
   { key: 'regional', label: 'Regional' },
   { key: 'obitos', label: 'Óbitos', align: 'right', format: 'number' },
-  { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
+  { key: 'taxa', label: 'Taxa/1.000', align: 'right', format: 'decimal', decimals: 1 }
 ];
 
 export default function MortalidadeTab({
@@ -36,15 +36,26 @@ export default function MortalidadeTab({
 
   return (
     <div className="space-y-6">
-      <TimeSeriesChart
-        data={data.porAno}
-        metrics={['total', 'taxa_bruta']}
-        title="Mortalidade por Ano"
-        height={350}
-        onPointClick={onAnoClick}
-        selectedAno={selectedAno}
-        referenceYear={2020}
-      />
+      {/* Total e taxa em gráficos separados: no mesmo eixo a taxa (~7) ficava
+          colada no zero ao lado do total (~90 mil) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <TimeSeriesChart
+          data={data.porAno}
+          metrics={['total']}
+          title="Óbitos por ano"
+          onPointClick={onAnoClick}
+          selectedAno={selectedAno}
+          referenceYear={2020}
+        />
+        <TimeSeriesChart
+          data={data.porAno}
+          metrics={['taxa_bruta']}
+          title="Taxa bruta de mortalidade (óbitos/1.000 hab)"
+          onPointClick={onAnoClick}
+          selectedAno={selectedAno}
+          referenceYear={2020}
+        />
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <MapChart

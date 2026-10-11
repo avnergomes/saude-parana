@@ -61,6 +61,12 @@ COLUNAS_LEITOS_BRUTO = tuple(c for c in COLUNAS_LEITOS if c != "UF")
 CAMPOS_REGIAO = ("codigo_municipio", "municipio", "codigo_regiao_saude", "regiao_saude",
                  "codigo_macrorregiao_saude", "macrorregiao_saude")
 
+# Invariantes de volume antes de sobrescrever uma saída boa (o PR tem ~32 mil
+# estabelecimentos ativos em 399 municípios).
+MIN_ESTABELECIMENTOS_PR = 20_000
+MIN_COBERTURA_MUNICIPIOS = 390 / 399  # fração dos municípios com algum estabelecimento
+MAX_FRACAO_LINHAS_MALFORMADAS = 0.01  # linhas com nº de campos != cabeçalho
+
 log = logging.getLogger("etl.cnes")
 
 
@@ -99,6 +105,8 @@ class Descartes:
     linhas_uf: int
     desativados: int
     municipio_desconhecido: int
+    linhas_lidas: int = 0  # todas as linhas de dados do CSV nacional
+    malformadas: int = 0  # nº de campos diferente do cabeçalho (descartadas)
 
 
 @dataclass(frozen=True)
@@ -141,6 +149,11 @@ def indices(cabecalho: list[str], colunas: tuple[str, ...]) -> dict[str, int]:
     return {c: cabecalho.index(c) for c in colunas}
 
 
+def codigo(valor: str) -> str:
+    """'41.0' -> '41': tolera códigos exportados como float no CSV."""
+    return valor.strip().removesuffix(".0")
+
+
 def coordenada(valor: str, faixa: tuple[float, float], casas: int) -> float | None:
     """Float arredondado ou None se vazio, inválido ou fora da faixa plausível."""
     try:
@@ -173,27 +186,51 @@ def ler_estabelecimentos(caminho_zip: Path, cod6_7: Mapping[str, str],
                          cfg: Config = CONFIG) -> tuple[tuple[Estabelecimento, ...], Descartes]:
     """Filtra em streaming o CSV nacional: só a UF, só ativos, só municípios conhecidos."""
     estabs: list[Estabelecimento] = []
-    linhas_uf = desativados = desconhecidos = 0
+    linhas_lidas = malformadas = linhas_uf = desativados = desconhecidos = 0
     with zipfile.ZipFile(caminho_zip) as zf, zf.open(membro_csv(zf)) as raw:
         leitor = csv.reader(decodificar_linhas(raw), delimiter=";")
         cabecalho = next(leitor, [])
         idx = indices(cabecalho, COLUNAS_CNES)
         i_uf, i_desab, i_ibge = idx["CO_UF"], idx["CO_MOTIVO_DESAB"], idx["CO_IBGE"]
         for linha in leitor:
-            if len(linha) != len(cabecalho) or linha[i_uf].strip() != cfg.uf:
+            linhas_lidas += 1
+            if len(linha) != len(cabecalho):
+                malformadas += 1
+                continue
+            if codigo(linha[i_uf]) != cfg.uf:
                 continue
             linhas_uf += 1
             if linha[i_desab].strip():
                 desativados += 1
                 continue
-            cod7 = cod6_7.get(linha[i_ibge].strip())
+            cod7 = cod6_7.get(codigo(linha[i_ibge]))
             if cod7 is None:
                 desconhecidos += 1
                 continue
             estabs.append(estabelecimento_de(linha, idx, cod7, cfg))
-    log.info("  CNES: %d linhas da UF %s; %d ativos; %d desativados; %d município desconhecido",
-             linhas_uf, cfg.uf, len(estabs), desativados, desconhecidos)
-    return tuple(estabs), Descartes(linhas_uf, desativados, desconhecidos)
+    log.info("  CNES: %d linhas da UF %s; %d ativos; %d desativados; %d município desconhecido; "
+             "%d malformadas de %d lidas", linhas_uf, cfg.uf, len(estabs), desativados,
+             desconhecidos, malformadas, linhas_lidas)
+    return tuple(estabs), Descartes(linhas_uf, desativados, desconhecidos, linhas_lidas,
+                                    malformadas)
+
+
+def validar_volume(estabs: Sequence[Estabelecimento], descartes: Descartes,
+                   geo: Mapping[str, Mapping[str, str]]) -> None:
+    """Levanta FonteIndisponivel em vez de publicar um cadastro truncado ou zerado."""
+    if descartes.linhas_lidas and (descartes.malformadas / descartes.linhas_lidas
+                                   > MAX_FRACAO_LINHAS_MALFORMADAS):
+        raise common.FonteIndisponivel(
+            f"CNES: {descartes.malformadas} de {descartes.linhas_lidas} linhas malformadas")
+    if descartes.linhas_uf == 0:
+        raise common.FonteIndisponivel("CNES: nenhuma linha da UF (formato de CO_UF mudou?)")
+    if len(estabs) < MIN_ESTABELECIMENTOS_PR:
+        raise common.FonteIndisponivel(
+            f"CNES: só {len(estabs)} estabelecimentos ativos (mínimo {MIN_ESTABELECIMENTOS_PR})")
+    com_estab = len({e.cod_ibge for e in estabs} & set(geo))
+    if geo and com_estab / len(geo) < MIN_COBERTURA_MUNICIPIOS:
+        raise common.FonteIndisponivel(
+            f"CNES: só {com_estab} de {len(geo)} municípios com estabelecimento")
 
 
 def leitos_por_cnes(linhas: Iterable[Mapping[str, str]]) -> dict[str, Leito]:
@@ -230,15 +267,20 @@ def ler_leitos(caminho_zip: Path, cfg: Config = CONFIG) -> Leitos:
 
 
 def baixar_leitos(http: requests.Session, ano: int,
-                  cfg: Config = CONFIG) -> tuple[common.Download, str]:
-    """Tenta o arquivo do ano corrente e, se não existir, o do ano anterior."""
+                  cfg: Config = CONFIG) -> tuple[common.Download, str, int]:
+    """Tenta o arquivo do ano corrente e, se não existir, o do ano anterior.
+    Devolve (download, url, ano do arquivo usado)."""
     destino = common.RAW_DIR / cfg.arquivo_leitos_zip
     for candidato in (ano, ano - 1):
         url = URL_LEITOS.format(ano=candidato)
         try:
-            return common.baixar_arquivo(url, destino, http=http), url
+            download = common.baixar_arquivo(url, destino, http=http)
         except common.FonteIndisponivel as exc:
             log.warning("  leitos %d indisponível: %s", candidato, exc)
+            continue
+        if candidato != ano:
+            log.warning("  leitos: usando o arquivo de %d (o de %d falhou)", candidato, ano)
+        return download, url, candidato
     raise common.FonteIndisponivel(f"leitos: nenhum arquivo para {ano} nem {ano - 1}")
 
 
@@ -333,15 +375,21 @@ def montar_pontos(estabs: Iterable[Estabelecimento], leitos: Mapping[str, Leito]
 
 def montar_saida(estabs: Sequence[Estabelecimento], descartes: Descartes, leitos: Leitos,
                  regioes: Mapping[str, str], competencia_cnes: str, atualizacao: str,
-                 geo: Mapping[str, Mapping[str, str]], pop: Mapping) -> dict:
+                 geo: Mapping[str, Mapping[str, str]], pop: Mapping,
+                 leitos_ano: int | None = None, aviso_leitos: str | None = None) -> dict:
+    """leitos_ano/aviso_leitos: ano do arquivo de leitos e aviso de fallback, se houver."""
     ano_pop = max((ano for anos in pop.values() for ano in anos), default=date.today().year)
+    leitos_meta = {"leitosAno": leitos_ano} if leitos_ano is not None else {}
+    aviso_meta = {"aviso": aviso_leitos} if aviso_leitos else {}
     return {
         "metadata": {
             "fonte": FONTE, "licenca": "CC BY-ND 3.0", "competenciaCnes": competencia_cnes,
             "competenciaLeitos": f"{leitos.competencia[:4]}-{leitos.competencia[4:6]}",
+            **leitos_meta, **aviso_meta,
             "atualizacao": atualizacao,
             "descartados": {"desativados": descartes.desativados,
-                            "municipioDesconhecido": descartes.municipio_desconhecido},
+                            "municipioDesconhecido": descartes.municipio_desconhecido,
+                            "linhasMalformadas": descartes.malformadas},
             "nota": NOTA.format(ano_pop=ano_pop),
         },
         "tipos": contar_tipos(e.tipo for e in estabs),
@@ -375,15 +423,25 @@ def executar(manifesto: dict) -> dict:
     http = common.sessao()
     log.info("CNES: baixando %s", URL_CNES)
     cnes = common.baixar_arquivo(URL_CNES, common.RAW_DIR / cfg.arquivo_cnes, http=http)
+    geo = common.geo_municipios()
     estabs, descartes = ler_estabelecimentos(cnes.caminho, common.cod6_para_7(), cfg)
-    leitos_dl, url_leitos = baixar_leitos(http, date.today().year, cfg)
+    validar_volume(estabs, descartes, geo)
+    ano = date.today().year
+    leitos_dl, url_leitos, leitos_ano = baixar_leitos(http, ano, cfg)
+    aviso_leitos = (f"Leitos de {ano} indisponíveis; usado o arquivo de {leitos_ano}."
+                    if leitos_ano != ano else None)
     leitos = ler_leitos(leitos_dl.caminho, cfg)
     regioes, texto_regioes = baixar_regioes(http)
+    competencia_cnes = data_competencia(cnes)
+    pop = common.populacao_municipal()
+    # Brutos textuais (leitos_pr.csv, regiões) só depois de tudo o que pode falhar:
+    # se algo acima levantar, run_etl mantém a saída anterior sem bruto novo no disco.
+    # (Os zips já foram sobrescritos, mas ficam fora do git; só o hash é versionado.)
     novo = registrar_brutos(manifesto, cnes, descartes, leitos, url_leitos, texto_regioes, cfg)
     atualizacao = common.alterado_em(
         novo, [cfg.arquivo_cnes, cfg.arquivo_leitos, cfg.arquivo_regioes])
-    saida = montar_saida(estabs, descartes, leitos, regioes, data_competencia(cnes), atualizacao,
-                         common.geo_municipios(), common.populacao_municipal())
+    saida = montar_saida(estabs, descartes, leitos, regioes, competencia_cnes, atualizacao,
+                         geo, pop, leitos_ano=leitos_ano, aviso_leitos=aviso_leitos)
     common.escrever_json(SAIDA, saida)
     log.info("  Tipos (PR): %s", ", ".join(f"{t['codigo']}={t['total']}" for t in saida["tipos"]))
     log.info("  Leitos (PR, %s): %d existentes, %d SUS; pontos: %d", leitos.competencia,

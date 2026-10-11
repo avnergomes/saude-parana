@@ -47,6 +47,10 @@ class ConfigAps:
 
 CONFIG = ConfigAps()
 
+# O PR tem 399 municípios; a API às vezes omite um ou outro (ex.: Anahy em
+# 2026-07). Abaixo disso a competência é tratada como publicação parcial.
+MIN_MUNICIPIOS_COMPETENCIA = 390
+
 VAZIO: dict[str, None] = {
     "cobertura": None, "esf": None, "eap": None, "capacidade": None, "populacao": None,
 }
@@ -85,12 +89,20 @@ def baixar_ano(http: requests.Session, cfg: ConfigAps, ano: int,
 def baixar_tudo(manifesto: dict, cfg: ConfigAps,
                 hoje: date) -> tuple[dict, list[dict], list[str]]:
     """Baixa todos os anos e registra cada resposta no manifesto.
-    Devolve (novo manifesto, registros de todos os anos, nomes dos brutos)."""
+    Devolve (novo manifesto, registros de todos os anos, nomes dos brutos).
+
+    Regra de ano vazio: o ano corrente pode vir vazio (em janeiro a primeira
+    competência ainda não foi publicada); um ano passado vazio é falha da
+    fonte (todos os anos desde ano_inicio já foram publicados) e levanta
+    FonteIndisponivel antes de sobrescrever o hash no manifesto."""
     http = common.sessao()
     registros: list[dict] = []
     arquivos: list[str] = []
     for ano, mes_fim in anos_e_meses(cfg, hoje):
         texto, dados = baixar_ano(http, cfg, ano, mes_fim)
+        if not dados and ano < hoje.year:
+            raise FonteIndisponivel(
+                f"APS {ano}: ano já encerrado voltou sem registros (resposta vazia da API)")
         arquivo = f"aps/cobertura_{ano}.json"
         # Só o hash entra no manifesto: cada ano tem ~2,7 MB e o ano corrente
         # mudaria todo mês, inflando o repositório sem ganho (a saída
@@ -198,8 +210,17 @@ def build_por_municipio_ano(por_comp: dict[str, dict[str, dict]]) -> dict[str, d
 
 def montar_saida(por_comp: dict[str, dict[str, dict]], descartados: dict,
                  geo: dict[str, dict], atualizacao: str) -> dict:
+    # Última competência com cobertura quase completa; as posteriores (publicação
+    # parcial do e-Gestor) saem da saída inteira e ficam registradas em metadata.
+    completas = [c for c in sorted(por_comp)
+                 if len(por_comp[c]) >= MIN_MUNICIPIOS_COMPETENCIA]
+    if not completas:
+        raise FonteIndisponivel(
+            f"APS: nenhuma competência com ao menos {MIN_MUNICIPIOS_COMPETENCIA} municípios")
+    competencia = completas[-1]
+    incompletas = {c: len(por_comp[c]) for c in sorted(por_comp) if c > competencia}
+    por_comp = {c: muns for c, muns in por_comp.items() if c <= competencia}
     comps = sorted(por_comp)
-    competencia = comps[-1]
     ausentes = {cod: geo[cod]["nome"] for cod in sorted(geo)
                 if cod not in por_comp[competencia]}
     return {
@@ -208,7 +229,8 @@ def montar_saida(por_comp: dict[str, dict[str, dict]], descartados: dict,
             "periodo": f"{comps[0]}..{competencia}",
             "competencia": competencia,
             "atualizacao": atualizacao,
-            "descartados": {**descartados, "municipiosAusentesNaCompetencia": ausentes},
+            "descartados": {**descartados, "municipiosAusentesNaCompetencia": ausentes,
+                            "competenciasIncompletasIgnoradas": incompletas},
             "nota": NOTA,
         },
         "porMes": build_por_mes(por_comp),

@@ -9,6 +9,7 @@ import {
   ReferenceLine
 } from 'recharts';
 import { formatNumber } from '../utils/format';
+import { tetoRedondo } from '../utils/graficos';
 
 // Fora do componente: criar componentes durante o render reinicia o estado
 // deles a cada renderização (regra react-hooks/static-components).
@@ -62,6 +63,10 @@ export default function PyramidChart({
   const maxValue = Math.max(
     ...data.map(d => Math.max(Math.abs(d.homens), Math.abs(d.mulheres)))
   );
+  // Eixo simétrico com teto redondo: antes o domínio era max*1,1 e as marcas
+  // saíam tortas ("17,3 mil · 8,3 mil · 662 · 17,3 mil")
+  const teto = tetoRedondo(maxValue);
+  const marcas = [-teto, -teto / 2, 0, teto / 2, teto];
 
   return (
     <div className="bg-white rounded-xl shadow-card p-6">
@@ -87,11 +92,16 @@ export default function PyramidChart({
         <BarChart
           data={sortedData}
           layout="vertical"
-          margin={{ top: 10, right: 30, left: 50, bottom: 10 }}
+          margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+          barCategoryGap="12%"
+          // homens (negativos) e mulheres (positivos) no mesmo stack, cada lado
+          // a partir do zero: alinhados na mesma linha, espelhados
+          stackOffset="sign"
         >
           <XAxis
             type="number"
-            domain={[-maxValue * 1.1, maxValue * 1.1]}
+            domain={[-teto, teto]}
+            ticks={marcas}
             tick={{ fontSize: 11, fill: '#6b7280' }}
             tickFormatter={(v) => formatNumber(Math.abs(v))}
           />
@@ -101,16 +111,18 @@ export default function PyramidChart({
             tick={{ fontSize: 11, fill: '#6b7280' }}
             axisLine={false}
             tickLine={false}
+            interval={0}
+            width={44}
           />
           <Tooltip content={<CustomTooltip />} />
           <ReferenceLine x={0} stroke="#9ca3af" />
 
-          <Bar dataKey="homens" stackId="a" radius={[4, 0, 0, 4]}>
+          <Bar dataKey="homens" stackId="piramide" radius={[4, 0, 0, 4]}>
             {sortedData.map((_, index) => (
               <Cell key={`homens-${index}`} fill="#3b82f6" />
             ))}
           </Bar>
-          <Bar dataKey="mulheres" stackId="b" radius={[0, 4, 4, 0]}>
+          <Bar dataKey="mulheres" stackId="piramide" radius={[0, 4, 4, 0]}>
             {sortedData.map((_, index) => (
               <Cell key={`mulheres-${index}`} fill="#ec4899" />
             ))}
@@ -119,7 +131,7 @@ export default function PyramidChart({
       </ResponsiveContainer>
 
       <p className="text-xs text-center text-dark-400 mt-2">
-        Valores negativos representam homens (esquerda), positivos mulheres (direita)
+        Homens à esquerda, mulheres à direita (óbitos por faixa etária)
       </p>
     </div>
   );

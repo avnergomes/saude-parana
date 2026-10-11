@@ -21,12 +21,12 @@ def _modulo_falso(nome: str, executar):
 def test_dominio_com_sucesso_devolve_manifesto_novo(monkeypatch):
     mod = _modulo_falso("ok", lambda m: {**m, "ok.csv": {"sha256": "1"}})
     monkeypatch.setitem(sys.modules, "etl.ok", mod)
-    manifesto, sucesso = run_etl.executar_dominio("ok", {"a": {}})
-    assert sucesso is True
+    manifesto, status = run_etl.executar_dominio("ok", {"a": {}})
+    assert status == run_etl.OK
     assert manifesto == {"a": {}, "ok.csv": {"sha256": "1"}}
 
 
-def test_falha_com_saida_anterior_mantem_saida_e_manifesto(tmp_path, monkeypatch):
+def test_falha_com_saida_anterior_mantem_saida_e_manifesto(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path)
     (tmp_path / "quebra.json").write_text("{}", encoding="utf-8")
 
@@ -34,9 +34,11 @@ def test_falha_com_saida_anterior_mantem_saida_e_manifesto(tmp_path, monkeypatch
         raise common.FonteIndisponivel("fora do ar")
 
     monkeypatch.setitem(sys.modules, "etl.quebra", _modulo_falso("quebra", executar))
-    manifesto, sucesso = run_etl.executar_dominio("quebra", {"a": {}})
-    assert sucesso is True
+    manifesto, status = run_etl.executar_dominio("quebra", {"a": {}})
+    assert status == run_etl.OBSOLETO
     assert manifesto == {"a": {}}
+    assert capsys.readouterr().out.splitlines() == [
+        "::warning title=ETL quebra::fonte falhou, saída anterior mantida (quebra.json)"]
     assert (tmp_path / "quebra.json").read_text(encoding="utf-8") == "{}"
 
 
@@ -47,13 +49,13 @@ def test_falha_sem_saida_anterior_e_reportada(tmp_path, monkeypatch):
         raise RuntimeError("bug")
 
     monkeypatch.setitem(sys.modules, "etl.novo", _modulo_falso("novo", executar))
-    _manifesto, sucesso = run_etl.executar_dominio("novo", {})
-    assert sucesso is False
+    _manifesto, status = run_etl.executar_dominio("novo", {})
+    assert status == run_etl.FALHA
 
 
 def test_modulo_inexistente_e_pulado_mas_dependencia_ausente_e_falha(monkeypatch):
-    _manifesto, sucesso = run_etl.executar_dominio("inexistente", {})
-    assert sucesso is True
+    _manifesto, status = run_etl.executar_dominio("inexistente", {})
+    assert status == run_etl.OK
 
     mod = types.ModuleType("etl.dep")
 
@@ -68,5 +70,25 @@ def test_modulo_inexistente_e_pulado_mas_dependencia_ausente_e_falha(monkeypatch
         raise ModuleNotFoundError("No module named 'biblioteca_x'", name="biblioteca_x")
 
     monkeypatch.setattr(run_etl.importlib, "import_module", importar)
-    _manifesto, sucesso = run_etl.executar_dominio("dep", {})
-    assert sucesso is False
+    _manifesto, status = run_etl.executar_dominio("dep", {})
+    assert status == run_etl.FALHA
+
+
+def test_main_lista_obsoletos_e_sai_com_zero_quando_ha_saida_anterior(tmp_path, monkeypatch,
+                                                                       caplog):
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path)
+    monkeypatch.setattr(common, "carregar_manifesto", lambda: {})
+    monkeypatch.setattr(common, "salvar_manifesto", lambda m: None)
+    (tmp_path / "cnes.json").write_text("{}", encoding="utf-8")
+
+    def executar(_m):
+        raise common.FonteIndisponivel("fora do ar")
+
+    monkeypatch.setitem(sys.modules, "etl.cnes", _modulo_falso("cnes", executar))
+    monkeypatch.setattr(sys, "argv", ["run_etl.py", "--dominio", "cnes"])
+    caplog.set_level("WARNING")
+    assert run_etl.main() == 0
+    assert "domínios obsoletos (saída anterior mantida): cnes" in caplog.text
+
+    (tmp_path / "cnes.json").unlink()
+    assert run_etl.main() == 1

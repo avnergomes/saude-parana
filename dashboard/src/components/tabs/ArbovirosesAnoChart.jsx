@@ -18,17 +18,12 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
+import { formatarEixo } from '../../utils/graficos';
 
 // Inteiro no padrão pt-BR, "-" para nulo
 function formatInteiro(valor) {
   if (valor === null || valor === undefined || isNaN(valor)) return '-';
   return Math.round(valor).toLocaleString('pt-BR');
-}
-
-function formatEixo(valor) {
-  if (valor >= 1e6) return (valor / 1e6).toFixed(1) + ' mi';
-  if (valor >= 1e3) return Math.round(valor / 1e3) + ' mil';
-  return String(valor);
 }
 
 // Fora do componente: criar componentes durante o render reinicia o estado
@@ -85,7 +80,7 @@ export default function ArbovirosesAnoChart({
             tick={{ fontSize: 12, fill: '#6b7280' }}
             tickLine={{ stroke: '#d1d5db' }}
             axisLine={{ stroke: '#d1d5db' }}
-            tickFormatter={formatEixo}
+            tickFormatter={formatarEixo}
           />
           <Tooltip content={<TooltipCasos />} cursor={{ fill: 'rgba(20, 17, 12, 0.06)' }} />
           <Bar

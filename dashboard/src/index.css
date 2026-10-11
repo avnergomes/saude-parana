@@ -199,10 +199,11 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 
-/* Mapa responsivo — altura adaptada para mobile */
+/* Mapa responsivo: no celular o Paraná (mais largo que alto) cabe em ~300 px;
+   com 60vh sobrava um terço vazio abaixo do estado */
 @media (max-width: 639px) {
   .map-viewport {
-    height: clamp(280px, 60vh, 480px) !important;
+    height: clamp(260px, 42vh, 320px) !important;
   }
 }
 

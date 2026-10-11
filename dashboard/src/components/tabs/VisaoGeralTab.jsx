@@ -13,7 +13,7 @@ const COLUNAS_RANKING = [
   { key: 'municipio', label: 'Município' },
   { key: 'regional', label: 'Regional' },
   { key: 'obitos', label: 'Óbitos', align: 'right', format: 'number' },
-  { key: 'taxa', label: 'Taxa/1000', align: 'right', format: 'decimal', decimals: 1 }
+  { key: 'taxa', label: 'Taxa/1.000', align: 'right', format: 'decimal', decimals: 1 }
 ];
 
 export default function VisaoGeralTab({

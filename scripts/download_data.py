@@ -29,6 +29,7 @@ import argparse
 import hashlib
 import json
 import logging
+import os
 import sys
 import time
 from dataclasses import dataclass
@@ -146,11 +147,16 @@ def carregar_manifesto() -> dict:
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 
 
+def gravar_atomico(destino: Path, texto: str) -> None:
+    """Temporário + rename: um job morto no meio da escrita não deixa bruto truncado."""
+    temporario = destino.with_name(destino.name + ".tmp")
+    temporario.write_text(texto, encoding="utf-8")
+    os.replace(temporario, destino)
+
+
 def salvar_manifesto(manifesto: dict) -> None:
-    MANIFEST_PATH.write_text(
-        json.dumps(manifesto, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    gravar_atomico(MANIFEST_PATH,
+                   json.dumps(manifesto, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
 
 
 def encolheu(manifesto: dict, consulta: Consulta, rows: list) -> bool:
@@ -170,7 +176,7 @@ def registrar(manifesto: dict, consulta: Consulta, rows: list) -> dict:
     hoje = date.today().isoformat()
 
     if mudou or not destino.exists():
-        destino.write_text(texto, encoding="utf-8")
+        gravar_atomico(destino, texto)
         log.info("  gravado: %s (%d KB)", consulta.arquivo, len(texto.encode("utf-8")) // 1024)
     else:
         log.info("  sem mudança: %s", consulta.arquivo)
@@ -217,8 +223,10 @@ def main() -> int:
 
     salvar_manifesto(manifesto)
 
+    # Falha parcial: as consultas boas já foram gravadas; as que falharam ou vieram
+    # truncadas mantêm o arquivo e a entrada do manifesto anteriores. O código 1 só
+    # sai quando alguma consulta de fato falhou (o workflow tolera com continue-on-error).
     if falhas:
-        # Falhar alto: seguir com dados parciais geraria um dashboard furado
         log.error("ERRO: downloads sem dados: %s", ", ".join(falhas))
         return 1
 

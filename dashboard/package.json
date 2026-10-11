@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src/",
-    "test": "node --test src/utils/filtros.test.js",
+    "test": "node --test src/utils/filtros.test.js src/utils/graficos.test.js",
     "test:e2e": "playwright test e2e/filtros.spec.js",
     "test:e2e:municipios": "playwright test e2e/municipios.spec.js --project=desktop",
     "test:varredura": "node scripts/varredura-filtros.mjs",

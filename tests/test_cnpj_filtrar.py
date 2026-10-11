@@ -56,9 +56,13 @@ LINHAS = [
 ]
 
 
-def zip_estabele(caminho: Path, linhas: list[list[str]], membro: str = "K3241.K03200Y5.D60808.ESTABELE") -> Path:
-    with zipfile.ZipFile(caminho, "w", zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr(membro, serializar_latin1(linhas))
+def zip_estabele(caminho: Path, linhas: list[list[str]], membro: str = "K3241.K03200Y5.D60808.ESTABELE",
+                 data: tuple = (2026, 8, 8, 0, 0, 0)) -> Path:
+    """Data do membro fixa (writestr com nome usaria o relógio e o teste apodreceria em 2028)."""
+    info = zipfile.ZipInfo(membro, date_time=data)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    with zipfile.ZipFile(caminho, "w") as zf:
+        zf.writestr(info, serializar_latin1(linhas))
     return caminho
 
 
@@ -164,6 +168,24 @@ def test_conferir_competencia_pela_data_de_extracao_no_nome_do_membro():
         filtrar.conferir_competencia("K3241.K03200Y9.D50808.ESTABELE", "2026-08")  # ano errado
     with pytest.raises(common.FonteIndisponivel, match="sem data"):
         filtrar.conferir_competencia("ESTABELE.csv", "2026-08")
+
+
+def test_conferir_competencia_separa_decadas_pelo_ano_completo_do_membro():
+    # D60808 serve tanto para 2016 quanto para 2026: só a data do membro no zip separa.
+    nome = "K3241.K03200Y5.D60808.ESTABELE"
+    with pytest.raises(common.FonteIndisponivel, match="2016"):
+        filtrar.conferir_competencia(nome, "2026-08", 2016)
+    filtrar.conferir_competencia(nome, "2026-08", 2026)
+    filtrar.conferir_competencia(nome, "2026-08", 2027)  # tolerância de 1 ano (empacotamento)
+    filtrar.conferir_competencia(nome, "2026-08", 1980)  # zip sem data: só nome e pasta
+
+
+def test_competencia_do_zip_rejeita_membro_de_2016_na_pasta_2026(tmp_path: Path):
+    antigo = zip_estabele(tmp_path / "antigo.zip", LINHAS, data=(2016, 8, 8, 0, 0, 0))
+    with pytest.raises(common.FonteIndisponivel, match="outra competência"):
+        filtrar.competencia_do_zip(antigo, "2026-08")
+    atual = zip_estabele(tmp_path / "atual.zip", LINHAS)
+    assert filtrar.competencia_do_zip(atual, "2026-08") == "K3241.K03200Y5.D60808.ESTABELE"
 
 
 def test_main_com_pasta_confere_a_competencia_antes_de_gravar(zip_parte: Path, tmp_path: Path,

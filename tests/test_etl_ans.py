@@ -147,3 +147,47 @@ def test_executar_grava_saida_bruto_utf8_e_manifesto(tmp_path, monkeypatch):
     assert saida["porPeriodo"][-1]["beneficiarios"] == 190
     assert saida["porMunicipio"]["4106902"]["beneficiarios_medico"] == 100
     assert saida["porMunicipioAno"]["4100103"] == {"2025": 0.2, "2026": 0.8}
+
+
+def _ambiente_executar(tmp_path, monkeypatch, csv_texto):
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "public")
+    monkeypatch.setattr(common, "cod6_para_7", lambda: COD6)
+    monkeypatch.setattr(common, "populacao_municipal", lambda: {})
+    monkeypatch.setattr(common, "populacao_de", lambda pop, cod, ano: 1000)
+    monkeypatch.setattr(ans, "baixar_subconjunto_uf", lambda http, cfg: csv_texto)
+
+
+def test_falha_apos_download_nao_grava_bruto_novo(tmp_path, monkeypatch):
+    _ambiente_executar(tmp_path, monkeypatch, CSV_PR)
+    bruto = tmp_path / "raw" / "ans" / "pda047_pr.csv"
+    bruto.parent.mkdir(parents=True)
+    bruto.write_text("versão antiga, ção\n", encoding="utf-8")
+    manifesto = {"ans/pda047_pr.csv": {"sha256": "antigo", "linhas": 6}}
+
+    def quebra(*_a, **_k):
+        raise RuntimeError("bug na agregação")
+
+    monkeypatch.setattr(ans, "anexar_populacao", quebra)
+    with pytest.raises(RuntimeError):
+        ans.executar(manifesto, CFG)
+    assert bruto.read_text(encoding="utf-8") == "versão antiga, ção\n"
+    assert manifesto == {"ans/pda047_pr.csv": {"sha256": "antigo", "linhas": 6}}
+    assert not (tmp_path / "public" / ans.SAIDA).exists()
+
+
+def test_csv_que_encolheu_mais_de_20_por_cento_e_rejeitado(tmp_path, monkeypatch):
+    _ambiente_executar(tmp_path, monkeypatch, CSV_PR)
+    with pytest.raises(FonteIndisponivel, match="encolheu"):
+        ans.executar({"ans/pda047_pr.csv": {"sha256": "x", "linhas": 100}}, CFG)
+    assert not (tmp_path / "raw" / "ans" / "pda047_pr.csv").exists()
+    # 6 linhas contra 7 anteriores (-14%) passa
+    ans.executar({"ans/pda047_pr.csv": {"sha256": "x", "linhas": 7}}, CFG)
+
+
+def test_cobertura_de_municipios_insuficiente_e_rejeitada(tmp_path, monkeypatch):
+    so_abatia = "\n".join([CABECALHO, LINHAS_PR[0], LINHAS_PR[1]]) + "\n"
+    _ambiente_executar(tmp_path, monkeypatch, so_abatia)
+    with pytest.raises(FonteIndisponivel, match="1 de 2 municípios"):
+        ans.executar({}, CFG)
+    assert not (tmp_path / "raw" / "ans" / "pda047_pr.csv").exists()

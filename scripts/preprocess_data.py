@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -48,6 +49,10 @@ ANOS_CENSO = {"populacao_censo_2007_pr.json": 2007,
               "populacao_censo_2022_pr.json": 2022}
 
 VERSAO_DASHBOARD = "2.1.0"
+
+# Saídas do próprio preprocess e artefatos estáticos: fora do anoMaxDominios.
+SAIDAS_NUCLEO = ("mortalidade.json", "metadata.json", "geo_map.json")
+PADRAO_ANO = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
 
 # Mapeamento das faixas do Registro Civil para as faixas da pirâmide
 FAIXA_MAP = {
@@ -114,13 +119,54 @@ def ano_de(r: dict) -> int | None:
 
 
 def data_atualizacao() -> str:
-    """Data da última mudança real dos dados brutos (manifesto); senão, hoje."""
+    """Data da última mudança real dos dados brutos (manifesto); senão, hoje.
+
+    É o max(alterado_em) do manifesto inteiro, não só dos brutos do IBGE: inclui as
+    entradas dos ETLs de domínio (DATASUS, APS, InfoDengue, ANS, CNPJ). É de propósito,
+    é a data do cabeçalho do painel; por isso o workflow roda o preprocess DEPOIS dos
+    ETLs, senão a data sai defasada em uma rodada."""
     if MANIFEST_PATH.exists():
         manifesto = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         datas = [e.get("alterado_em") for e in manifesto.values() if e.get("alterado_em")]
         if datas:
             return max(datas)
     return date.today().isoformat()
+
+
+def ano_max_dominios(pasta: Path, ignorar: tuple[str, ...] = SAIDAS_NUCLEO) -> int | None:
+    """Maior ano em metadata.periodo/competencia das saídas de domínio já publicadas
+    (formatos '2015-2026', '2024-01..2026-38', '2026-09', '2026'); None se não houver."""
+    anos: list[int] = []
+    for caminho in sorted(pasta.glob("*.json")):
+        if caminho.name in ignorar:
+            continue
+        try:
+            meta = json.loads(caminho.read_text(encoding="utf-8")).get("metadata") or {}
+        except (OSError, ValueError, AttributeError) as exc:
+            log.warning("  %s ilegível para anoMaxDominios: %s", caminho.name, exc)
+            continue
+        texto = f"{meta.get('periodo') or ''} {meta.get('competencia') or ''}"
+        anos.extend(int(a) for a in PADRAO_ANO.findall(texto))
+    return max(anos, default=None)
+
+
+def montar_filtros(ano_min: int, ano_max: int, anos: list[int], ano_max_dom: int | None,
+                   hoje: date) -> dict:
+    """Bloco filtros do metadata.json. anoMin/anoMax/anosComDados seguem sendo o núcleo
+    IBGE (nomes mantidos: useData.js lê anoMax); anoMaxIbge e anoMaxDominios deixam
+    explícito que os domínios vão além."""
+    return {
+        "anosDisponiveis": list(range(ano_min, max(ano_max, hoje.year) + 1)),
+        "anosComDados": anos,
+        "anoMin": ano_min,
+        "anoMax": ano_max,
+        "anoMaxIbge": ano_max,
+        "anoMaxDominios": ano_max_dom if ano_max_dom is not None else ano_max,
+        "nota": "anoMin, anoMax e anosComDados referem-se à série do Registro Civil/IBGE "
+                "(mortalidade e nascidos; = anoMaxIbge). anoMaxDominios é o maior ano nas "
+                "saídas de domínio (DATASUS, APS, InfoDengue, ANS, CNPJ). anosDisponiveis vai "
+                "até o ano corrente, que é o teto do filtro de ano no painel.",
+    }
 
 
 def carregar_regionais() -> dict[str, str]:
@@ -279,8 +325,40 @@ def write_json(path: Path, obj: dict) -> None:
     log.info("  Salvo: %s (%d KB)", path.name, path.stat().st_size // 1024)
 
 
+def atualizar_metadata(metadata: dict, atualizacao: str, ano_max_dom: int | None,
+                       hoje: date) -> dict:
+    """Cópia do metadata.json com só atualizacao e filtros refeitos.
+
+    Usado quando o download do SIDRA falha: os blocos do núcleo IBGE (dados,
+    geografia, anoMin/anoMax/anosComDados) ficam como na última rodada completa,
+    coerentes com o mortalidade.json que também não muda; a data do cabeçalho e o
+    anoMaxDominios acompanham os ETLs de domínio que rodaram mesmo assim."""
+    filtros = metadata["filtros"]
+    return {
+        **metadata,
+        "dashboard": {**metadata["dashboard"], "atualizacao": atualizacao},
+        "filtros": montar_filtros(filtros["anoMin"], filtros["anoMax"],
+                                  filtros["anosComDados"], ano_max_dom, hoje),
+    }
+
+
+def somente_metadata() -> None:
+    """Reescreve só o metadata.json a partir do metadata.json publicado, do manifesto
+    e das saídas de domínio; não lê os brutos do SIDRA nem toca o mortalidade.json."""
+    caminho = PUBLIC_DATA_DIR / "metadata.json"
+    if not caminho.exists():
+        log.error("ERRO: %s não existe; rode o preprocess completo primeiro.", caminho)
+        sys.exit(1)
+    metadata = json.loads(caminho.read_text(encoding="utf-8"))
+    write_json(caminho, atualizar_metadata(metadata, data_atualizacao(),
+                                           ano_max_dominios(PUBLIC_DATA_DIR), date.today()))
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    if "--somente-metadata" in sys.argv[1:]:
+        somente_metadata()
+        return
     PUBLIC_DATA_DIR.mkdir(parents=True, exist_ok=True)
     log.info("=" * 60)
     log.info("Saúde Paraná, preprocess (somente dados reais)")
@@ -358,12 +436,8 @@ def main() -> None:
         },
         # O filtro de ano vai até o ano corrente: os domínios DATASUS/APS/InfoDengue
         # chegam a 2025-2026 embora a série do Registro Civil pare em ano_max.
-        "filtros": {
-            "anosDisponiveis": list(range(ano_min, max(ano_max, date.today().year) + 1)),
-            "anosComDados": anos,
-            "anoMin": ano_min,
-            "anoMax": ano_max,
-        },
+        "filtros": montar_filtros(ano_min, ano_max, anos, ano_max_dominios(PUBLIC_DATA_DIR),
+                                  date.today()),
     }
     write_json(PUBLIC_DATA_DIR / "metadata.json", metadata)
 

@@ -45,6 +45,12 @@ COLUNAS_OBRIGATORIAS = (
 )
 CATEGORIAS_TOTAL = frozenset({"TOTAL", "TODOS", "TODAS", "GERAL"})
 
+# Invariantes de volume antes de sobrescrever uma saída boa.
+# CSV novo com menos de 80% das linhas do anterior (manifesto) = arquivo truncado.
+MIN_FRACAO_LINHAS_VS_ANTERIOR = 0.8
+# Fração mínima dos municípios do PR presentes no último período (390 de 399).
+MIN_COBERTURA_MUNICIPIOS = 390 / 399
+
 log = logging.getLogger("etl.ans")
 
 Populacao = Callable[[str, int], int | None]
@@ -210,6 +216,20 @@ def build_por_municipio_ano(por_periodo: dict[str, dict[str, dict]],
     return {cod: dict(out[cod]) for cod in sorted(out)}
 
 
+def validar_volume(linhas: int, linhas_anteriores: int | None,
+                   por_periodo: dict[str, dict[str, dict]],
+                   cod6_para_7: dict[str, str]) -> None:
+    """Levanta FonteIndisponivel se o CSV encolheu demais ou cobre poucos municípios."""
+    if linhas_anteriores and linhas < linhas_anteriores * MIN_FRACAO_LINHAS_VS_ANTERIOR:
+        raise FonteIndisponivel(
+            f"ANS: CSV encolheu de {linhas_anteriores} para {linhas} linhas")
+    ultimo = por_periodo[max(por_periodo)]
+    universo = len(set(cod6_para_7.values()))
+    if universo and len(ultimo) / universo < MIN_COBERTURA_MUNICIPIOS:
+        raise FonteIndisponivel(
+            f"ANS: só {len(ultimo)} de {universo} municípios no período {max(por_periodo)}")
+
+
 # ── Saída ───────────────────────────────────────────────────────────────
 
 def montar_saida(por_periodo: dict[str, dict[str, dict]], descartados: dict,
@@ -238,14 +258,18 @@ def executar(manifesto: dict, cfg: ConfigAns = CONFIG) -> dict:
     if linhas <= 0:
         raise FonteIndisponivel(f"ANS: nenhuma linha da UF {cfg.uf} no CSV")
     arquivo = "ans/pda047_pr.csv"
-    manifesto = common.registrar_texto(manifesto, arquivo, texto, DESCRICAO, cfg.url,
-                                       linhas=linhas)
-    por_periodo, descartados = agregar(texto, common.cod6_para_7(), cfg)
+    cod6_para_7 = common.cod6_para_7()
+    por_periodo, descartados = agregar(texto, cod6_para_7, cfg)
     if not por_periodo:
         raise FonteIndisponivel("ANS: nenhum município reconhecido no CSV")
+    validar_volume(linhas, manifesto.get(arquivo, {}).get("linhas"), por_periodo, cod6_para_7)
     pop = common.populacao_municipal()
     com_pop = anexar_populacao(por_periodo,
                                lambda cod, ano: common.populacao_de(pop, cod, ano))
+    # O bruto só é gravado/registrado depois de tudo o que pode falhar: se algo
+    # acima levantar, run_etl mantém a saída anterior sem CSV novo no disco.
+    manifesto = common.registrar_texto(manifesto, arquivo, texto, DESCRICAO, cfg.url,
+                                       linhas=linhas)
     saida = montar_saida(com_pop, descartados, common.alterado_em(manifesto, [arquivo]))
     common.escrever_json(SAIDA, saida)
     ultimo = saida["porPeriodo"][-1]

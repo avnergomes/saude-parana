@@ -9,12 +9,17 @@ import {
   Cell
 } from 'recharts';
 import { formatNumber, formatCurrency, formatPercent, CHART_COLORS } from '../utils/format';
+import { formatarEixo, marcasEixo } from '../utils/graficos';
 
-function formatEixoNumerico(v) {
-  if (v >= 1e6) return (v / 1e6).toFixed(0) + 'M';
-  if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
-  return v;
-}
+// Rótulos de categoria: fonte monoespaçada (~6,6 px/caractere), 26 cabem em
+// 200 px; no celular 16 em 120 px, para sobrar largura para as barras
+const estreito = () => typeof window !== 'undefined' && window.innerWidth < 640;
+const larguraRotulo = () => (estreito() ? 120 : 200);
+const maxRotulo = () => (estreito() ? 16 : 26);
+const encurtar = (v) => {
+  const max = maxRotulo();
+  return v?.length > max ? `${v.substring(0, max - 1)}…` : v;
+};
 
 // Fora do componente: criar componentes durante o render reinicia o estado
 // deles a cada renderização (regra react-hooks/static-components). O Recharts
@@ -62,6 +67,7 @@ export default function BarChart({
   }
 
   const isHorizontal = layout === 'horizontal';
+  const { teto, marcas } = marcasEixo(Math.max(0, ...data.map((d) => Number(d[dataKey]) || 0)));
 
   const formatValue = (value) => {
     if (showPercentage) return formatPercent(value, 1);
@@ -96,7 +102,7 @@ export default function BarChart({
           layout={isHorizontal ? 'vertical' : 'horizontal'}
           margin={
             isHorizontal
-              ? { top: 5, right: 30, left: 100, bottom: 5 }
+              ? { top: 5, right: 30, left: 10, bottom: 5 }
               : { top: 5, right: 30, left: 20, bottom: 30 }
           }
         >
@@ -107,15 +113,17 @@ export default function BarChart({
           {isHorizontal ? (
             <XAxis
               type="number"
+              domain={[0, teto]}
+              ticks={marcas}
               tick={{ fontSize: 11, fill: '#6b7280' }}
-              tickFormatter={formatEixoNumerico}
+              tickFormatter={formatarEixo}
             />
           ) : (
             <XAxis
               dataKey={nameKey}
               tick={{ fontSize: 11, fill: '#6b7280', angle: -45, textAnchor: 'end' }}
               height={60}
-              tickFormatter={(v) => v?.length > 10 ? v.substring(0, 10) + '...' : v}
+              tickFormatter={(v) => (v?.length > 14 ? `${v.substring(0, 13)}…` : v)}
             />
           )}
           {isHorizontal ? (
@@ -123,13 +131,16 @@ export default function BarChart({
               type="category"
               dataKey={nameKey}
               tick={{ fontSize: 11, fill: '#6b7280' }}
-              width={90}
-              tickFormatter={(v) => v?.length > 15 ? v.substring(0, 15) + '...' : v}
+              width={larguraRotulo()}
+              interval={0}
+              tickFormatter={encurtar}
             />
           ) : (
             <YAxis
+              domain={[0, teto]}
+              ticks={marcas}
               tick={{ fontSize: 11, fill: '#6b7280' }}
-              tickFormatter={formatEixoNumerico}
+              tickFormatter={formatarEixo}
             />
           )}
 

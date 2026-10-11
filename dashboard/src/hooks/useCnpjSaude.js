@@ -150,7 +150,10 @@ export function useCnpjSaude(cnpj, geoMap, filters) {
         ativos: linha.ativos,
         ativos_por_10mil: Number.isFinite(linha.ativos_por_10mil) ? linha.ativos_por_10mil : null
       })),
-      serie: filtrarAnos(cnpj.aberturasPorAno, filters?.anoMin, filters?.anoMax),
+      // O ano da competência ainda está em curso: marcado como parcial, o
+      // gráfico o desenha tracejado em vez de uma queda no mesmo traço
+      serie: filtrarAnos(cnpj.aberturasPorAno, filters?.anoMin, filters?.anoMax)
+        .map((linha) => (linha.ano >= anoCompetencia(cnpj.metadata) ? { ...linha, parcial: true } : linha)),
       ranking: rows,
       temSelecao: temSelecaoTerritorial(filters)
     };

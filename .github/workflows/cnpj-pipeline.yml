@@ -37,12 +37,16 @@ on:
         type: choice
         default: auto
         options: [auto, oficial, espelho]
+      aceitar_variacao:
+        description: 'Publicar mesmo se a conferência com a competência anterior falhar (--aceitar-variacao)'
+        required: false
+        type: boolean
+        default: false
 
-# contents: commit dos dados. actions: disparar o deploy.yml via API (mesmo
-# motivo do data-pipeline.yml).
+# Padrão só leitura: a matriz "filtrar" baixa 5,3 GB de terceiro e não precisa
+# escrever no repositório. Só "consolidar" (commit + dispatch) recebe escrita.
 permissions:
-  contents: write
-  actions: write
+  contents: read
 
 env:
   PYTHON_VERSION: '3.12'
@@ -92,7 +96,10 @@ jobs:
             exit 1
           fi
           atual="$(python -c "import json,os;print(json.load(open(os.environ['JSON_ATUAL'],encoding='utf-8'))['metadata']['competencia'])" 2>/dev/null || true)"
-          if [ -n "$PASTA_INFORMADA" ] || [ "$pasta" != "$atual" ]; then
+          # Na listagem automática só processa competência MAIS NOVA que a
+          # publicada (AAAA-MM compara lexicograficamente): um espelho atrasado
+          # não pode rebaixar o cnpj_saude.json. Informada à mão: sempre.
+          if [ -n "$PASTA_INFORMADA" ] || [[ "$pasta" > "$atual" ]]; then
             nova=true
           else
             nova=false
@@ -132,12 +139,18 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Baixar e filtrar (só PR, só saúde, sem identificadores)
+        # Valores vindos da entrada manual passam por env, nunca por ${{ }}
+        # dentro do script (anti-injeção).
+        env:
+          PASTA: ${{ needs.descobrir.outputs.pasta }}
+          FONTE: ${{ needs.descobrir.outputs.fonte }}
+          PARTE: ${{ matrix.parte }}
         run: >
           python scripts/cnpj/filtrar.py
-          --pasta "${{ needs.descobrir.outputs.pasta }}"
-          --fonte "${{ needs.descobrir.outputs.fonte }}"
-          --parte ${{ matrix.parte }}
-          --saida parte_${{ matrix.parte }}.csv
+          --pasta "$PASTA"
+          --fonte "$FONTE"
+          --parte "$PARTE"
+          --saida "parte_$PARTE.csv"
 
       - name: Publicar CSV reduzido
         uses: actions/upload-artifact@v7
@@ -152,9 +165,23 @@ jobs:
     needs: [descobrir, filtrar]
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Único job que escreve: commit dos dados e dispatch do deploy.yml (sem
+    # "actions: write" o createWorkflowDispatch falha, ver data-pipeline.yml).
+    permissions:
+      contents: write
+      actions: write
+    # Mesmo grupo do data-pipeline.yml (os crons colidem no dia 1 que cai em
+    # segunda-feira): os pushes em main ficam em fila, sem cancelar nenhum.
+    concurrency:
+      group: data-commit
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        # Ponta atual do branch, não o SHA do disparo: se este job esperou o
+        # grupo data-commit, o data-pipeline pode ter feito push nesse meio-tempo.
+        with:
+          ref: ${{ github.ref }}
 
       - name: Setup Python
         uses: actions/setup-python@v7
@@ -177,12 +204,18 @@ jobs:
           path: partes
 
       - name: Consolidar (exige as 10 partes)
-        run: >
-          python scripts/cnpj/consolidar.py
-          --partes partes
-          --pasta "${{ needs.descobrir.outputs.pasta }}"
-          --fonte "${{ needs.descobrir.outputs.fonte }}"
-          --esperadas 10
+        env:
+          PASTA: ${{ needs.descobrir.outputs.pasta }}
+          FONTE: ${{ needs.descobrir.outputs.fonte }}
+          # No cron o input não existe e chega vazio: só "true" libera a flag.
+          ACEITAR: ${{ inputs.aceitar_variacao }}
+        run: |
+          set -euo pipefail
+          args=(--partes partes --pasta "$PASTA" --fonte "$FONTE" --esperadas 10)
+          if [ "$ACEITAR" = "true" ]; then
+            args+=(--aceitar-variacao)
+          fi
+          python scripts/cnpj/consolidar.py "${args[@]}"
 
       - name: Check for changes
         id: changes
@@ -200,10 +233,12 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         # O data-pipeline.yml (dia 1) pode ter comitado nesse meio-tempo:
         # rebase antes do push para não falhar por histórico divergente.
+        env:
+          PASTA: ${{ needs.descobrir.outputs.pasta }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(data): atualiza CNPJ saúde ${{ needs.descobrir.outputs.pasta }}"
+          git commit -m "chore(data): atualiza CNPJ saúde $PASTA"
           git pull --rebase origin main
           git push
 

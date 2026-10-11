@@ -16,8 +16,11 @@ ou e-mail (LGPD): o artefato que sai do runner já é anônimo.
 
 Competência: o nome do membro traz a data de extração (D<ano, 1 dígito><mês><dia>,
 ex.: D60808 = 08/08/2026), sempre no mês da competência (conferido em 7 cópias de
-2024-08 a 2026-08). Com --pasta, ano e mês do membro têm de bater: é o que impede
-que uma pasta do espelho mapeada para a competência errada vire dado publicado.
+2024-08 a 2026-08). Com --pasta, mês e dígito do ano do nome têm de bater, e o ano
+completo vem da data gravada no próprio membro do zip (ZipInfo.date_time), que tem
+de ficar a no máximo 1 ano do ano da pasta: só o dígito deixaria 2016-08 passar por
+2026-08. É o que impede que uma pasta do espelho mapeada para a competência errada
+vire dado publicado.
 
 Uso: python scripts/cnpj/filtrar.py --pasta 2026-08 --parte 5 [--fonte espelho] [--saida parte_5.csv]
      python scripts/cnpj/filtrar.py --parte 5 --zip Estabelecimentos5.zip [--pasta 2026-08]   (sem download)
@@ -53,6 +56,9 @@ SEPARADOR = ";"
 SEPARADOR_SECUNDARIAS = ","
 # '.D60808.' no nome do membro: último dígito do ano, mês e dia da extração.
 PADRAO_DATA_MEMBRO = re.compile(r"\.D(\d)(\d{2})(\d{2})\.")
+# Ano completo vem do ZipInfo.date_time; 1980 é o padrão do formato zip (data ausente).
+ANO_ZIP_SEM_DATA = 1980
+TOLERANCIA_ANO_MEMBRO = 1  # zip empacotado logo após a virada do ano
 
 log = logging.getLogger("cnpj.filtrar")
 
@@ -102,8 +108,11 @@ def membro_estabelecimentos(zf: zipfile.ZipFile) -> zipfile.ZipInfo:
     return membros[0]
 
 
-def conferir_competencia(nome_membro: str, competencia: str) -> None:
-    """Falha se a data de extração no nome do membro não é do ano e mês da competência."""
+def conferir_competencia(nome_membro: str, competencia: str,
+                         ano_membro: int | None = None) -> None:
+    """Falha se a data de extração no nome do membro não é do ano e mês da competência.
+    O nome só traz o último dígito do ano; `ano_membro` (ano completo do ZipInfo.date_time)
+    separa décadas: 2016-08 não passa por 2026-08."""
     m = PADRAO_DATA_MEMBRO.search(nome_membro)
     if m is None:
         raise common.FonteIndisponivel(f"membro {nome_membro!r} sem data de extração (.DAMMDD.)")
@@ -112,16 +121,23 @@ def conferir_competencia(nome_membro: str, competencia: str) -> None:
         raise common.FonteIndisponivel(
             f"membro {nome_membro!r} é de outra competência (ano ...{digito_ano}, mês {mes}); "
             f"pedida {competencia}")
+    ano_pasta = int(competencia[:4])
+    if (ano_membro is not None and ano_membro != ANO_ZIP_SEM_DATA
+            and abs(ano_membro - ano_pasta) > TOLERANCIA_ANO_MEMBRO):
+        raise common.FonteIndisponivel(
+            f"membro {nome_membro!r} é de outra competência (data do membro no zip: {ano_membro}); "
+            f"pedida {competencia}")
 
 
 def competencia_do_zip(caminho_zip: Path, competencia: str) -> str:
     """Confere o membro do zip contra a competência; devolve o nome do membro."""
     try:
         with zipfile.ZipFile(caminho_zip) as zf:
-            nome = membro_estabelecimentos(zf).filename
+            membro = membro_estabelecimentos(zf)
     except (zipfile.BadZipFile, OSError) as exc:
         raise common.FonteIndisponivel(f"zip inválido ou truncado {caminho_zip.name}: {exc}") from exc
-    conferir_competencia(nome, competencia)
+    nome = membro.filename
+    conferir_competencia(nome, competencia, membro.date_time[0])
     log.info("  membro %s confere com a competência %s", nome, competencia)
     return nome
 

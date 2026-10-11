@@ -11,9 +11,21 @@ SUF=21 (Paraná) e Incremento=População + três indicadores:
 Brutos: data/raw/tabnet/siops_<ano>.csv
 Saída:  dashboard/public/data/financiamento.json
 
-As médias estaduais são ponderadas pela população informada no próprio SIOPS
-(a mesma usada nos indicadores per capita), o que reproduz o total estadual.
-Município sem dado no ano de referência usa o seu ano mais recente (campo ano).
+As médias estaduais são ponderadas pela população informada no próprio SIOPS.
+Nos indicadores per capita isso equivale ao total estadual por habitante; no
+% de receita própria é só uma média ponderada pela população: o CSV não traz a
+receita base (impostos e transferências) que reproduziria o percentual estadual.
+
+O SIOPS omite municípios que não declararam no ano (ex.: 2021 sem Mato Rico,
+411573; num ano recém-aberto, quase todos), por isso a validação de cada ano
+tolera ausentes sem limite e só confere a soma da população contra a linha
+Total; os ausentes de cada ano vão para metadata.ausentes. Quem rejeita ano
+com poucas declarações é ano_referencia (preenchimento mínimo).
+O ano de referência é o mais recente com indicador em pelo menos 90% dos
+municípios (anos posteriores, ainda incompletos, vão para metadata.anosIncompletos
+e ficam fora de porAno, cujo último registro é o ano de referência).
+Município sem dado no ano de referência usa o seu ano mais recente (campo ano),
+listado em metadata.imputados.
 """
 
 from __future__ import annotations
@@ -162,13 +174,48 @@ def recorte_municipal(anos: list[AnoSiops], ano_ref: int) -> dict[str, dict]:
     return recorte
 
 
+# Fração mínima de municípios com algum indicador para um ano virar referência.
+PREENCHIMENTO_MINIMO = 0.9
+
+
+def ano_referencia(anos: list[AnoSiops]) -> tuple[int, list[dict]]:
+    """(ano de referência, anos mais recentes descartados por preenchimento baixo).
+    Universo: todos os municípios que aparecem em algum ano."""
+    universo = len({c for a in anos for c in a.tabela})
+    incompletos: list[dict] = []
+    for a in sorted(anos, key=lambda a: a.ano, reverse=True):
+        preenchidos = sum(1 for m in a.tabela.values() if _tem_dado(m))
+        if preenchidos >= PREENCHIMENTO_MINIMO * universo:
+            return a.ano, incompletos
+        incompletos.append({"ano": a.ano, "preenchidos": preenchidos, "municipios": universo})
+    raise common.FonteIndisponivel(
+        f"SIOPS sem ano com indicador em {PREENCHIMENTO_MINIMO:.0%} dos municípios")
+
+
+def ausentes_por_ano(anos: list[AnoSiops]) -> dict[str, list[str]]:
+    """"ano" -> cod7 ausentes da tabulação do ano (só anos com ausentes)."""
+    universo = {c for a in anos for c in a.tabela}
+    ausentes = {str(a.ano): sorted(universo - set(a.tabela)) for a in sorted(anos, key=lambda a: a.ano)}
+    return {ano: lista for ano, lista in ausentes.items() if lista}
+
+
 # ── Download ────────────────────────────────────────────────────────────
+
+def parse_ano(texto: str, mapa: dict[str, str], cfg: ConfigSiops = CONFIG) -> list[dict]:
+    """Valida o CSV de um ano. O SIOPS omite quem não declarou e um ano novo pode
+    ter poucas declarações: os ausentes são tolerados sem limite aqui (um limite
+    por ano derrubaria o domínio inteiro antes de ano_referencia mandar o ano para
+    anosIncompletos). Os indicadores são razões (o Total não é a soma); só a
+    população soma e é conferida contra o Total."""
+    return tabnet.parse_municipios(texto, set(mapa), colunas_soma=[cfg.populacao],
+                                   tolerar_ausentes=len(mapa))
+
 
 def baixar_ano(http: requests.Session | None, ano: int, arquivo: str,
                mapa: dict[str, str], cfg: ConfigSiops = CONFIG) -> tuple[tabnet.Bruto, AnoSiops]:
     """Consulta um ano e devolve (bruto ainda não registrado, tabela do ano)."""
     texto = tabnet.consultar(cfg.def_path, campos(arquivo, cfg), servidor=SERVIDOR, http=http)
-    registros = tabnet.parse_municipios(texto)
+    registros = parse_ano(texto, mapa, cfg)
     bruto = tabnet.Bruto(
         f"tabnet/siops_{ano}.csv", texto,
         f"SIOPS/TabNet: indicadores municipais de financiamento da saúde, Paraná, {ano}",
@@ -185,19 +232,27 @@ def baixar_ano(http: requests.Session | None, ano: int, arquivo: str,
 def montar_saida(anos: list[AnoSiops], atualizacao: str) -> dict:
     """JSON do dashboard a partir das tabelas anuais (ordem determinística)."""
     anos = sorted(anos, key=lambda a: a.ano)
-    ano_ref = anos[-1].ano
+    ano_ref, incompletos = ano_referencia(anos)
+    por_municipio = recorte_municipal(anos, ano_ref)
     return {
         "metadata": {
             "fonte": "SIOPS/DATASUS via TabNet (mIndicadores.def), série histórica municipal",
-            "periodo": f"{anos[0].ano}-{ano_ref}",
+            "periodo": f"{anos[0].ano}-{anos[-1].ano}",
             "atualizacao": atualizacao,
             "nota": "Indicadores declarados pelos municípios ao SIOPS. Médias estaduais "
-                    "ponderadas pela população informada no SIOPS. Município sem dado no ano "
-                    "de referência usa o ano mais recente disponível (campo ano).",
+                    "ponderadas pela população informada no SIOPS (no % de receita própria, "
+                    "média ponderada pela população, não o percentual do total estadual). "
+                    "Ano de referência: o mais recente com indicador em pelo menos 90% dos "
+                    "municípios. Município sem dado no ano de referência usa o ano mais "
+                    "recente disponível (campo ano; lista em imputados).",
+            "anosIncompletos": incompletos,
+            "ausentes": ausentes_por_ano(anos),
+            "imputados": {cod7: m["ano"] for cod7, m in por_municipio.items() if m["ano"] != ano_ref},
         },
         "indicadores": [{"codigo": i.codigo, "nome": i.nome} for i in INDICADORES],
-        "porAno": serie_por_ano(anos),
-        "porMunicipio": recorte_municipal(anos, ano_ref),
+        # Só até o ano de referência: o front usa o último registro como KPI estadual.
+        "porAno": serie_por_ano([a for a in anos if a.ano <= ano_ref]),
+        "porMunicipio": por_municipio,
         "anoReferencia": ano_ref,
     }
 

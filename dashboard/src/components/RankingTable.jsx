@@ -19,7 +19,7 @@ function RankingTable({
   showRank = true,
   onRowClick,
   selectedRow,
-  height = 400
+  height = null
 }) {
   const [search, setSearch] = useState('');
   const [sortColumn, setSortColumn] = useState(defaultSort || (columns[0]?.key || null));
@@ -152,7 +152,9 @@ function RankingTable({
         )}
       </div>
 
-      <div className="overflow-x-auto" style={{ maxHeight: height }}>
+      {/* Sem altura fixa por padrão: com maxHeight 400 só 8 das 10 linhas da
+          página apareciam e as outras ficavam numa rolagem interna */}
+      <div className="overflow-x-auto" style={height ? { maxHeight: height, overflowY: 'auto' } : undefined}>
         <table className="w-full">
           <thead className="sticky top-0 bg-white">
             <tr className="border-b border-neutral-200">

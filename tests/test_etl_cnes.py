@@ -157,7 +157,8 @@ def test_grupos_nao_se_sobrepoem_e_outros_e_o_ultimo():
 
 def test_ler_estabelecimentos_filtra_uf_desativados_e_municipio(processado):
     estabs, descartes, _ = processado
-    assert descartes == cnes.Descartes(linhas_uf=12, desativados=1, municipio_desconhecido=1)
+    assert descartes == cnes.Descartes(linhas_uf=12, desativados=1, municipio_desconhecido=1,
+                                       linhas_lidas=13, malformadas=0)
     assert len(estabs) == 10
     por_cnes = {e.cnes: e for e in estabs}
     assert "0000402" not in por_cnes  # outra UF
@@ -312,7 +313,8 @@ def test_montar_saida_respeita_contrato_e_lgpd(processado):
     assert meta["competenciaCnes"] == "2026-09-12"
     assert meta["competenciaLeitos"] == "2026-07"
     assert meta["atualizacao"] == "2026-09-13"
-    assert meta["descartados"] == {"desativados": 1, "municipioDesconhecido": 1}
+    assert meta["descartados"] == {"desativados": 1, "municipioDesconhecido": 1,
+                                   "linhasMalformadas": 0}
     assert "2026" in meta["nota"]
     texto = json.dumps(saida, ensure_ascii=False, separators=(",", ":"))
     for proibido in ("@", "gmail", "99990000", "4133334444", "RUA MATO GROSSO", "RUA A",
@@ -360,3 +362,97 @@ def test_registrar_brutos_grava_texto_reduzido_e_hash_do_zip(processado, zip_cne
     assert (tmp_path / "regioes_saude_pr.json").read_text(encoding="utf-8") == texto_regioes
     assert manifesto["regioes_saude_pr.json"]["linhas"] == 1
     assert manifesto["leitos_pr.csv"]["url"] == "http://leitos"
+
+
+# ── Invariantes de volume, fallback de leitos e brutos só após sucesso ──
+
+def test_ler_estabelecimentos_normaliza_codigo_float_e_conta_malformadas(tmp_path: Path):
+    cabecalho = ";".join(f'"{c}"' for c in CABECALHO_CNES).encode("utf-8")
+    linhas = [cabecalho,
+              linha_cnes("1", "41.0", "410690.0", "UBS", "UBS SÃO JOÃO", "MUNICIPAL", "2", "", "",
+                         "1244", "", "SIM").encode("utf-8"),
+              b'"2";"41";"410690"']  # campos a menos: malformada
+    caminho = zip_com_csv(tmp_path / "c.zip", "c.csv", linhas)
+    estabs, descartes = cnes.ler_estabelecimentos(caminho, COD6_7)
+    assert [e.cod_ibge for e in estabs] == ["4106902"]
+    assert (descartes.linhas_uf, descartes.linhas_lidas, descartes.malformadas) == (1, 2, 1)
+
+
+def test_validar_volume_rejeita_cadastro_truncado_ou_zerado(processado, monkeypatch):
+    estabs, descartes, _ = processado
+    monkeypatch.setattr(cnes, "MIN_ESTABELECIMENTOS_PR", 1)
+    cnes.validar_volume(estabs, descartes, GEO)  # 3 de 3 municípios: passa
+
+    with pytest.raises(cnes.common.FonteIndisponivel, match="nenhuma linha da UF"):
+        cnes.validar_volume((), cnes.Descartes(0, 0, 0, linhas_lidas=50), GEO)
+    with pytest.raises(cnes.common.FonteIndisponivel, match="malformadas"):
+        cnes.validar_volume(estabs, cnes.Descartes(12, 1, 1, linhas_lidas=100, malformadas=2), GEO)
+    with pytest.raises(cnes.common.FonteIndisponivel, match="municípios"):
+        cnes.validar_volume(estabs, descartes, {**GEO, "4100103": {"nome": "Abatiá",
+                                                                   "regional": "x"}})
+    monkeypatch.setattr(cnes, "MIN_ESTABELECIMENTOS_PR", 20_000)
+    with pytest.raises(cnes.common.FonteIndisponivel, match="estabelecimentos ativos"):
+        cnes.validar_volume(estabs, descartes, GEO)
+
+
+def test_baixar_leitos_registra_o_ano_usado_no_fallback(tmp_path, monkeypatch, caplog):
+    monkeypatch.setattr(cnes.common, "RAW_DIR", tmp_path)
+
+    def baixar(url, destino, http=None):
+        if "2026" in url:
+            raise cnes.common.FonteIndisponivel("timeout")
+        return cnes.common.Download(destino, None, 1)
+
+    monkeypatch.setattr(cnes.common, "baixar_arquivo", baixar)
+    caplog.set_level("WARNING")
+    _dl, url, ano = cnes.baixar_leitos(None, 2026)
+    assert ano == 2025 and url.endswith("Leitos_csv_2025.zip")
+    assert "usando o arquivo de 2025" in caplog.text
+
+
+def _ambiente_executar(tmp_path, monkeypatch, zip_cnes, zip_leitos, leitos_ano):
+    monkeypatch.setattr(cnes.common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(cnes.common, "PUBLIC_DATA_DIR", tmp_path / "public")
+    monkeypatch.setattr(cnes.common, "geo_municipios", lambda: GEO)
+    monkeypatch.setattr(cnes.common, "cod6_para_7", lambda: COD6_7)
+    monkeypatch.setattr(cnes.common, "populacao_municipal", lambda: POP)
+    monkeypatch.setattr(cnes, "MIN_ESTABELECIMENTOS_PR", 1)
+    monkeypatch.setattr(cnes.common, "baixar_arquivo",
+                        lambda url, destino, http=None: cnes.common.Download(zip_cnes, None, 1))
+    monkeypatch.setattr(cnes, "baixar_leitos", lambda http, ano, cfg: (
+        cnes.common.Download(zip_leitos, None, 1), "http://leitos", leitos_ano))
+    monkeypatch.setattr(cnes, "baixar_regioes", lambda http: (
+        REGIOES, '[{"codigo_municipio": "410690", "regiao_saude": "2ª RS"}]\n'))
+
+
+def test_executar_falha_apos_download_nao_grava_brutos_novos(tmp_path, monkeypatch, zip_cnes,
+                                                             zip_leitos):
+    _ambiente_executar(tmp_path, monkeypatch, zip_cnes, zip_leitos, cnes.date.today().year)
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    (raw / "leitos_pr.csv").write_text("antigo, ção\n", encoding="utf-8")
+    (raw / "regioes_saude_pr.json").write_text("[]\n", encoding="utf-8")
+    manifesto = {"leitos_pr.csv": {"sha256": "antigo"}}
+
+    def quebra():
+        raise RuntimeError("população indisponível")
+
+    monkeypatch.setattr(cnes.common, "populacao_municipal", quebra)
+    with pytest.raises(RuntimeError):
+        cnes.executar(manifesto)
+    assert (raw / "leitos_pr.csv").read_text(encoding="utf-8") == "antigo, ção\n"
+    assert (raw / "regioes_saude_pr.json").read_text(encoding="utf-8") == "[]\n"
+    assert manifesto == {"leitos_pr.csv": {"sha256": "antigo"}}
+    assert not (tmp_path / "public" / cnes.SAIDA).exists()
+
+
+def test_executar_expoe_fallback_de_leitos_na_metadata(tmp_path, monkeypatch, zip_cnes,
+                                                       zip_leitos):
+    ano = cnes.date.today().year
+    _ambiente_executar(tmp_path, monkeypatch, zip_cnes, zip_leitos, ano - 1)
+    manifesto = cnes.executar({})
+    assert set(manifesto) == {"cnes_estabelecimentos_csv.zip", "leitos_pr.csv",
+                              "regioes_saude_pr.json"}
+    meta = json.loads((tmp_path / "public" / cnes.SAIDA).read_text(encoding="utf-8"))["metadata"]
+    assert meta["leitosAno"] == ano - 1
+    assert meta["aviso"] == f"Leitos de {ano} indisponíveis; usado o arquivo de {ano - 1}."

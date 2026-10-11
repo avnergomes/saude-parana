@@ -116,13 +116,16 @@ function ArbovirosesTab({
 
   if (!arbo.disponivel) return <PainelIndisponivel />;
 
-  const { resumo, serieSemanal, serieAnual, ranking, selecaoAtiva, anoReferencia, semanaUltima } = arbo;
+  const { resumo, serieSemanal, serieAnual, ranking, selecaoAtiva, anoReferencia, anoParcial, semanaUltima } = arbo;
 
   const kpis = [
     {
       label: 'Casos prováveis no ano',
       value: formatInteiro(resumo.casos),
-      sublabel: 'acumulado até a última semana',
+      // Em janeiro o resumo é do ano anterior (completo): dizer qual ano é
+      sublabel: anoParcial != null && anoReferencia !== anoParcial
+        ? `ano de referência ${anoReferencia}`
+        : 'acumulado até a última semana',
       tone: 'health'
     },
     {
@@ -147,7 +150,7 @@ function ArbovirosesTab({
 
   const barrasAnuais = serieAnual.map(p => ({
     ...p,
-    cor: p.ano === anoReferencia ? COR_ANO_PARCIAL : COR_CASOS_EST
+    cor: anoParcial != null && p.ano === anoParcial ? COR_ANO_PARCIAL : COR_CASOS_EST
   }));
 
   return (

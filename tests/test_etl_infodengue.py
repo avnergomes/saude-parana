@@ -168,3 +168,71 @@ def test_executar_grava_saida_e_registra_municipios_sem_resposta(tmp_path, monke
     assert saida["anoReferencia"] == 2026
     assert saida["porAno"][0]["casos"] == 101
     assert saida["porMunicipio"]["4106902"]["nivel"] == 1
+
+
+# ── Ano parcial, ano de referência e brutos só após sucesso ─────────────
+
+def test_por_ano_marca_so_o_ano_incompleto_como_parcial():
+    r = idg.processar_doenca(BRUTO, CFG)  # última SE 202601
+    assert [a.get("parcial") for a in r["porAno"]] == [None, None, True]
+    assert set(r["porAno"][0]) == {"ano", "casos", "casos_est", "incidencia_100k"}
+    completo = {"4106902": [reg(202552, 1, 1.0, 1, "1000", SE_202552)]}
+    assert "parcial" not in idg.processar_doenca(completo, CFG)["porAno"][-1]
+
+
+def test_em_janeiro_ano_de_referencia_e_o_ultimo_ano_com_semanas_suficientes():
+    regs = [reg(202500 + s, 10, 10.0, 1, "1000", SE_202552) for s in range(40, 53)]
+    regs += [reg(202601, 1, 1.0, 1, "1000", SE_202601), reg(202602, 1, 1.0, 1, "1000", SE_202601)]
+    r = idg.processar_doenca({"4106902": regs}, CFG)
+    assert r["semanaUltima"] == "202602"
+    assert r["anoReferencia"] == 2025
+    assert r["porMunicipio"]["4106902"]["casos_ano"] == 130
+    assert r["porAno"][-1] == {"ano": 2026, "casos": 2, "casos_est": 2,
+                               "incidencia_100k": 200.0, "parcial": True}
+    # Com 4 semanas do ano novo, ele passa a ser a referência.
+    regs += [reg(202603, 1, 1.0, 1, "1000", SE_202601), reg(202604, 1, 1.0, 1, "1000", SE_202601)]
+    assert idg.processar_doenca({"4106902": regs}, CFG)["anoReferencia"] == 2026
+
+
+def test_ano_parcial_exposto_a_parte_do_ano_de_referencia():
+    # Em janeiro anoReferencia é o ano anterior (completo); o front precisa de
+    # anoParcial para pintar a barra certa como parcial.
+    regs = [reg(202500 + s, 10, 10.0, 1, "1000", SE_202552) for s in range(40, 53)]
+    regs += [reg(202601, 1, 1.0, 1, "1000", SE_202601), reg(202602, 1, 1.0, 1, "1000", SE_202601)]
+    r = idg.processar_doenca({"4106902": regs}, CFG)
+    assert (r["anoReferencia"], r["anoParcial"]) == (2025, 2026)
+    saida = idg.montar_saida({"dengue": r}, {"dengue": []}, CFG, "2026-01-15")
+    assert saida["metadata"]["anoParcial"] == 2026
+    assert saida["anoReferencia"] == 2025
+    completo = {"4106902": [reg(202552, 1, 1.0, 1, "1000", SE_202552)]}
+    assert idg.processar_doenca(completo, CFG)["anoParcial"] is None
+
+
+def test_executar_falha_no_processamento_nao_grava_bruto_novo(tmp_path, monkeypatch):
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "public")
+    monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
+    monkeypatch.setattr(idg.time, "sleep", lambda s: None)
+    monkeypatch.setattr(idg, "baixar_municipio",
+                        lambda http, cfg, cod, doenca, ano: BRUTO.get(cod))
+    bruto = tmp_path / "raw" / "infodengue" / "dengue_pr.json"
+    bruto.parent.mkdir(parents=True)
+    bruto.write_text('{"antigo": "notificação"}', encoding="utf-8")
+    manifesto = {"infodengue/dengue_pr.json": {"sha256": "antigo"}}
+
+    # A segunda doença quebra no processamento: nem o bruto da primeira pode mudar.
+    def processar(por_municipio, cfg, _original=idg.processar_doenca, _n=[0]):
+        _n[0] += 1
+        if _n[0] == 2:
+            raise RuntimeError("formato novo da API")
+        return _original(por_municipio, cfg)
+
+    monkeypatch.setattr(idg, "processar_doenca", processar)
+    cfg = idg.ConfigInfodengue(doencas=("dengue", "chikungunya"), pausa=0.0,
+                               tolerancia_falhas=0.5)
+    with pytest.raises(RuntimeError):
+        idg.executar(manifesto, cfg, hoje=date(2026, 9, 13))
+    assert bruto.read_text(encoding="utf-8") == '{"antigo": "notificação"}'
+    assert not (tmp_path / "raw" / "infodengue" / "chikungunya_pr.json").exists()
+    assert manifesto == {"infodengue/dengue_pr.json": {"sha256": "antigo"}}
+    assert not (tmp_path / "public" / idg.SAIDA).exists()

@@ -68,14 +68,12 @@ def test_anos_disponiveis_le_arquivos_a_partir_do_ano_inicial():
 def test_campos_usam_os_valores_exatos_do_formulario():
     assert sim_cid.campos("obtpr24.dbf") == {
         "Linha": "Município", "Coluna": "Capítulo_CID-10", "Incremento": "Óbitos_p/Residênc",
-        "Arquivos": "obtpr24.dbf", "formato": "table", "mostre": "Mostra",
+        "Arquivos": "obtpr24.dbf", "zeradas": "exibirlz", "formato": "table", "mostre": "Mostra",
     }
 
 
-def test_ano_final_le_a_nota_do_rodape_ou_usa_o_padrao():
+def test_ano_final_le_a_nota_do_rodape():
     assert sim_cid.ano_final(CSVS["obtpr24.dbf"]) == 2024
-    assert sim_cid.ano_final("sem nota") == sim_cid.CONFIG.ultimo_ano_final
-    assert sim_cid.ano_final("sem nota", sim_cid.ConfigSim(ultimo_ano_final=2030)) == 2030
 
 
 def _ano(ano, arquivo, ano_final=2024):
@@ -94,9 +92,9 @@ def test_montar_saida_soma_municipios_e_separa_preliminares():
     assert saida["metadata"]["atualizacao"] == "2026-09-13"
     # Soma só dos municípios mapeados (exclui "MUNICIPIO IGNORADO"); "-" conta 0
     assert saida["porAno"] == [
-        {"ano": 2023, "total": 25, "I": 6, "II": 18, "XX": 0, "XXI": 1},
-        {"ano": 2024, "total": 43, "I": 5, "II": 23, "XX": 15, "XXI": 0},
-        {"ano": 2025, "total": 20, "I": 4, "II": 16, "XX": 0, "XXI": 0},
+        {"ano": 2023, "total": 25, "I": 6, "II": 18, "XX": 0, "XXI": 1, "preliminar": False},
+        {"ano": 2024, "total": 43, "I": 5, "II": 23, "XX": 15, "XXI": 0, "preliminar": False},
+        {"ano": 2025, "total": 20, "I": 4, "II": 16, "XX": 0, "XXI": 0, "preliminar": True},
     ]
     assert saida["porMunicipio"] == {
         "4100103": {"total": 25, "I": 5, "II": 13, "XX": 7, "XXI": 0},
@@ -123,7 +121,6 @@ def test_executar_grava_saida_brutos_e_manifesto(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "cod6_para_7", lambda: MAPA)
     monkeypatch.setattr(tabnet, "baixar_formulario", lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
-    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
 
     manifesto_inicial = {"outro.json": {"sha256": "x", "alterado_em": "2020-01-01"}}
     manifesto = sim_cid.executar(manifesto_inicial)

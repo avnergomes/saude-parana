@@ -148,6 +148,7 @@ export default function FinanciamentoTab({
           metrics={['pct_receita_propria']}
           metricConfig={METRICAS}
           title="Receitas próprias aplicadas em saúde: mínimo constitucional de 15%"
+          referenceValue={{ valor: 15, rotulo: 'mínimo constitucional (15%)' }}
           onPointClick={onAnoClick}
           selectedAno={selectedAno}
           footer={<RodapeSerie temSelecao={fin.temSelecao} />}

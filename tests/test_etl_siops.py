@@ -106,7 +106,8 @@ def test_recorte_municipal_omite_municipio_sem_dado_em_nenhum_ano():
     assert siops.recorte_municipal(anos, 2025) == {}
 
 
-def test_montar_saida_ordena_anos_e_expoe_indicadores():
+def test_montar_saida_ordena_anos_e_expoe_indicadores(monkeypatch):
+    monkeypatch.setattr(siops, "PREENCHIMENTO_MINIMO", 0.5)  # fixture com 2 municípios
     saida = siops.montar_saida(_anos(), "2026-09-13")
     assert list(saida) == ["metadata", "indicadores", "porAno", "porMunicipio", "anoReferencia"]
     assert saida["anoReferencia"] == 2025
@@ -134,7 +135,7 @@ def test_executar_usa_o_servidor_do_siops_e_grava_tudo(tmp_path, monkeypatch):
     monkeypatch.setattr(tabnet, "baixar_formulario",
                         lambda def_path, servidor=None, http=None: FORM_HTML)
     monkeypatch.setattr(tabnet, "consultar", consultar_falso)
-    monkeypatch.setattr(tabnet, "MINIMO_MUNICIPIOS_PR", 1)  # fixture com poucos municípios
+    monkeypatch.setattr(siops, "PREENCHIMENTO_MINIMO", 0.5)  # fixture com 2 municípios
 
     manifesto = siops.executar({})
 
@@ -152,3 +153,32 @@ def test_executar_usa_o_servidor_do_siops_e_grava_tudo(tmp_path, monkeypatch):
     assert saida["anoReferencia"] == 2025
     assert saida["porMunicipio"]["4128807"]["ano"] == 2024
     assert saida["metadata"]["atualizacao"] == manifesto["tabnet/siops_2025.csv"]["alterado_em"]
+
+
+def test_ano_novo_com_poucas_declaracoes_vai_para_anos_incompletos(monkeypatch):
+    # Regressão: com tolerância fixa por ano (LIMITE_AUSENTES) o ano novo com 30
+    # declarações levantava FonteIndisponivel em baixar_ano e derrubava o domínio.
+    mapa = {f"{410000 + 10 * i}": f"{410000 + 10 * i}0" for i in range(1, 401)}
+
+    def csv_ano(ano, n):
+        linhas = "".join(f'"{c} Município {c}";1000;100,00;15,00;50,00\n' for c in list(mapa)[:n])
+        return csv_siops(ano, linhas + f'"Total";{1000 * n};100,00;15,00;50,00\n')
+
+    textos = {"indmun25.dbf": csv_ano(2025, 400), "indmun26.dbf": csv_ano(2026, 30)}
+    monkeypatch.setattr(tabnet, "consultar", lambda def_path, campos, servidor=None, http=None:
+                        textos[campos["Arquivos"]])
+    anos = [siops.baixar_ano(None, 2025, "indmun25.dbf", mapa)[1],
+            siops.baixar_ano(None, 2026, "indmun26.dbf", mapa)[1]]
+
+    saida = siops.montar_saida(anos, "2026-10-11")
+    assert saida["anoReferencia"] == 2025
+    assert saida["metadata"]["anosIncompletos"] == [{"ano": 2026, "preenchidos": 30, "municipios": 400}]
+    assert len(saida["metadata"]["ausentes"]["2026"]) == 370
+
+
+def test_ano_continua_rejeitado_se_a_populacao_nao_bate_com_o_total():
+    # A tolerância sem limite a ausentes não dispensa a conferência da soma.
+    texto = csv_siops(2026, '"410010 Abatiá";8000;2000,00;25,00;600,00\n'
+                            '"Total";9000;2000,00;25,00;600,00\n')
+    with pytest.raises(common.FonteIndisponivel):
+        siops.parse_ano(texto, MAPA)

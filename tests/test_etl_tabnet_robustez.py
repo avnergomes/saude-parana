@@ -35,11 +35,11 @@ def test_parse_csv_levanta_em_linha_truncada():
         tabnet.parse_csv(texto)
 
 
-def test_parse_municipios_exige_minimo_de_municipios():
+def test_parse_municipios_exige_todos_os_municipios_esperados():
     texto = CABECALHO + '"410010 Abatiá";1;2;3\n"Total";1;2;3\n'
-    assert len(tabnet.parse_municipios(texto, minimo=1)) == 1
+    assert len(tabnet.parse_municipios(texto, {"410010"})) == 1
     with pytest.raises(FonteIndisponivel):
-        tabnet.parse_municipios(texto, minimo=2)
+        tabnet.parse_municipios(texto, {"410010", "410020"})
 
 
 def test_normalizar_quebras_garante_lf_final():

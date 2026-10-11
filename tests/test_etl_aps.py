@@ -135,6 +135,7 @@ def test_executar_grava_saida_brutos_e_manifesto(tmp_path, monkeypatch):
     monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "public")
     monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
     monkeypatch.setattr(common, "cod6_para_7", lambda: COD6)
+    monkeypatch.setattr(aps, "MIN_MUNICIPIOS_COMPETENCIA", 2)
     por_ano = {2025: REGISTROS_2025, 2026: REGISTROS_2026}
     monkeypatch.setattr(
         aps, "baixar_ano",
@@ -157,7 +158,64 @@ def test_executar_grava_saida_brutos_e_manifesto(tmp_path, monkeypatch):
     assert saida["metadata"]["descartados"] == {
         "codigosNaoMapeados": ["999999"], "semCobertura": ["2025-12:4101051"],
         "municipiosAusentesNaCompetencia": {"4101051": "Anahy"},
+        "competenciasIncompletasIgnoradas": {},
     }
     assert saida["porMes"][-1]["esf"] == 184
     assert saida["porMunicipio"]["4101051"]["cobertura"] is None
     assert saida["porMunicipioAno"]["4100103"] == {"2025": 95.5, "2026": 100.0}
+
+
+def _patch_executar(tmp_path, monkeypatch, por_ano):
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "public")
+    monkeypatch.setattr(common, "geo_municipios", lambda: GEO)
+    monkeypatch.setattr(common, "cod6_para_7", lambda: COD6)
+    monkeypatch.setattr(
+        aps, "baixar_ano",
+        lambda http, cfg, ano, mes: (json.dumps(por_ano[ano], ensure_ascii=False), por_ano[ano]))
+
+
+def test_montar_saida_pula_competencia_parcial(monkeypatch):
+    # 2025-12 tem os 3 municípios; 2026-01 só 2 (publicação parcial)
+    monkeypatch.setattr(aps, "MIN_MUNICIPIOS_COMPETENCIA", 3)
+    por_comp, descartados = aps.normalizar(REGISTROS_2025 + REGISTROS_2026, COD6, 100.0)
+    saida = aps.montar_saida(por_comp, descartados, GEO, "2026-01-20")
+    meta = saida["metadata"]
+    assert meta["competencia"] == "2025-12"
+    assert meta["periodo"] == "2025-11..2025-12"
+    assert meta["descartados"]["competenciasIncompletasIgnoradas"] == {"2026-01": 2}
+    assert meta["descartados"]["municipiosAusentesNaCompetencia"] == {}
+    assert saida["porMes"][-1]["competencia"] == "2025-12"
+    assert saida["porMunicipio"]["4106902"]["cobertura"] == 61.0
+    assert saida["porMunicipioAno"]["4100103"] == {"2025": 95.5}
+    # A entrada não é mutada
+    assert "2026-01" in por_comp
+
+
+def test_montar_saida_sem_competencia_completa_falha(monkeypatch):
+    monkeypatch.setattr(aps, "MIN_MUNICIPIOS_COMPETENCIA", 4)
+    por_comp, descartados = aps.normalizar(REGISTROS_2025, COD6, 100.0)
+    with pytest.raises(FonteIndisponivel, match="4 municípios"):
+        aps.montar_saida(por_comp, descartados, GEO, "2026-01-20")
+
+
+def test_min_municipios_padrao_aceita_399_e_398():
+    # PR tem 399 municípios; competência com um ausente (Anahy, 2026-07) segue válida
+    assert 398 >= aps.MIN_MUNICIPIOS_COMPETENCIA > 300
+
+
+def test_ano_passado_vazio_falha_e_preserva_manifesto(tmp_path, monkeypatch):
+    _patch_executar(tmp_path, monkeypatch, {2025: [], 2026: REGISTROS_2026})
+    manifesto = {"aps/cobertura_2025.json": {"sha256": "a" * 64, "linhas": 5}}
+    with pytest.raises(FonteIndisponivel, match="2025.*sem registros"):
+        aps.executar(manifesto, CFG, hoje=date(2026, 3, 1))
+    assert manifesto == {"aps/cobertura_2025.json": {"sha256": "a" * 64, "linhas": 5}}
+    assert not (tmp_path / "public" / aps.SAIDA).exists()
+
+
+def test_ano_corrente_vazio_em_janeiro_e_aceito(tmp_path, monkeypatch):
+    monkeypatch.setattr(aps, "MIN_MUNICIPIOS_COMPETENCIA", 2)
+    _patch_executar(tmp_path, monkeypatch, {2025: REGISTROS_2025, 2026: []})
+    aps.executar({}, CFG, hoje=date(2026, 1, 5))
+    saida = json.loads((tmp_path / "public" / aps.SAIDA).read_text(encoding="utf-8"))
+    assert saida["metadata"]["competencia"] == "2025-12"

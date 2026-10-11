@@ -24,8 +24,16 @@ metadata.descartados: tomNaoMapeado (TOM sem IBGE na tabela da Receita),
 linhasInvalidas (linhas malformadas nas partes + linhas sem CNAE de saúde) e
 partesRecebidas; servem para auditar perdas silenciosas.
 
+Plausibilidade: no Actions o espelho de terceiros é o único caminho e não há
+conferência de integridade além da data de extração. Antes de publicar, a saída
+nova é comparada com o cnpj_saude.json já publicado: variação do total estadual de
+ativos acima de 20% ou mais de 5 municípios que tinham ativos e zeraram derrubam a
+rodada sem gravar nada. --aceitar-variacao publica mesmo assim (rodada manual
+consciente, com os números no log).
+
 Uso: python scripts/cnpj/consolidar.py --partes ./partes --pasta 2026-08 [--esperadas 10]
      [--fonte oficial|espelho] [--saida-dir DIR]  (ensaio: JSON, manifesto e brutos vão para DIR)
+     [--aceitar-variacao]  (publica mesmo se a conferência com a competência anterior falhar)
 """
 
 from __future__ import annotations
@@ -33,6 +41,7 @@ from __future__ import annotations
 import argparse
 import csv
 import io
+import json
 import logging
 import re
 import sys
@@ -89,6 +98,8 @@ class Config:
     padrao_partes: str = "parte_*.csv"
     limite_tom_nao_mapeado: float = 0.01  # fração das linhas; acima disso é falha
     ano_inicial_aberturas: int = 2000
+    limite_variacao_ativos: float = 0.20  # variação do total estadual de ativos vs. publicado
+    limite_municipios_zerados: int = 5  # municípios com ativos no publicado que zeraram
 
 
 CONFIG = Config()
@@ -334,6 +345,42 @@ def verificar_descartes(agregado: Agregado, total: int, cfg: Config = CONFIG) ->
             f"(limite {cfg.limite_tom_nao_mapeado:.0%})")
 
 
+def carregar_publicado() -> dict | None:
+    """cnpj_saude.json já publicado (competência anterior); None se não houver ou não abrir."""
+    caminho = common.PUBLIC_DATA_DIR / SAIDA
+    if not caminho.exists():
+        return None
+    try:
+        return json.loads(caminho.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        log.warning("  %s publicado ilegível (%s); conferência de plausibilidade pulada", SAIDA, exc)
+        return None
+
+
+def verificar_plausibilidade(saida: Mapping, anterior: Mapping | None,
+                             cfg: Config = CONFIG) -> None:
+    """Falha se o total de ativos variou além do limite ou se municípios demais zeraram,
+    em relação à saída publicada. Sem publicação anterior (ou sem totais), não confere."""
+    if not anterior or not anterior.get("totais") or not anterior.get("porMunicipio"):
+        return
+    problemas = []
+    antes, agora = anterior["totais"].get("ativos", 0), saida["totais"]["ativos"]
+    if antes and abs(agora - antes) / antes > cfg.limite_variacao_ativos:
+        problemas.append(f"ativos no estado {antes} -> {agora} "
+                         f"(variação {(agora - antes) / antes:+.1%}, limite {cfg.limite_variacao_ativos:.0%})")
+    zerados = sorted(cod for cod, linha in anterior["porMunicipio"].items()
+                     if linha.get("ativos", 0) > 0
+                     and saida["porMunicipio"].get(cod, {}).get("ativos", 0) == 0)
+    if len(zerados) > cfg.limite_municipios_zerados:
+        problemas.append(f"{len(zerados)} municípios zeraram (limite {cfg.limite_municipios_zerados}): "
+                         f"{zerados[:10]}")
+    if problemas:
+        raise common.FonteIndisponivel(
+            f"saída implausível frente à competência publicada "
+            f"{anterior.get('metadata', {}).get('competencia')}: {'; '.join(problemas)}. "
+            f"Confira a fonte; para publicar mesmo assim, rode com --aceitar-variacao")
+
+
 def url_origem(fonte: str, competencia: str, http: requests.Session) -> str:
     """Pasta da competência na fonte usada; se o espelho não listar agora, fica a raiz dele
     (o manifesto só registra a origem, a conferência da competência já foi feita no filtro)."""
@@ -345,8 +392,10 @@ def url_origem(fonte: str, competencia: str, http: requests.Session) -> str:
 
 
 def executar(pasta_partes: Path, competencia: str, cfg: Config = CONFIG,
-             http: requests.Session | None = None, fonte: str = "oficial") -> dict:
-    """Lê as partes, cruza TOM -> IBGE, agrega e grava cnpj_saude.json; devolve a saída."""
+             http: requests.Session | None = None, fonte: str = "oficial",
+             aceitar_variacao: bool = False) -> dict:
+    """Lê as partes, cruza TOM -> IBGE, agrega e grava cnpj_saude.json; devolve a saída.
+    A conferência com a saída publicada roda antes de gravar manifesto e JSON."""
     inicio = time.perf_counter()
     http = http or common.sessao()
     partes = ler_partes(pasta_partes, cfg)
@@ -365,6 +414,12 @@ def executar(pasta_partes: Path, competencia: str, cfg: Config = CONFIG,
                               linhas_invalidas=agregado.linhas_invalidas + partes.invalidas)
     saida = montar_saida(com_malformadas, partes.recebidas, competencia, atualizacao, geo,
                          common.populacao_municipal(), cfg, fonte)
+    try:
+        verificar_plausibilidade(saida, carregar_publicado(), cfg)
+    except common.FonteIndisponivel as exc:
+        if not aceitar_variacao:
+            raise
+        log.warning("  --aceitar-variacao: publicando apesar de: %s", exc)
     common.salvar_manifesto(manifesto)
     common.escrever_json(SAIDA, saida)
     log.info("  Totais: %s; descartados: %s (%.1f s)", saida["totais"],
@@ -391,6 +446,8 @@ def main() -> int:
     parser.add_argument("--fonte", choices=("oficial", "espelho"), default="oficial",
                         help="fonte de onde as partes foram baixadas (metadados e manifesto)")
     parser.add_argument("--saida-dir", help="modo de ensaio: grava tudo nesta pasta")
+    parser.add_argument("--aceitar-variacao", action="store_true",
+                        help="publica mesmo se a saída variar além dos limites frente à publicada")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     if not PADRAO_COMPETENCIA.match(args.pasta):
@@ -399,7 +456,8 @@ def main() -> int:
         redirecionar_saidas(Path(args.saida_dir))
     cfg = Config(esperadas=args.esperadas)
     try:
-        executar(Path(args.partes), args.pasta, cfg, fonte=args.fonte)
+        executar(Path(args.partes), args.pasta, cfg, fonte=args.fonte,
+                 aceitar_variacao=args.aceitar_variacao)
     except common.FonteIndisponivel as exc:
         log.error("ERRO: %s", exc)
         return 1

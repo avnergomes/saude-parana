@@ -21,14 +21,9 @@ import {
   LabelList
 } from 'recharts';
 import { formatNumber, formatPercent } from '../../utils/format';
+import { formatarEixo } from '../../utils/graficos';
 
 // Eixo numérico em pt-BR: 30000 -> "30 mil", 1200000 -> "1,2 mi"
-function formatEixo(valor) {
-  if (valor >= 1e6) return `${(valor / 1e6).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mi`;
-  if (valor >= 1e3) return `${Math.round(valor / 1e3)} mil`;
-  return String(valor);
-}
-
 // Fora do componente: criar componentes durante o render reinicia o estado
 // deles a cada renderização (regra react-hooks/static-components).
 function TooltipCapitulo({ active, payload, unidade }) {
@@ -74,7 +69,7 @@ export default function CapitulosBarChart({
           <XAxis
             type="number"
             tick={{ fontSize: 11, fill: '#6b7280' }}
-            tickFormatter={formatEixo}
+            tickFormatter={formatarEixo}
             axisLine={{ stroke: '#d1d5db' }}
             tickLine={false}
           />

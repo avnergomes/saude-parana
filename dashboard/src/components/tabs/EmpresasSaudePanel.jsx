@@ -162,6 +162,7 @@ export default function EmpresasSaudePanel({
           <>
             <span>Série estadual: estabelecimentos ativos hoje, por ano de início de atividade</span>
             {painel.temSelecao && <>. <span>O recorte territorial não altera esta curva.</span></>}
+            {painel.serie.some((l) => l.parcial) && <>. <span>Tracejado: ano em curso, parcial até a competência.</span></>}
           </>
         )}
       />
