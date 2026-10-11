@@ -37,7 +37,10 @@ from etl.common import FonteIndisponivel
 log = logging.getLogger("etl.tabnet")
 
 CODIFICACAO = "iso-8859-1"
-TIMEOUT = 120
+# (conexão, leitura). A conexão curta faz a retentativa vir logo quando o
+# servidor derruba o SYN: com 120 s também na conexão, o SIOPS levou ~4,5 min
+# por ano no run de 11/10/2026 (cada consulta esperava 120 s antes de repetir).
+TIMEOUT = (15, 120)
 PAUSA = 0.5
 
 # Capítulos da CID-10 na ordem oficial. Os rótulos de coluna do TabNet

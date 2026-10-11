@@ -128,7 +128,7 @@ def test_consultar_envia_corpo_iso_8859_1_e_baixa_csv():
     assert kwargs["data"] == (b"Linha=Munic%EDpio&Incremento=%D3bitos_p%2FResid%EAnc"
                               b"&Arquivos=obtpr24.dbf&Arquivos=obtpr25.dbf&formato=table&mostre=Mostra")
     assert kwargs["headers"]["Content-Type"] == "application/x-www-form-urlencoded"
-    assert kwargs["timeout"] == 120
+    assert kwargs["timeout"] == tabnet.TIMEOUT
     assert http.chamadas[1][:2] == ("GET", "http://tabnet.datasus.gov.br/csv/sim_cnv_obt10pr1.csv")
     assert texto == CSV_SIM  # acentos preservados e quebras normalizadas
     assert "Óbitos p/Residênc" in texto and "Município" in texto

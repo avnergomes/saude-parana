@@ -155,6 +155,32 @@ def test_executar_usa_o_servidor_do_siops_e_grava_tudo(tmp_path, monkeypatch):
     assert saida["metadata"]["atualizacao"] == manifesto["tabnet/siops_2025.csv"]["alterado_em"]
 
 
+def test_executar_desiste_quando_o_orcamento_de_tempo_acaba(tmp_path, monkeypatch):
+    # Regressão do run de 11/10/2026: servidor lento consumiu o job inteiro.
+    # Estourado o orçamento, o domínio falha (o run_etl mantém a saída
+    # anterior) e nada é gravado.
+    relogio = iter([0, 0, siops.ORCAMENTO_SEGUNDOS + 1])
+    monkeypatch.setattr(siops.time, "monotonic", lambda: next(relogio))
+    monkeypatch.setattr(common, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(common, "PUBLIC_DATA_DIR", tmp_path / "public")
+    monkeypatch.setattr(common, "sessao", lambda: None)
+    monkeypatch.setattr(common, "cod6_para_7", lambda: MAPA)
+    monkeypatch.setattr(tabnet, "baixar_formulario",
+                        lambda def_path, servidor=None, http=None: FORM_HTML)
+    monkeypatch.setattr(tabnet, "consultar",
+                        lambda def_path, campos, servidor=None, http=None: CSVS[campos["Arquivos"]])
+
+    with pytest.raises(common.FonteIndisponivel, match="orçamento"):
+        siops.executar({})
+    assert not (tmp_path / "public" / siops.SAIDA).exists()
+    assert not (tmp_path / "raw" / "tabnet").exists()
+
+
+def test_tabnet_separa_timeout_de_conexao_e_de_leitura():
+    conexao, leitura = tabnet.TIMEOUT
+    assert conexao <= 30 < leitura
+
+
 def test_ano_novo_com_poucas_declaracoes_vai_para_anos_incompletos(monkeypatch):
     # Regressão: com tolerância fixa por ano (LIMITE_AUSENTES) o ano novo com 30
     # declarações levantava FonteIndisponivel em baixar_ano e derrubava o domínio.

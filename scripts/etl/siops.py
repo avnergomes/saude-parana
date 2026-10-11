@@ -31,6 +31,7 @@ listado em metadata.imputados.
 from __future__ import annotations
 
 import logging
+import time
 import re
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -272,6 +273,12 @@ def _sem_aviso_de_cabecalhos() -> Iterator[None]:
             lg.setLevel(nivel)
 
 
+# Orçamento de tempo do domínio: com o servidor lento (11/10/2026, ~4,5 min por
+# ano) o SIOPS consumiu os 60 min do job e APS, InfoDengue e ANS nem rodaram.
+# Estourado, o domínio falha e o run_etl mantém a saída anterior com aviso.
+ORCAMENTO_SEGUNDOS = 20 * 60
+
+
 def executar(manifesto: dict) -> dict:
     """Baixa todos os anos, grava financiamento.json e devolve o novo manifesto."""
     http = common.sessao()
@@ -282,7 +289,14 @@ def executar(manifesto: dict) -> dict:
     log.info("  SIOPS: %d anos (%d-%d)", len(arquivos), min(arquivos), max(arquivos))
     anos: list[AnoSiops] = []
     brutos: list[tabnet.Bruto] = []
+    inicio = time.monotonic()
     for ano, arquivo in sorted(arquivos.items()):
+        decorrido = time.monotonic() - inicio
+        if decorrido > ORCAMENTO_SEGUNDOS:
+            raise common.FonteIndisponivel(
+                f"SIOPS: orçamento de {ORCAMENTO_SEGUNDOS // 60} min esgotado em {ano} "
+                f"({len(anos)} de {len(arquivos)} anos baixados); servidor lento"
+            )
         with _sem_aviso_de_cabecalhos():
             bruto, dados = baixar_ano(http, ano, arquivo, mapa)
         brutos.append(bruto)

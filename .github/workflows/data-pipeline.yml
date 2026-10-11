@@ -24,7 +24,9 @@ jobs:
     # O SIDRA às vezes demora minutos por consulta (30 min estourou em 07/2026)
     # e o InfoDengue (399 chamadas) levou ~24 min no runner em 13/09/2026;
     # a primeira rodada completa fechou em 32 min.
-    timeout-minutes: 60
+    # 90 min de margem: o SIOPS tem orçamento próprio de 20 min (11/10/2026 ele
+    # sozinho consumiu os 60 min antigos com o servidor lento).
+    timeout-minutes: 90
 
     steps:
       - name: Checkout
