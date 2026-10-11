@@ -49,10 +49,10 @@
     "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202601&nuCompFim=202612"
   },
   "cnes_estabelecimentos_csv.zip": {
-    "alterado_em": "2026-10-01",
+    "alterado_em": "2026-10-11",
     "descricao": "CNES, cadastro nacional de estabelecimentos (zip; lido em streaming, só PR)",
-    "linhas": 43882,
-    "sha256": "da4e4490fd99ffc28dea78c19d4d6ec8961f4de225f0f5bf50fa003693255752",
+    "linhas": 43947,
+    "sha256": "3bd465b76fb113af1b0df6938ca543c0f14cb64c5724cb12d532d0455d4330f3",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/CNES/cnes_estabelecimentos_csv.zip"
   },
   "cnpj/estabelecimentos_pr_saude.csv": {
@@ -70,10 +70,10 @@
     "url": "https://www.gov.br/receitafederal/dados/municipios.csv"
   },
   "infodengue/dengue_pr.json": {
-    "alterado_em": "2026-10-01",
+    "alterado_em": "2026-10-11",
     "descricao": "InfoDengue, dengue: registros semanais por município do PR",
-    "linhas": 57057,
-    "sha256": "289680db5e8ec6f67bfab6bb2c46f9c6d91c6025e4b88aab8f0291fc949a5238",
+    "linhas": 57456,
+    "sha256": "bcac7f7514f1234489fa17904be2e6ddccac7d6356af45877856f1437eb5e78f",
     "url": "https://info.dengue.mat.br/api/alertcity?geocode=<geocode>&disease=dengue&format=json&ew_start=1&ew_end=53&ey_start=2024&ey_end=2026"
   },
   "leitos_pr.csv": {
@@ -140,171 +140,171 @@
     "url": "https://apidadosabertos.saude.gov.br/macrorregiao-e-regiao-de-saude/municipio?sigla_uf=PR&limit=860"
   },
   "tabnet/sih_2015.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2015",
-    "linhas": 399,
-    "sha256": "e6f3d35f2827f5a4cb1204d58594b87d094f1260b823e34126462db913e328c5",
+    "linhas": 400,
+    "sha256": "266be4ea389d43087496ed35ff5dbeb015254202c44b582a87cca4823582e2f9",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2015_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2015",
-    "linhas": 399,
-    "sha256": "c7768a9171b2497784a6ef4a1aebf880257de9eb5960565621c4457b8bd0f607",
+    "linhas": 400,
+    "sha256": "a2f1ca60b7cc53415c86af772eae40246ff68d3f93a10fb5047b49fbaca871fd",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2016.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2016",
-    "linhas": 399,
-    "sha256": "78b230fa42315ae72ecf6b0620854d365c904ff158eb8a6ec88130832a81958b",
+    "linhas": 400,
+    "sha256": "c5b994d386ab8d5f0094cc91c363a619fe9d1eb27b2846990e049c82ab87aeb7",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2016_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2016",
-    "linhas": 399,
-    "sha256": "893966d05b7a9495c1713116fa5535f6f1f2ae30b01d77e5a58741f8cd865b76",
+    "linhas": 400,
+    "sha256": "81b60a3b1ad53c3c77418ebc7427984c6e5c3d37bc4bee0eb0f89d18b4127449",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2017.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2017",
-    "linhas": 399,
-    "sha256": "8eab0b08cd53af636e86caaa09509e0af3e1efeafc8ddceff8d594dd242d2d9e",
+    "linhas": 400,
+    "sha256": "c9cfbb9ac8b7aafc5174a7c9d56cf2a85bbf47c5260cdbb170170b0c898edecc",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2017_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2017",
-    "linhas": 399,
-    "sha256": "bc933e16acdcb505428ce80b2265765e5943597b1b29c6be0d2a97ebe640e481",
+    "linhas": 400,
+    "sha256": "323d73779140c14f1b4c706051dd78fa89c6af047ef1e9eb7bc0185908b138f2",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2018.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2018",
-    "linhas": 399,
-    "sha256": "cb3f0fd5b8c4723551060c5ae57f486465b7f10a343fb9148e04a4598795420c",
+    "linhas": 400,
+    "sha256": "13296e8bb4081dede08e14ba71f392c8fbef8bc79e2626365f7a10301f324bf2",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2018_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2018",
-    "linhas": 399,
-    "sha256": "08842de0ae2cef060f2f43382037570e7f2c835ed66e34b45e70d2757876fa2b",
+    "linhas": 400,
+    "sha256": "bd3ce91a1f2c179f50d87f327def16b6d84da2c6dbef5356d61ba5b0242952e7",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2019.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2019",
-    "linhas": 399,
-    "sha256": "426517121f90c59d94558f9c186b76bf76c712e7b8172a30c344aaccac3ed23b",
+    "linhas": 400,
+    "sha256": "eaee8cd1ddd221856d754a9ee465c5dde7cc8d48dbc8ce12ec8db70440821bbd",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2019_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2019",
-    "linhas": 399,
-    "sha256": "6dc5111aafc1421423304e5712356cd4b145e37694fdc3038221140718c7a374",
+    "linhas": 400,
+    "sha256": "19050f2d0fca14f377976c5c19f1e99705ac6cd61294a3d0af7e47eef597b0f8",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2020.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2020",
-    "linhas": 399,
-    "sha256": "72ea2a7325c7e3d268a150b0043b73c0f8344998ba3bc778d61fbc427e37eea7",
+    "linhas": 400,
+    "sha256": "a033307f8e626a665964be8e64ce7badb8b0148a4dabb82a66eb0cae88608273",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2020_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2020",
-    "linhas": 399,
-    "sha256": "121ce2f58b772aa5a551c8c7c559a65113d285ebbf27bd579586bfa0d52117e3",
+    "linhas": 400,
+    "sha256": "ebf7fac743c9d4ce09c591bc12e6dcc46323a30b999d33cc3b240531ba361ea3",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2021.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2021",
-    "linhas": 399,
-    "sha256": "f70bdc95f9cbcf38a59a35f2bef1610abd74241f2d2acbbdcc19a7267313fb7a",
+    "linhas": 400,
+    "sha256": "3d41f06ea245d2c4ad926334101b58686b9f7e4c3ad5906c7116f53c724b9d9c",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2021_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2021",
-    "linhas": 399,
-    "sha256": "cc7e8425b84f1f7a49d89d4c9092ba6a7d639dcc051222ede8587fffb0a66684",
+    "linhas": 400,
+    "sha256": "b01fd53002ef42c3b7f5616fce1c62bedaaa52867284da5a29476e96989e6fb1",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2022.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2022",
-    "linhas": 399,
-    "sha256": "737501434a8ece6c2b458556a6ddbf6a82d3bd810848bcbc16016d93fc01ccb7",
+    "linhas": 400,
+    "sha256": "63ee2a8440dfe052d24dfed45d08d934c041fd137ba7bb1a28a7f17a3a10aea6",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2022_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2022",
-    "linhas": 399,
-    "sha256": "cf62d2cb185d6f1d2de4ece88482d8b92ae00229acbe1e3f51e3bb61aa904c21",
+    "linhas": 400,
+    "sha256": "c238f1b1dcc5ce2d2783583200c21f55d1a147a6639c6bc6464ea5007f120dd7",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2023.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2023",
-    "linhas": 399,
-    "sha256": "728bc8cf0972b3b135bd28e4aeb98192981bb68be039fb5ea3599de8aa1125e0",
+    "linhas": 400,
+    "sha256": "dd2f4d75c5cc2edbd9d4dfb5f690f964bbd90996c59f83553450ab135e4b5d6c",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2023_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2023",
-    "linhas": 399,
-    "sha256": "cfc891377bfa810cdcc50ddde4aee00b5874d6b701ad3330f4513ce2df825fb3",
+    "linhas": 400,
+    "sha256": "cb784db8026e02efe996e06a3b97bb4ee8d1f1f76be88274eb6d837ac116cc0a",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2024.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2024",
-    "linhas": 399,
-    "sha256": "c0e920764809a62f957513001961021ab1c7a310568f59b5fb84e6ef750f587d",
+    "linhas": 400,
+    "sha256": "e0ac476389714e1abd1ac84cca378fd6a43fc0dad7e5ad63b0e2a7ba10b8fd47",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2024_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2024",
-    "linhas": 399,
-    "sha256": "b4b442f9bacfa6cef2710a65717bb08be9b5bd1a32103c8a935e5dbcbec2b7c4",
+    "linhas": 400,
+    "sha256": "fc10a123dd53b1df7b00217f1bb88c57ab07249552ca1af7e45bc424105b7ce1",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2025.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2025",
-    "linhas": 399,
-    "sha256": "e1a9ae1b7c11297daac29af24e8486dc9107c1b9da7ca3b2f7bf85db70a5d89a",
+    "linhas": 400,
+    "sha256": "9d032500a59bb901de2c85d049cc60868e1b0821ada8372b46e1fe0ef9ab29aa",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2025_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2025",
-    "linhas": 399,
-    "sha256": "003a991d23e542a4a81d3917ac1587578ede17539471ed19f47efbba325d829e",
+    "linhas": 400,
+    "sha256": "5ed684b371365f771bb09a1444c18b66dc6828097d0364682d8255c8db9b0f7b",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2026.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2026",
-    "linhas": 399,
-    "sha256": "3c591332de00d09629311a6d8e43428b14a3ab5a60e28a10c1cc81e7dedb4337",
+    "linhas": 400,
+    "sha256": "9910f14665699a86d3349dda59814eb3a8e5d1f0105fc07c8f8fd629e1eb2f4a",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2026_totais.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2026",
-    "linhas": 399,
-    "sha256": "c3008c5adf068251adeb77fafb9b487b280aed8c43847e9d071e80df6cac56a2",
+    "linhas": 400,
+    "sha256": "265f4f05641b84ab4b870669e16850f8164e6479350ff7f51d8eef9c397c14b5",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sim_2010.csv": {
