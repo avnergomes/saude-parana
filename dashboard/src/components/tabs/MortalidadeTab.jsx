@@ -9,6 +9,7 @@ import PyramidChart from '../PyramidChart';
 import RankingTable from '../RankingTable';
 import CausasCidPanel from './CausasCidPanel';
 import { formatDecimal } from '../../utils/format';
+import { sufixoAno } from '../../utils/filtros';
 
 const COLUNAS_RANKING = [
   { key: 'municipio', label: 'Município' },
@@ -52,7 +53,7 @@ export default function MortalidadeTab({
           onRetryGeo={onRetryGeo}
           data={data.porMunicipio}
           metric="taxa"
-          title="Taxa de Mortalidade por Município"
+          title={`Taxa de Mortalidade por Município${sufixoAno(data.anoMunicipios)}`}
           colorScale="obitos"
           formatValue={(v) => formatDecimal(v, 1)}
           onFeatureClick={onMunicipioClick}
@@ -70,7 +71,7 @@ export default function MortalidadeTab({
       <RankingTable
         data={data.topMunicipios || []}
         columns={COLUNAS_RANKING}
-        title="Ranking de Municípios por Mortalidade"
+        title={`Ranking de Municípios por Mortalidade${sufixoAno(data.anoMunicipios)}`}
         defaultSort="obitos"
         pageSize={10}
         onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}

@@ -1,5 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { ChevronDown, X, Search } from 'lucide-react';
+import {
+  filtrosIniciais,
+  periodoAlterado,
+  aplicarMunicipio,
+  aplicarRegional,
+  aplicarMesorregiao
+} from '../utils/filtros';
 
 export default function Filters({
   metadata,
@@ -9,6 +16,29 @@ export default function Filters({
 }) {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [searchMunicipio, setSearchMunicipio] = useState('');
+
+  // Ao fechar um menu (Esc, escolha ou clique fora) o foco volta ao botão
+  // que o abriu; antes caía no <body> e o teclado recomeçava do topo.
+  const menuAnterior = useRef(null);
+  useEffect(() => {
+    if (menuAnterior.current && !openDropdown) {
+      document.querySelector(`[data-menu="${menuAnterior.current}"]`)?.focus();
+    }
+    menuAnterior.current = openDropdown;
+  }, [openDropdown]);
+
+  // Esc fecha o menu aberto (antes só um clique fora fechava)
+  useEffect(() => {
+    if (!openDropdown) return undefined;
+    const aoTeclar = (e) => {
+      if (e.key === 'Escape') {
+        setOpenDropdown(null);
+        setSearchMunicipio('');
+      }
+    };
+    document.addEventListener('keydown', aoTeclar);
+    return () => document.removeEventListener('keydown', aoTeclar);
+  }, [openDropdown]);
 
   // Anos disponiveis
   const anos = useMemo(() => {
@@ -43,7 +73,8 @@ export default function Filters({
     }
 
     // Ordenar por nome
-    lista = lista.sort((a, b) => (a.nome || a).localeCompare(b.nome || b, 'pt-BR'));
+    // Cópia: a lista vem do geoMap compartilhado e não pode ser mutada
+    lista = [...lista].sort((a, b) => (a.nome || a).localeCompare(b.nome || b, 'pt-BR'));
 
     // Filtrar por busca
     if (searchMunicipio.trim()) {
@@ -76,55 +107,31 @@ export default function Filters({
   };
 
   const handleRegionalChange = (regionalNome) => {
-    onFiltersChange({
-      ...filters,
-      regional: regionalNome === filters.regional ? null : regionalNome,
-      municipio: null, // Reset municipio quando regional muda
-      municipioCodigo: null
-    });
+    onFiltersChange(aplicarRegional(filters, regionalNome));
     setOpenDropdown(null);
     setSearchMunicipio('');
   };
 
   const handleMesorregiaoChange = (mesorregiao) => {
-    onFiltersChange({
-      ...filters,
-      mesorregiao: mesorregiao === filters.mesorregiao ? null : mesorregiao,
-      regional: null, // Reset regional quando mesorregiao muda
-      municipio: null,
-      municipioCodigo: null
-    });
+    onFiltersChange(aplicarMesorregiao(filters, mesorregiao));
     setOpenDropdown(null);
     setSearchMunicipio('');
   };
 
   const handleMunicipioChange = (municipio) => {
-    // municipio pode ser objeto {cod_ibge, nome}, string ou null ("Todos")
-    const codIbge = municipio && typeof municipio === 'object' ? municipio.cod_ibge : null;
-    const nome = municipio && typeof municipio === 'object' ? municipio.nome : municipio;
-
-    onFiltersChange({
-      ...filters,
-      municipio: nome === filters.municipio ? null : nome,
-      municipioCodigo: codIbge
-    });
+    onFiltersChange(aplicarMunicipio(filters, municipio));
     setOpenDropdown(null);
     setSearchMunicipio('');
   };
 
   const clearFilters = () => {
-    onFiltersChange({
-      anoMin: anos[0] || 2010,
-      anoMax: anos[anos.length - 1] || 2024,
-      regional: null,
-      mesorregiao: null,
-      municipio: null,
-      municipioCodigo: null
-    });
+    onFiltersChange(filtrosIniciais());
     setSearchMunicipio('');
   };
 
-  const hasActiveFilters = filters.regional || filters.mesorregiao || filters.municipio;
+  const hasTerritorio = Boolean(filters.regional || filters.mesorregiao || filters.municipio);
+  // "Limpar" também volta o período ao padrão
+  const hasActiveFilters = hasTerritorio || periodoAlterado(filters);
 
   return (
     <div className="bg-white rounded-xl shadow-card p-4 mb-6">
@@ -137,6 +144,9 @@ export default function Filters({
           <div className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === 'anoMin' ? null : 'anoMin')}
+              aria-haspopup="true"
+              aria-expanded={openDropdown === 'anoMin'}
+              data-menu="anoMin"
               className="flex items-center gap-1 px-3 py-1.5 min-h-[44px] bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
             >
               {filters.anoMin || anos[0]}
@@ -165,6 +175,9 @@ export default function Filters({
           <div className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === 'anoMax' ? null : 'anoMax')}
+              aria-haspopup="true"
+              aria-expanded={openDropdown === 'anoMax'}
+              data-menu="anoMax"
               className="flex items-center gap-1 px-3 py-1.5 min-h-[44px] bg-neutral-100 hover:bg-neutral-200 rounded-lg text-sm transition-colors"
             >
               {filters.anoMax || anos[anos.length - 1]}
@@ -195,6 +208,9 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'mesorregiao' ? null : 'mesorregiao')}
+              aria-haspopup="true"
+              aria-expanded={openDropdown === 'mesorregiao'}
+              data-menu="mesorregiao"
             className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.mesorregiao
                 ? 'bg-primary-100 text-primary-700 border border-primary-300'
@@ -231,6 +247,9 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'regional' ? null : 'regional')}
+              aria-haspopup="true"
+              aria-expanded={openDropdown === 'regional'}
+              data-menu="regional"
             className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.regional
                 ? 'bg-water-100 text-water-700 border border-water-300'
@@ -267,6 +286,9 @@ export default function Filters({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'municipio' ? null : 'municipio')}
+              aria-haspopup="true"
+              aria-expanded={openDropdown === 'municipio'}
+              data-menu="municipio"
             className={`flex items-center gap-1 px-3 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors ${
               filters.municipio
                 ? 'bg-water-100 text-water-700 border border-water-300'
@@ -345,7 +367,7 @@ export default function Filters({
       </div>
 
       {/* Resumo dos filtros ativos */}
-      {hasActiveFilters && (
+      {hasTerritorio && (
         <div className="mt-3 pt-3 border-t border-neutral-100 flex flex-wrap gap-2">
           {filters.mesorregiao && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-50 text-primary-700 rounded text-xs">

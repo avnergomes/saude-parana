@@ -74,7 +74,10 @@ export function useInternacoes(dados, filters, geoMap) {
 
     const { anoMin, anoMax } = filters || {};
     const porAnoTodos = Array.isArray(dados.porAno) ? dados.porAno : [];
-    const porAno = filtrarAnos(porAnoTodos, anoMin, anoMax);
+    // Ano parcial: a taxa anual (meses parciais sobre a população do ano)
+    // pareceria uma queda; fica nula e o gráfico interrompe a linha.
+    const porAno = filtrarAnos(porAnoTodos, anoMin, anoMax)
+      .map((l) => (l.parcial ? { ...l, taxa: null } : l));
     const capitulos = capitulosOuPadrao(dados.capitulos);
     const anoReferencia = dados.anoReferencia ?? anoDosKpis(porAnoTodos, null);
     const temSelecao = codigos.length > 0;

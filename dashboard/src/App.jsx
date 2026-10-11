@@ -1,5 +1,5 @@
 // ATLAS-A11Y-HEX-SWEPT
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import {
   useData,
   useAggregations,
@@ -12,6 +12,12 @@ import Loading from './components/Loading';
 import Footer from './components/Footer';
 import Tabs from './components/Tabs';
 import Filters from './components/Filters';
+import {
+  filtrosIniciais,
+  interativosAposMenu,
+  resolverMunicipio,
+  abaDoHash as abaDoHashPuro
+} from './utils/filtros';
 import ActiveFilters from './components/ActiveFilters';
 import KpiCards from './components/KpiCards';
 
@@ -30,6 +36,13 @@ const ABAS_DE_DOMINIO = new Set([
   'internacoes', 'rede-saude', 'atencao-primaria', 'arboviroses', 'financiamento'
 ]);
 
+// Aba ativa espelhada no hash da URL (#mortalidade): recarregar, compartilhar
+// o link e o botão voltar do navegador preservam a aba.
+const ABAS = new Set(['visao-geral', 'mortalidade', ...ABAS_DE_DOMINIO]);
+const ABA_PADRAO = 'visao-geral';
+
+const abaDoHash = () => abaDoHashPuro(window.location.hash, ABAS, ABA_PADRAO);
+
 function App() {
   // Núcleo (IBGE) + domínios oficiais opcionais carregados em segundo plano
   const {
@@ -47,18 +60,26 @@ function App() {
   } = useData();
 
   // Estado de navegação
-  const [activeTab, setActiveTab] = useState('visao-geral');
+  const [activeTab, setActiveTabState] = useState(abaDoHash);
+
+  useEffect(() => {
+    const aoMudarHash = () => setActiveTabState(abaDoHash());
+    window.addEventListener('hashchange', aoMudarHash);
+    return () => window.removeEventListener('hashchange', aoMudarHash);
+  }, []);
+
+  // Clique empilha no histórico (o Voltar retorna à aba anterior); as setas
+  // do teclado só substituem, para não exigir um Voltar por aba percorrida.
+  const setActiveTab = useCallback((id, { substituir = false } = {}) => {
+    setActiveTabState(id);
+    if (abaDoHash() === id) return;
+    if (substituir) window.history.replaceState(null, '', `#${id}`);
+    else window.location.hash = id;
+  }, []);
 
   // Estado de filtros (dropdowns). anoMax = ano corrente: os domínios
   // DATASUS/APS/InfoDengue chegam a 2025-2026 embora o núcleo IBGE pare em 2024.
-  const [filters, setFilters] = useState({
-    anoMin: 2010,
-    anoMax: new Date().getFullYear(),
-    regional: null,
-    mesorregiao: null,
-    municipio: null,
-    municipioCodigo: null
-  });
+  const [filters, setFilters] = useState(filtrosIniciais);
 
   // Estado de filtros interativos (clique nos gráficos)
   const [interactiveFilters, setInteractiveFilters] = useState({
@@ -66,6 +87,13 @@ function App() {
     municipio: null,
     municipioCodigo: null
   });
+
+  // Os cliques nos gráficos têm precedência sobre os menus. Sem isso, escolher
+  // regional/município ou período no menu depois de um clique não mudava nada.
+  const handleFiltersChange = useCallback((novos) => {
+    setInteractiveFilters(prev => interativosAposMenu(filters, novos, prev));
+    setFilters(novos);
+  }, [filters]);
 
   // Merge de filtros (ano e município vindos de cliques nos gráficos)
   const mergedFilters = useMemo(() => ({
@@ -93,20 +121,19 @@ function App() {
 
   const handleMunicipioClick = useCallback((codIbge, nomeMunicipio) => {
     // Normaliza o código IBGE: o mapa envia 6 dígitos, o ranking envia 7.
-    const cod = String(codIbge || '');
-    const full = cod.length >= 7
-      ? cod
-      : String(
-          (mortalidade?.porMunicipio || []).find(
-            m => String(m.cod_ibge).startsWith(cod)
-          )?.cod_ibge || cod
-        );
+    // O clique num ponto do mapa (hospital/UPA) pode chegar sem nome
+    const porCodigo = geoMap?.municipioPorCodigo || Object.fromEntries(
+      (mortalidade?.porMunicipio || []).map(m => [String(m.cod_ibge), { nome: m.municipio || m.nome }])
+    );
+    const resolvido = resolverMunicipio(codIbge, nomeMunicipio, porCodigo);
+    if (!resolvido) return;
+    const { codigo: full, nome } = resolvido;
     setInteractiveFilters(prev => ({
       ...prev,
-      municipio: prev.municipioCodigo === full ? null : nomeMunicipio,
+      municipio: prev.municipioCodigo === full ? null : nome,
       municipioCodigo: prev.municipioCodigo === full ? null : full
     }));
-  }, [mortalidade]);
+  }, [mortalidade, geoMap]);
 
   const clearInteractiveFilters = useCallback(() => {
     setInteractiveFilters({
@@ -218,7 +245,7 @@ function App() {
           metadata={metadata}
           geoMap={geoMap}
           filters={filters}
-          onFiltersChange={setFilters}
+          onFiltersChange={handleFiltersChange}
         />
 
         <ActiveFilters

@@ -7,6 +7,7 @@ import MapChart from '../MapChart';
 import TimeSeriesChart from '../TimeSeriesChart';
 import RankingTable from '../RankingTable';
 import { formatDecimal } from '../../utils/format';
+import { sufixoAno } from '../../utils/filtros';
 
 const COLUNAS_RANKING = [
   { key: 'municipio', label: 'Município' },
@@ -45,7 +46,7 @@ export default function VisaoGeralTab({
           onRetryGeo={onRetryGeo}
           data={mapData}
           metric="taxa"
-          title="Taxa de Mortalidade por Município (por 1.000 hab)"
+          title={`Taxa de Mortalidade por Município (por 1.000 hab)${sufixoAno(mortalidade?.anoMunicipios)}`}
           colorScale="obitos"
           formatValue={(v) => formatDecimal(v, 1)}
           onFeatureClick={onMunicipioClick}
@@ -84,7 +85,7 @@ export default function VisaoGeralTab({
       <RankingTable
         data={rankingMunicipios}
         columns={COLUNAS_RANKING}
-        title="Ranking de Municípios por Óbitos"
+        title={`Ranking de Municípios por Óbitos${sufixoAno(mortalidade?.anoMunicipios)}`}
         defaultSort="obitos"
         pageSize={10}
         onRowClick={(row) => onMunicipioClick(row.cod_ibge, row.municipio)}

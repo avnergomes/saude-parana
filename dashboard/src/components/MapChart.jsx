@@ -4,7 +4,7 @@
  * Padrão DataGeo Paraná - Módulo Saúde
  */
 
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useRef, useMemo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, Pane, useMap } from 'react-leaflet';
 import { formatNumber } from '../utils/format';
 import { ATLAS_CLAY } from '../utils/chart-palette';
@@ -66,6 +66,11 @@ const COLOR_SCALES = {
   repasse: ['#f0fdfa', '#ccfbf1', '#99f6e4', '#5eead4', '#2dd4bf', '#14b8a6', '#0d9488', '#0f766e'],
   default: ['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#3d729c', '#2d5f7f', '#254e69']
 };
+
+// O nome vem de TopoJSON remoto e entra num tooltip HTML: escapar.
+const escapeHtml = (texto) => String(texto).replace(/[&<>"']/g, (c) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[c]));
 
 function getColor(value, min, max, scale = 'default') {
   if (value === null || value === undefined || isNaN(value)) {
@@ -184,6 +189,13 @@ function MapChart({
       fillOpacity: isSelected ? 0.9 : 0.7
     };
   };
+  // Os handlers de cada feição são ligados uma vez; o mouseout precisa do
+  // estilo atual (com a seleção vigente), não do capturado na montagem.
+  // resetStyle() reaplicava o style inicial e apagava o realce da seleção.
+  const styleRef = useRef(getFeatureStyle);
+  useLayoutEffect(() => {
+    styleRef.current = getFeatureStyle;
+  });
 
   // Handlers para cada feature
   const onEachFeature = (feature, layer) => {
@@ -196,7 +208,7 @@ function MapChart({
     // Tooltip
     const tooltipContent = `
       <div class="font-sans">
-        <strong class="text-dark-900">${name}</strong>
+        <strong class="text-dark-900">${escapeHtml(name)}</strong>
         <br/>
         <span class="text-dark-600">
           ${value !== null ? formatValue(value) : 'Sem dados'}
@@ -220,9 +232,7 @@ function MapChart({
         e.target.bringToFront();
       },
       mouseout: (e) => {
-        if (geoJsonRef.current) {
-          geoJsonRef.current.resetStyle(e.target);
-        }
+        e.target.setStyle(styleRef.current(feature));
       },
       click: () => {
         if (onFeatureClick) {

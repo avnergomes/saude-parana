@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "test": "node --test src/utils/filtros.test.js",
+    "test:e2e": "playwright test e2e/filtros.spec.js",
+    "test:e2e:municipios": "playwright test e2e/municipios.spec.js --project=desktop",
+    "test:varredura": "node scripts/varredura-filtros.mjs",
+    "test:e2e:cruzamentos": "playwright test e2e/cruzamentos.spec.js --project=desktop",
+    "test:e2e:municipios-anos": "playwright test e2e/municipios-anos.spec.js --project=desktop"
   },
   "dependencies": {
     "@react-leaflet/core": "^3.0.0",
@@ -22,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.55.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",

@@ -69,3 +69,7 @@ dashboard/public/data/municipios.geojson
 
 # Artefatos locais do understand-anything
 .understand-anything/
+
+# Playwright
+dashboard/test-results/
+dashboard/playwright-report/

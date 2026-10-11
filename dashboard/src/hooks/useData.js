@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { feature } from 'topojson-client';
+import { codigosFiltrados, linhasDoAno } from '../utils/filtros';
 
 const BASE_PATH = import.meta.env.BASE_URL || '/saude-parana/';
 // Malha municipal: primeiro a versão reduzida self-hosted (~749 KB); em
@@ -196,29 +197,7 @@ export function useData() {
  * @returns {Array} Lista de códigos IBGE dos municípios filtrados
  */
 export function useFilteredMunicipios(geoMap, filters) {
-  return useMemo(() => {
-    if (!geoMap) return [];
-
-    const { regional, mesorregiao, municipioCodigo } = filters || {};
-
-    // Município específico selecionado
-    if (municipioCodigo) {
-      return [municipioCodigo];
-    }
-
-    // Filtrar por regional
-    if (regional && geoMap.municipiosPorRegional?.[regional]) {
-      return geoMap.municipiosPorRegional[regional].map(m => m.cod_ibge);
-    }
-
-    // Filtrar por mesorregião
-    if (mesorregiao && geoMap.municipiosPorMesorregiao?.[mesorregiao]) {
-      return geoMap.municipiosPorMesorregiao[mesorregiao].map(m => m.cod_ibge);
-    }
-
-    // Sem filtro - retorna lista vazia (significa "todos")
-    return [];
-  }, [geoMap, filters]);
+  return useMemo(() => codigosFiltrados(geoMap, filters), [geoMap, filters]);
 }
 
 /**
@@ -238,8 +217,12 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
     if (anoMin) porAno = porAno.filter(item => item.ano >= anoMin);
     if (anoMax) porAno = porAno.filter(item => item.ano <= anoMax);
 
-    // Filtrar municípios (porMunicipio ou topMunicipios como fallback)
-    let porMunicipio = mortalidade.porMunicipio || mortalidade.topMunicipios || [];
+    // Filtrar municípios (porMunicipio ou topMunicipios como fallback).
+    // porMunicipio traz só o último ano do IBGE; o mapa, o ranking e a
+    // população seguem o último ano do período escolhido (porMunicipioAno).
+    const base = mortalidade.porMunicipio || mortalidade.topMunicipios || [];
+    const anoMunicipios = porAno.length > 0 ? porAno[porAno.length - 1].ano : null;
+    let porMunicipio = linhasDoAno(base, mortalidade.porMunicipioAno, anoMunicipios);
     if (hasFiltroMunicipio) {
       porMunicipio = porMunicipio.filter(m => municipiosFiltrados.includes(m.cod_ibge));
     }
@@ -271,7 +254,7 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
         return {
           ano,
           total,
-          taxa_bruta: popTotal > 0 ? parseFloat((numerador / popTotal * 1000).toFixed(2)) : 0
+          taxa_bruta: popTotal > 0 ? parseFloat((numerador / popTotal * 1000).toFixed(2)) : null
         };
       });
     }
@@ -292,6 +275,7 @@ export function useFilteredMortalidade(mortalidade, filters, geoMap) {
       nascidosPorAno,
       porMunicipio,
       topMunicipios: porMunicipio.slice(0, 20),
+      anoMunicipios,
       totalObitos,
       ultimoAno,
       penultimoAno,
@@ -322,7 +306,12 @@ export function useAggregations(data, filters, geoMap) {
         // A t2609 só existe agregada por ano (estado): avisar quando há recorte
         sublabel: temTerritorio ? 'Paraná, registrados no ano' : 'registrados no ano'
       },
-      populacao: { valor: null }
+      populacao: {
+        valor: null,
+        sublabel: filteredMortalidade?.anoMunicipios
+          ? `estimativa IBGE, ${filteredMortalidade.anoMunicipios}`
+          : semDadoNoAno
+      }
     };
 
     if (ultimo && penultimo?.total > 0) {
@@ -342,7 +331,7 @@ export function useAggregations(data, filters, geoMap) {
     }
 
     const porMunicipio = filteredMortalidade?.porMunicipio || [];
-    if (porMunicipio.length > 0) {
+    if (porMunicipio.some(m => m.populacao != null)) {
       kpis.populacao.valor = porMunicipio.reduce((sum, m) => sum + (m.populacao || 0), 0);
     }
 

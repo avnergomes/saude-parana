@@ -48,6 +48,31 @@ export default function Tabs({ activeTab, onTabChange }) {
     }
   }, []);
 
+  // No celular a aba ativa (inclusive vinda do hash da URL) pode estar fora
+  // da faixa visível: rola só a faixa de abas, sem mexer na página.
+  useEffect(() => {
+    const el = scrollRef.current;
+    const ativa = el?.querySelector('[aria-selected="true"]');
+    if (!el || !ativa) return;
+    const inicio = ativa.offsetLeft - el.offsetLeft;
+    const fim = inicio + ativa.offsetWidth;
+    if (inicio < el.scrollLeft || fim > el.scrollLeft + el.clientWidth) {
+      el.scrollTo({ left: Math.max(0, inicio - 32) });
+    }
+    checkScroll();
+  }, [activeTab]);
+
+  // Padrão WAI-ARIA de abas: setas, Home e End movem entre as abas
+  const aoTeclarAba = (e) => {
+    const atual = tabs.findIndex((t) => t.id === activeTab);
+    const destinos = { ArrowRight: atual + 1, ArrowLeft: atual - 1, Home: 0, End: tabs.length - 1 };
+    if (!(e.key in destinos)) return;
+    e.preventDefault();
+    const proxima = (destinos[e.key] + tabs.length) % tabs.length;
+    onTabChange(tabs[proxima].id, { substituir: true });
+    scrollRef.current?.querySelectorAll('[role="tab"]')[proxima]?.focus();
+  };
+
   const scroll = (dir) => {
     scrollRef.current?.scrollBy({ left: dir * 160, behavior: 'smooth' });
   };
@@ -66,6 +91,8 @@ export default function Tabs({ activeTab, onTabChange }) {
         )}
         <nav
           ref={scrollRef}
+          role="tablist"
+          aria-label="Seções do painel"
           className="flex overflow-x-auto scrollbar-hide -mb-px"
         >
           {tabs.map((tab) => {
@@ -76,6 +103,8 @@ export default function Tabs({ activeTab, onTabChange }) {
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
+                onKeyDown={aoTeclarAba}
+                tabIndex={isActive ? 0 : -1}
                 role="tab"
                 aria-selected={isActive}
                 className={`

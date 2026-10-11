@@ -6,6 +6,7 @@
 import { useState, useMemo } from 'react';
 import { Search, ChevronUp, ChevronDown, ArrowUpDown } from 'lucide-react';
 import { formatNumber, formatPercent, formatCurrency } from '../utils/format';
+import { paginaValida, assinaturaLinhas } from '../utils/filtros';
 
 function RankingTable({
   data = [],
@@ -23,7 +24,17 @@ function RankingTable({
   const [search, setSearch] = useState('');
   const [sortColumn, setSortColumn] = useState(defaultSort || (columns[0]?.key || null));
   const [sortDirection, setSortDirection] = useState(defaultSortDir);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [paginaPedida, setCurrentPage] = useState(0);
+
+  // Novo recorte (regional, município): volta à primeira página. Compara uma
+  // assinatura em texto, não a identidade do array, para não reiniciar a cada
+  // render nem entrar em laço.
+  const assinatura = assinaturaLinhas(data);
+  const [assinaturaAnterior, setAssinaturaAnterior] = useState(assinatura);
+  if (assinatura !== assinaturaAnterior) {
+    setAssinaturaAnterior(assinatura);
+    setCurrentPage(0);
+  }
 
   // Filtrar por busca
   const filteredData = useMemo(() => {
@@ -66,6 +77,8 @@ function RankingTable({
 
   // Paginar
   const totalPages = Math.ceil(sortedData.length / pageSize);
+  // A busca pode encolher os dados: a página pedida nunca passa do fim.
+  const currentPage = paginaValida(paginaPedida, sortedData.length, pageSize);
   const paginatedData = useMemo(() => {
     const start = currentPage * pageSize;
     return sortedData.slice(start, start + pageSize);
@@ -73,6 +86,7 @@ function RankingTable({
 
   // Handler de ordenação
   const handleSort = (columnKey) => {
+    setCurrentPage(0);
     if (sortColumn === columnKey) {
       setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
     } else {
@@ -177,7 +191,7 @@ function RankingTable({
             ) : (
               paginatedData.map((row, index) => {
                 const rowKey = row.id || row.cod_ibge || row.codigo || index;
-                const isSelected = selectedRow === rowKey;
+                const isSelected = selectedRow != null && String(selectedRow) === String(rowKey);
                 const rank = currentPage * pageSize + index + 1;
 
                 return (
@@ -218,11 +232,11 @@ function RankingTable({
 
       {/* Paginação */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-100">
+        <div className="flex flex-wrap items-center justify-between gap-2 mt-4 pt-4 border-t border-neutral-100">
           <p className="text-sm text-dark-500">
             Mostrando {currentPage * pageSize + 1}-{Math.min((currentPage + 1) * pageSize, sortedData.length)} de {sortedData.length}
           </p>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             <button
               onClick={() => setCurrentPage(0)}
               disabled={currentPage === 0}
@@ -231,7 +245,7 @@ function RankingTable({
               Primeira
             </button>
             <button
-              onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
+              onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
               className="px-2 py-1 text-sm rounded hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -241,7 +255,7 @@ function RankingTable({
               {currentPage + 1} / {totalPages}
             </span>
             <button
-              onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
+              onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
               disabled={currentPage >= totalPages - 1}
               className="px-2 py-1 text-sm rounded hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
