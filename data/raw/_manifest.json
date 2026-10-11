@@ -469,10 +469,10 @@
     "url": "http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def"
   },
   "tabnet/siops_2021.csv": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-10-11",
     "descricao": "SIOPS/TabNet: indicadores municipais de financiamento da saúde, Paraná, 2021",
-    "linhas": 398,
-    "sha256": "13b39223a3c3ccaeecb0b82c465566a2880a8085f903f9bea5a83a044a679d37",
+    "linhas": 399,
+    "sha256": "b048cb459e2c31ce9cfd2cbe4dc505ade3433496ddce6fb2c5a535ff4cc26331",
     "url": "http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def"
   },
   "tabnet/siops_2022.csv": {
