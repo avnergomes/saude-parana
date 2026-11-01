@@ -42,17 +42,17 @@
     "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202501&nuCompFim=202512"
   },
   "aps/cobertura_2026.json": {
-    "alterado_em": "2026-09-13",
+    "alterado_em": "2026-11-01",
     "descricao": "Cobertura potencial da APS por município do PR, 2026 (e-Gestor AB)",
-    "linhas": 2786,
-    "sha256": "aed2ccb74ca790b0ab2fb29c9efd64f17668bf93f8d26d9b1e0f4559912aa1e5",
+    "linhas": 3185,
+    "sha256": "4b46aef1e49d76fee37231406f1e1a30fc874ae261c05ce84289ce5a4a11eecc",
     "url": "https://relatorioaps-prd.saude.gov.br/cobertura/aps?unidadeGeografica=MUNICIPIO&coUf=41&nuCompInicio=202601&nuCompFim=202612"
   },
   "cnes_estabelecimentos_csv.zip": {
-    "alterado_em": "2026-10-11",
+    "alterado_em": "2026-11-01",
     "descricao": "CNES, cadastro nacional de estabelecimentos (zip; lido em streaming, só PR)",
-    "linhas": 43947,
-    "sha256": "3bd465b76fb113af1b0df6938ca543c0f14cb64c5724cb12d532d0455d4330f3",
+    "linhas": 44163,
+    "sha256": "5e945e27139c7317a2c1968e5c64b5b2bfb2df95672cb5d9c12026e15ccc99c3",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/CNES/cnes_estabelecimentos_csv.zip"
   },
   "cnpj/estabelecimentos_pr_saude.csv": {
@@ -70,17 +70,17 @@
     "url": "https://www.gov.br/receitafederal/dados/municipios.csv"
   },
   "infodengue/dengue_pr.json": {
-    "alterado_em": "2026-10-11",
+    "alterado_em": "2026-11-01",
     "descricao": "InfoDengue, dengue: registros semanais por município do PR",
-    "linhas": 57456,
-    "sha256": "bcac7f7514f1234489fa17904be2e6ddccac7d6356af45877856f1437eb5e78f",
+    "linhas": 58653,
+    "sha256": "e22ff2786fe0dc03eed0afdc8c364e4a765cab0f53854159dc6e16a5d699e88b",
     "url": "https://info.dengue.mat.br/api/alertcity?geocode=<geocode>&disease=dengue&format=json&ew_start=1&ew_end=53&ey_start=2024&ey_end=2026"
   },
   "leitos_pr.csv": {
-    "alterado_em": "2026-10-01",
+    "alterado_em": "2026-11-01",
     "descricao": "Leitos existentes e SUS por estabelecimento do PR (CGHID/MS), colunas reduzidas",
-    "linhas": 3574,
-    "sha256": "b70c9e5922e5b8fc5723d47c432b7952cc89eabdb4e24304e5a9718dc5fa0427",
+    "linhas": 4021,
+    "sha256": "3c19f8623d82703209a0147657b15e51c3f761fae68180c4755116a0da9949a5",
     "url": "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/Leitos_SUS/Leitos_csv_2026.zip"
   },
   "nascidos_municipios_pr.json": {
@@ -294,17 +294,17 @@
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2026.csv": {
-    "alterado_em": "2026-10-11",
+    "alterado_em": "2026-11-01",
     "descricao": "SIH/TabNet: internações por município de residência e capítulo CID-10, 2026",
     "linhas": 400,
-    "sha256": "9910f14665699a86d3349dda59814eb3a8e5d1f0105fc07c8f8fd629e1eb2f4a",
+    "sha256": "2234d1a63e6a24127204f07a53813e792156300c30e01537f1efb9e013438e66",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sih_2026_totais.csv": {
-    "alterado_em": "2026-10-11",
+    "alterado_em": "2026-11-01",
     "descricao": "SIH/TabNet: internações, valor total e óbitos por município de residência, 2026",
     "linhas": 400,
-    "sha256": "265f4f05641b84ab4b870669e16850f8164e6479350ff7f51d8eef9c397c14b5",
+    "sha256": "64107489a7d46975acb81e4414d99e90f3595a54afbf64e728110935339b9674",
     "url": "http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sih/cnv/nrpr.def"
   },
   "tabnet/sim_2010.csv": {
